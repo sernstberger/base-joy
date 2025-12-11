@@ -1,0 +1,17 @@
+{
+  "name": "@base-joy/utils",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "peerDependencies": {
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^3.0.0"
+  }
+}

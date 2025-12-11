@@ -1,0 +1,16 @@
+{
+  "name": "@base-joy/docs",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@base-joy/tokens": "*",
+    "@base-joy/utils": "*",
+    "@base-joy/ui-core": "*"
+  }
+}
