@@ -1,5 +1,17 @@
 import { Sheet } from '@base-joy/ui-core';
 import { Item, ItemStart, ItemContent, ItemEnd } from '@base-joy/ui-core';
+import { Playground, type PlaygroundControl } from './components/Playground';
+import type { Variant, ColorScale, Size } from '@base-joy/tokens';
+
+// Sheet Playground Configuration
+const sheetControls: PlaygroundControl[] = [
+  { name: 'variant', type: 'variant', defaultValue: 'soft' },
+  { name: 'color', type: 'color', defaultValue: 'primary' },
+  { name: 'size', type: 'size', defaultValue: 'md' },
+];
+
+const sheetCodeTemplate = (props: Record<string, string>) =>
+  `<Sheet variant="${props.variant}" color="${props.color}" size="${props.size}">\n  Your content here\n</Sheet>`;
 
 function App() {
   return (
@@ -18,6 +30,22 @@ function App() {
           <p className="text-neutral-600 mb-6">
             A styled container with CVA variants for colors, visual styles, and sizes.
           </p>
+
+          {/* Interactive Playground */}
+          <div className="mb-8">
+            <Playground controls={sheetControls} codeTemplate={sheetCodeTemplate}>
+              {(props) => (
+                <Sheet
+                  variant={props.variant as Variant}
+                  color={props.color as ColorScale}
+                  size={props.size as Size}
+                  className="min-w-50"
+                >
+                  <p className="font-medium">Sheet</p>
+                </Sheet>
+              )}
+            </Playground>
+          </div>
 
           <div className="space-y-8">
             {/* Variants */}

@@ -1,0 +1,274 @@
+import * as React from 'react';
+import { render, screen } from '@testing-library/react';
+import { axe } from 'jest-axe';
+import { Sheet } from './Sheet';
+
+describe('Sheet', () => {
+  describe('rendering', () => {
+    it('renders children correctly', () => {
+      render(<Sheet>Test content</Sheet>);
+      expect(screen.getByText('Test content')).toBeInTheDocument();
+    });
+
+    it('applies default variant classes (soft neutral)', () => {
+      const { container } = render(<Sheet>Content</Sheet>);
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('bg-neutral-100');
+      expect(sheet).toHaveClass('text-neutral-900');
+    });
+
+    it('applies base classes', () => {
+      const { container } = render(<Sheet>Content</Sheet>);
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('rounded-lg');
+      expect(sheet).toHaveClass('transition-colors');
+    });
+  });
+
+  describe('variants', () => {
+    it.each(['solid', 'soft', 'outlined', 'plain'] as const)(
+      'renders %s variant',
+      (variant) => {
+        const { container } = render(
+          <Sheet variant={variant}>Content</Sheet>
+        );
+        expect(container.firstChild).toBeInTheDocument();
+      }
+    );
+
+    it('applies solid variant classes', () => {
+      const { container } = render(
+        <Sheet variant="solid" color="primary">
+          Content
+        </Sheet>
+      );
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('bg-primary-500');
+      expect(sheet).toHaveClass('text-white');
+    });
+
+    it('applies soft variant classes', () => {
+      const { container } = render(
+        <Sheet variant="soft" color="primary">
+          Content
+        </Sheet>
+      );
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('bg-primary-100');
+      expect(sheet).toHaveClass('text-primary-900');
+    });
+
+    it('applies outlined variant classes', () => {
+      const { container } = render(
+        <Sheet variant="outlined" color="primary">
+          Content
+        </Sheet>
+      );
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('border');
+      expect(sheet).toHaveClass('border-primary-500');
+      expect(sheet).toHaveClass('bg-transparent');
+    });
+
+    it('applies plain variant classes', () => {
+      const { container } = render(
+        <Sheet variant="plain" color="primary">
+          Content
+        </Sheet>
+      );
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('text-primary-700');
+      expect(sheet).toHaveClass('bg-transparent');
+    });
+  });
+
+  describe('colors', () => {
+    it.each([
+      ['primary', 'bg-primary-500'],
+      ['neutral', 'bg-neutral-800'], // neutral uses 800 for better contrast
+      ['success', 'bg-success-500'],
+      ['warning', 'bg-warning-500'],
+      ['danger', 'bg-danger-500'],
+    ] as const)(
+      'renders %s color with solid variant',
+      (color, expectedClass) => {
+        const { container } = render(
+          <Sheet variant="solid" color={color}>
+            Content
+          </Sheet>
+        );
+        const sheet = container.firstChild as HTMLElement;
+        expect(sheet).toHaveClass(expectedClass);
+      }
+    );
+
+    it.each(['primary', 'neutral', 'success', 'warning', 'danger'] as const)(
+      'renders %s color with soft variant',
+      (color) => {
+        const { container } = render(
+          <Sheet variant="soft" color={color}>
+            Content
+          </Sheet>
+        );
+        const sheet = container.firstChild as HTMLElement;
+        expect(sheet).toHaveClass(`bg-${color}-100`);
+        expect(sheet).toHaveClass(`text-${color}-900`);
+      }
+    );
+  });
+
+  describe('sizes', () => {
+    it.each([
+      ['sm', 'p-2'],
+      ['md', 'p-4'],
+      ['lg', 'p-6'],
+    ] as const)('renders %s size with %s padding class', (size, expectedClass) => {
+      const { container } = render(<Sheet size={size}>Content</Sheet>);
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass(expectedClass);
+    });
+
+    it('applies default md size', () => {
+      const { container } = render(<Sheet>Content</Sheet>);
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('p-4');
+    });
+  });
+
+  describe('polymorphic as prop', () => {
+    it('renders as div by default', () => {
+      const { container } = render(<Sheet>Content</Sheet>);
+      expect(container.firstChild?.nodeName).toBe('DIV');
+    });
+
+    it('renders as section when specified', () => {
+      const { container } = render(<Sheet as="section">Content</Sheet>);
+      expect(container.firstChild?.nodeName).toBe('SECTION');
+    });
+
+    it('renders as article when specified', () => {
+      const { container } = render(<Sheet as="article">Content</Sheet>);
+      expect(container.firstChild?.nodeName).toBe('ARTICLE');
+    });
+
+    it('renders as aside when specified', () => {
+      const { container } = render(<Sheet as="aside">Content</Sheet>);
+      expect(container.firstChild?.nodeName).toBe('ASIDE');
+    });
+  });
+
+  describe('ref forwarding', () => {
+    it('forwards ref to the DOM element', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<Sheet ref={ref}>Content</Sheet>);
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+
+    it('forwards ref when using as prop', () => {
+      const ref = React.createRef<HTMLElement>();
+      render(
+        <Sheet as="section" ref={ref}>
+          Content
+        </Sheet>
+      );
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref.current?.nodeName).toBe('SECTION');
+    });
+  });
+
+  describe('className merging', () => {
+    it('merges custom className with variant classes', () => {
+      const { container } = render(
+        <Sheet className="custom-class">Content</Sheet>
+      );
+      const sheet = container.firstChild as HTMLElement;
+      expect(sheet).toHaveClass('custom-class');
+      expect(sheet).toHaveClass('rounded-lg');
+    });
+
+    it('allows className to override variant classes', () => {
+      const { container } = render(
+        <Sheet className="p-8">Content</Sheet>
+      );
+      const sheet = container.firstChild as HTMLElement;
+      // The custom p-8 should override the default p-4 via tailwind-merge
+      expect(sheet).toHaveClass('p-8');
+    });
+  });
+
+  describe('additional HTML attributes', () => {
+    it('passes through HTML attributes', () => {
+      render(
+        <Sheet data-testid="test-sheet" id="my-sheet">
+          Content
+        </Sheet>
+      );
+      const sheet = screen.getByTestId('test-sheet');
+      expect(sheet).toHaveAttribute('id', 'my-sheet');
+    });
+
+    it('passes through aria attributes', () => {
+      render(
+        <Sheet aria-label="Info panel" role="region">
+          Content
+        </Sheet>
+      );
+      const sheet = screen.getByRole('region');
+      expect(sheet).toHaveAttribute('aria-label', 'Info panel');
+    });
+  });
+
+  describe('accessibility', () => {
+    it('has no accessibility violations with default props', async () => {
+      const { container } = render(
+        <Sheet>
+          <p>Accessible content</p>
+        </Sheet>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('has no accessibility violations with solid variant', async () => {
+      const { container } = render(
+        <Sheet variant="solid" color="primary">
+          <p>Solid content</p>
+        </Sheet>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('has no accessibility violations with all variants', async () => {
+      const { container } = render(
+        <div>
+          <Sheet variant="solid" color="primary">
+            Solid
+          </Sheet>
+          <Sheet variant="soft" color="success">
+            Soft
+          </Sheet>
+          <Sheet variant="outlined" color="warning">
+            Outlined
+          </Sheet>
+          <Sheet variant="plain" color="danger">
+            Plain
+          </Sheet>
+        </div>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('has no accessibility violations as semantic element', async () => {
+      const { container } = render(
+        <Sheet as="section" aria-label="Main content">
+          <h2>Section Title</h2>
+          <p>Section content</p>
+        </Sheet>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+});
