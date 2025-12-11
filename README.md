@@ -1,10 +1,14 @@
-# New Nx Repository
+# base-joy
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A React component library built on Base UI and inspired by Joy UI design principles.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Project Board
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+Track development progress on the [base-joy Development Board](https://github.com/users/sernstberger/projects/2).
+
+## Overview
+
+base-joy provides unstyled, accessible React components with Joy UI-inspired styling. Built with [Nx](https://nx.dev) for optimal monorepo management.
 
 ## Generate a library
 
