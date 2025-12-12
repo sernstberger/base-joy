@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router';
 import { Layout } from './components/Layout/Layout';
 import { HomePage } from './pages/index';
+import { GettingStartedPage } from './pages/getting-started/index';
+import { BaseItemPage } from './pages/base/Item';
 import { SheetPage } from './pages/components/Sheet';
 import { ItemPage } from './pages/components/Item';
 import { TablePage } from './pages/components/Table';
@@ -42,6 +44,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: 'getting-started',
+        element: <GettingStartedPage />,
+      },
+      {
+        path: 'base/item',
+        element: <BaseItemPage />,
       },
       {
         path: 'components/sheet',

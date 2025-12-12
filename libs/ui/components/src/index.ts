@@ -231,6 +231,47 @@ export {
   type AutocompleteGroupLabelProps,
 } from './Autocomplete';
 
+// Item components
+export {
+  Item,
+  ItemStart,
+  ItemContent,
+  ItemEnd,
+  ItemHeader,
+  ItemTitle,
+  ItemDescription,
+  ItemActions,
+  ItemFooter,
+  ItemMedia,
+  ItemIcon,
+  ItemContext,
+  useItemContext,
+  StyledItemContext,
+  useStyledItemContext,
+  styledItemVariants,
+  styledItemDescriptionVariants,
+  styledItemEndVariants,
+  itemStartVariants,
+  itemContentVariants,
+  itemHeaderVariants,
+  itemTitleVariants,
+  itemActionsVariants,
+  itemFooterVariants,
+  itemMediaVariants,
+  itemIconVariants,
+  type ItemProps,
+  type ItemStartProps,
+  type ItemContentProps,
+  type ItemEndProps,
+  type ItemHeaderProps,
+  type ItemTitleProps,
+  type ItemDescriptionProps,
+  type ItemActionsProps,
+  type ItemFooterProps,
+  type ItemMediaProps,
+  type ItemIconProps,
+} from './Item';
+
 // Code display components
 export { CodeBlock, codeBlockVariants, type CodeBlockProps } from './CodeBlock';
 
