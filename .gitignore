@@ -45,3 +45,4 @@ Thumbs.db
 
 # Playwright MCP screenshots
 .playwright-mcp/
+tsconfig.tsbuildinfo
