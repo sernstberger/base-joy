@@ -21,46 +21,6 @@ const toggleVariants = cva(
   }
 );
 
-const hoverVariants = cva('', {
-  variants: {
-    variant: {
-      solid: '',
-      soft: '',
-      outlined: '',
-      plain: '',
-    },
-    color: {
-      primary: '',
-      neutral: '',
-      success: '',
-      warning: '',
-      danger: '',
-    },
-  },
-  compoundVariants: [
-    { variant: 'solid', color: 'primary', className: 'hover:bg-primary-600' },
-    { variant: 'solid', color: 'neutral', className: 'hover:bg-neutral-900' },
-    { variant: 'solid', color: 'success', className: 'hover:bg-success-600' },
-    { variant: 'solid', color: 'warning', className: 'hover:bg-warning-600' },
-    { variant: 'solid', color: 'danger', className: 'hover:bg-danger-600' },
-    { variant: 'soft', color: 'primary', className: 'hover:bg-primary-200' },
-    { variant: 'soft', color: 'neutral', className: 'hover:bg-neutral-200' },
-    { variant: 'soft', color: 'success', className: 'hover:bg-success-200' },
-    { variant: 'soft', color: 'warning', className: 'hover:bg-warning-200' },
-    { variant: 'soft', color: 'danger', className: 'hover:bg-danger-200' },
-    { variant: 'outlined', color: 'primary', className: 'hover:bg-primary-50' },
-    { variant: 'outlined', color: 'neutral', className: 'hover:bg-neutral-50' },
-    { variant: 'outlined', color: 'success', className: 'hover:bg-success-50' },
-    { variant: 'outlined', color: 'warning', className: 'hover:bg-warning-50' },
-    { variant: 'outlined', color: 'danger', className: 'hover:bg-danger-50' },
-    { variant: 'plain', color: 'primary', className: 'hover:bg-primary-50' },
-    { variant: 'plain', color: 'neutral', className: 'hover:bg-neutral-100' },
-    { variant: 'plain', color: 'success', className: 'hover:bg-success-50' },
-    { variant: 'plain', color: 'warning', className: 'hover:bg-warning-50' },
-    { variant: 'plain', color: 'danger', className: 'hover:bg-danger-50' },
-  ],
-});
-
 const pressedVariants = cva('', {
   variants: {
     variant: {
@@ -136,7 +96,6 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
         className={cn(
           sheetVariants({ variant: resolvedVariant, color: resolvedColor, interactive: true }),
           toggleVariants({ size: resolvedSize }),
-          hoverVariants({ variant: resolvedVariant, color: resolvedColor }),
           pressedVariants({ variant: resolvedVariant, color: resolvedColor }),
           className
         )}

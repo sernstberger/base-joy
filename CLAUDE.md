@@ -120,12 +120,13 @@ Key points:
 - Pass `interactive: true` to sheetVariants for automatic focus ring styling
 - Override padding with `p-0` in your custom variants if needed
 
-**Focus Ring Behavior:**
+**Interactive Behavior (Focus, Hover, Active):**
 
-Sheet's `interactive` prop automatically adds consistent focus rings using two modes:
+Sheet's `interactive` prop automatically adds consistent interactive states:
 
+**Focus rings** - Two modes:
 1. **`focus:`** - For elements that receive focus directly (default)
-   - Used by: Button, Toggle, Checkbox, Radio, Select, Textarea
+   - Used by: Button, Toggle, Checkbox, Radio, Select, Textarea, Item
    - Applies ring when the element itself is focused
 
 2. **`focusWithin:`** - For containers with focusable children
@@ -138,6 +139,14 @@ Ring colors match the component's color palette:
 - Soft/outlined/plain: even lighter shade (e.g., primary-200)
 - Includes `focus:outline-none` and `focus:ring-offset-2` for accessibility
 
+**Hover and active states:**
+When `interactive: true`, Sheet automatically applies color-aware hover and active states:
+- **Solid variants**: Darken on hover (e.g., primary-500 → hover:primary-600 → active:primary-700)
+- **Soft variants**: Slightly darken (e.g., primary-100 → hover:primary-200 → active:primary-300)
+- **Outlined/Plain variants**: Add subtle background (e.g., transparent → hover:primary-50 → active:primary-100)
+
+This eliminates the need for separate `hoverVariants` in components. All interactive styling (focus, hover, active) is centralized in Sheet.
+
 **When to use `focusWithin`:**
 Use `focusWithin: true` when the Sheet wraps a focusable child element (like an input) and you want the outer container to show the focus ring. This is common for form fields with decorators:
 
@@ -149,11 +158,20 @@ Use `focusWithin: true` when the Sheet wraps a focusable child element (like an 
   {endDecorator}
 </Sheet>
 
-// Button component - the element itself receives focus
+// Button component - the element itself is focused/hovered/clicked
 <BaseButton className={cn(sheetVariants({ variant, color, interactive: true }))}>
-  Click me  {/* Button itself is focused */}
+  Click me  {/* Gets focus ring, hover, and active states from Sheet */}
 </BaseButton>
+
+// Item component - gets all interactive states from Sheet
+<div className={cn(sheetVariants({ variant, color, interactive }), ...)}>
+  {children}  {/* Hover/active/focus all from Sheet's interactive prop */}
+</div>
 ```
+
+**Components with special interactive behavior:**
+- **Toggle**: Keeps `pressedVariants` for `data-[pressed]` state (when toggled on, soft/outlined/plain become solid)
+- **Item**: Keeps `selected` state variants (darker background when selected + interactive)
 
 Reference implementations:
 - Badge: `/Users/stevo/src/base-joy/libs/ui/styled/src/Badge/Badge.tsx:75`

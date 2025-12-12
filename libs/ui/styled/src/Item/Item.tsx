@@ -56,34 +56,6 @@ const styledItemVariants = cva('', {
     },
   },
   compoundVariants: [
-    // Interactive hover states for soft variant
-    { interactive: true, variant: 'soft', color: 'primary', className: 'hover:bg-primary-200 active:bg-primary-300' },
-    { interactive: true, variant: 'soft', color: 'neutral', className: 'hover:bg-neutral-200 active:bg-neutral-300' },
-    { interactive: true, variant: 'soft', color: 'success', className: 'hover:bg-success-200 active:bg-success-300' },
-    { interactive: true, variant: 'soft', color: 'warning', className: 'hover:bg-warning-200 active:bg-warning-300' },
-    { interactive: true, variant: 'soft', color: 'danger', className: 'hover:bg-danger-200 active:bg-danger-300' },
-
-    // Interactive hover states for outlined variant
-    { interactive: true, variant: 'outlined', color: 'primary', className: 'hover:bg-primary-50 active:bg-primary-100' },
-    { interactive: true, variant: 'outlined', color: 'neutral', className: 'hover:bg-neutral-50 active:bg-neutral-100' },
-    { interactive: true, variant: 'outlined', color: 'success', className: 'hover:bg-success-50 active:bg-success-100' },
-    { interactive: true, variant: 'outlined', color: 'warning', className: 'hover:bg-warning-50 active:bg-warning-100' },
-    { interactive: true, variant: 'outlined', color: 'danger', className: 'hover:bg-danger-50 active:bg-danger-100' },
-
-    // Interactive hover states for plain variant
-    { interactive: true, variant: 'plain', color: 'primary', className: 'hover:bg-primary-50 active:bg-primary-100' },
-    { interactive: true, variant: 'plain', color: 'neutral', className: 'hover:bg-neutral-50 active:bg-neutral-100' },
-    { interactive: true, variant: 'plain', color: 'success', className: 'hover:bg-success-50 active:bg-success-100' },
-    { interactive: true, variant: 'plain', color: 'warning', className: 'hover:bg-warning-50 active:bg-warning-100' },
-    { interactive: true, variant: 'plain', color: 'danger', className: 'hover:bg-danger-50 active:bg-danger-100' },
-
-    // Interactive hover states for solid variant
-    { interactive: true, variant: 'solid', color: 'primary', className: 'hover:bg-primary-600 active:bg-primary-700' },
-    { interactive: true, variant: 'solid', color: 'neutral', className: 'hover:bg-neutral-700 active:bg-neutral-600' },
-    { interactive: true, variant: 'solid', color: 'success', className: 'hover:bg-success-600 active:bg-success-700' },
-    { interactive: true, variant: 'solid', color: 'warning', className: 'hover:bg-warning-600 active:bg-warning-700' },
-    { interactive: true, variant: 'solid', color: 'danger', className: 'hover:bg-danger-600 active:bg-danger-700' },
-
     // Selected states for soft variant
     { selected: true, variant: 'soft', color: 'primary', className: 'bg-primary-200' },
     { selected: true, variant: 'soft', color: 'neutral', className: 'bg-neutral-200' },
@@ -266,8 +238,8 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
     ref
   ) => {
     const itemClassName = cn(
-      'flex items-center gap-3 w-full rounded-lg transition-colors',
-      sheetVariants({ variant, color }),
+      'flex items-center gap-3 w-full rounded-lg',
+      sheetVariants({ variant, color, interactive }),
       // Override Sheet padding since we handle it with size
       'p-0',
       sizeVariants({ size }),

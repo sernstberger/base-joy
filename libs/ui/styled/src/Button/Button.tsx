@@ -7,7 +7,7 @@ import { ItemContext, ItemIcon } from '@base-joy/ui-unstyled';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center font-medium cursor-pointer disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center font-medium cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -25,46 +25,6 @@ const buttonVariants = cva(
     },
   }
 );
-
-const hoverVariants = cva('', {
-  variants: {
-    variant: {
-      solid: '',
-      soft: '',
-      outlined: '',
-      plain: '',
-    },
-    color: {
-      primary: '',
-      neutral: '',
-      success: '',
-      warning: '',
-      danger: '',
-    },
-  },
-  compoundVariants: [
-    { variant: 'solid', color: 'primary', className: 'hover:bg-primary-600' },
-    { variant: 'solid', color: 'neutral', className: 'hover:bg-neutral-900' },
-    { variant: 'solid', color: 'success', className: 'hover:bg-success-600' },
-    { variant: 'solid', color: 'warning', className: 'hover:bg-warning-600' },
-    { variant: 'solid', color: 'danger', className: 'hover:bg-danger-600' },
-    { variant: 'soft', color: 'primary', className: 'hover:bg-primary-200' },
-    { variant: 'soft', color: 'neutral', className: 'hover:bg-neutral-200' },
-    { variant: 'soft', color: 'success', className: 'hover:bg-success-200' },
-    { variant: 'soft', color: 'warning', className: 'hover:bg-warning-200' },
-    { variant: 'soft', color: 'danger', className: 'hover:bg-danger-200' },
-    { variant: 'outlined', color: 'primary', className: 'hover:bg-primary-50' },
-    { variant: 'outlined', color: 'neutral', className: 'hover:bg-neutral-50' },
-    { variant: 'outlined', color: 'success', className: 'hover:bg-success-50' },
-    { variant: 'outlined', color: 'warning', className: 'hover:bg-warning-50' },
-    { variant: 'outlined', color: 'danger', className: 'hover:bg-danger-50' },
-    { variant: 'plain', color: 'primary', className: 'hover:bg-primary-50' },
-    { variant: 'plain', color: 'neutral', className: 'hover:bg-neutral-100' },
-    { variant: 'plain', color: 'success', className: 'hover:bg-success-50' },
-    { variant: 'plain', color: 'warning', className: 'hover:bg-warning-50' },
-    { variant: 'plain', color: 'danger', className: 'hover:bg-danger-50' },
-  ],
-});
 
 const spinnerVariants = cva('animate-spin rounded-full border-2 border-current', {
   variants: {
@@ -129,7 +89,6 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
           className={cn(
             sheetVariants({ variant, color, interactive: true }),
             buttonVariants({ size, fullWidth }),
-            hoverVariants({ variant, color }),
             className
           )}
           {...props}
