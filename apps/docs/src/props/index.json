@@ -884,13 +884,6 @@
   ],
   "Item": [
     {
-      "name": "as",
-      "type": "ElementType<any, keyof IntrinsicElements>",
-      "defaultValue": "div",
-      "description": "The element type to render as.",
-      "required": false
-    },
-    {
       "name": "className",
       "type": "string",
       "required": false
@@ -932,6 +925,12 @@
     {
       "name": "onChange",
       "type": "FormEventHandler<HTMLDivElement>",
+      "required": false
+    },
+    {
+      "name": "render",
+      "type": "React.ReactNode",
+      "description": "Replaces the item element with a different tag or component.\nUse Base UI's render prop pattern for polymorphism.\n@example <Item render={<a href=\"/page\" />}>Link Item</Item>",
       "required": false
     },
     {

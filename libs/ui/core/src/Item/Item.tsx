@@ -166,6 +166,19 @@ const itemMediaVariants = cva('flex-shrink-0 flex items-center justify-center', 
   },
 });
 
+const itemIconVariants = cva('flex-shrink-0 flex items-center justify-center', {
+  variants: {
+    size: {
+      sm: 'w-3.5 h-3.5',
+      md: 'w-4 h-4',
+      lg: 'w-5 h-5',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
 export interface ItemProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
     VariantProps<typeof itemVariants> {
@@ -194,10 +207,11 @@ export interface ItemProps
   disabled?: boolean;
 
   /**
-   * The element type to render as.
-   * @default 'div'
+   * Replaces the item element with a different tag or component.
+   * Use Base UI's render prop pattern for polymorphism.
+   * @example <Item render={<a href="/page" />}>Link Item</Item>
    */
-  as?: React.ElementType;
+  render?: React.ReactElement;
 }
 
 export interface ItemStartProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -241,10 +255,17 @@ export interface ItemMediaProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: Size;
 }
 
-// Context to pass size down to sub-components
-const ItemContext = React.createContext<{ size: Size }>({ size: 'md' });
+export interface ItemIconProps extends React.HTMLAttributes<HTMLSpanElement> {
+  size?: Size;
+}
 
-const useItemContext = () => React.useContext(ItemContext);
+// Context to pass size and loading state down to sub-components
+export const ItemContext = React.createContext<{ size: Size; loading?: boolean }>({
+  size: 'md',
+  loading: false,
+});
+
+export const useItemContext = () => React.useContext(ItemContext);
 
 export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
   (
@@ -254,23 +275,39 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
       interactive,
       selected,
       disabled,
-      as: Component = 'div',
+      render,
       children,
       ...props
     },
     ref
   ) => {
-    return (
+    const itemClassName = cn(itemVariants({ size, interactive, selected, disabled }), className);
+
+    const content = (
       <ItemContext.Provider value={{ size }}>
-        <Component
-          ref={ref}
-          className={cn(itemVariants({ size, interactive, selected, disabled }), className)}
-          aria-disabled={disabled || undefined}
-          {...props}
-        >
-          {children}
-        </Component>
+        {children}
       </ItemContext.Provider>
+    );
+
+    if (render) {
+      return React.cloneElement(render, {
+        ref,
+        className: cn(itemClassName, render.props.className),
+        'aria-disabled': disabled || undefined,
+        ...props,
+        children: content,
+      });
+    }
+
+    return (
+      <div
+        ref={ref}
+        className={itemClassName}
+        aria-disabled={disabled || undefined}
+        {...props}
+      >
+        {content}
+      </div>
     );
   }
 );
@@ -383,6 +420,23 @@ export const ItemMedia = React.forwardRef<HTMLDivElement, ItemMediaProps>(
 
 ItemMedia.displayName = 'ItemMedia';
 
+export const ItemIcon = React.forwardRef<HTMLSpanElement, ItemIconProps>(
+  ({ className, size: sizeProp, children, ...props }, ref) => {
+    const { size: contextSize, loading } = useItemContext();
+    const size = sizeProp ?? contextSize;
+
+    if (loading) return null;
+
+    return (
+      <span ref={ref} className={cn(itemIconVariants({ size }), className)} {...props}>
+        {children}
+      </span>
+    );
+  }
+);
+
+ItemIcon.displayName = 'ItemIcon';
+
 export {
   itemVariants,
   itemStartVariants,
@@ -394,4 +448,5 @@ export {
   itemActionsVariants,
   itemFooterVariants,
   itemMediaVariants,
+  itemIconVariants,
 };

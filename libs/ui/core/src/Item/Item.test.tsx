@@ -12,6 +12,8 @@ import {
   ItemActions,
   ItemFooter,
   ItemMedia,
+  ItemIcon,
+  ItemContext,
 } from './Item';
 
 describe('Item', () => {
@@ -59,9 +61,17 @@ describe('Item', () => {
     expect(screen.getByText('Custom')).toHaveClass('custom-class');
   });
 
-  it('renders as different element types', () => {
-    render(<Item as="button">Button</Item>);
-    expect(screen.getByText('Button').tagName).toBe('BUTTON');
+  it('renders as different element using render prop', () => {
+    render(<Item render={<button type="button" />}>Button</Item>);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toHaveTextContent('Button');
+  });
+
+  it('merges className from render prop', () => {
+    render(<Item render={<a href="/test" className="custom-link" />}>Link</Item>);
+    const link = screen.getByRole('link');
+    expect(link).toHaveClass('custom-link');
+    expect(link).toHaveClass('flex', 'items-center');
   });
 
   it('has no accessibility violations', async () => {
@@ -612,5 +622,94 @@ describe('Item composition', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+});
+
+describe('ItemIcon', () => {
+  it('renders without crashing', () => {
+    render(
+      <Item>
+        <ItemIcon>Icon</ItemIcon>
+      </Item>
+    );
+    expect(screen.getByText('Icon')).toBeInTheDocument();
+  });
+
+  it('forwards ref correctly', () => {
+    const ref = React.createRef<HTMLSpanElement>();
+    render(
+      <Item>
+        <ItemIcon ref={ref}>Icon</ItemIcon>
+      </Item>
+    );
+    expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+  });
+
+  it('applies flex layout', () => {
+    render(
+      <Item>
+        <ItemIcon>Icon</ItemIcon>
+      </Item>
+    );
+    expect(screen.getByText('Icon')).toHaveClass('flex', 'items-center', 'justify-center');
+  });
+
+  it('inherits size from Item context', () => {
+    const { rerender } = render(
+      <Item size="sm">
+        <ItemIcon>Icon</ItemIcon>
+      </Item>
+    );
+    expect(screen.getByText('Icon')).toHaveClass('w-3.5', 'h-3.5');
+
+    rerender(
+      <Item size="md">
+        <ItemIcon>Icon</ItemIcon>
+      </Item>
+    );
+    expect(screen.getByText('Icon')).toHaveClass('w-4', 'h-4');
+
+    rerender(
+      <Item size="lg">
+        <ItemIcon>Icon</ItemIcon>
+      </Item>
+    );
+    expect(screen.getByText('Icon')).toHaveClass('w-5', 'h-5');
+  });
+
+  it('allows size override', () => {
+    render(
+      <Item size="sm">
+        <ItemIcon size="lg">Icon</ItemIcon>
+      </Item>
+    );
+    expect(screen.getByText('Icon')).toHaveClass('w-5', 'h-5');
+  });
+
+  it('hides when loading is true in context', () => {
+    render(
+      <ItemContext.Provider value={{ size: 'md', loading: true }}>
+        <ItemIcon data-testid="icon">Icon</ItemIcon>
+      </ItemContext.Provider>
+    );
+    expect(screen.queryByTestId('icon')).not.toBeInTheDocument();
+  });
+
+  it('shows when loading is false in context', () => {
+    render(
+      <ItemContext.Provider value={{ size: 'md', loading: false }}>
+        <ItemIcon data-testid="icon">Icon</ItemIcon>
+      </ItemContext.Provider>
+    );
+    expect(screen.getByTestId('icon')).toBeInTheDocument();
+  });
+
+  it('applies custom className', () => {
+    render(
+      <Item>
+        <ItemIcon className="custom-icon">Icon</ItemIcon>
+      </Item>
+    );
+    expect(screen.getByText('Icon')).toHaveClass('custom-icon');
   });
 });

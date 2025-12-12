@@ -16,6 +16,9 @@ export {
   ItemActions,
   ItemFooter,
   ItemMedia,
+  ItemIcon,
+  ItemContext,
+  useItemContext,
   itemVariants,
   itemStartVariants,
   itemContentVariants,
@@ -26,6 +29,7 @@ export {
   itemActionsVariants,
   itemFooterVariants,
   itemMediaVariants,
+  itemIconVariants,
   type ItemProps,
   type ItemStartProps,
   type ItemContentProps,
@@ -36,6 +40,7 @@ export {
   type ItemActionsProps,
   type ItemFooterProps,
   type ItemMediaProps,
+  type ItemIconProps,
 } from './Item';
 export {
   Table,

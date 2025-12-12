@@ -3,6 +3,7 @@ import { Button as BaseButton } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
+import { ItemContext, ItemIcon } from '../Item';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const buttonVariants = cva(
@@ -126,25 +127,27 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
     const isDisabled = disabled || loading;
 
     return (
-      <BaseButton
-        ref={ref}
-        type={render ? undefined : type}
-        disabled={isDisabled}
-        render={render}
-        nativeButton={!render}
-        className={cn(
-          sheetVariants({ variant, color }),
-          buttonVariants({ size, fullWidth, color }),
-          hoverVariants({ variant, color }),
-          className
-        )}
-        {...props}
-      >
-        {loading && <span className={spinnerVariants({ size })} />}
-        {!loading && startDecorator && <span>{startDecorator}</span>}
-        {children}
-        {!loading && endDecorator && <span>{endDecorator}</span>}
-      </BaseButton>
+      <ItemContext.Provider value={{ size, loading }}>
+        <BaseButton
+          ref={ref}
+          type={render ? undefined : type}
+          disabled={isDisabled}
+          render={render}
+          nativeButton={!render}
+          className={cn(
+            sheetVariants({ variant, color }),
+            buttonVariants({ size, fullWidth, color }),
+            hoverVariants({ variant, color }),
+            className
+          )}
+          {...props}
+        >
+          {loading && <span className={spinnerVariants({ size })} />}
+          {startDecorator && <ItemIcon>{startDecorator}</ItemIcon>}
+          {children}
+          {endDecorator && <ItemIcon>{endDecorator}</ItemIcon>}
+        </BaseButton>
+      </ItemContext.Provider>
     );
   }
 );
