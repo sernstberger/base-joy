@@ -15,6 +15,7 @@ jest.mock('@base-joy/ui-styled', () => {
 describe('useCustomTheme', () => {
   let mockSetTheme: jest.Mock;
   let localStorageMock: { [key: string]: string };
+  let originalCreateElement: typeof document.createElement;
 
   beforeEach(() => {
     mockSetTheme = jest.fn();
@@ -34,7 +35,9 @@ describe('useCustomTheme', () => {
 
     global.URL.createObjectURL = jest.fn(() => 'blob:mock-url');
     global.URL.revokeObjectURL = jest.fn();
-    document.createElement = jest.fn((tagName: string) => {
+
+    originalCreateElement = document.createElement.bind(document);
+    document.createElement = jest.fn((tagName: string, options?: ElementCreationOptions) => {
       if (tagName === 'a') {
         return {
           click: jest.fn(),
@@ -42,8 +45,12 @@ describe('useCustomTheme', () => {
           download: '',
         } as any;
       }
-      return {} as any;
+      return originalCreateElement(tagName, options);
     });
+  });
+
+  afterEach(() => {
+    document.createElement = originalCreateElement;
   });
 
   it('initializes with empty customizations when no stored theme', () => {
@@ -161,7 +168,7 @@ describe('useCustomTheme', () => {
     });
 
     it('removes theme from localStorage', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
 
       act(() => {
         result.current.updateColorScale('primary', '#ff0000');
@@ -177,7 +184,7 @@ describe('useCustomTheme', () => {
 
   describe('exportTheme', () => {
     it('returns JSON string of customizations', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
 
       act(() => {
         result.current.updateColorScale('primary', '#ff0000');
@@ -193,7 +200,7 @@ describe('useCustomTheme', () => {
     });
 
     it('triggers file download', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
       const mockAnchor = { click: jest.fn(), href: '', download: '' };
       (document.createElement as jest.Mock).mockReturnValue(mockAnchor);
 
@@ -208,7 +215,7 @@ describe('useCustomTheme', () => {
 
   describe('importTheme', () => {
     it('imports valid theme JSON', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
       const validTheme = {
         colors: {
           primary: {
@@ -227,7 +234,7 @@ describe('useCustomTheme', () => {
     });
 
     it('rejects invalid JSON', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
 
       let importResult: any;
       act(() => {
@@ -239,7 +246,7 @@ describe('useCustomTheme', () => {
     });
 
     it('rejects theme without colors object', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
       const invalidTheme = { typography: {} };
 
       let importResult: any;
@@ -252,7 +259,7 @@ describe('useCustomTheme', () => {
     });
 
     it('persists imported theme to localStorage', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
       const validTheme = {
         colors: {
           primary: {
@@ -270,7 +277,7 @@ describe('useCustomTheme', () => {
     });
 
     it('updates customizations state with imported theme', () => {
-      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const { result } = renderHook(() => useCustomTheme());
       const validTheme = {
         colors: {
           primary: {

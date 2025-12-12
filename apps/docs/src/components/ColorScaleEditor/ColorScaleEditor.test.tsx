@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ColorScaleEditor } from './ColorScaleEditor';
 import { defaultTheme } from '@base-joy/tokens';
@@ -57,12 +57,10 @@ describe('ColorScaleEditor', () => {
   });
 
   it('updates local color when color input changes', async () => {
-    const user = userEvent.setup();
     const { container } = render(<ColorScaleEditor {...defaultProps} />);
 
     const colorInput = container.querySelector('input[type="color"]') as HTMLInputElement;
-    await user.click(colorInput);
-    await user.keyboard('{Backspace>7/}#ff0000');
+    fireEvent.change(colorInput, { target: { value: '#ff0000' } });
 
     expect(colorInput.value).toBe('#ff0000');
   });

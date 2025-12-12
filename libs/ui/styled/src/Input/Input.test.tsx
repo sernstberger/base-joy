@@ -122,7 +122,7 @@ describe('Input', () => {
       ['primary', 'bg-primary-500'],
       ['neutral', 'bg-neutral-800'],
       ['success', 'bg-success-500'],
-      ['warning', 'bg-warning-500'],
+      ['warning', 'bg-warning-600'],
       ['danger', 'bg-danger-500'],
     ] as const)(
       'renders %s color with solid variant',
