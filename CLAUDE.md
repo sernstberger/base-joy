@@ -492,6 +492,51 @@ Common patterns:
 - `space-y-3` or `space-y-4` - Vertical stack
 - `items-start` - Align items to top for size comparisons
 
+### Expandable Code Examples
+
+The Section component supports expandable code display for documentation examples.
+
+**Basic usage (without code):**
+```tsx
+<Section title="Example" titleLevel="h3" spacing="md">
+  <div>Your content here</div>
+</Section>
+```
+
+**With expandable code:**
+```tsx
+<Section
+  title="Variants"
+  titleLevel="h3"
+  id="variants"
+  code={`<Component variant="solid">Content</Component>
+<Component variant="soft">Content</Component>`}
+  codeLanguage="tsx"
+>
+  <div className="flex gap-4">
+    <Component variant="solid">Content</Component>
+    <Component variant="soft">Content</Component>
+  </div>
+</Section>
+```
+
+**How it works:**
+- Without `code` prop: Renders as simple section (no Card wrapper)
+- With `code` prop: Wraps content in outlined Card with collapsible code in footer
+- Code collapsed by default, expandable via "Show Code" button
+- Title rendered outside Card to maintain heading hierarchy
+
+**Props:**
+- `code?: string` - Code to display in CodeBlock (triggers Card wrapper)
+- `codeLanguage?: string` - Syntax highlighting language (default: 'tsx')
+- `codeExpanded?: boolean` - Start with code visible (default: false)
+
+**Pattern benefits:**
+- Keeps examples visually clean (code hidden by default)
+- Easy to copy-paste code snippets
+- Visual and code implementation side-by-side
+- Consistent card styling across all examples
+
 ### API Reference
 
 Use PropsTable with auto-generated props:

@@ -89,7 +89,24 @@ export function SheetPage() {
 
           <Section title="Examples" id="examples">
             <div className="space-y-8">
-              <Section title="Variants" titleLevel="h3" id="variants">
+              <Section
+                title="Variants"
+                titleLevel="h3"
+                id="variants"
+                code={`<Sheet variant="solid" color="primary">
+  Solid
+</Sheet>
+<Sheet variant="soft" color="primary">
+  Soft
+</Sheet>
+<Sheet variant="outlined" color="primary">
+  Outlined
+</Sheet>
+<Sheet variant="plain" color="primary">
+  Plain
+</Sheet>`}
+                codeLanguage="tsx"
+              >
                 <div className="flex flex-wrap gap-4">
                   <Sheet variant="solid" color="primary">
                     Solid
@@ -110,6 +127,22 @@ export function SheetPage() {
                 title="Colors (Soft variant)"
                 titleLevel="h3"
                 id="colors-soft"
+                code={`<Sheet variant="soft" color="primary">
+  Primary
+</Sheet>
+<Sheet variant="soft" color="neutral">
+  Neutral
+</Sheet>
+<Sheet variant="soft" color="success">
+  Success
+</Sheet>
+<Sheet variant="soft" color="warning">
+  Warning
+</Sheet>
+<Sheet variant="soft" color="danger">
+  Danger
+</Sheet>`}
+                codeLanguage="tsx"
               >
                 <div className="flex flex-wrap gap-4">
                   <Sheet variant="soft" color="primary">
@@ -130,7 +163,21 @@ export function SheetPage() {
                 </div>
               </Section>
 
-              <Section title="Sizes" titleLevel="h3" id="sizes">
+              <Section
+                title="Sizes"
+                titleLevel="h3"
+                id="sizes"
+                code={`<Sheet variant="outlined" color="neutral" size="sm">
+  Small (sm)
+</Sheet>
+<Sheet variant="outlined" color="neutral" size="md">
+  Medium (md)
+</Sheet>
+<Sheet variant="outlined" color="neutral" size="lg">
+  Large (lg)
+</Sheet>`}
+                codeLanguage="tsx"
+              >
                 <div className="flex flex-wrap items-start gap-4">
                   <Sheet variant="outlined" color="neutral" size="sm">
                     Small (sm)
@@ -148,6 +195,22 @@ export function SheetPage() {
                 title="Colors (Solid variant)"
                 titleLevel="h3"
                 id="colors-solid"
+                code={`<Sheet variant="solid" color="primary">
+  Primary
+</Sheet>
+<Sheet variant="solid" color="neutral">
+  Neutral
+</Sheet>
+<Sheet variant="solid" color="success">
+  Success
+</Sheet>
+<Sheet variant="solid" color="warning">
+  Warning
+</Sheet>
+<Sheet variant="solid" color="danger">
+  Danger
+</Sheet>`}
+                codeLanguage="tsx"
               >
                 <div className="flex flex-wrap gap-4">
                   <Sheet variant="solid" color="primary">
@@ -168,124 +231,226 @@ export function SheetPage() {
                 </div>
               </Section>
 
-              <Section title="Interactive" titleLevel="h3" id="interactive">
+              <div>
+                <Typography level="h3" className="mb-2" id="interactive">
+                  Interactive
+                </Typography>
                 <Typography level="body-sm" className="mb-4">
                   The <code className="font-mono text-sm">interactive</code>{' '}
                   prop adds focus rings and hover states for clickable or
                   focusable elements.
                 </Typography>
-                <div className="flex flex-wrap gap-4">
-                  <Sheet
-                    variant="outlined"
-                    color="primary"
-                    interactive
-                    as="button"
-                    className="cursor-pointer"
-                  >
-                    Click me
-                  </Sheet>
-                  <Sheet
-                    variant="soft"
-                    color="success"
-                    interactive
-                    as="button"
-                    className="cursor-pointer"
-                  >
-                    Interactive Sheet
-                  </Sheet>
-                </div>
-              </Section>
+                <Section
+                  code={`<Sheet
+  variant="outlined"
+  color="primary"
+  interactive
+  as="button"
+  className="cursor-pointer"
+>
+  Click me
+</Sheet>
+<Sheet
+  variant="soft"
+  color="success"
+  interactive
+  as="button"
+  className="cursor-pointer"
+>
+  Interactive Sheet
+</Sheet>`}
+                  codeLanguage="tsx"
+                >
+                  <div className="flex flex-wrap gap-4">
+                    <Sheet
+                      variant="outlined"
+                      color="primary"
+                      interactive
+                      as="button"
+                      className="cursor-pointer"
+                    >
+                      Click me
+                    </Sheet>
+                    <Sheet
+                      variant="soft"
+                      color="success"
+                      interactive
+                      as="button"
+                      className="cursor-pointer"
+                    >
+                      Interactive Sheet
+                    </Sheet>
+                  </div>
+                </Section>
+              </div>
 
-              <Section
-                title="As Different Elements"
-                titleLevel="h3"
-                id="as-different-elements"
-              >
+              <div>
+                <Typography level="h3" className="mb-2" id="as-different-elements">
+                  As Different Elements
+                </Typography>
                 <Typography level="body-sm" className="mb-4">
                   Use the <code className="font-mono text-sm">as</code> prop to
                   render Sheet as different HTML elements for semantic
                   correctness.
                 </Typography>
-                <div className="space-y-3">
-                  <Sheet variant="outlined" color="neutral" as="section">
-                    <Typography level="body-sm" weight="medium">
-                      as="section"
-                    </Typography>
-                    <Typography level="body-xs">
-                      Rendered as a section element
-                    </Typography>
-                  </Sheet>
-                  <Sheet variant="outlined" color="neutral" as="article">
-                    <Typography level="body-sm" weight="medium">
-                      as="article"
-                    </Typography>
-                    <Typography level="body-xs">
-                      Rendered as an article element
-                    </Typography>
-                  </Sheet>
-                  <Sheet variant="outlined" color="neutral" as="aside">
-                    <Typography level="body-sm" weight="medium">
-                      as="aside"
-                    </Typography>
-                    <Typography level="body-xs">
-                      Rendered as an aside element
-                    </Typography>
-                  </Sheet>
-                </div>
-              </Section>
+                <Section
+                  code={`<Sheet variant="outlined" color="neutral" as="section">
+  <Typography level="body-sm" weight="medium">
+    as="section"
+  </Typography>
+  <Typography level="body-xs">
+    Rendered as a section element
+  </Typography>
+</Sheet>
+<Sheet variant="outlined" color="neutral" as="article">
+  <Typography level="body-sm" weight="medium">
+    as="article"
+  </Typography>
+  <Typography level="body-xs">
+    Rendered as an article element
+  </Typography>
+</Sheet>
+<Sheet variant="outlined" color="neutral" as="aside">
+  <Typography level="body-sm" weight="medium">
+    as="aside"
+  </Typography>
+  <Typography level="body-xs">
+    Rendered as an aside element
+  </Typography>
+</Sheet>`}
+                  codeLanguage="tsx"
+                >
+                  <div className="space-y-3">
+                    <Sheet variant="outlined" color="neutral" as="section">
+                      <Typography level="body-sm" weight="medium">
+                        as="section"
+                      </Typography>
+                      <Typography level="body-xs">
+                        Rendered as a section element
+                      </Typography>
+                    </Sheet>
+                    <Sheet variant="outlined" color="neutral" as="article">
+                      <Typography level="body-sm" weight="medium">
+                        as="article"
+                      </Typography>
+                      <Typography level="body-xs">
+                        Rendered as an article element
+                      </Typography>
+                    </Sheet>
+                    <Sheet variant="outlined" color="neutral" as="aside">
+                      <Typography level="body-sm" weight="medium">
+                        as="aside"
+                      </Typography>
+                      <Typography level="body-xs">
+                        Rendered as an aside element
+                      </Typography>
+                    </Sheet>
+                  </div>
+                </Section>
+              </div>
 
-              <Section title="Focus Within" titleLevel="h3" id="focus-within">
+              <div>
+                <Typography level="h3" className="mb-2" id="focus-within">
+                  Focus Within
+                </Typography>
                 <Typography level="body-sm" className="mb-4">
                   Use <code className="font-mono text-sm">focusWithin</code>{' '}
                   prop for containers with focusable children to show focus
                   rings on the container.
                 </Typography>
-                <div className="flex flex-wrap gap-4">
-                  <Sheet
-                    variant="outlined"
-                    color="primary"
-                    interactive
-                    focusWithin
-                    className="space-y-2 min-w-60"
-                  >
-                    <Typography level="body-sm" weight="medium">
-                      Container with input
-                    </Typography>
-                    <Input placeholder="Focus me" size="sm" />
-                  </Sheet>
-                </div>
-              </Section>
+                <Section
+                  code={`<Sheet
+  variant="outlined"
+  color="primary"
+  interactive
+  focusWithin
+  className="space-y-2 min-w-60"
+>
+  <Typography level="body-sm" weight="medium">
+    Container with input
+  </Typography>
+  <Input placeholder="Focus me" size="sm" />
+</Sheet>`}
+                  codeLanguage="tsx"
+                >
+                  <div className="flex flex-wrap gap-4">
+                    <Sheet
+                      variant="outlined"
+                      color="primary"
+                      interactive
+                      focusWithin
+                      className="space-y-2 min-w-60"
+                    >
+                      <Typography level="body-sm" weight="medium">
+                        Container with input
+                      </Typography>
+                      <Input placeholder="Focus me" size="sm" />
+                    </Sheet>
+                  </div>
+                </Section>
+              </div>
 
-              <Section title="Nested Sheets" titleLevel="h3" id="nested-sheets">
+              <div>
+                <Typography level="h3" className="mb-2" id="nested-sheets">
+                  Nested Sheets
+                </Typography>
                 <Typography level="body-sm" className="mb-4">
                   Sheets can be nested to create layered interfaces with
                   different visual styles.
                 </Typography>
-                <Sheet
-                  variant="outlined"
-                  color="neutral"
-                  size="lg"
-                  className="space-y-4"
+                <Section
+                  code={`<Sheet
+  variant="outlined"
+  color="neutral"
+  size="lg"
+  className="space-y-4"
+>
+  <Typography level="h5">Outer Sheet</Typography>
+  <Typography level="body-sm">
+    This is the outer container with outlined variant.
+  </Typography>
+  <Sheet
+    variant="soft"
+    color="primary"
+    size="md"
+    className="space-y-2"
+  >
+    <Typography level="body-sm" weight="medium">
+      Inner Sheet
+    </Typography>
+    <Typography level="body-xs">
+      Nested soft variant sheet inside the outlined container.
+    </Typography>
+  </Sheet>
+</Sheet>`}
+                  codeLanguage="tsx"
                 >
-                  <Typography level="h5">Outer Sheet</Typography>
-                  <Typography level="body-sm">
-                    This is the outer container with outlined variant.
-                  </Typography>
                   <Sheet
-                    variant="soft"
-                    color="primary"
-                    size="md"
-                    className="space-y-2"
+                    variant="outlined"
+                    color="neutral"
+                    size="lg"
+                    className="space-y-4"
                   >
-                    <Typography level="body-sm" weight="medium">
-                      Inner Sheet
+                    <Typography level="h5">Outer Sheet</Typography>
+                    <Typography level="body-sm">
+                      This is the outer container with outlined variant.
                     </Typography>
-                    <Typography level="body-xs">
-                      Nested soft variant sheet inside the outlined container.
-                    </Typography>
+                    <Sheet
+                      variant="soft"
+                      color="primary"
+                      size="md"
+                      className="space-y-2"
+                    >
+                      <Typography level="body-sm" weight="medium">
+                        Inner Sheet
+                      </Typography>
+                      <Typography level="body-xs">
+                        Nested soft variant sheet inside the outlined container.
+                      </Typography>
+                    </Sheet>
                   </Sheet>
-                </Sheet>
-              </Section>
+                </Section>
+              </div>
             </div>
           </Section>
 
