@@ -2,6 +2,8 @@
 
 @source "../../../libs/ui/base/src/**/*.tsx";
 @source "../../../libs/ui/components/src/**/*.tsx";
+@source "../../../libs/ui/styled/src/**/*.tsx";
+@source "../../../libs/ui/unstyled/src/**/*.tsx";
 @source "../../../libs/design-system/**/*.ts";
 
 @theme {

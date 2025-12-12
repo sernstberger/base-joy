@@ -41,7 +41,7 @@ export { Button, buttonVariants, type ButtonProps } from './Button';
 export { Input, type InputProps } from './Input';
 export { Container, containerVariants, type ContainerProps } from './Container';
 export { Stack, stackVariants, type StackProps } from './Stack';
-export { Textarea, textareaVariants, type TextareaProps } from './Textarea';
+export { Textarea, textareaSizeVariants, type TextareaProps } from './Textarea';
 export {
   Grid,
   GridItem,
