@@ -19,6 +19,15 @@ export const navigation: NavSection[] = [
     items: [{ label: 'Overview', path: '/getting-started' }],
   },
   {
+    title: 'Features',
+    items: [
+      { label: 'Color Inversion', path: '/features/color-inversion' },
+      { label: 'Global Variants', path: '/features/global-variants' },
+      { label: 'Automatic Adjustment', path: '/features/automatic-adjustment' },
+      { label: 'Dark Mode Optimization', path: '/features/dark-mode-optimization' },
+    ],
+  },
+  {
     title: 'Styled',
     items: sortByLabel([
       { label: 'Accordion', path: '/styled/accordion', baseUiUrl: 'https://base-ui.com/react/components/accordion', comingSoon: true },

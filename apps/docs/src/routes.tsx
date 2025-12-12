@@ -35,6 +35,10 @@ import { ToastPage } from './pages/styled/Toast';
 import { CodeBlockPage } from './pages/styled/CodeBlock';
 import { TogglePage } from './pages/styled/Toggle';
 import { ToggleGroupPage } from './pages/styled/ToggleGroup';
+import { ColorInversionPage } from './pages/features/ColorInversion';
+import { GlobalVariantsPage } from './pages/features/GlobalVariants';
+import { AutomaticAdjustmentPage } from './pages/features/AutomaticAdjustment';
+import { DarkModeOptimizationPage } from './pages/features/DarkModeOptimization';
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +52,22 @@ export const router = createBrowserRouter([
       {
         path: 'getting-started',
         element: <GettingStartedPage />,
+      },
+      {
+        path: 'features/color-inversion',
+        element: <ColorInversionPage />,
+      },
+      {
+        path: 'features/global-variants',
+        element: <GlobalVariantsPage />,
+      },
+      {
+        path: 'features/automatic-adjustment',
+        element: <AutomaticAdjustmentPage />,
+      },
+      {
+        path: 'features/dark-mode-optimization',
+        element: <DarkModeOptimizationPage />,
       },
       {
         path: 'unstyled/item',
