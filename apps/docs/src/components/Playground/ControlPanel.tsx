@@ -1,5 +1,5 @@
 import { variants, colors, sizes, type ColorScale } from '@base-joy/tokens';
-import { Button, Typography } from '@base-joy/ui-core';
+import { Toggle, ToggleGroup, Typography } from '@base-joy/ui-core';
 
 export interface PlaygroundControl {
   name: string;
@@ -25,19 +25,21 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
           </Typography>
 
           {control.type === 'variant' && (
-            <div className="flex flex-wrap gap-2">
+            <ToggleGroup.Root
+              value={[values[control.name]]}
+              onValueChange={(newValue) => {
+                if (newValue.length > 0) {
+                  onChange(control.name, newValue[0]);
+                }
+              }}
+              size="sm"
+            >
               {variants.map((variant) => (
-                <Button
-                  key={variant}
-                  onClick={() => onChange(control.name, variant)}
-                  variant={values[control.name] === variant ? 'solid' : 'outlined'}
-                  color="primary"
-                  size="sm"
-                >
+                <Toggle key={variant} value={variant}>
                   {variant}
-                </Button>
+                </Toggle>
               ))}
-            </div>
+            </ToggleGroup.Root>
           )}
 
           {control.type === 'color' && (
@@ -70,19 +72,21 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
           )}
 
           {control.type === 'size' && (
-            <div className="flex gap-2">
+            <ToggleGroup.Root
+              value={[values[control.name]]}
+              onValueChange={(newValue) => {
+                if (newValue.length > 0) {
+                  onChange(control.name, newValue[0]);
+                }
+              }}
+              size="sm"
+            >
               {sizes.map((size) => (
-                <Button
-                  key={size}
-                  onClick={() => onChange(control.name, size)}
-                  variant={values[control.name] === size ? 'solid' : 'outlined'}
-                  color="primary"
-                  size="sm"
-                >
+                <Toggle key={size} value={size}>
                   {size}
-                </Button>
+                </Toggle>
               ))}
-            </div>
+            </ToggleGroup.Root>
           )}
         </div>
       ))}

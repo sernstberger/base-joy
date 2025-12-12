@@ -164,6 +164,19 @@ export {
   type SwitchThumbProps,
 } from './Switch';
 export {
+  Toggle,
+  toggleVariants,
+  ToggleGroupContext,
+  useToggleGroupContext,
+  type ToggleProps,
+  type ToggleGroupContextValue,
+} from './Toggle';
+export {
+  ToggleGroup,
+  toggleGroupVariants,
+  type ToggleGroupRootProps,
+} from './ToggleGroup';
+export {
   Select,
   selectTriggerVariants,
   selectPopupVariants,

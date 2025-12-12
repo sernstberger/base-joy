@@ -1,15 +1,15 @@
-import { Switch, Typography } from '@base-joy/ui-core';
+import { Switch } from '@base-joy/ui-core';
+import { ComponentHeader } from '../../components/ComponentHeader';
 import { Section } from '../../components/Section';
 
 export function SwitchPage() {
   return (
     <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">Switch</Typography>
-        <Typography level="body-lg">
-          A toggle switch component for binary on/off states.
-        </Typography>
-      </header>
+      <ComponentHeader
+        title="Switch"
+        description="A toggle switch component for binary on/off states."
+        baseUiUrl="https://base-ui.com/react/components/switch"
+      />
 
       <Section title="Basic Usage">
         <label className="flex items-center gap-3">

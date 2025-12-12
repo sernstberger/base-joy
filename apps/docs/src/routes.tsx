@@ -31,6 +31,8 @@ import { SliderPage } from './pages/components/Slider';
 import { NumberFieldPage } from './pages/components/NumberField';
 import { ToastPage } from './pages/components/Toast';
 import { CodeBlockPage } from './pages/components/CodeBlock';
+import { TogglePage } from './pages/components/Toggle';
+import { ToggleGroupPage } from './pages/components/ToggleGroup';
 
 export const router = createBrowserRouter([
   {
@@ -160,6 +162,14 @@ export const router = createBrowserRouter([
       {
         path: 'components/code-block',
         element: <CodeBlockPage />,
+      },
+      {
+        path: 'components/toggle',
+        element: <TogglePage />,
+      },
+      {
+        path: 'components/toggle-group',
+        element: <ToggleGroupPage />,
       },
     ],
   },

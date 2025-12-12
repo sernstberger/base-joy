@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import { Sheet } from '@base-joy/ui-core';
+import { Badge, Sheet } from '@base-joy/ui-core';
 import { navigation } from '../../config/navigation';
 
 export function Sidenav() {
@@ -16,29 +16,40 @@ export function Sidenav() {
       </NavLink>
 
       {/* Navigation */}
-      <nav className="flex-1" aria-label="Component navigation">
+      <nav className="flex-1 overflow-y-auto" aria-label="Component navigation">
         {navigation.map((section) => (
           <div key={section.title} className="mb-6">
             <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2">
               {section.title}
             </h2>
             <ul className="space-y-1">
-              {section.items.map((item) => (
-                <li key={item.path}>
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm transition-colors ${
-                        isActive
-                          ? 'bg-primary-100 text-primary-700 font-medium'
-                          : 'text-neutral-700 hover:bg-neutral-100'
-                      }`
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                </li>
-              ))}
+              {section.items.map((item) =>
+                item.comingSoon ? (
+                  <li key={item.path}>
+                    <span className="flex items-center justify-between px-3 py-2 rounded-md text-sm text-neutral-400 cursor-not-allowed">
+                      {item.label}
+                      <Badge variant="soft" color="neutral" size="sm">
+                        Soon
+                      </Badge>
+                    </span>
+                  </li>
+                ) : (
+                  <li key={item.path}>
+                    <NavLink
+                      to={item.path}
+                      className={({ isActive }) =>
+                        `block px-3 py-2 rounded-md text-sm transition-colors ${
+                          isActive
+                            ? 'bg-primary-100 text-primary-700 font-medium'
+                            : 'text-neutral-700 hover:bg-neutral-100'
+                        }`
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         ))}

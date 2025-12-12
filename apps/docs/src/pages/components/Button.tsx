@@ -1,5 +1,9 @@
 import { Button, Sheet, Typography } from '@base-joy/ui-core';
-import { Playground, type PlaygroundControl } from '../../components/Playground';
+import { ComponentHeader } from '../../components/ComponentHeader';
+import {
+  Playground,
+  type PlaygroundControl,
+} from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
@@ -19,12 +23,11 @@ const buttonCodeTemplate = (props: Record<string, string>) =>
 export function ButtonPage() {
   return (
     <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">Button</Typography>
-        <Typography level="body-lg">
-          A versatile button component with variants, colors, sizes, and loading states.
-        </Typography>
-      </header>
+      <ComponentHeader
+        title="Button"
+        description="A versatile button component with variants, colors, sizes, and loading states."
+        baseUiUrl="https://base-ui.com/react/components/button"
+      />
 
       <Section title="Playground">
         <Playground controls={buttonControls} codeTemplate={buttonCodeTemplate}>
@@ -223,8 +226,8 @@ export function ButtonPage() {
           <div>
             <Typography level="h3">As Link</Typography>
             <Typography level="body-sm" className="mb-3">
-              Use the <code>render</code> prop to render the button as an anchor tag (Base UI
-              pattern).
+              Use the <code>render</code> prop to render the button as an anchor
+              tag (Base UI pattern).
             </Typography>
             <div className="flex flex-wrap gap-3">
               <Button render={<a href="#" />}>Link Button</Button>
@@ -252,7 +255,9 @@ export function ButtonPage() {
               <div className="space-y-4">
                 <div>
                   <Typography level="h4">Confirm Action</Typography>
-                  <Typography>Are you sure you want to proceed with this action?</Typography>
+                  <Typography>
+                    Are you sure you want to proceed with this action?
+                  </Typography>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outlined" color="neutral">
