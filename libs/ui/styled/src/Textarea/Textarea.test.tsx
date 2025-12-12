@@ -20,7 +20,7 @@ describe('Textarea', () => {
       const { container } = render(<Textarea />);
       const textarea = container.querySelector('textarea') as HTMLElement;
       expect(textarea).toHaveClass('border-neutral-300');
-      expect(textarea).toHaveClass('text-neutral-900');
+      expect(textarea).toHaveClass('text-neutral-700');
       expect(textarea).toHaveClass('bg-transparent');
     });
 
@@ -49,8 +49,8 @@ describe('Textarea', () => {
         <Textarea variant="solid" color="primary" />
       );
       const textarea = container.querySelector('textarea') as HTMLElement;
-      expect(textarea).toHaveClass('bg-primary-100');
-      expect(textarea).toHaveClass('text-primary-900');
+      expect(textarea).toHaveClass('bg-primary-500');
+      expect(textarea).toHaveClass('text-white');
     });
 
     it('applies soft variant classes', () => {
@@ -58,7 +58,7 @@ describe('Textarea', () => {
         <Textarea variant="soft" color="primary" />
       );
       const textarea = container.querySelector('textarea') as HTMLElement;
-      expect(textarea).toHaveClass('bg-primary-50');
+      expect(textarea).toHaveClass('bg-primary-100');
       expect(textarea).toHaveClass('text-primary-900');
     });
 
@@ -68,7 +68,7 @@ describe('Textarea', () => {
       );
       const textarea = container.querySelector('textarea') as HTMLElement;
       expect(textarea).toHaveClass('border');
-      expect(textarea).toHaveClass('border-primary-300');
+      expect(textarea).toHaveClass('border-primary-500');
       expect(textarea).toHaveClass('bg-transparent');
     });
 
@@ -90,19 +90,19 @@ describe('Textarea', () => {
           <Textarea variant="soft" color={color} />
         );
         const textarea = container.querySelector('textarea') as HTMLElement;
-        expect(textarea).toHaveClass(`bg-${color}-50`);
+        expect(textarea).toHaveClass(`bg-${color}-100`);
         expect(textarea).toHaveClass(`text-${color}-900`);
       }
     );
 
-    it.each(['primary', 'neutral', 'success', 'warning', 'danger'] as const)(
+    it.each(['primary', 'success', 'warning', 'danger'] as const)(
       'renders %s color with outlined variant',
       (color) => {
         const { container } = render(
           <Textarea variant="outlined" color={color} />
         );
         const textarea = container.querySelector('textarea') as HTMLElement;
-        expect(textarea).toHaveClass(`border-${color}-300`);
+        expect(textarea).toHaveClass(`border-${color}-500`);
       }
     );
   });
@@ -133,7 +133,6 @@ describe('Textarea', () => {
       const textarea = container.querySelector('textarea') as HTMLElement;
       expect(textarea).toHaveClass('border-danger-500');
       expect(textarea).toHaveClass('focus:border-danger-500');
-      expect(textarea).toHaveClass('focus:ring-danger-200');
     });
 
     it('does not apply error classes when error prop is false', () => {

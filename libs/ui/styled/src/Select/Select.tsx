@@ -120,7 +120,7 @@ const Trigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         className={cn(
           'rounded-lg',
           variant === 'outlined' && 'border',
-          sheetVariants({ variant, color }),
+          sheetVariants({ variant, color, interactive: true }),
           selectTriggerVariants({ size, disabled }),
           className
         )}

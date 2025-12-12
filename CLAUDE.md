@@ -63,6 +63,104 @@ import { sheetVariants } from '../Sheet';
 </Sheet>
 ```
 
+### Sheet Usage Patterns
+
+**When to use Sheet:**
+- Components representing styled surfaces (containers, form fields, badges, buttons)
+- Components needing variant (solid/soft/outlined/plain) and color props
+
+**When NOT to use Sheet:**
+- Layout components (Grid, Stack, Container, Field) - pure layout utilities
+- Text/link components (Typography, Link, Divider) - specialized text styling
+- Components with specialized styling (CodeBlock, Table, Switch, Slider)
+
+**Pattern A: Sheet Component (preferred for simple wrappers)**
+
+Use the Sheet component directly when creating styled containers or form fields:
+
+```tsx
+<Sheet
+  variant={variant}
+  color={color}
+  interactive  // Adds focus ring for clickable/focusable elements
+  className={cn('p-0', customSizeVariants({ size }), className)}
+>
+  {children}
+</Sheet>
+```
+
+Examples: Card (when clickable), Badge, Input, Textarea
+
+Key points:
+- Always override Sheet's padding with `p-0` if using custom sizing
+- Use the `as` prop for polymorphism: `<Sheet as="span">` or `<Sheet as="textarea">`
+- Set `interactive={true}` for clickable/focusable elements to add focus rings
+- Sheet provides variant/color styling automatically
+
+**Pattern B: sheetVariants Classes (for complex state management)**
+
+Import and use `sheetVariants` directly when combining with Base UI components or adding complex state styling:
+
+```tsx
+<BaseUIComponent
+  className={cn(
+    sheetVariants({ variant, color, interactive: true }),
+    customVariants({ size }),
+    hoverVariants({ variant, color }),
+    className
+  )}
+/>
+```
+
+Examples: Button, Toggle, Item, Checkbox, Radio
+
+Key points:
+- Use when you need hover, pressed, selected, or other interactive states
+- Combine with Base UI components that manage their own rendering
+- Pass `interactive: true` to sheetVariants for automatic focus ring styling
+- Override padding with `p-0` in your custom variants if needed
+
+**Focus Ring Behavior:**
+
+Sheet's `interactive` prop automatically adds consistent focus rings using two modes:
+
+1. **`focus:`** - For elements that receive focus directly (default)
+   - Used by: Button, Toggle, Checkbox, Radio, Select, Textarea
+   - Applies ring when the element itself is focused
+
+2. **`focusWithin:`** - For containers with focusable children
+   - Used by: Input, NumberField.Group, Combobox.Input, Autocomplete.Input
+   - Applies ring when any child element is focused
+   - Set both `interactive` and `focusWithin` props: `sheetVariants({ variant, color, interactive: true, focusWithin: true })`
+
+Ring colors match the component's color palette:
+- Solid variants: lighter shade (e.g., primary-300)
+- Soft/outlined/plain: even lighter shade (e.g., primary-200)
+- Includes `focus:outline-none` and `focus:ring-offset-2` for accessibility
+
+**When to use `focusWithin`:**
+Use `focusWithin: true` when the Sheet wraps a focusable child element (like an input) and you want the outer container to show the focus ring. This is common for form fields with decorators:
+
+```tsx
+// Input component - container with startDecorator, BaseInput, endDecorator
+<Sheet interactive focusWithin variant={variant} color={color}>
+  {startDecorator}
+  <BaseInput />  {/* This receives focus, container shows ring */}
+  {endDecorator}
+</Sheet>
+
+// Button component - the element itself receives focus
+<BaseButton className={cn(sheetVariants({ variant, color, interactive: true }))}>
+  Click me  {/* Button itself is focused */}
+</BaseButton>
+```
+
+Reference implementations:
+- Badge: `/Users/stevo/src/base-joy/libs/ui/styled/src/Badge/Badge.tsx:75`
+- Item: `/Users/stevo/src/base-joy/libs/ui/styled/src/Item/Item.tsx:270-273`
+- Button: `/Users/stevo/src/base-joy/libs/ui/styled/src/Button/Button.tsx:130`
+- Textarea: `/Users/stevo/src/base-joy/libs/ui/styled/src/Textarea/Textarea.tsx:123`
+
 - **CVA for variants**: Use class-variance-authority for component variants.
 - **forwardRef**: All components use forwardRef.
 - **Context for inheritance**: Use React Context to pass props (size, variant) to child components.

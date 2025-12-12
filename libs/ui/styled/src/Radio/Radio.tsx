@@ -74,7 +74,7 @@ const Root = React.forwardRef<HTMLButtonElement, RadioRootProps>(
           ref={ref}
           disabled={disabled}
           className={cn(
-            sheetVariants({ variant, color }),
+            sheetVariants({ variant, color, interactive: true }),
             radioRootVariants({ size, disabled }),
             'data-[checked]:bg-primary-500 data-[checked]:text-white data-[checked]:border-primary-500',
             className

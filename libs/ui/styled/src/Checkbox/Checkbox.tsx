@@ -77,7 +77,7 @@ const Root = React.forwardRef<HTMLButtonElement, CheckboxRootProps>(
           ref={ref}
           disabled={disabled}
           className={cn(
-            sheetVariants({ variant, color }),
+            sheetVariants({ variant, color, interactive: true }),
             checkboxRootVariants({ size, disabled }),
             'data-[checked]:bg-primary-500 data-[checked]:text-white data-[checked]:border-primary-500',
             className

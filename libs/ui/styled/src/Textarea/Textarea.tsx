@@ -1,81 +1,24 @@
 import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { Sheet } from '../Sheet/Sheet.js';
 
-const textareaVariants = cva(
-  'w-full resize-none rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border',
-  {
-    variants: {
-      variant: {
-        solid: '',
-        soft: '',
-        outlined: '',
-        plain: 'border-0',
-      },
-      color: {
-        primary: '',
-        neutral: '',
-        success: '',
-        warning: '',
-        danger: '',
-      },
-      size: {
-        sm: 'p-2 text-sm',
-        md: 'p-3 text-base',
-        lg: 'p-4 text-lg',
-      },
-      error: {
-        true: '',
-        false: '',
-      },
+const textareaSizeVariants = cva('', {
+  variants: {
+    size: {
+      sm: 'p-2 text-sm',
+      md: 'p-3 text-base',
+      lg: 'p-4 text-lg',
     },
-    compoundVariants: [
-      // Override Sheet's solid variants with form-appropriate colors
-      { variant: 'solid', color: 'primary', className: 'bg-primary-100 border-primary-100 text-primary-900 focus:border-primary-500 focus:ring-primary-200' },
-      { variant: 'solid', color: 'neutral', className: 'bg-neutral-100 border-neutral-100 text-neutral-900 focus:border-neutral-500 focus:ring-neutral-200' },
-      { variant: 'solid', color: 'success', className: 'bg-success-100 border-success-100 text-success-900 focus:border-success-500 focus:ring-success-200' },
-      { variant: 'solid', color: 'warning', className: 'bg-warning-100 border-warning-100 text-warning-900 focus:border-warning-500 focus:ring-warning-200' },
-      { variant: 'solid', color: 'danger', className: 'bg-danger-100 border-danger-100 text-danger-900 focus:border-danger-500 focus:ring-danger-200' },
-
-      // Override Sheet's soft variants with form-appropriate colors
-      { variant: 'soft', color: 'primary', className: 'bg-primary-50 border-primary-200 text-primary-900 focus:border-primary-500 focus:ring-primary-200' },
-      { variant: 'soft', color: 'neutral', className: 'bg-neutral-50 border-neutral-200 text-neutral-900 focus:border-neutral-500 focus:ring-neutral-200' },
-      { variant: 'soft', color: 'success', className: 'bg-success-50 border-success-200 text-success-900 focus:border-success-500 focus:ring-success-200' },
-      { variant: 'soft', color: 'warning', className: 'bg-warning-50 border-warning-200 text-warning-900 focus:border-warning-500 focus:ring-warning-200' },
-      { variant: 'soft', color: 'danger', className: 'bg-danger-50 border-danger-200 text-danger-900 focus:border-danger-500 focus:ring-danger-200' },
-
-      // Override Sheet's outlined variants with form-appropriate colors
-      { variant: 'outlined', color: 'primary', className: 'bg-transparent border-primary-300 text-primary-900 focus:border-primary-500 focus:ring-primary-200' },
-      { variant: 'outlined', color: 'neutral', className: 'bg-transparent border-neutral-300 text-neutral-900 focus:border-neutral-500 focus:ring-neutral-200' },
-      { variant: 'outlined', color: 'success', className: 'bg-transparent border-success-300 text-success-900 focus:border-success-500 focus:ring-success-200' },
-      { variant: 'outlined', color: 'warning', className: 'bg-transparent border-warning-300 text-warning-900 focus:border-warning-500 focus:ring-warning-200' },
-      { variant: 'outlined', color: 'danger', className: 'bg-transparent border-danger-300 text-danger-900 focus:border-danger-500 focus:ring-danger-200' },
-
-      // Override Sheet's plain variants with form-appropriate colors
-      { variant: 'plain', color: 'primary', className: 'bg-transparent text-primary-900 focus:ring-primary-200' },
-      { variant: 'plain', color: 'neutral', className: 'bg-transparent text-neutral-900 focus:ring-neutral-200' },
-      { variant: 'plain', color: 'success', className: 'bg-transparent text-success-900 focus:ring-success-200' },
-      { variant: 'plain', color: 'warning', className: 'bg-transparent text-warning-900 focus:ring-warning-200' },
-      { variant: 'plain', color: 'danger', className: 'bg-transparent text-danger-900 focus:ring-danger-200' },
-
-      // Error state overrides - stronger border for error state
-      { error: true, variant: 'soft', className: 'border-danger-500 focus:border-danger-500' },
-      { error: true, variant: 'solid', className: 'border-danger-500 focus:border-danger-500' },
-      { error: true, variant: 'outlined', className: 'border-danger-500 focus:border-danger-500' },
-    ],
-    defaultVariants: {
-      variant: 'soft',
-      color: 'neutral',
-      size: 'md',
-      error: false,
-    },
-  }
-);
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
 
 export interface TextareaProps
-  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'color' | 'size'>,
-    VariantProps<typeof textareaVariants> {
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'color' | 'size'> {
   variant?: Variant;
   color?: ColorScale;
   size?: Size;
@@ -91,7 +34,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
       variant = 'outlined',
       color = 'neutral',
-      size,
+      size = 'md',
       error,
       fullWidth = true,
       rows,
@@ -104,6 +47,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ) => {
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);
     const combinedRef = (ref as any) || textareaRef;
+    const effectiveColor = error ? 'danger' : color;
 
     React.useEffect(() => {
       const textarea = combinedRef.current;
@@ -143,13 +87,19 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     }, [minRows, maxRows, combinedRef]);
 
     return (
-      <textarea
-        ref={combinedRef}
+      <Sheet
+        ref={combinedRef as React.Ref<HTMLDivElement>}
+        as="textarea"
+        variant={variant}
+        color={effectiveColor}
+        interactive
         rows={rows}
         className={cn(
-          textareaVariants({ variant, size, color: error ? 'danger' : color, error }),
-          fullWidth ? 'w-full' : '',
-          error && 'border-danger-500 focus:border-danger-500 focus:ring-danger-200',
+          'p-0 w-full resize-none disabled:cursor-not-allowed disabled:opacity-50',
+          variant !== 'plain' && 'border',
+          variant === 'plain' && 'border-0',
+          textareaSizeVariants({ size }),
+          error && 'border-danger-500 focus:border-danger-500',
           className
         )}
         style={style}
@@ -161,4 +111,4 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
 Textarea.displayName = 'Textarea';
 
-export { textareaVariants };
+export { textareaSizeVariants };

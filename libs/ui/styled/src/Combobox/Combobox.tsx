@@ -123,7 +123,7 @@ const Input = React.forwardRef<HTMLInputElement, ComboboxInputProps>(
         className={cn(
           'inline-flex items-center rounded-lg',
           variant === 'outlined' && 'border',
-          sheetVariants({ variant, color })
+          sheetVariants({ variant, color, interactive: true, focusWithin: true })
         )}
       >
         <BaseCombobox.Input

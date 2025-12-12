@@ -33,6 +33,14 @@ const sheetVariants = cva(
         md: 'p-4',
         lg: 'p-6',
       },
+      interactive: {
+        true: '',
+        false: '',
+      },
+      focusWithin: {
+        true: '',
+        false: '',
+      },
     },
     compoundVariants: [
       // Solid variants
@@ -82,11 +90,69 @@ const sheetVariants = cva(
       { variant: 'plain', color: 'success', className: 'text-success-700 bg-transparent' },
       { variant: 'plain', color: 'warning', className: 'text-warning-700 bg-transparent' },
       { variant: 'plain', color: 'danger', className: 'text-danger-700 bg-transparent' },
+
+      // Interactive focus states - solid variant
+      { interactive: true, variant: 'solid', color: 'primary', className: 'focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2' },
+      { interactive: true, variant: 'solid', color: 'neutral', className: 'focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2' },
+      { interactive: true, variant: 'solid', color: 'success', className: 'focus:outline-none focus:ring-2 focus:ring-success-300 focus:ring-offset-2' },
+      { interactive: true, variant: 'solid', color: 'warning', className: 'focus:outline-none focus:ring-2 focus:ring-warning-300 focus:ring-offset-2' },
+      { interactive: true, variant: 'solid', color: 'danger', className: 'focus:outline-none focus:ring-2 focus:ring-danger-300 focus:ring-offset-2' },
+
+      // Interactive focus states - soft variant
+      { interactive: true, variant: 'soft', color: 'primary', className: 'focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'soft', color: 'neutral', className: 'focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'soft', color: 'success', className: 'focus:outline-none focus:ring-2 focus:ring-success-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'soft', color: 'warning', className: 'focus:outline-none focus:ring-2 focus:ring-warning-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'soft', color: 'danger', className: 'focus:outline-none focus:ring-2 focus:ring-danger-200 focus:ring-offset-2' },
+
+      // Interactive focus states - outlined variant
+      { interactive: true, variant: 'outlined', color: 'primary', className: 'focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'outlined', color: 'neutral', className: 'focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'outlined', color: 'success', className: 'focus:outline-none focus:ring-2 focus:ring-success-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'outlined', color: 'warning', className: 'focus:outline-none focus:ring-2 focus:ring-warning-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'outlined', color: 'danger', className: 'focus:outline-none focus:ring-2 focus:ring-danger-200 focus:ring-offset-2' },
+
+      // Interactive focus states - plain variant
+      { interactive: true, variant: 'plain', color: 'primary', className: 'focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'plain', color: 'neutral', className: 'focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'plain', color: 'success', className: 'focus:outline-none focus:ring-2 focus:ring-success-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'plain', color: 'warning', className: 'focus:outline-none focus:ring-2 focus:ring-warning-200 focus:ring-offset-2' },
+      { interactive: true, variant: 'plain', color: 'danger', className: 'focus:outline-none focus:ring-2 focus:ring-danger-200 focus:ring-offset-2' },
+
+      // Interactive focus-within states - solid variant (for containers with focusable children)
+      { interactive: true, focusWithin: true, variant: 'solid', color: 'primary', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'solid', color: 'neutral', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-neutral-400 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'solid', color: 'success', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-success-300 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'solid', color: 'warning', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-warning-300 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'solid', color: 'danger', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-danger-300 focus-within:ring-offset-2' },
+
+      // Interactive focus-within states - soft variant
+      { interactive: true, focusWithin: true, variant: 'soft', color: 'primary', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'soft', color: 'neutral', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-neutral-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'soft', color: 'success', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-success-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'soft', color: 'warning', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-warning-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'soft', color: 'danger', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-danger-200 focus-within:ring-offset-2' },
+
+      // Interactive focus-within states - outlined variant
+      { interactive: true, focusWithin: true, variant: 'outlined', color: 'primary', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'outlined', color: 'neutral', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-neutral-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'outlined', color: 'success', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-success-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'outlined', color: 'warning', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-warning-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'outlined', color: 'danger', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-danger-200 focus-within:ring-offset-2' },
+
+      // Interactive focus-within states - plain variant
+      { interactive: true, focusWithin: true, variant: 'plain', color: 'primary', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'plain', color: 'neutral', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-neutral-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'plain', color: 'success', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-success-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'plain', color: 'warning', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-warning-200 focus-within:ring-offset-2' },
+      { interactive: true, focusWithin: true, variant: 'plain', color: 'danger', className: 'focus-within:outline-none focus-within:ring-2 focus-within:ring-danger-200 focus-within:ring-offset-2' },
     ],
     defaultVariants: {
       variant: 'soft',
       color: 'neutral',
       size: 'md',
+      interactive: false,
+      focusWithin: false,
     },
   }
 );
@@ -113,6 +179,20 @@ export interface SheetProps
   size?: Size;
 
   /**
+   * Whether the sheet is interactive (adds focus ring styling).
+   * Use for clickable cards, buttons, or any focusable element.
+   * @default false
+   */
+  interactive?: boolean;
+
+  /**
+   * Use focus-within instead of focus for containers with focusable children.
+   * Only works when interactive is true.
+   * @default false
+   */
+  focusWithin?: boolean;
+
+  /**
    * The element type to render as.
    * @default 'div'
    */
@@ -120,11 +200,11 @@ export interface SheetProps
 }
 
 export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
-  ({ className, variant, color, size, as: Component = 'div', ...props }, ref) => {
+  ({ className, variant, color, size, interactive, focusWithin, as: Component = 'div', ...props }, ref) => {
     return (
       <Component
         ref={ref}
-        className={cn(sheetVariants({ variant, color, size }), className)}
+        className={cn(sheetVariants({ variant, color, size, interactive, focusWithin }), className)}
         {...props}
       />
     );

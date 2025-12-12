@@ -6,7 +6,7 @@ import { sheetVariants } from '../Sheet';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const toggleVariants = cva(
-  'inline-flex items-center justify-center font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center font-medium cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -14,17 +14,9 @@ const toggleVariants = cva(
         md: 'h-10 px-4 py-2 text-base gap-2',
         lg: 'h-12 px-6 py-3 text-lg gap-2.5',
       },
-      color: {
-        primary: 'focus-visible:ring-primary-500',
-        neutral: 'focus-visible:ring-neutral-500',
-        success: 'focus-visible:ring-success-500',
-        warning: 'focus-visible:ring-warning-500',
-        danger: 'focus-visible:ring-danger-500',
-      },
     },
     defaultVariants: {
       size: 'md',
-      color: 'primary',
     },
   }
 );
@@ -142,8 +134,8 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
       <BaseToggle
         ref={ref}
         className={cn(
-          sheetVariants({ variant: resolvedVariant, color: resolvedColor }),
-          toggleVariants({ size: resolvedSize, color: resolvedColor }),
+          sheetVariants({ variant: resolvedVariant, color: resolvedColor, interactive: true }),
+          toggleVariants({ size: resolvedSize }),
           hoverVariants({ variant: resolvedVariant, color: resolvedColor }),
           pressedVariants({ variant: resolvedVariant, color: resolvedColor }),
           className

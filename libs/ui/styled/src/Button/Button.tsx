@@ -7,7 +7,7 @@ import { ItemContext, ItemIcon } from '@base-joy/ui-unstyled';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center font-medium cursor-pointer disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -18,18 +18,10 @@ const buttonVariants = cva(
       fullWidth: {
         true: 'w-full',
       },
-      color: {
-        primary: 'focus-visible:ring-primary-500',
-        neutral: 'focus-visible:ring-neutral-500',
-        success: 'focus-visible:ring-success-500',
-        warning: 'focus-visible:ring-warning-500',
-        danger: 'focus-visible:ring-danger-500',
-      },
     },
     defaultVariants: {
       size: 'md',
       fullWidth: false,
-      color: 'primary',
     },
   }
 );
@@ -135,8 +127,8 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
           render={render}
           nativeButton={!render}
           className={cn(
-            sheetVariants({ variant, color }),
-            buttonVariants({ size, fullWidth, color }),
+            sheetVariants({ variant, color, interactive: true }),
+            buttonVariants({ size, fullWidth }),
             hoverVariants({ variant, color }),
             className
           )}

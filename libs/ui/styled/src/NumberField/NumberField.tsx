@@ -129,7 +129,7 @@ const Group = React.forwardRef<HTMLDivElement, NumberFieldGroupProps>(
         className={cn(
           'rounded-lg overflow-hidden',
           variant === 'outlined' && 'border',
-          sheetVariants({ variant, color }),
+          sheetVariants({ variant, color, interactive: true, focusWithin: true }),
           numberFieldGroupVariants({ size }),
           className
         )}
