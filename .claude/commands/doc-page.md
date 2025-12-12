@@ -6,7 +6,7 @@ Create an individual documentation page for a base-joy component, following MUI 
 Parse the component name from the arguments. It should be PascalCase (e.g., Sheet, Button, Card).
 
 ## Prerequisites
-- The component must already exist in `libs/ui/components/src/{ComponentName}/` (or `libs/ui/base/src/{ComponentName}/` for primitives)
+- The component must already exist in `libs/ui/styled/src/{ComponentName}/` (or `libs/ui/unstyled/src/{ComponentName}/` for primitives)
 - The Playground components must exist in `apps/docs/src/components/Playground/`
 - React Router must be set up in the docs app
 
@@ -14,10 +14,10 @@ Parse the component name from the arguments. It should be PascalCase (e.g., Shee
 
 ### 1. Create the Page File
 
-Create `apps/docs/src/pages/components/{ComponentName}.tsx`:
+Create `apps/docs/src/pages/styled/{ComponentName}.tsx`:
 
 ```tsx
-import { {ComponentName} } from '@base-joy/ui-components';
+import { {ComponentName} } from '@base-joy/ui-styled';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
@@ -154,11 +154,11 @@ export function {ComponentName}Page() {
 Add import and route to `apps/docs/src/routes.tsx`:
 
 ```tsx
-import { {ComponentName}Page } from './pages/components/{ComponentName}';
+import { {ComponentName}Page } from './pages/styled/{ComponentName}';
 
 // Add to children array:
 {
-  path: 'components/{componentName}',
+  path: 'styled/{componentName}',
   element: <{ComponentName}Page />,
 },
 ```
@@ -170,7 +170,7 @@ Update `apps/docs/src/components/Sidenav/Sidenav.tsx`:
 Find the appropriate section in the `navigation` array and add:
 
 ```tsx
-{ label: '{ComponentName}', path: '/components/{componentName}' },
+{ label: '{ComponentName}', path: '/styled/{componentName}' },
 ```
 
 ## Page Structure
@@ -204,7 +204,7 @@ For components with additional props or subcomponents:
 
 ## Checklist
 
-- [ ] Create page file in `apps/docs/src/pages/components/`
+- [ ] Create page file in `apps/docs/src/pages/styled/`
 - [ ] Add route to `apps/docs/src/routes.tsx`
 - [ ] Add navigation entry to Sidenav
 - [ ] Configure playground controls

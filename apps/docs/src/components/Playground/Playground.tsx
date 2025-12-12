@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Sheet } from '@base-joy/ui-components';
+import { Sheet } from '@base-joy/ui-styled';
 import { ControlPanel, type PlaygroundControl } from './ControlPanel';
 import { CodeBlock } from './CodeBlock';
 

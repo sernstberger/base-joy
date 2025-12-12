@@ -6,12 +6,12 @@ import * as docgen from 'react-docgen-typescript';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const UI_BASE_PATH = path.resolve(__dirname, '../../../libs/ui/base/src');
-const UI_COMPONENTS_PATH = path.resolve(__dirname, '../../../libs/ui/components/src');
+const UI_UNSTYLED_PATH = path.resolve(__dirname, '../../../libs/ui/unstyled/src');
+const UI_STYLED_PATH = path.resolve(__dirname, '../../../libs/ui/styled/src');
 const OUTPUT_PATH = path.resolve(__dirname, '../src/props');
 
-// Components in ui-base (unstyled primitives)
-const UI_BASE_COMPONENTS = new Set(['Item']);
+// Components in ui-unstyled (unstyled primitives)
+const UI_UNSTYLED_COMPONENTS = new Set(['Item']);
 
 // Components to extract props from (only existing components)
 const COMPONENTS = [
@@ -134,7 +134,7 @@ function formatType(type: docgen.PropItem['type'], propName: string): string {
 }
 
 function extractProps(componentName: string): PropMeta[] | null {
-  const basePath = UI_BASE_COMPONENTS.has(componentName) ? UI_BASE_PATH : UI_COMPONENTS_PATH;
+  const basePath = UI_UNSTYLED_COMPONENTS.has(componentName) ? UI_UNSTYLED_PATH : UI_STYLED_PATH;
   const componentPath = path.join(basePath, componentName, `${componentName}.tsx`);
 
   if (!fs.existsSync(componentPath)) {

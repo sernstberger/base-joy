@@ -1,4 +1,4 @@
-import { Button, Typography } from '@base-joy/ui-components';
+import { Button, Typography } from '@base-joy/ui-styled';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router';
 

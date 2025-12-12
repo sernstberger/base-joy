@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { Sheet, Typography } from '@base-joy/ui-components';
+import { Sheet, Typography } from '@base-joy/ui-styled';
 import { Section } from '../components/Section';
 
 export function HomePage() {
@@ -15,7 +15,7 @@ export function HomePage() {
       <Section title="Getting Started">
         <Sheet variant="soft" color="neutral" className="mb-4">
           <pre className="text-sm">
-            <code>npm install @base-joy/ui-components</code>
+            <code>npm install @base-joy/ui-styled</code>
           </pre>
         </Sheet>
         <Typography>
@@ -26,7 +26,7 @@ export function HomePage() {
 
       <Section title="Components" spacing="sm">
         <div className="grid gap-4 md:grid-cols-2">
-          <Link to="/components/sheet">
+          <Link to="/styled/sheet">
             <Sheet
               variant="outlined"
               color="neutral"
@@ -38,7 +38,7 @@ export function HomePage() {
               </Typography>
             </Sheet>
           </Link>
-          <Link to="/components/item">
+          <Link to="/styled/item">
             <Sheet
               variant="outlined"
               color="neutral"
@@ -50,7 +50,7 @@ export function HomePage() {
               </Typography>
             </Sheet>
           </Link>
-          <Link to="/components/table">
+          <Link to="/styled/table">
             <Sheet
               variant="outlined"
               color="neutral"

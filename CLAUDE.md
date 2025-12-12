@@ -152,13 +152,13 @@ await user.click(screen.getByText('Option B'));
 ## File Structure
 
 ```
-libs/ui/base/src/           # Unstyled primitives (Item, etc.)
+libs/ui/unstyled/src/       # Unstyled primitives (Item, etc.)
   ComponentName/
     ComponentName.tsx
     ComponentName.test.tsx
     index.ts
 
-libs/ui/components/src/     # Styled components (Button, Sheet, etc.)
+libs/ui/styled/src/         # Styled components (Button, Sheet, etc.)
   ComponentName/
     ComponentName.tsx
     ComponentName.test.tsx
@@ -179,7 +179,7 @@ libs/ui/components/src/     # Styled components (Button, Sheet, etc.)
 Component API documentation is auto-generated from TypeScript interfaces using `react-docgen-typescript`.
 
 **How it works:**
-1. `yarn props:generate` extracts props from `libs/ui/base/src/` and `libs/ui/components/src/`
+1. `yarn props:generate` extracts props from `libs/ui/unstyled/src/` and `libs/ui/styled/src/`
 2. Writes JSON files to `apps/docs/src/props/ComponentName.json`
 3. Generates `apps/docs/src/props/index.ts` with exports
 

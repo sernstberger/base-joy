@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableCell,
   Sheet,
-} from '@base-joy/ui-components';
+} from '@base-joy/ui-styled';
 import { CodeBadge } from '../CodeBadge';
 
 export interface PropMeta {

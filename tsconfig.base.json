@@ -19,10 +19,10 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@base-joy/ui-base": ["libs/ui/base/src/index.ts"],
-      "@base-joy/ui-base/*": ["libs/ui/base/src/*"],
-      "@base-joy/ui-components": ["libs/ui/components/src/index.ts"],
-      "@base-joy/ui-components/*": ["libs/ui/components/src/*"],
+      "@base-joy/ui-unstyled": ["libs/ui/unstyled/src/index.ts"],
+      "@base-joy/ui-unstyled/*": ["libs/ui/unstyled/src/*"],
+      "@base-joy/ui-styled": ["libs/ui/styled/src/index.ts"],
+      "@base-joy/ui-styled/*": ["libs/ui/styled/src/*"],
       "@base-joy/tokens": ["libs/design-system/tokens/src/index.ts"],
       "@base-joy/tokens/*": ["libs/design-system/tokens/src/*"],
       "@base-joy/utils": ["libs/design-system/utils/src/index.ts"]

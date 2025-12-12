@@ -1,4 +1,4 @@
-import { Typography, Sheet, Stack, Badge } from '@base-joy/ui-components';
+import { Typography, Sheet, Stack, Badge } from '@base-joy/ui-styled';
 import { Section } from '../../components/Section';
 import { Link } from 'react-router';
 
@@ -20,7 +20,7 @@ export function GettingStartedPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Sheet variant="outlined" color="neutral" className="p-4">
             <div className="flex items-center gap-2 mb-2">
-              <Typography level="h4">@base-joy/ui-base</Typography>
+              <Typography level="h4">@base-joy/ui-unstyled</Typography>
               <Badge variant="soft" color="neutral" size="sm">Primitives</Badge>
             </div>
             <Typography level="body-sm" className="text-neutral-600">
@@ -31,7 +31,7 @@ export function GettingStartedPage() {
 
           <Sheet variant="outlined" color="primary" className="p-4">
             <div className="flex items-center gap-2 mb-2">
-              <Typography level="h4">@base-joy/ui-components</Typography>
+              <Typography level="h4">@base-joy/ui-styled</Typography>
               <Badge variant="soft" color="primary" size="sm">Styled</Badge>
             </div>
             <Typography level="body-sm" className="text-neutral-600">
@@ -42,7 +42,7 @@ export function GettingStartedPage() {
         </div>
       </Section>
 
-      <Section title="@base-joy/ui-base">
+      <Section title="@base-joy/ui-unstyled">
         <Typography level="body-md" className="mb-4">
           The base package provides unstyled primitives that give you full control
           over styling while handling accessibility and behavior.
@@ -66,11 +66,11 @@ export function GettingStartedPage() {
 
         <Typography level="h4" className="mb-2">Installation</Typography>
         <Sheet variant="outlined" color="neutral" className="font-mono text-sm">
-          npm install @base-joy/ui-base
+          npm install @base-joy/ui-unstyled
         </Sheet>
       </Section>
 
-      <Section title="@base-joy/ui-components">
+      <Section title="@base-joy/ui-styled">
         <Typography level="body-md" className="mb-4">
           The components package provides pre-styled components with Joy UI-inspired
           aesthetics and a consistent variant/color system.
@@ -94,7 +94,7 @@ export function GettingStartedPage() {
 
         <Typography level="h4" className="mb-2">Installation</Typography>
         <Sheet variant="outlined" color="neutral" className="font-mono text-sm">
-          npm install @base-joy/ui-components
+          npm install @base-joy/ui-styled
         </Sheet>
       </Section>
 
@@ -104,8 +104,8 @@ export function GettingStartedPage() {
             <thead className="bg-neutral-50">
               <tr>
                 <th className="text-left p-3 font-medium">Feature</th>
-                <th className="text-left p-3 font-medium">ui-base</th>
-                <th className="text-left p-3 font-medium">ui-components</th>
+                <th className="text-left p-3 font-medium">ui-unstyled</th>
+                <th className="text-left p-3 font-medium">ui-styled</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-200">
@@ -145,25 +145,25 @@ export function GettingStartedPage() {
         </Typography>
 
         <Stack spacing={4}>
-          <Sheet variant="soft" color="neutral" className="p-4">
-            <Typography level="h4" className="mb-1">Base</Typography>
+          <Sheet variant="soft" color="primary" className="p-4">
+            <Typography level="h4" className="mb-1">Styled</Typography>
             <Typography level="body-sm" className="text-neutral-600 mb-2">
-              Documentation for @base-joy/ui-base primitives. Focuses on API,
-              composition patterns, and styling from scratch.
+              Documentation for @base-joy/ui-styled. Includes playgrounds,
+              variant/color examples, and rich visual documentation.
             </Typography>
-            <Link to="/base/item" className="text-primary-600 hover:text-primary-700 text-sm">
-              View Base Item &rarr;
+            <Link to="/styled/item" className="text-primary-600 hover:text-primary-700 text-sm">
+              View Styled Item &rarr;
             </Link>
           </Sheet>
 
-          <Sheet variant="soft" color="primary" className="p-4">
-            <Typography level="h4" className="mb-1">Components</Typography>
+          <Sheet variant="soft" color="neutral" className="p-4">
+            <Typography level="h4" className="mb-1">Unstyled</Typography>
             <Typography level="body-sm" className="text-neutral-600 mb-2">
-              Documentation for @base-joy/ui-components. Includes playgrounds,
-              variant/color examples, and rich visual documentation.
+              Documentation for @base-joy/ui-unstyled primitives. Focuses on API,
+              composition patterns, and styling from scratch.
             </Typography>
-            <Link to="/components/item" className="text-primary-600 hover:text-primary-700 text-sm">
-              View Styled Item &rarr;
+            <Link to="/unstyled/item" className="text-primary-600 hover:text-primary-700 text-sm">
+              View Unstyled Item &rarr;
             </Link>
           </Sheet>
         </Stack>

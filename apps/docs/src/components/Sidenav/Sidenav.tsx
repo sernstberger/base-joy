@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import { Badge, Sheet } from '@base-joy/ui-components';
+import { Badge, Sheet } from '@base-joy/ui-styled';
 import { navigation } from '../../config/navigation';
 
 export function Sidenav() {

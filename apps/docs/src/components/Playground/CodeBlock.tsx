@@ -1,1 +1,1 @@
-export { CodeBlock } from '@base-joy/ui-components';
+export { CodeBlock } from '@base-joy/ui-styled';

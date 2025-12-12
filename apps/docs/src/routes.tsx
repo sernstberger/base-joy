@@ -2,39 +2,39 @@ import { createBrowserRouter } from 'react-router';
 import { Layout } from './components/Layout/Layout';
 import { HomePage } from './pages/index';
 import { GettingStartedPage } from './pages/getting-started/index';
-import { BaseItemPage } from './pages/base/Item';
-import { SheetPage } from './pages/components/Sheet';
-import { ItemPage } from './pages/components/Item';
-import { TablePage } from './pages/components/Table';
-import { TypographyPage } from './pages/components/Typography';
-import { BadgePage } from './pages/components/Badge';
-import { DividerPage } from './pages/components/Divider';
-import { AvatarPage } from './pages/components/Avatar';
-import { ButtonPage } from './pages/components/Button';
-import { LinkPage } from './pages/components/Link';
-import { InputPage } from './pages/components/Input';
-import { ContainerPage } from './pages/components/Container';
-import { StackPage } from './pages/components/Stack';
-import { GridPage } from './pages/components/Grid';
-import { TextareaPage } from './pages/components/Textarea';
-import { CardPage } from './pages/components/Card';
-import { FormPage } from './pages/components/Form';
-import { FieldPage } from './pages/components/Field';
-import { FieldsetPage } from './pages/components/Fieldset';
-import { CheckboxPage } from './pages/components/Checkbox';
-import { CheckboxGroupPage } from './pages/components/CheckboxGroup';
-import { RadioPage } from './pages/components/Radio';
-import { RadioGroupPage } from './pages/components/RadioGroup';
-import { SwitchPage } from './pages/components/Switch';
-import { SelectPage } from './pages/components/Select';
-import { ComboboxPage } from './pages/components/Combobox';
-import { AutocompletePage } from './pages/components/Autocomplete';
-import { SliderPage } from './pages/components/Slider';
-import { NumberFieldPage } from './pages/components/NumberField';
-import { ToastPage } from './pages/components/Toast';
-import { CodeBlockPage } from './pages/components/CodeBlock';
-import { TogglePage } from './pages/components/Toggle';
-import { ToggleGroupPage } from './pages/components/ToggleGroup';
+import { UnstyledItemPage } from './pages/unstyled/Item';
+import { SheetPage } from './pages/styled/Sheet';
+import { ItemPage } from './pages/styled/Item';
+import { TablePage } from './pages/styled/Table';
+import { TypographyPage } from './pages/styled/Typography';
+import { BadgePage } from './pages/styled/Badge';
+import { DividerPage } from './pages/styled/Divider';
+import { AvatarPage } from './pages/styled/Avatar';
+import { ButtonPage } from './pages/styled/Button';
+import { LinkPage } from './pages/styled/Link';
+import { InputPage } from './pages/styled/Input';
+import { ContainerPage } from './pages/styled/Container';
+import { StackPage } from './pages/styled/Stack';
+import { GridPage } from './pages/styled/Grid';
+import { TextareaPage } from './pages/styled/Textarea';
+import { CardPage } from './pages/styled/Card';
+import { FormPage } from './pages/styled/Form';
+import { FieldPage } from './pages/styled/Field';
+import { FieldsetPage } from './pages/styled/Fieldset';
+import { CheckboxPage } from './pages/styled/Checkbox';
+import { CheckboxGroupPage } from './pages/styled/CheckboxGroup';
+import { RadioPage } from './pages/styled/Radio';
+import { RadioGroupPage } from './pages/styled/RadioGroup';
+import { SwitchPage } from './pages/styled/Switch';
+import { SelectPage } from './pages/styled/Select';
+import { ComboboxPage } from './pages/styled/Combobox';
+import { AutocompletePage } from './pages/styled/Autocomplete';
+import { SliderPage } from './pages/styled/Slider';
+import { NumberFieldPage } from './pages/styled/NumberField';
+import { ToastPage } from './pages/styled/Toast';
+import { CodeBlockPage } from './pages/styled/CodeBlock';
+import { TogglePage } from './pages/styled/Toggle';
+import { ToggleGroupPage } from './pages/styled/ToggleGroup';
 
 export const router = createBrowserRouter([
   {
@@ -50,135 +50,135 @@ export const router = createBrowserRouter([
         element: <GettingStartedPage />,
       },
       {
-        path: 'base/item',
-        element: <BaseItemPage />,
+        path: 'unstyled/item',
+        element: <UnstyledItemPage />,
       },
       {
-        path: 'components/sheet',
+        path: 'styled/sheet',
         element: <SheetPage />,
       },
       {
-        path: 'components/item',
+        path: 'styled/item',
         element: <ItemPage />,
       },
       {
-        path: 'components/table',
+        path: 'styled/table',
         element: <TablePage />,
       },
       {
-        path: 'components/typography',
+        path: 'styled/typography',
         element: <TypographyPage />,
       },
       {
-        path: 'components/badge',
+        path: 'styled/badge',
         element: <BadgePage />,
       },
       {
-        path: 'components/divider',
+        path: 'styled/divider',
         element: <DividerPage />,
       },
       {
-        path: 'components/avatar',
+        path: 'styled/avatar',
         element: <AvatarPage />,
       },
       {
-        path: 'components/button',
+        path: 'styled/button',
         element: <ButtonPage />,
       },
       {
-        path: 'components/link',
+        path: 'styled/link',
         element: <LinkPage />,
       },
       {
-        path: 'components/input',
+        path: 'styled/input',
         element: <InputPage />,
       },
       {
-        path: 'components/container',
+        path: 'styled/container',
         element: <ContainerPage />,
       },
       {
-        path: 'components/stack',
+        path: 'styled/stack',
         element: <StackPage />,
       },
       {
-        path: 'components/grid',
+        path: 'styled/grid',
         element: <GridPage />,
       },
       {
-        path: 'components/textarea',
+        path: 'styled/textarea',
         element: <TextareaPage />,
       },
       {
-        path: 'components/card',
+        path: 'styled/card',
         element: <CardPage />,
       },
       {
-        path: 'components/form',
+        path: 'styled/form',
         element: <FormPage />,
       },
       {
-        path: 'components/field',
+        path: 'styled/field',
         element: <FieldPage />,
       },
       {
-        path: 'components/fieldset',
+        path: 'styled/fieldset',
         element: <FieldsetPage />,
       },
       {
-        path: 'components/checkbox',
+        path: 'styled/checkbox',
         element: <CheckboxPage />,
       },
       {
-        path: 'components/checkbox-group',
+        path: 'styled/checkbox-group',
         element: <CheckboxGroupPage />,
       },
       {
-        path: 'components/radio',
+        path: 'styled/radio',
         element: <RadioPage />,
       },
       {
-        path: 'components/radio-group',
+        path: 'styled/radio-group',
         element: <RadioGroupPage />,
       },
       {
-        path: 'components/switch',
+        path: 'styled/switch',
         element: <SwitchPage />,
       },
       {
-        path: 'components/select',
+        path: 'styled/select',
         element: <SelectPage />,
       },
       {
-        path: 'components/combobox',
+        path: 'styled/combobox',
         element: <ComboboxPage />,
       },
       {
-        path: 'components/autocomplete',
+        path: 'styled/autocomplete',
         element: <AutocompletePage />,
       },
       {
-        path: 'components/slider',
+        path: 'styled/slider',
         element: <SliderPage />,
       },
       {
-        path: 'components/number-field',
+        path: 'styled/number-field',
         element: <NumberFieldPage />,
       },
       {
-        path: 'components/toast',
+        path: 'styled/toast',
         element: <ToastPage />,
       },
       {
-        path: 'components/code-block',
+        path: 'styled/code-block',
         element: <CodeBlockPage />,
       },
       {
-        path: 'components/toggle',
+        path: 'styled/toggle',
         element: <TogglePage />,
       },
       {
-        path: 'components/toggle-group',
+        path: 'styled/toggle-group',
         element: <ToggleGroupPage />,
       },
     ],
