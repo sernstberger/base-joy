@@ -13,6 +13,8 @@ export {
   cardContentVariants,
   cardFooterVariants,
   cardMediaVariants,
+  CardContext,
+  useCardContext,
   type CardProps,
   type CardHeaderProps,
   type CardTitleProps,

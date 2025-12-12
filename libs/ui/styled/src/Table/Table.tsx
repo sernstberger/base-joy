@@ -1,34 +1,18 @@
 import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size } from '@base-joy/tokens';
-
-/**
- * For container styling, wrap in Sheet:
- * ```tsx
- * <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
- *   <Table>...</Table>
- * </Sheet>
- * ```
- */
-
-const tableVariants = cva('w-full text-sm', {
-  variants: {
-    variant: {
-      default: '',
-      striped: '',
-    },
-    size: {
-      sm: '',
-      md: '',
-      lg: '',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-    size: 'md',
-  },
-});
+import {
+  TableContext,
+  useTableContext,
+  tableRowVariants as unstyledTableRowVariants,
+  type TableProps as BaseTableProps,
+  type TableHeadProps as BaseTableHeadProps,
+  type TableBodyProps as BaseTableBodyProps,
+  type TableRowProps as BaseTableRowProps,
+  type TableHeaderProps as BaseTableHeaderProps,
+  type TableCellProps as BaseTableCellProps,
+} from '@base-joy/ui-unstyled';
 
 const tableHeadVariants = cva('bg-neutral-50 border-b border-neutral-200', {
   variants: {
@@ -58,7 +42,7 @@ const tableBodyVariants = cva('divide-y divide-neutral-200', {
 const tableRowVariants = cva('transition-colors', {
   variants: {
     interactive: {
-      true: 'hover:bg-neutral-100 cursor-pointer',
+      true: 'hover:bg-neutral-100',
       false: '',
     },
     selected: {
@@ -79,12 +63,12 @@ const tableRowVariants = cva('transition-colors', {
   },
 });
 
-const tableHeaderVariants = cva('text-left font-medium text-neutral-700', {
+const tableHeaderVariants = cva('text-neutral-700', {
   variants: {
     size: {
-      sm: 'px-3 py-2 text-xs',
-      md: 'px-4 py-3 text-sm',
-      lg: 'px-5 py-4 text-base',
+      sm: '',
+      md: '',
+      lg: '',
     },
   },
   defaultVariants: {
@@ -95,9 +79,9 @@ const tableHeaderVariants = cva('text-left font-medium text-neutral-700', {
 const tableCellVariants = cva('text-neutral-600', {
   variants: {
     size: {
-      sm: 'px-3 py-2 text-xs',
-      md: 'px-4 py-3 text-sm',
-      lg: 'px-5 py-4 text-base',
+      sm: '',
+      md: '',
+      lg: '',
     },
   },
   defaultVariants: {
@@ -107,82 +91,45 @@ const tableCellVariants = cva('text-neutral-600', {
 
 export type TableVariant = 'default' | 'striped';
 
-export interface TableProps
-  extends React.TableHTMLAttributes<HTMLTableElement>,
-    VariantProps<typeof tableVariants> {
-  /**
-   * The visual variant of the table.
-   * @default 'default'
-   */
-  variant?: TableVariant;
-
-  /**
-   * The size of the table cells.
-   * @default 'md'
-   */
-  size?: Size;
-}
-
-export interface TableHeadProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
-
-export interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
-
-export interface TableRowProps
-  extends React.HTMLAttributes<HTMLTableRowElement>,
-    VariantProps<typeof tableRowVariants> {
-  /**
-   * Whether the row is interactive (hoverable/clickable).
-   * @default false
-   */
-  interactive?: boolean;
-
-  /**
-   * Whether the row is selected.
-   * @default false
-   */
-  selected?: boolean;
-}
-
-export interface TableHeaderProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
-  /**
-   * The size of the header cell.
-   * Inherits from Table context if not specified.
-   */
-  size?: Size;
-}
-
-export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {
-  /**
-   * The size of the cell.
-   * Inherits from Table context if not specified.
-   */
-  size?: Size;
-}
-
-interface TableContextValue {
-  size: Size;
+interface StyledTableContextValue {
   variant: TableVariant;
 }
 
-const TableContext = React.createContext<TableContextValue>({
-  size: 'md',
+const StyledTableContext = React.createContext<StyledTableContextValue>({
   variant: 'default',
 });
 
-const useTableContext = () => React.useContext(TableContext);
+const useStyledTableContext = () => React.useContext(StyledTableContext);
+
+export interface TableProps extends BaseTableProps {
+  variant?: TableVariant;
+  size?: Size;
+}
+
+export interface TableHeadProps extends BaseTableHeadProps {}
+
+export interface TableBodyProps extends BaseTableBodyProps {}
+
+export interface TableRowProps extends BaseTableRowProps {}
+
+export interface TableHeaderProps extends BaseTableHeaderProps {}
+
+export interface TableCellProps extends BaseTableCellProps {}
 
 export const Table = React.forwardRef<HTMLTableElement, TableProps>(
   ({ className, variant = 'default', size = 'md', children, ...props }, ref) => {
     return (
-      <TableContext.Provider value={{ size, variant }}>
-        <table
-          ref={ref}
-          className={cn(tableVariants({ variant, size }), className)}
-          {...props}
-        >
-          {children}
-        </table>
-      </TableContext.Provider>
+      <StyledTableContext.Provider value={{ variant }}>
+        <TableContext.Provider value={{ size }}>
+          <table
+            ref={ref}
+            className={cn('w-full text-sm', className)}
+            {...props}
+          >
+            {children}
+          </table>
+        </TableContext.Provider>
+      </StyledTableContext.Provider>
     );
   }
 );
@@ -203,7 +150,7 @@ TableHead.displayName = 'TableHead';
 
 export const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
   ({ className, ...props }, ref) => {
-    const { variant } = useTableContext();
+    const { variant } = useStyledTableContext();
 
     return (
       <tbody ref={ref} className={cn(tableBodyVariants({ variant }), className)} {...props} />
@@ -218,7 +165,11 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
     return (
       <tr
         ref={ref}
-        className={cn(tableRowVariants({ interactive, selected }), className)}
+        className={cn(
+          unstyledTableRowVariants({ interactive, selected }),
+          tableRowVariants({ interactive, selected }),
+          className
+        )}
         {...props}
       />
     );
@@ -236,7 +187,14 @@ export const TableHeader = React.forwardRef<HTMLTableCellElement, TableHeaderPro
       <th
         ref={ref}
         scope={scope}
-        className={cn(tableHeaderVariants({ size }), className)}
+        className={cn(
+          'text-left font-medium',
+          size === 'sm' && 'px-3 py-2 text-xs',
+          size === 'md' && 'px-4 py-3 text-sm',
+          size === 'lg' && 'px-5 py-4 text-base',
+          tableHeaderVariants({ size }),
+          className
+        )}
         {...props}
       />
     );
@@ -251,7 +209,17 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
     const size = sizeProp ?? contextSize;
 
     return (
-      <td ref={ref} className={cn(tableCellVariants({ size }), className)} {...props} />
+      <td
+        ref={ref}
+        className={cn(
+          size === 'sm' && 'px-3 py-2 text-xs',
+          size === 'md' && 'px-4 py-3 text-sm',
+          size === 'lg' && 'px-5 py-4 text-base',
+          tableCellVariants({ size }),
+          className
+        )}
+        {...props}
+      />
     );
   }
 );
@@ -259,10 +227,12 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
 TableCell.displayName = 'TableCell';
 
 export {
-  tableVariants,
   tableHeadVariants,
   tableBodyVariants,
   tableRowVariants,
   tableHeaderVariants,
   tableCellVariants,
 };
+
+// Re-export tableVariants from unstyled for convenience
+export { tableVariants } from '@base-joy/ui-unstyled';

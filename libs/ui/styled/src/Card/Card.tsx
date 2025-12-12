@@ -4,6 +4,18 @@ import { cn } from '@base-joy/utils';
 import { Sheet } from '../Sheet';
 import { Typography } from '../Typography';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import {
+  CardContext,
+  useCardContext,
+  cardFooterVariants as unstyledCardFooterVariants,
+  type CardProps as BaseCardProps,
+  type CardHeaderProps as BaseCardHeaderProps,
+  type CardTitleProps as BaseCardTitleProps,
+  type CardDescriptionProps as BaseCardDescriptionProps,
+  type CardContentProps as BaseCardContentProps,
+  type CardFooterProps as BaseCardFooterProps,
+  type CardMediaProps as BaseCardMediaProps,
+} from '@base-joy/ui-unstyled';
 
 const cardHeaderVariants = cva('', {
   variants: {
@@ -31,7 +43,7 @@ const cardContentVariants = cva('', {
   },
 });
 
-const cardFooterVariants = cva('border-t border-neutral-200', {
+const cardFooterVariants = cva('border-neutral-200', {
   variants: {
     size: {
       sm: 'p-3',
@@ -57,58 +69,53 @@ const cardMediaVariants = cva('w-full object-cover', {
   },
 });
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends Omit<BaseCardProps, 'size'> {
   variant?: Variant;
   color?: ColorScale;
   size?: Size;
 }
 
-export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardHeaderProps extends BaseCardHeaderProps {}
 
-export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+export interface CardTitleProps extends BaseCardTitleProps {}
 
-export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+export interface CardDescriptionProps extends BaseCardDescriptionProps {}
 
-export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardContentProps extends BaseCardContentProps {}
 
-export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface CardFooterProps extends BaseCardFooterProps {}
 
-export type CardMediaProps = (
-  | React.ImgHTMLAttributes<HTMLImageElement>
-  | (React.VideoHTMLAttributes<HTMLVideoElement> & { as: 'video' })
-) & {
-  as?: 'img' | 'video';
-};
+export interface CardMediaProps extends BaseCardMediaProps {}
 
-interface CardContextValue {
+interface StyledCardContextValue {
   variant: Variant;
   color: ColorScale;
-  size: Size;
 }
 
-const CardContext = React.createContext<CardContextValue>({
+const StyledCardContext = React.createContext<StyledCardContextValue>({
   variant: 'outlined',
   color: 'neutral',
-  size: 'md',
 });
 
-const useCardContext = () => React.useContext(CardContext);
+const useStyledCardContext = () => React.useContext(StyledCardContext);
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = 'outlined', color = 'neutral', size = 'md', children, ...props }, ref) => {
     return (
-      <CardContext.Provider value={{ variant, color, size }}>
-        <Sheet
-          ref={ref}
-          variant={variant}
-          color={color}
-          size="md"
-          className={cn('p-0 overflow-hidden', className)}
-          {...props}
-        >
-          {children}
-        </Sheet>
-      </CardContext.Provider>
+      <StyledCardContext.Provider value={{ variant, color }}>
+        <CardContext.Provider value={{ size }}>
+          <Sheet
+            ref={ref}
+            variant={variant}
+            color={color}
+            size="md"
+            className={cn('p-0 overflow-hidden', className)}
+            {...props}
+          >
+            {children}
+          </Sheet>
+        </CardContext.Provider>
+      </StyledCardContext.Provider>
     );
   }
 );
@@ -178,7 +185,15 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
     const { size } = useCardContext();
 
     return (
-      <div ref={ref} className={cn(cardFooterVariants({ size }), className)} {...props} />
+      <div
+        ref={ref}
+        className={cn(
+          unstyledCardFooterVariants({ size }),
+          cardFooterVariants({ size }),
+          className
+        )}
+        {...props}
+      />
     );
   }
 );
@@ -207,3 +222,6 @@ export {
   cardFooterVariants,
   cardMediaVariants,
 };
+
+// Re-export variants from unstyled for convenience
+export { cardVariants, cardTitleVariants, cardDescriptionVariants } from '@base-joy/ui-unstyled';
