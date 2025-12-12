@@ -95,12 +95,9 @@ describe('CheckboxGroup', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
         <CheckboxGroup aria-label="Options">
-          <label>
-            <Checkbox.Root value="a">
-              <Checkbox.Indicator />
-            </Checkbox.Root>
-            Option A
-          </label>
+          <Checkbox.Root value="a" aria-label="Option A">
+            <Checkbox.Indicator />
+          </Checkbox.Root>
         </CheckboxGroup>
       );
 

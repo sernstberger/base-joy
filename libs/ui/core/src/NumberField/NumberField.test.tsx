@@ -150,10 +150,10 @@ describe('NumberField', () => {
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
-        <NumberField.Root aria-label="Quantity">
+        <NumberField.Root>
           <NumberField.Group>
             <NumberField.Decrement aria-label="Decrease" />
-            <NumberField.Input />
+            <NumberField.Input aria-label="Quantity" />
             <NumberField.Increment aria-label="Increase" />
           </NumberField.Group>
         </NumberField.Root>

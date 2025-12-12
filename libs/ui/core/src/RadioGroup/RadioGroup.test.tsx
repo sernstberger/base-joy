@@ -95,12 +95,9 @@ describe('RadioGroup', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
         <RadioGroup aria-label="Select option">
-          <label>
-            <Radio.Root value="a">
-              <Radio.Indicator />
-            </Radio.Root>
-            Option A
-          </label>
+          <Radio.Root value="a" aria-label="Option A">
+            <Radio.Indicator />
+          </Radio.Root>
         </RadioGroup>
       );
 

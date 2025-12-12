@@ -78,9 +78,76 @@ import { sheetVariants } from '../Sheet';
 
 ## Testing
 
+**All tests must pass. No failing tests are acceptable.**
+
 - Jest + Testing Library
-- jest-axe for accessibility
+- jest-axe for accessibility testing
 - Tests live next to components: `Component.test.tsx`
+- TypeScript strict mode is enabled
+
+### Running Tests
+
+```bash
+yarn test          # Run all tests
+yarn test:watch    # Run tests in watch mode
+yarn test:coverage # Run tests with coverage
+```
+
+### Test Requirements
+
+Every component must have tests covering:
+- Basic rendering
+- Variants, colors, and sizes
+- States (disabled, error, etc.)
+- Accessibility (using jest-axe)
+- Ref forwarding
+- className merging
+
+### Accessibility Testing Patterns
+
+Base UI components use ARIA roles instead of native HTML elements. Use proper accessible names:
+
+```tsx
+// Toggle fields (Checkbox, Radio, Switch) - use aria-label on Root
+<Checkbox.Root aria-label="Accept terms">
+  <Checkbox.Indicator />
+</Checkbox.Root>
+
+// Form fields - use aria-label on Input element
+<NumberField.Root>
+  <NumberField.Input aria-label="Quantity" />
+</NumberField.Root>
+
+// Native elements (Input, Textarea) - use label element
+<label>
+  Username
+  <Input />
+</label>
+```
+
+### Testing ARIA Elements
+
+Base UI ARIA components use `aria-disabled` instead of the native `disabled` attribute:
+
+```tsx
+// Wrong - ARIA elements don't support toBeDisabled()
+expect(screen.getByRole('checkbox')).toBeDisabled();
+
+// Correct - check aria-disabled attribute
+expect(screen.getByRole('checkbox')).toHaveAttribute('aria-disabled', 'true');
+```
+
+### Async Testing
+
+For components with popups/animations, wait for visibility:
+
+```tsx
+await user.click(screen.getByRole('combobox'));
+await waitFor(() => {
+  expect(screen.getByText('Option B')).toBeVisible();
+});
+await user.click(screen.getByText('Option B'));
+```
 
 ## File Structure
 
@@ -94,8 +161,9 @@ libs/ui/core/src/
 
 ## Commands
 
-- `yarn build` - Build all packages
-- `yarn test` - Run tests (or `yarn jest`)
+- `yarn test` - Run all tests
+- `yarn test:watch` - Run tests in watch mode
+- `yarn test:coverage` - Run tests with coverage
 - `yarn docs:dev` - Run docs dev server
 - `yarn docs:build` - Build docs (includes props generation)
 - `yarn props:generate` - Generate component props JSON for docs

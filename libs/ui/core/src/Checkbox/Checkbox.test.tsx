@@ -60,7 +60,7 @@ describe('Checkbox', () => {
         </Checkbox.Root>
       );
 
-      expect(screen.getByRole('checkbox')).toBeDisabled();
+      expect(screen.getByRole('checkbox')).toHaveAttribute('aria-disabled', 'true');
     });
 
     it('can be controlled', async () => {
@@ -93,12 +93,9 @@ describe('Checkbox', () => {
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
-        <label>
-          <Checkbox.Root>
-            <Checkbox.Indicator />
-          </Checkbox.Root>
-          Accept terms
-        </label>
+        <Checkbox.Root aria-label="Accept terms">
+          <Checkbox.Indicator />
+        </Checkbox.Root>
       );
 
       const results = await axe(container);

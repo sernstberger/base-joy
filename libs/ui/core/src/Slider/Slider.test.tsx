@@ -110,12 +110,12 @@ describe('Slider', () => {
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
-        <Slider.Root defaultValue={50} aria-label="Volume">
+        <Slider.Root defaultValue={50}>
           <Slider.Control>
             <Slider.Track>
               <Slider.Indicator />
             </Slider.Track>
-            <Slider.Thumb />
+            <Slider.Thumb aria-label="Volume" />
           </Slider.Control>
         </Slider.Root>
       );

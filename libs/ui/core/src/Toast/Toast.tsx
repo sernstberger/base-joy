@@ -261,4 +261,6 @@ export const Toast = {
   Close,
 };
 
-export { toastViewportVariants, toastRootVariants, toastTitleVariants, toastDescriptionVariants };
+const useToastManager = BaseToast.useToastManager;
+
+export { toastViewportVariants, toastRootVariants, toastTitleVariants, toastDescriptionVariants, useToastManager };

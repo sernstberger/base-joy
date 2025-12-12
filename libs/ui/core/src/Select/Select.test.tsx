@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Select } from './Select';
@@ -129,6 +129,9 @@ describe('Select', () => {
       );
 
       await user.click(screen.getByRole('combobox'));
+      await waitFor(() => {
+        expect(screen.getByText('Option B')).toBeVisible();
+      });
       await user.click(screen.getByText('Option B'));
 
       expect(onChange).toHaveBeenCalledWith('b', expect.anything());

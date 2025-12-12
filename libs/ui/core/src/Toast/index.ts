@@ -4,6 +4,7 @@ export {
   toastRootVariants,
   toastTitleVariants,
   toastDescriptionVariants,
+  useToastManager,
   type ToastProviderProps,
   type ToastViewportProps,
   type ToastRootProps,

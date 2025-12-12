@@ -62,7 +62,7 @@ describe('Radio', () => {
         </RadioGroup>
       );
 
-      expect(screen.getByRole('radio')).toBeDisabled();
+      expect(screen.getByRole('radio')).toHaveAttribute('aria-disabled', 'true');
     });
   });
 
@@ -84,18 +84,12 @@ describe('Radio', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
         <RadioGroup aria-label="Options">
-          <label>
-            <Radio.Root value="a">
-              <Radio.Indicator />
-            </Radio.Root>
-            Option A
-          </label>
-          <label>
-            <Radio.Root value="b">
-              <Radio.Indicator />
-            </Radio.Root>
-            Option B
-          </label>
+          <Radio.Root value="a" aria-label="Option A">
+            <Radio.Indicator />
+          </Radio.Root>
+          <Radio.Root value="b" aria-label="Option B">
+            <Radio.Indicator />
+          </Radio.Root>
         </RadioGroup>
       );
 

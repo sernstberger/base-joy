@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Avatar, AvatarGroup } from './Avatar';
 
@@ -11,13 +11,15 @@ describe('Avatar', () => {
         onerror: (() => void) | null = null;
         src = '';
         constructor() {
-          queueMicrotask(() => {
-            if (this.src && !this.src.includes('invalid')) {
-              this.onload?.();
-            } else if (this.src.includes('invalid')) {
-              this.onerror?.();
-            }
-          });
+          setTimeout(() => {
+            act(() => {
+              if (this.src && !this.src.includes('invalid')) {
+                this.onload?.();
+              } else if (this.src.includes('invalid')) {
+                this.onerror?.();
+              }
+            });
+          }, 0);
         }
       } as any;
     });

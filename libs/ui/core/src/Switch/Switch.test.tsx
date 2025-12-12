@@ -66,7 +66,7 @@ describe('Switch', () => {
         </Switch.Root>
       );
 
-      expect(screen.getByRole('switch')).toBeDisabled();
+      expect(screen.getByRole('switch')).toHaveAttribute('aria-disabled', 'true');
     });
 
     it('can be controlled', async () => {
@@ -99,12 +99,9 @@ describe('Switch', () => {
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
-        <label>
-          <Switch.Root>
-            <Switch.Thumb />
-          </Switch.Root>
-          Enable notifications
-        </label>
+        <Switch.Root aria-label="Enable notifications">
+          <Switch.Thumb />
+        </Switch.Root>
       );
 
       const results = await axe(container);
