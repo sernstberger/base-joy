@@ -47,7 +47,7 @@ const sheetVariants = cva(
       { variant: 'solid', color: 'primary', className: 'bg-primary-500 text-white' },
       { variant: 'solid', color: 'neutral', className: 'bg-neutral-800 text-white' },
       { variant: 'solid', color: 'success', className: 'bg-success-500 text-white' },
-      { variant: 'solid', color: 'warning', className: 'bg-warning-500 text-white' },
+      { variant: 'solid', color: 'warning', className: 'bg-warning-600 text-white' },
       { variant: 'solid', color: 'danger', className: 'bg-danger-500 text-white' },
 
       // Soft variants
@@ -151,7 +151,7 @@ const sheetVariants = cva(
       { interactive: true, variant: 'solid', color: 'primary', className: 'hover:bg-primary-600 active:bg-primary-700' },
       { interactive: true, variant: 'solid', color: 'neutral', className: 'hover:bg-neutral-700 active:bg-neutral-600' },
       { interactive: true, variant: 'solid', color: 'success', className: 'hover:bg-success-600 active:bg-success-700' },
-      { interactive: true, variant: 'solid', color: 'warning', className: 'hover:bg-warning-600 active:bg-warning-700' },
+      { interactive: true, variant: 'solid', color: 'warning', className: 'hover:bg-warning-700 active:bg-warning-800' },
       { interactive: true, variant: 'solid', color: 'danger', className: 'hover:bg-danger-600 active:bg-danger-700' },
 
       // Interactive hover states - soft variant
@@ -174,6 +174,27 @@ const sheetVariants = cva(
       { interactive: true, variant: 'plain', color: 'success', className: 'hover:bg-success-50 active:bg-success-100' },
       { interactive: true, variant: 'plain', color: 'warning', className: 'hover:bg-warning-50 active:bg-warning-100' },
       { interactive: true, variant: 'plain', color: 'danger', className: 'hover:bg-danger-50 active:bg-danger-100' },
+
+      // Interactive text color adjustments for active states - soft variant
+      // Warning and danger need extra dark text (950) on active state (bg-300)
+      { interactive: true, variant: 'soft', color: 'warning', className: 'active:text-warning-950' },
+      { interactive: true, variant: 'soft', color: 'danger', className: 'active:text-danger-950' },
+
+      // Interactive text color adjustments for active states - outlined variant
+      // All colors darken from 700 to 800 on active (bg-100)
+      { interactive: true, variant: 'outlined', color: 'primary', className: 'active:text-primary-800' },
+      { interactive: true, variant: 'outlined', color: 'neutral', className: 'active:text-neutral-800' },
+      { interactive: true, variant: 'outlined', color: 'success', className: 'active:text-success-800' },
+      { interactive: true, variant: 'outlined', color: 'warning', className: 'active:text-warning-800' },
+      { interactive: true, variant: 'outlined', color: 'danger', className: 'active:text-danger-800' },
+
+      // Interactive text color adjustments for active states - plain variant
+      // All colors darken from 700 to 800 on active (bg-100)
+      { interactive: true, variant: 'plain', color: 'primary', className: 'active:text-primary-800' },
+      { interactive: true, variant: 'plain', color: 'neutral', className: 'active:text-neutral-800' },
+      { interactive: true, variant: 'plain', color: 'success', className: 'active:text-success-800' },
+      { interactive: true, variant: 'plain', color: 'warning', className: 'active:text-warning-800' },
+      { interactive: true, variant: 'plain', color: 'danger', className: 'active:text-danger-800' },
     ],
     defaultVariants: {
       variant: 'soft',

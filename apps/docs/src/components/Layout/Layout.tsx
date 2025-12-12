@@ -5,7 +5,7 @@ export function Layout() {
   return (
     <div className="h-screen flex overflow-hidden">
       <Sidenav />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto text-neutral-600">
         <div className="p-8">
           <Outlet />
         </div>

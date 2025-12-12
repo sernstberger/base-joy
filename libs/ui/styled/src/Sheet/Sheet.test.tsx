@@ -87,7 +87,7 @@ describe('Sheet', () => {
       ['primary', 'bg-primary-500'],
       ['neutral', 'bg-neutral-800'], // neutral uses 800 for better contrast
       ['success', 'bg-success-500'],
-      ['warning', 'bg-warning-500'],
+      ['warning', 'bg-warning-600'], // warning uses 600 for WCAG AAA compliance
       ['danger', 'bg-danger-500'],
     ] as const)(
       'renders %s color with solid variant',
@@ -215,6 +215,66 @@ describe('Sheet', () => {
       );
       const sheet = screen.getByRole('region');
       expect(sheet).toHaveAttribute('aria-label', 'Info panel');
+    });
+  });
+
+  describe('WCAG text color compliance', () => {
+    describe('interactive text colors on active states', () => {
+      it('applies darker text on soft warning active state', () => {
+        const { container } = render(
+          <Sheet variant="soft" color="warning" interactive>
+            Test
+          </Sheet>
+        );
+        const sheet = container.firstChild as HTMLElement;
+        expect(sheet).toHaveClass('active:text-warning-950');
+      });
+
+      it('applies darker text on soft danger active state', () => {
+        const { container } = render(
+          <Sheet variant="soft" color="danger" interactive>
+            Test
+          </Sheet>
+        );
+        const sheet = container.firstChild as HTMLElement;
+        expect(sheet).toHaveClass('active:text-danger-950');
+      });
+
+      it('applies darker text on outlined variant active states', () => {
+        const colors = ['primary', 'neutral', 'success', 'warning', 'danger'] as const;
+        colors.forEach((color) => {
+          const { container } = render(
+            <Sheet variant="outlined" color={color} interactive>
+              Test
+            </Sheet>
+          );
+          const sheet = container.firstChild as HTMLElement;
+          expect(sheet).toHaveClass(`active:text-${color}-800`);
+        });
+      });
+
+      it('applies darker text on plain variant active states', () => {
+        const colors = ['primary', 'neutral', 'success', 'warning', 'danger'] as const;
+        colors.forEach((color) => {
+          const { container } = render(
+            <Sheet variant="plain" color={color} interactive>
+              Test
+            </Sheet>
+          );
+          const sheet = container.firstChild as HTMLElement;
+          expect(sheet).toHaveClass(`active:text-${color}-800`);
+        });
+      });
+
+      it('does not apply active text colors when not interactive', () => {
+        const { container } = render(
+          <Sheet variant="outlined" color="primary" interactive={false}>
+            Test
+          </Sheet>
+        );
+        const sheet = container.firstChild as HTMLElement;
+        expect(sheet).not.toHaveClass('active:text-primary-800');
+      });
     });
   });
 

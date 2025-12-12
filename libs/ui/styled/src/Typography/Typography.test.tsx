@@ -17,6 +17,13 @@ describe('Typography', () => {
 
     it('applies default body-md styling', () => {
       const { container } = render(<Typography>Content</Typography>);
+      expect(container.firstChild).toHaveClass('text-base');
+      // Default color is 'inherit', so no text color class is applied
+      expect(container.firstChild).not.toHaveClass('text-neutral-600');
+    });
+
+    it('applies neutral color when explicitly set', () => {
+      const { container } = render(<Typography color="neutral">Content</Typography>);
       expect(container.firstChild).toHaveClass('text-base', 'text-neutral-600');
     });
   });
@@ -35,9 +42,14 @@ describe('Typography', () => {
       expect(container.firstChild).toHaveClass(expectedClass, 'font-bold');
     });
 
-    it('uses neutral-900 color for headings', () => {
-      const { container } = render(<Typography level="h1">Content</Typography>);
+    it('uses neutral-900 color for headings when explicitly set', () => {
+      const { container } = render(<Typography level="h1" color="neutral">Content</Typography>);
       expect(container.firstChild).toHaveClass('text-neutral-900');
+    });
+
+    it('inherits color by default for headings', () => {
+      const { container } = render(<Typography level="h1">Content</Typography>);
+      expect(container.firstChild).not.toHaveClass('text-neutral-900');
     });
   });
 
@@ -54,9 +66,14 @@ describe('Typography', () => {
       expect(container.firstChild).toHaveClass(expectedClass);
     });
 
-    it('uses neutral-600 color for body text', () => {
-      const { container } = render(<Typography level="body-md">Content</Typography>);
+    it('uses neutral-600 color for body text when explicitly set', () => {
+      const { container } = render(<Typography level="body-md" color="neutral">Content</Typography>);
       expect(container.firstChild).toHaveClass('text-neutral-600');
+    });
+
+    it('inherits color by default for body text', () => {
+      const { container } = render(<Typography level="body-md">Content</Typography>);
+      expect(container.firstChild).not.toHaveClass('text-neutral-600');
     });
   });
 

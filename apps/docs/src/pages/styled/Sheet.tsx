@@ -41,6 +41,7 @@ const sections = [
   { id: 'as-different-elements', title: 'As Different Elements', level: 3 },
   { id: 'focus-within', title: 'Focus Within', level: 3 },
   { id: 'nested-sheets', title: 'Nested Sheets', level: 3 },
+  { id: 'automatic-contrast', title: 'Automatic Contrast' },
   { id: 'api', title: 'API Reference' },
 ];
 
@@ -76,7 +77,7 @@ export function SheetPage() {
                     <Typography level="body-md" weight="medium">
                       Sheet Component
                     </Typography>
-                    <Typography level="body-sm" className="text-neutral-600">
+                    <Typography level="body-sm" className="opacity-80">
                       {interactive
                         ? 'Try clicking or tabbing to see focus styles'
                         : 'A styled container with CVA variants'}
@@ -450,6 +451,59 @@ export function SheetPage() {
                     </Sheet>
                   </Sheet>
                 </Section>
+              </div>
+            </div>
+          </Section>
+
+          <Section title="Automatic Contrast" id="automatic-contrast">
+            <Typography level="body-sm" className="mb-4">
+              Sheet automatically ensures accessible text colors following WCAG
+              AA/AAA standards. Text colors adjust dynamically on interactive
+              states to maintain optimal contrast as backgrounds change.
+            </Typography>
+
+            <div className="space-y-4">
+              <div>
+                <Typography level="body-sm" weight="semibold" className="mb-2">
+                  How it works
+                </Typography>
+                <Typography level="body-xs" className="text-neutral-600 mb-2">
+                  Each variant uses carefully selected text shades that provide
+                  accessible contrast:
+                </Typography>
+                <ul className="space-y-1 ml-6 list-disc">
+                  <li>
+                    <Typography level="body-xs" className="text-neutral-600">
+                      <strong>Solid:</strong> White text on color-500+
+                      backgrounds (warning uses color-600 for enhanced contrast)
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography level="body-xs" className="text-neutral-600">
+                      <strong>Soft:</strong> Dark text (color-900/950) on light
+                      backgrounds (color-100-300)
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography level="body-xs" className="text-neutral-600">
+                      <strong>Outlined/Plain:</strong> Medium-dark text
+                      (color-700/800) on transparent/light backgrounds
+                    </Typography>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <Typography level="body-sm" weight="semibold" className="mb-2">
+                  Interactive states
+                </Typography>
+                <Typography level="body-xs" className="text-neutral-600">
+                  When{' '}
+                  <code className="font-mono text-sm">interactive={'{'}true{'}'}</code>,
+                  text automatically darkens on active states to maintain AAA
+                  contrast as backgrounds darken. Non-interactive Sheets keep
+                  constant text colors.
+                </Typography>
               </div>
             </div>
           </Section>
