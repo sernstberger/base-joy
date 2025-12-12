@@ -1,0 +1,18 @@
+export {
+  Autocomplete,
+  autocompleteInputVariants,
+  autocompletePopupVariants,
+  autocompleteItemVariants,
+  type AutocompleteRootProps,
+  type AutocompleteInputProps,
+  type AutocompletePortalProps,
+  type AutocompletePositionerProps,
+  type AutocompletePopupProps,
+  type AutocompleteListProps,
+  type AutocompleteItemProps,
+  type AutocompleteItemIndicatorProps,
+  type AutocompleteItemTextProps,
+  type AutocompleteEmptyProps,
+  type AutocompleteGroupProps,
+  type AutocompleteGroupLabelProps,
+} from './Autocomplete';

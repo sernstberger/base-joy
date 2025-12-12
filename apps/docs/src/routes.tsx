@@ -16,6 +16,20 @@ import { StackPage } from './pages/components/Stack';
 import { GridPage } from './pages/components/Grid';
 import { TextareaPage } from './pages/components/Textarea';
 import { CardPage } from './pages/components/Card';
+import { FormPage } from './pages/components/Form';
+import { FieldPage } from './pages/components/Field';
+import { FieldsetPage } from './pages/components/Fieldset';
+import { CheckboxPage } from './pages/components/Checkbox';
+import { CheckboxGroupPage } from './pages/components/CheckboxGroup';
+import { RadioPage } from './pages/components/Radio';
+import { RadioGroupPage } from './pages/components/RadioGroup';
+import { SwitchPage } from './pages/components/Switch';
+import { SelectPage } from './pages/components/Select';
+import { ComboboxPage } from './pages/components/Combobox';
+import { AutocompletePage } from './pages/components/Autocomplete';
+import { SliderPage } from './pages/components/Slider';
+import { NumberFieldPage } from './pages/components/NumberField';
+import { ToastPage } from './pages/components/Toast';
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +99,62 @@ export const router = createBrowserRouter([
       {
         path: 'components/card',
         element: <CardPage />,
+      },
+      {
+        path: 'components/form',
+        element: <FormPage />,
+      },
+      {
+        path: 'components/field',
+        element: <FieldPage />,
+      },
+      {
+        path: 'components/fieldset',
+        element: <FieldsetPage />,
+      },
+      {
+        path: 'components/checkbox',
+        element: <CheckboxPage />,
+      },
+      {
+        path: 'components/checkbox-group',
+        element: <CheckboxGroupPage />,
+      },
+      {
+        path: 'components/radio',
+        element: <RadioPage />,
+      },
+      {
+        path: 'components/radio-group',
+        element: <RadioGroupPage />,
+      },
+      {
+        path: 'components/switch',
+        element: <SwitchPage />,
+      },
+      {
+        path: 'components/select',
+        element: <SelectPage />,
+      },
+      {
+        path: 'components/combobox',
+        element: <ComboboxPage />,
+      },
+      {
+        path: 'components/autocomplete',
+        element: <AutocompletePage />,
+      },
+      {
+        path: 'components/slider',
+        element: <SliderPage />,
+      },
+      {
+        path: 'components/number-field',
+        element: <NumberFieldPage />,
+      },
+      {
+        path: 'components/toast',
+        element: <ToastPage />,
       },
     ],
   },

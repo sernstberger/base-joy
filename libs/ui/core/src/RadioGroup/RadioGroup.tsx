@@ -1,0 +1,46 @@
+import * as React from 'react';
+import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';
+import { cva } from 'class-variance-authority';
+import { cn } from '@base-joy/utils';
+import type { Size } from '@base-joy/tokens';
+
+const radioGroupVariants = cva('flex', {
+  variants: {
+    orientation: {
+      horizontal: 'flex-row',
+      vertical: 'flex-col',
+    },
+    size: {
+      sm: 'gap-2',
+      md: 'gap-3',
+      lg: 'gap-4',
+    },
+  },
+  defaultVariants: {
+    orientation: 'vertical',
+    size: 'md',
+  },
+});
+
+export interface RadioGroupProps
+  extends Omit<React.ComponentProps<typeof BaseRadioGroup>, 'className'> {
+  orientation?: 'horizontal' | 'vertical';
+  size?: Size;
+  className?: string;
+}
+
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
+  ({ className, orientation = 'vertical', size = 'md', ...props }, ref) => {
+    return (
+      <BaseRadioGroup
+        ref={ref}
+        className={cn(radioGroupVariants({ orientation, size }), className)}
+        {...props}
+      />
+    );
+  }
+);
+
+RadioGroup.displayName = 'RadioGroup';
+
+export { radioGroupVariants };
