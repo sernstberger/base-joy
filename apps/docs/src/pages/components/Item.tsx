@@ -10,10 +10,10 @@ import {
   ItemActions,
   ItemFooter,
   ItemMedia,
+  Typography,
 } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Size } from '@base-joy/tokens';
@@ -86,10 +86,10 @@ export function ItemPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Item</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Item</Typography>
+        <Typography level="body-lg">
           A structured content component with start, content, and end slots.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -111,7 +111,7 @@ export function ItemPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Basic Item</Heading>
+            <Typography level="h3">Basic Item</Typography>
             <Sheet variant="outlined" color="neutral" className="max-w-md">
               <Item>
                 <ItemStart>
@@ -124,7 +124,7 @@ export function ItemPage() {
           </div>
 
           <div>
-            <Heading level={3}>Interactive Items</Heading>
+            <Typography level="h3">Interactive Items</Typography>
             <Sheet variant="outlined" color="neutral" className="max-w-md p-0 overflow-hidden">
               <Item interactive>
                 <ItemStart>
@@ -158,7 +158,7 @@ export function ItemPage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="flex flex-col gap-4 max-w-md">
               <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
                 <Item size="sm">
@@ -188,7 +188,7 @@ export function ItemPage() {
           </div>
 
           <div>
-            <Heading level={3}>Rich Card Layout</Heading>
+            <Typography level="h3">Rich Card Layout</Typography>
             <Sheet variant="outlined" color="neutral" className="max-w-md p-0 overflow-hidden">
               <Item className="flex-col items-start">
                 <div className="flex items-start gap-3 w-full">
@@ -223,7 +223,7 @@ export function ItemPage() {
           </div>
 
           <div>
-            <Heading level={3}>User List with Actions</Heading>
+            <Typography level="h3">User List with Actions</Typography>
             <Sheet variant="outlined" color="neutral" className="max-w-md p-0 overflow-hidden">
               <Item className="flex-col items-start">
                 <div className="flex items-center gap-3 w-full">
@@ -265,7 +265,7 @@ export function ItemPage() {
           </div>
 
           <div>
-            <Heading level={3}>Notification Items</Heading>
+            <Typography level="h3">Notification Items</Typography>
             <Sheet variant="outlined" color="neutral" className="max-w-md p-0 overflow-hidden">
               <Item interactive className="flex-col items-start">
                 <div className="flex items-start gap-3 w-full">
@@ -305,7 +305,7 @@ export function ItemPage() {
       </Section>
 
       <Section title="API Reference">
-        <Heading level={3}>Item Props</Heading>
+        <Typography level="h3">Item Props</Typography>
         <PropsTable props={componentProps.Item} />
       </Section>
 

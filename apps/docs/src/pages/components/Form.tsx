@@ -1,15 +1,14 @@
-import { Form, Field, Fieldset, Button } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Form, Field, Fieldset, Button, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function FormPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Form</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Form</Typography>
+        <Typography level="body-lg">
           A form container with validation support, wrapping Base UI Form.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">
@@ -35,10 +34,10 @@ export function FormPage() {
       <Section title="Validation Modes">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>onSubmit (default)</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">onSubmit (default)</Typography>
+            <Typography level="body-sm" className="mb-4">
               Validates when form is submitted.
-            </Text>
+            </Typography>
             <Form validationMode="onSubmit" className="max-w-md">
               <Field.Root name="name">
                 <Field.Label>Name</Field.Label>
@@ -49,10 +48,10 @@ export function FormPage() {
           </div>
 
           <div>
-            <Heading level={3}>onBlur</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">onBlur</Typography>
+            <Typography level="body-sm" className="mb-4">
               Validates when field loses focus.
-            </Text>
+            </Typography>
             <Form validationMode="onBlur" className="max-w-md">
               <Field.Root name="email">
                 <Field.Label>Email</Field.Label>
@@ -64,10 +63,10 @@ export function FormPage() {
           </div>
 
           <div>
-            <Heading level={3}>onChange</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">onChange</Typography>
+            <Typography level="body-sm" className="mb-4">
               Validates on every change.
-            </Text>
+            </Typography>
             <Form validationMode="onChange" className="max-w-md">
               <Field.Root name="username">
                 <Field.Label>Username</Field.Label>

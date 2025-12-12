@@ -1,7 +1,6 @@
-import { Badge } from '@base-joy/ui-core';
+import { Badge, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
@@ -19,10 +18,10 @@ export function BadgePage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Badge</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Badge</Typography>
+        <Typography level="body-lg">
           Small labels for categorization, status indicators, or counts.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -42,7 +41,7 @@ export function BadgePage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Variants</Heading>
+            <Typography level="h3">Variants</Typography>
             <div className="flex flex-wrap gap-3">
               <Badge variant="solid" color="primary">
                 Solid
@@ -60,12 +59,12 @@ export function BadgePage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <div className="space-y-3">
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Solid
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="solid" color="primary">
                     Primary
@@ -86,9 +85,9 @@ export function BadgePage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Soft
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="soft" color="primary">
                     Primary
@@ -109,9 +108,9 @@ export function BadgePage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Outlined
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="outlined" color="primary">
                     Primary
@@ -132,9 +131,9 @@ export function BadgePage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Plain
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="plain" color="primary">
                     Primary
@@ -157,7 +156,7 @@ export function BadgePage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="flex flex-wrap items-center gap-3">
               <Badge size="sm" color="primary">
                 Small
@@ -172,12 +171,12 @@ export function BadgePage() {
           </div>
 
           <div>
-            <Heading level={3}>With Decorators</Heading>
+            <Typography level="h3">With Decorators</Typography>
             <div className="space-y-3">
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Start Decorator
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge
                     variant="soft"
@@ -204,9 +203,9 @@ export function BadgePage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   End Decorator
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="soft" color="primary" endDecorator={<span>→</span>}>
                     Next
@@ -218,9 +217,9 @@ export function BadgePage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Both Decorators
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge
                     variant="outlined"
@@ -236,12 +235,12 @@ export function BadgePage() {
           </div>
 
           <div>
-            <Heading level={3}>Use Cases</Heading>
+            <Typography level="h3">Use Cases</Typography>
             <div className="space-y-3">
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Status Indicators
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="soft" color="success">
                     Active
@@ -259,9 +258,9 @@ export function BadgePage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Categories
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="outlined" color="primary">
                     React
@@ -276,9 +275,9 @@ export function BadgePage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Counts
-                </Text>
+                </Typography>
                 <div className="flex flex-wrap gap-3">
                   <Badge variant="solid" color="danger">
                     3
@@ -297,7 +296,7 @@ export function BadgePage() {
       </Section>
 
       <Section title="API Reference">
-        <Heading level={3}>Badge</Heading>
+        <Typography level="h3">Badge</Typography>
         <PropsTable props={componentProps.Badge} />
       </Section>
     </div>

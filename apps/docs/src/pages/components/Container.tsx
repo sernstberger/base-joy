@@ -1,6 +1,5 @@
-import { Container, Sheet } from '@base-joy/ui-core';
+import { Container, Sheet, Typography } from '@base-joy/ui-core';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 
@@ -8,16 +7,16 @@ export function ContainerPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Container</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Container</Typography>
+        <Typography level="body-lg">
           A responsive container with max-width constraints and automatic centering. Perfect for constraining content width on larger screens.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Default (Large, Centered)</Heading>
+            <Typography level="h3">Default (Large, Centered)</Typography>
             <div className="border border-dashed border-neutral-300 p-4">
               <Container>
                 <Sheet variant="soft" color="neutral">
@@ -28,10 +27,10 @@ export function ContainerPage() {
           </div>
 
           <div>
-            <Heading level={3}>Max Width Variants</Heading>
+            <Typography level="h3">Max Width Variants</Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">Extra Small (xs)</Text>
+                <Typography level="body-sm" className="mb-2">Extra Small (xs)</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="xs">
                     <Sheet variant="soft" color="primary">
@@ -42,7 +41,7 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">Small (sm)</Text>
+                <Typography level="body-sm" className="mb-2">Small (sm)</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="sm">
                     <Sheet variant="soft" color="success">
@@ -53,7 +52,7 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">Medium (md)</Text>
+                <Typography level="body-sm" className="mb-2">Medium (md)</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="md">
                     <Sheet variant="soft" color="warning">
@@ -64,7 +63,7 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">Large (lg) - Default</Text>
+                <Typography level="body-sm" className="mb-2">Large (lg) - Default</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="lg">
                     <Sheet variant="soft" color="danger">
@@ -75,7 +74,7 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">Extra Large (xl)</Text>
+                <Typography level="body-sm" className="mb-2">Extra Large (xl)</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="xl">
                     <Sheet variant="soft" color="primary">
@@ -86,7 +85,7 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">2X Large (2xl)</Text>
+                <Typography level="body-sm" className="mb-2">2X Large (2xl)</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="2xl">
                     <Sheet variant="soft" color="success">
@@ -97,7 +96,7 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">Full Width</Text>
+                <Typography level="body-sm" className="mb-2">Full Width</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="full">
                     <Sheet variant="soft" color="warning">
@@ -110,10 +109,10 @@ export function ContainerPage() {
           </div>
 
           <div>
-            <Heading level={3}>Centered vs Non-Centered</Heading>
+            <Typography level="h3">Centered vs Non-Centered</Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">Centered (default)</Text>
+                <Typography level="body-sm" className="mb-2">Centered (default)</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="sm" centered={true}>
                     <Sheet variant="outlined" color="neutral">
@@ -124,7 +123,7 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="muted" className="mb-2">Not Centered</Text>
+                <Typography level="body-sm" className="mb-2">Not Centered</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="sm" centered={false}>
                     <Sheet variant="outlined" color="neutral">
@@ -137,10 +136,10 @@ export function ContainerPage() {
           </div>
 
           <div>
-            <Heading level={3}>Responsive Padding</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">Responsive Padding</Typography>
+            <Typography level="body-sm" className="mb-4">
               Container includes responsive padding: px-4 on mobile, px-6 on tablets (sm), and px-8 on desktop (lg).
-            </Text>
+            </Typography>
             <div className="border border-dashed border-neutral-300">
               <Container>
                 <Sheet variant="soft" color="primary">
@@ -152,14 +151,14 @@ export function ContainerPage() {
           </div>
 
           <div>
-            <Heading level={3}>Polymorphic Component</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">Polymorphic Component</Typography>
+            <Typography level="body-sm" className="mb-4">
               Use the `as` prop to render Container as a semantic HTML element.
-            </Text>
+            </Typography>
             <div className="border border-dashed border-neutral-300 p-4">
               <Container as="main" maxWidth="md">
                 <Sheet variant="outlined" color="neutral">
-                  <Heading level={4}>Main Content</Heading>
+                  <Typography level="h4">Main Content</Typography>
                   <p>This Container renders as a &lt;main&gt; element for better semantics.</p>
                 </Sheet>
               </Container>
@@ -167,15 +166,15 @@ export function ContainerPage() {
           </div>
 
           <div>
-            <Heading level={3}>Common Use Cases</Heading>
+            <Typography level="h3">Common Use Cases</Typography>
             <div className="space-y-6 mt-4">
               <div>
-                <Text variant="subtitle" className="mb-3">Blog Post Layout</Text>
+                <Typography level="body-lg" className="mb-3">Blog Post Layout</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="md">
                     <Sheet variant="outlined" color="neutral">
-                      <Heading level={4}>Article Title</Heading>
-                      <Text variant="muted" className="mb-3">Published on December 11, 2025</Text>
+                      <Typography level="h4">Article Title</Typography>
+                      <Typography level="body-sm" className="mb-3">Published on December 11, 2025</Typography>
                       <p className="mb-3">
                         This is a blog post layout using a medium-width container for optimal reading length.
                       </p>
@@ -188,11 +187,11 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="subtitle" className="mb-3">Form Layout</Text>
+                <Typography level="body-lg" className="mb-3">Form Layout</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="sm">
                     <Sheet variant="outlined" color="neutral">
-                      <Heading level={4}>Sign Up</Heading>
+                      <Typography level="h4">Sign Up</Typography>
                       <p className="mb-3">Forms work well in smaller containers to reduce eye strain.</p>
                       <div className="space-y-2">
                         <input
@@ -212,11 +211,11 @@ export function ContainerPage() {
               </div>
 
               <div>
-                <Text variant="subtitle" className="mb-3">Dashboard Layout</Text>
+                <Typography level="body-lg" className="mb-3">Dashboard Layout</Typography>
                 <div className="border border-dashed border-neutral-300 p-4">
                   <Container maxWidth="2xl">
                     <Sheet variant="outlined" color="neutral">
-                      <Heading level={4}>Dashboard</Heading>
+                      <Typography level="h4">Dashboard</Typography>
                       <p>Dashboards often need wider containers to display multiple columns of data.</p>
                       <div className="grid grid-cols-3 gap-4 mt-4">
                         <Sheet variant="soft" color="primary" size="sm">Metric 1</Sheet>
@@ -234,7 +233,7 @@ export function ContainerPage() {
 
       <Section title="API Reference">
         <div>
-          <Heading level={3}>Container</Heading>
+          <Typography level="h3">Container</Typography>
           <PropsTable props={componentProps.Container} />
         </div>
       </Section>

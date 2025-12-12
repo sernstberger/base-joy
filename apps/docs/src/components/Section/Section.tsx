@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
-import { Heading } from '../Typography';
+import { Typography } from '@base-joy/ui-core';
 
 const sectionVariants = cva('', {
   variants: {
@@ -26,9 +26,9 @@ export interface SectionProps
 
   /**
    * Title level for the heading.
-   * @default 2
+   * @default 'h2'
    */
-  titleLevel?: 1 | 2 | 3 | 4;
+  titleLevel?: 'h1' | 'h2' | 'h3' | 'h4';
 
   /**
    * Bottom margin size.
@@ -40,14 +40,14 @@ export interface SectionProps
 export function Section({
   className,
   title,
-  titleLevel = 2,
+  titleLevel = 'h2',
   spacing = 'md',
   children,
   ...props
 }: SectionProps) {
   return (
     <section className={cn(sectionVariants({ spacing }), className)} {...props}>
-      {title && <Heading level={titleLevel}>{title}</Heading>}
+      {title && <Typography level={titleLevel} className="mb-4">{title}</Typography>}
       {children}
     </section>
   );

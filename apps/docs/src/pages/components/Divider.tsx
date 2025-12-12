@@ -1,7 +1,6 @@
-import { Divider, Sheet } from '@base-joy/ui-core';
+import { Divider, Sheet, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 
@@ -22,19 +21,19 @@ export function DividerPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Divider</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Divider</Typography>
+        <Typography level="body-lg">
           A visual separator for content sections, available in horizontal and vertical orientations with optional centered text.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
         <Playground controls={dividerControls} codeTemplate={dividerCodeTemplate}>
           {(props) => (
             <Sheet variant="outlined" color="neutral">
-              <Text>Above</Text>
+              <Typography>Above</Typography>
               <Divider color={props.color as any} />
-              <Text>Below</Text>
+              <Typography>Below</Typography>
             </Sheet>
           )}
         </Playground>
@@ -43,110 +42,110 @@ export function DividerPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Horizontal (default)</Heading>
+            <Typography level="h3">Horizontal (default)</Typography>
             <Sheet variant="outlined" color="neutral">
-              <Text>Section 1</Text>
+              <Typography>Section 1</Typography>
               <Divider />
-              <Text>Section 2</Text>
+              <Typography>Section 2</Typography>
               <Divider />
-              <Text>Section 3</Text>
+              <Typography>Section 3</Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Vertical</Heading>
+            <Typography level="h3">Vertical</Typography>
             <Sheet variant="outlined" color="neutral">
               <div className="flex h-32">
                 <div className="flex-1 flex items-center justify-center">
-                  <Text>Column 1</Text>
+                  <Typography>Column 1</Typography>
                 </div>
                 <Divider orientation="vertical" />
                 <div className="flex-1 flex items-center justify-center">
-                  <Text>Column 2</Text>
+                  <Typography>Column 2</Typography>
                 </div>
                 <Divider orientation="vertical" />
                 <div className="flex-1 flex items-center justify-center">
-                  <Text>Column 3</Text>
+                  <Typography>Column 3</Typography>
                 </div>
               </div>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>With Text</Heading>
+            <Typography level="h3">With Text</Typography>
             <Sheet variant="outlined" color="neutral">
-              <Text>Sign in with your account</Text>
+              <Typography>Sign in with your account</Typography>
               <Divider>Or</Divider>
-              <Text>Create a new account</Text>
+              <Typography>Create a new account</Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <div className="space-y-4">
               <Sheet variant="outlined" color="neutral">
-                <Text variant="muted" className="mb-2">Primary</Text>
+                <Typography level="body-sm" className="mb-2">Primary</Typography>
                 <Divider color="primary" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
-                <Text variant="muted" className="mb-2">Neutral (default)</Text>
+                <Typography level="body-sm" className="mb-2">Neutral (default)</Typography>
                 <Divider color="neutral" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
-                <Text variant="muted" className="mb-2">Success</Text>
+                <Typography level="body-sm" className="mb-2">Success</Typography>
                 <Divider color="success" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
-                <Text variant="muted" className="mb-2">Warning</Text>
+                <Typography level="body-sm" className="mb-2">Warning</Typography>
                 <Divider color="warning" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
-                <Text variant="muted" className="mb-2">Danger</Text>
+                <Typography level="body-sm" className="mb-2">Danger</Typography>
                 <Divider color="danger" />
               </Sheet>
             </div>
           </div>
 
           <div>
-            <Heading level={3}>Inset</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Inset</Typography>
+            <Typography level="body-sm" className="mb-3">
               Add margin on the ends of the divider.
-            </Text>
+            </Typography>
             <div className="space-y-4">
               <Sheet variant="outlined" color="neutral">
-                <Text>Without inset</Text>
+                <Typography>Without inset</Typography>
                 <Divider />
-                <Text>Content touches edges</Text>
+                <Typography>Content touches edges</Typography>
               </Sheet>
               <Sheet variant="outlined" color="neutral">
-                <Text>With inset</Text>
+                <Typography>With inset</Typography>
                 <Divider inset />
-                <Text>Content has margin</Text>
+                <Typography>Content has margin</Typography>
               </Sheet>
             </div>
           </div>
 
           <div>
-            <Heading level={3}>Use Cases</Heading>
+            <Typography level="h3">Use Cases</Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">List items</Text>
+                <Typography level="body-sm" className="mb-2">List items</Typography>
                 <Sheet variant="outlined" color="neutral" className="p-0">
                   <div className="p-4">
-                    <Text>First item</Text>
+                    <Typography>First item</Typography>
                   </div>
                   <Divider inset />
                   <div className="p-4">
-                    <Text>Second item</Text>
+                    <Typography>Second item</Typography>
                   </div>
                   <Divider inset />
                   <div className="p-4">
-                    <Text>Third item</Text>
+                    <Typography>Third item</Typography>
                   </div>
                 </Sheet>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">Toolbar sections</Text>
+                <Typography level="body-sm" className="mb-2">Toolbar sections</Typography>
                 <Sheet variant="outlined" color="neutral">
                   <div className="flex items-center gap-3 h-12">
                     <button className="px-3 py-1 hover:bg-neutral-100 rounded">
@@ -170,7 +169,7 @@ export function DividerPage() {
                 </Sheet>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">Form sections with text</Text>
+                <Typography level="body-sm" className="mb-2">Form sections with text</Typography>
                 <Sheet variant="outlined" color="neutral">
                   <div className="space-y-3">
                     <input
@@ -202,7 +201,7 @@ export function DividerPage() {
 
       <Section title="API Reference">
         <div>
-          <Heading level={3}>Divider</Heading>
+          <Typography level="h3">Divider</Typography>
           <PropsTable props={componentProps.Divider} />
         </div>
       </Section>

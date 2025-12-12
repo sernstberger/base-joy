@@ -1,16 +1,15 @@
 import { Link } from 'react-router';
-import { Sheet } from '@base-joy/ui-core';
-import { Heading, Text } from '../components/Typography';
+import { Sheet, Typography } from '@base-joy/ui-core';
 import { Section } from '../components/Section';
 
 export function HomePage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-12">
-        <Heading level={1} className="text-4xl mb-4">Base Joy</Heading>
-        <Text variant="subtitle" className="text-xl">
+        <Typography level="h1" className="text-4xl mb-4">Base Joy</Typography>
+        <Typography level="body-lg" className="text-xl">
           A headless component library built on Base UI with Tailwind CSS
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Getting Started">
@@ -19,10 +18,10 @@ export function HomePage() {
             <code>npm install @base-joy/ui-core</code>
           </pre>
         </Sheet>
-        <Text>
+        <Typography>
           Base Joy provides a set of foundational components that follow Joy UI design patterns,
           built with Base UI for accessibility and Tailwind CSS for styling.
-        </Text>
+        </Typography>
       </Section>
 
       <Section title="Components" spacing="sm">
@@ -33,10 +32,10 @@ export function HomePage() {
               color="neutral"
               className="p-6 hover:border-primary-300 transition-colors cursor-pointer"
             >
-              <Heading level={3}>Sheet</Heading>
-              <Text variant="muted">
+              <Typography level="h3">Sheet</Typography>
+              <Typography level="body-sm">
                 A styled container with variants for colors, visual styles, and sizes.
-              </Text>
+              </Typography>
             </Sheet>
           </Link>
           <Link to="/components/item">
@@ -45,10 +44,10 @@ export function HomePage() {
               color="neutral"
               className="p-6 hover:border-primary-300 transition-colors cursor-pointer"
             >
-              <Heading level={3}>Item</Heading>
-              <Text variant="muted">
+              <Typography level="h3">Item</Typography>
+              <Typography level="body-sm">
                 A structured content component with start, content, and end slots.
-              </Text>
+              </Typography>
             </Sheet>
           </Link>
           <Link to="/components/table">
@@ -57,17 +56,17 @@ export function HomePage() {
               color="neutral"
               className="p-6 hover:border-primary-300 transition-colors cursor-pointer"
             >
-              <Heading level={3}>Table</Heading>
-              <Text variant="muted">
+              <Typography level="h3">Table</Typography>
+              <Typography level="body-sm">
                 A styled table with striped rows and interactive states.
-              </Text>
+              </Typography>
             </Sheet>
           </Link>
         </div>
       </Section>
 
       <footer className="mt-16 pt-8 border-t border-neutral-200 text-center">
-        <Text variant="muted">Base Joy v0.0.1 - Built with Base UI + Tailwind CSS v4</Text>
+        <Typography level="body-sm">Base Joy v0.0.1 - Built with Base UI + Tailwind CSS v4</Typography>
       </footer>
     </div>
   );

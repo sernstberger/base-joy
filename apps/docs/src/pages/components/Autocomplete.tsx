@@ -1,5 +1,4 @@
-import { Autocomplete } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Autocomplete, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 const countries = [
@@ -17,10 +16,10 @@ export function AutocompletePage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Autocomplete</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Autocomplete</Typography>
+        <Typography level="body-lg">
           An input component with automatic filtering and suggestions.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

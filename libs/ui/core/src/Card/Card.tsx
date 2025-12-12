@@ -2,8 +2,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { Sheet } from '../Sheet';
-import { Heading } from '../Typography';
-import { Text } from '../Typography';
+import { Typography } from '../Typography';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const cardHeaderVariants = cva('', {
@@ -131,14 +130,14 @@ CardHeader.displayName = 'CardHeader';
 export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <Heading
-        ref={ref}
-        level={3}
+      <Typography
+        ref={ref as React.Ref<HTMLElement>}
+        level="h3"
         className={cn('mb-0', className)}
         {...(props as any)}
       >
         {children}
-      </Heading>
+      </Typography>
     );
   }
 );
@@ -148,13 +147,14 @@ CardTitle.displayName = 'CardTitle';
 export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <Text
-        ref={ref as React.ForwardedRef<HTMLElement>}
-        className={cn('mt-1 text-sm text-neutral-600', className)}
+      <Typography
+        ref={ref as React.Ref<HTMLElement>}
+        level="body-sm"
+        className={cn('mt-1', className)}
         {...(props as any)}
       >
         {children}
-      </Text>
+      </Typography>
     );
   }
 );

@@ -7,10 +7,10 @@ import {
   CardFooter,
   CardMedia,
   Button,
+  Typography,
 } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
@@ -61,11 +61,11 @@ export function CardPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Card</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Card</Typography>
+        <Typography level="body-lg">
           A flexible card component with header, content, footer, and media sections. Built on
           Sheet for consistent styling.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -95,7 +95,7 @@ export function CardPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Basic Card</Heading>
+            <Typography level="h3">Basic Card</Typography>
             <Card variant="outlined" className="max-w-md">
               <CardHeader>
                 <CardTitle>Simple Card</CardTitle>
@@ -109,7 +109,7 @@ export function CardPage() {
           </div>
 
           <div>
-            <Heading level={3}>Card with Footer</Heading>
+            <Typography level="h3">Card with Footer</Typography>
             <Card variant="outlined" className="max-w-md">
               <CardHeader>
                 <CardTitle>Product Card</CardTitle>
@@ -127,7 +127,7 @@ export function CardPage() {
           </div>
 
           <div>
-            <Heading level={3}>Card with Media</Heading>
+            <Typography level="h3">Card with Media</Typography>
             <Card variant="outlined" className="max-w-md">
               <CardMedia
                 src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format"
@@ -147,7 +147,7 @@ export function CardPage() {
           </div>
 
           <div>
-            <Heading level={3}>Variants</Heading>
+            <Typography level="h3">Variants</Typography>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card variant="outlined">
                 <CardHeader>
@@ -184,7 +184,7 @@ export function CardPage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Card variant="soft" color="primary">
                 <CardHeader>
@@ -224,7 +224,7 @@ export function CardPage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="space-y-4">
               <Card variant="outlined" size="sm" className="max-w-md">
                 <CardHeader>
@@ -262,7 +262,7 @@ export function CardPage() {
           </div>
 
           <div>
-            <Heading level={3}>Horizontal Layout</Heading>
+            <Typography level="h3">Horizontal Layout</Typography>
             <Card variant="outlined" className="max-w-2xl">
               <div className="flex flex-col md:flex-row">
                 <CardMedia
@@ -297,14 +297,14 @@ export function CardPage() {
       <Section title="API Reference">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Card</Heading>
+            <Typography level="h3">Card</Typography>
             <PropsTable props={componentProps.Card} />
           </div>
           <div>
-            <Heading level={3}>CardHeader</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">CardHeader</Typography>
+            <Typography level="body-sm" className="mb-4">
               Container for card title and description with consistent padding.
-            </Text>
+            </Typography>
             <PropsTable
               props={[
                 {
@@ -317,10 +317,10 @@ export function CardPage() {
             />
           </div>
           <div>
-            <Heading level={3}>CardTitle</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">CardTitle</Typography>
+            <Typography level="body-sm" className="mb-4">
               Renders as an h3 heading with bold styling.
-            </Text>
+            </Typography>
             <PropsTable
               props={[
                 {
@@ -333,10 +333,10 @@ export function CardPage() {
             />
           </div>
           <div>
-            <Heading level={3}>CardDescription</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">CardDescription</Typography>
+            <Typography level="body-sm" className="mb-4">
               Secondary text rendered with muted color styling.
-            </Text>
+            </Typography>
             <PropsTable
               props={[
                 {
@@ -349,10 +349,10 @@ export function CardPage() {
             />
           </div>
           <div>
-            <Heading level={3}>CardContent</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">CardContent</Typography>
+            <Typography level="body-sm" className="mb-4">
               Main content area with appropriate padding.
-            </Text>
+            </Typography>
             <PropsTable
               props={[
                 {
@@ -365,10 +365,10 @@ export function CardPage() {
             />
           </div>
           <div>
-            <Heading level={3}>CardFooter</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">CardFooter</Typography>
+            <Typography level="body-sm" className="mb-4">
               Footer section with top border, typically used for actions.
-            </Text>
+            </Typography>
             <PropsTable
               props={[
                 {
@@ -381,10 +381,10 @@ export function CardPage() {
             />
           </div>
           <div>
-            <Heading level={3}>CardMedia</Heading>
-            <Text variant="muted" className="mb-4">
+            <Typography level="h3">CardMedia</Typography>
+            <Typography level="body-sm" className="mb-4">
               Full-width image or video container.
-            </Text>
+            </Typography>
             <PropsTable props={mediaProps} />
           </div>
         </div>

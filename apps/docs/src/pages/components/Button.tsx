@@ -1,7 +1,6 @@
-import { Button, Sheet } from '@base-joy/ui-core';
+import { Button, Sheet, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
@@ -21,10 +20,10 @@ export function ButtonPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Button</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Button</Typography>
+        <Typography level="body-lg">
           A versatile button component with variants, colors, sizes, and loading states.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -44,7 +43,7 @@ export function ButtonPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Variants</Heading>
+            <Typography level="h3">Variants</Typography>
             <div className="flex flex-wrap gap-3">
               <Button variant="solid">Solid</Button>
               <Button variant="soft">Soft</Button>
@@ -54,7 +53,7 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <div className="space-y-3">
               <div className="flex flex-wrap gap-3">
                 <Button color="primary">Primary</Button>
@@ -101,7 +100,7 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="flex flex-wrap items-center gap-3">
               <Button size="sm">Small</Button>
               <Button size="md">Medium</Button>
@@ -110,7 +109,7 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>With Decorators</Heading>
+            <Typography level="h3">With Decorators</Typography>
             <div className="flex flex-wrap gap-3">
               <Button
                 startDecorator={
@@ -183,7 +182,7 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>Loading State</Heading>
+            <Typography level="h3">Loading State</Typography>
             <div className="flex flex-wrap gap-3">
               <Button loading>Loading</Button>
               <Button variant="soft" loading>
@@ -202,7 +201,7 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>Disabled State</Heading>
+            <Typography level="h3">Disabled State</Typography>
             <div className="flex flex-wrap gap-3">
               <Button disabled>Disabled</Button>
               <Button variant="soft" disabled>
@@ -215,18 +214,18 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>Full Width</Heading>
+            <Typography level="h3">Full Width</Typography>
             <div className="max-w-md">
               <Button fullWidth>Full Width Button</Button>
             </div>
           </div>
 
           <div>
-            <Heading level={3}>As Link</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">As Link</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use the <code>render</code> prop to render the button as an anchor tag (Base UI
               pattern).
-            </Text>
+            </Typography>
             <div className="flex flex-wrap gap-3">
               <Button render={<a href="#" />}>Link Button</Button>
               <Button render={<a href="#" />} variant="outlined">
@@ -236,7 +235,7 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>Button Groups</Heading>
+            <Typography level="h3">Button Groups</Typography>
             <div className="flex gap-0">
               <Button className="rounded-r-none border-r-0">First</Button>
               <Button className="rounded-none border-r-0">Second</Button>
@@ -245,15 +244,15 @@ export function ButtonPage() {
           </div>
 
           <div>
-            <Heading level={3}>In Context</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">In Context</Typography>
+            <Typography level="body-sm" className="mb-3">
               Buttons work well within other components like Sheet.
-            </Text>
+            </Typography>
             <Sheet variant="outlined" color="neutral">
               <div className="space-y-4">
                 <div>
-                  <Heading level={4}>Confirm Action</Heading>
-                  <Text>Are you sure you want to proceed with this action?</Text>
+                  <Typography level="h4">Confirm Action</Typography>
+                  <Typography>Are you sure you want to proceed with this action?</Typography>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outlined" color="neutral">

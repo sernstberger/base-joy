@@ -1,15 +1,14 @@
-import { Checkbox, CheckboxGroup } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Checkbox, CheckboxGroup, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function CheckboxPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Checkbox</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Checkbox</Typography>
+        <Typography level="body-lg">
           A checkbox component for binary selections with visual indicator.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

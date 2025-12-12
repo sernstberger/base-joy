@@ -1,15 +1,14 @@
-import { NumberField } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { NumberField, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function NumberFieldPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>NumberField</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">NumberField</Typography>
+        <Typography level="body-lg">
           A number input with increment/decrement buttons for precise numeric entry.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">
@@ -53,7 +52,7 @@ export function NumberFieldPage() {
       <Section title="With Min/Max">
         <div className="space-y-4">
           <div>
-            <Text variant="muted" className="mb-2">Min: 0, Max: 10</Text>
+            <Typography level="body-sm" className="mb-2">Min: 0, Max: 10</Typography>
             <NumberField.Root min={0} max={10} defaultValue={5}>
               <NumberField.Group>
                 <NumberField.Decrement />
@@ -64,7 +63,7 @@ export function NumberFieldPage() {
           </div>
 
           <div>
-            <Text variant="muted" className="mb-2">Min: -5, Max: 5</Text>
+            <Typography level="body-sm" className="mb-2">Min: -5, Max: 5</Typography>
             <NumberField.Root min={-5} max={5} defaultValue={0}>
               <NumberField.Group>
                 <NumberField.Decrement />
@@ -79,7 +78,7 @@ export function NumberFieldPage() {
       <Section title="Step Values">
         <div className="space-y-4">
           <div>
-            <Text variant="muted" className="mb-2">Step: 1 (default)</Text>
+            <Typography level="body-sm" className="mb-2">Step: 1 (default)</Typography>
             <NumberField.Root step={1} defaultValue={5}>
               <NumberField.Group>
                 <NumberField.Decrement />
@@ -90,7 +89,7 @@ export function NumberFieldPage() {
           </div>
 
           <div>
-            <Text variant="muted" className="mb-2">Step: 5</Text>
+            <Typography level="body-sm" className="mb-2">Step: 5</Typography>
             <NumberField.Root step={5} defaultValue={25}>
               <NumberField.Group>
                 <NumberField.Decrement />
@@ -101,7 +100,7 @@ export function NumberFieldPage() {
           </div>
 
           <div>
-            <Text variant="muted" className="mb-2">Step: 0.1</Text>
+            <Typography level="body-sm" className="mb-2">Step: 0.1</Typography>
             <NumberField.Root step={0.1} defaultValue={1.5}>
               <NumberField.Group>
                 <NumberField.Decrement />

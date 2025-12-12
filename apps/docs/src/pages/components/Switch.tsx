@@ -1,15 +1,14 @@
-import { Switch } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Switch, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function SwitchPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Switch</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Switch</Typography>
+        <Typography level="body-lg">
           A toggle switch component for binary on/off states.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

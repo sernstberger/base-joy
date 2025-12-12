@@ -1,10 +1,9 @@
-import { Input } from '@base-joy/ui-core';
+import { Input, Typography } from '@base-joy/ui-core';
 import {
   Playground,
   type PlaygroundControl,
 } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
@@ -116,11 +115,11 @@ export function InputPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Input</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Input</Typography>
+        <Typography level="body-lg">
           A versatile input component with variants, colors, sizes, and
           decorators.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -139,7 +138,7 @@ export function InputPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Variants</Heading>
+            <Typography level="h3">Variants</Typography>
             <div className="space-y-3 max-w-md">
               <Input variant="solid" placeholder="Solid variant" />
               <Input variant="soft" placeholder="Soft variant" />
@@ -149,7 +148,7 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <div className="space-y-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <Input color="primary" placeholder="Primary" />
@@ -158,9 +157,9 @@ export function InputPage() {
                 <Input color="warning" placeholder="Warning" />
                 <Input color="danger" placeholder="Danger" />
               </div>
-              <Text variant="muted" className="mt-2">
+              <Typography level="body-sm" className="mt-2">
                 Soft variant with different colors
-              </Text>
+              </Typography>
             </div>
             <div className="space-y-3 mt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -186,14 +185,14 @@ export function InputPage() {
                 />
                 <Input variant="outlined" color="danger" placeholder="Danger" />
               </div>
-              <Text variant="muted" className="mt-2">
+              <Typography level="body-sm" className="mt-2">
                 Outlined variant with different colors
-              </Text>
+              </Typography>
             </div>
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="space-y-3 max-w-md">
               <Input size="sm" placeholder="Small input" />
               <Input size="md" placeholder="Medium input" />
@@ -202,7 +201,7 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>Input Types</Heading>
+            <Typography level="h3">Input Types</Typography>
             <div className="space-y-3 max-w-md">
               <Input type="text" placeholder="Text input" />
               <Input type="email" placeholder="Email input" />
@@ -215,7 +214,7 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>With Start Decorator</Heading>
+            <Typography level="h3">With Start Decorator</Typography>
             <div className="space-y-3 max-w-md">
               <Input startDecorator={<SearchIcon />} placeholder="Search..." />
               <Input
@@ -239,7 +238,7 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>With End Decorator</Heading>
+            <Typography level="h3">With End Decorator</Typography>
             <div className="space-y-3 max-w-md">
               <Input
                 endDecorator={<CheckIcon />}
@@ -269,7 +268,7 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>Both Decorators</Heading>
+            <Typography level="h3">Both Decorators</Typography>
             <div className="space-y-3 max-w-md">
               <Input
                 startDecorator={<SearchIcon />}
@@ -291,13 +290,13 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>Error State</Heading>
+            <Typography level="h3">Error State</Typography>
             <div className="space-y-3 max-w-md">
               <div>
                 <Input error placeholder="Invalid input" />
-                <Text variant="muted" className="text-danger-600 text-sm mt-1">
+                <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
                   This field is required
-                </Text>
+                </Typography>
               </div>
               <div>
                 <Input
@@ -307,15 +306,15 @@ export function InputPage() {
                   placeholder="email@example.com"
                   startDecorator={<EmailIcon />}
                 />
-                <Text variant="muted" className="text-danger-600 text-sm mt-1">
+                <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
                   Please enter a valid email address
-                </Text>
+                </Typography>
               </div>
             </div>
           </div>
 
           <div>
-            <Heading level={3}>Disabled State</Heading>
+            <Typography level="h3">Disabled State</Typography>
             <div className="space-y-3 max-w-md">
               <Input disabled placeholder="Disabled input" />
               <Input
@@ -328,12 +327,12 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>Full Width</Heading>
+            <Typography level="h3">Full Width</Typography>
             <Input fullWidth placeholder="Full width input" />
           </div>
 
           <div>
-            <Heading level={3}>Form Example</Heading>
+            <Typography level="h3">Form Example</Typography>
             <form className="space-y-4 max-w-md">
               <div>
                 <label
@@ -393,7 +392,7 @@ export function InputPage() {
           </div>
 
           <div>
-            <Heading level={3}>Search Variants</Heading>
+            <Typography level="h3">Search Variants</Typography>
             <div className="space-y-3 max-w-md">
               <Input
                 type="search"

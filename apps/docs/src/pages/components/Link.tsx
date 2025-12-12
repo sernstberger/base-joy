@@ -1,7 +1,6 @@
-import { Link, Sheet } from '@base-joy/ui-core';
+import { Link, Sheet, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { ColorScale } from '@base-joy/tokens';
@@ -17,10 +16,10 @@ export function LinkPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Link</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Link</Typography>
+        <Typography level="body-lg">
           A styled link component with color variants, underline options, and external link support.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -42,7 +41,7 @@ export function LinkPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <Sheet variant="outlined" color="neutral" className="p-6">
               <div className="flex flex-col gap-3">
                 <Link href="#" color="primary">
@@ -65,29 +64,29 @@ export function LinkPage() {
           </div>
 
           <div>
-            <Heading level={3}>Underline Variants</Heading>
+            <Typography level="h3">Underline Variants</Typography>
             <Sheet variant="outlined" color="neutral" className="p-6">
               <div className="flex flex-col gap-3">
                 <div>
-                  <Text variant="muted" className="text-sm mb-1">
+                  <Typography level="body-sm" className="text-sm mb-1">
                     No underline
-                  </Text>
+                  </Typography>
                   <Link href="#" underline="none">
                     Link without underline
                   </Link>
                 </div>
                 <div>
-                  <Text variant="muted" className="text-sm mb-1">
+                  <Typography level="body-sm" className="text-sm mb-1">
                     Hover underline (default)
-                  </Text>
+                  </Typography>
                   <Link href="#" underline="hover">
                     Link with underline on hover
                   </Link>
                 </div>
                 <div>
-                  <Text variant="muted" className="text-sm mb-1">
+                  <Typography level="body-sm" className="text-sm mb-1">
                     Always underline
-                  </Text>
+                  </Typography>
                   <Link href="#" underline="always">
                     Link with permanent underline
                   </Link>
@@ -97,11 +96,11 @@ export function LinkPage() {
           </div>
 
           <div>
-            <Heading level={3}>External Links</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">External Links</Typography>
+            <Typography level="body-sm" className="mb-3">
               External links automatically add target="_blank" and rel="noopener noreferrer" for security,
               and display an external icon.
-            </Text>
+            </Typography>
             <Sheet variant="outlined" color="neutral" className="p-6">
               <div className="flex flex-col gap-3">
                 <Link href="https://example.com" external>
@@ -118,7 +117,7 @@ export function LinkPage() {
           </div>
 
           <div>
-            <Heading level={3}>Disabled State</Heading>
+            <Typography level="h3">Disabled State</Typography>
             <Sheet variant="outlined" color="neutral" className="p-6">
               <div className="flex flex-col gap-3">
                 <Link href="#" disabled>
@@ -135,12 +134,12 @@ export function LinkPage() {
           </div>
 
           <div>
-            <Heading level={3}>In Context</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">In Context</Typography>
+            <Typography level="body-sm" className="mb-3">
               Links work naturally within text content.
-            </Text>
+            </Typography>
             <Sheet variant="outlined" color="neutral" className="p-6">
-              <Text>
+              <Typography>
                 This is a paragraph with an{' '}
                 <Link href="#" color="primary">
                   inline link
@@ -150,15 +149,15 @@ export function LinkPage() {
                   documentation
                 </Link>{' '}
                 for more information.
-              </Text>
+              </Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Polymorphic Usage</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Polymorphic Usage</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use the `as` prop to render Link with a custom component like React Router's Link.
-            </Text>
+            </Typography>
             <Sheet variant="outlined" color="neutral" className="p-6">
               <div className="space-y-2">
                 <pre className="text-sm bg-neutral-100 p-3 rounded">

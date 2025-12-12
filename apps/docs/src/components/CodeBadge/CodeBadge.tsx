@@ -17,10 +17,6 @@ const codeBadgeVariants = cva('font-mono text-xs px-1.5 py-0.5 rounded', {
 export interface CodeBadgeProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof codeBadgeVariants> {
-  /**
-   * The color variant.
-   * @default 'primary'
-   */
   color?: 'primary' | 'neutral';
 }
 

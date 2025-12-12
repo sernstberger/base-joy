@@ -6,10 +6,10 @@ import {
   TableHeader,
   TableCell,
   Sheet,
+  Typography,
 } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Size } from '@base-joy/tokens';
@@ -75,10 +75,10 @@ export function TablePage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Table</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Table</Typography>
+        <Typography level="body-lg">
           A styled table with variants for striped rows and interactive states. Wrap in Sheet for container styling.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -119,7 +119,7 @@ export function TablePage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Default</Heading>
+            <Typography level="h3">Default</Typography>
             <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
               <Table>
                 <TableHead>
@@ -143,7 +143,7 @@ export function TablePage() {
           </div>
 
           <div>
-            <Heading level={3}>Striped</Heading>
+            <Typography level="h3">Striped</Typography>
             <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
               <Table variant="striped">
                 <TableHead>
@@ -175,10 +175,10 @@ export function TablePage() {
           </div>
 
           <div>
-            <Heading level={3}>With Sheet Container</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">With Sheet Container</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use Sheet to add borders and backgrounds. This keeps Table focused on structure.
-            </Text>
+            </Typography>
             <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
               <Table>
                 <TableHead>
@@ -202,7 +202,7 @@ export function TablePage() {
           </div>
 
           <div>
-            <Heading level={3}>Interactive Rows</Heading>
+            <Typography level="h3">Interactive Rows</Typography>
             <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
               <Table>
                 <TableHead>
@@ -230,10 +230,10 @@ export function TablePage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">Small</Text>
+                <Typography level="body-sm" className="mb-2">Small</Typography>
                 <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
                   <Table size="sm">
                     <TableHead>
@@ -252,7 +252,7 @@ export function TablePage() {
                 </Sheet>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">Large</Text>
+                <Typography level="body-sm" className="mb-2">Large</Typography>
                 <Sheet variant="outlined" color="neutral" className="p-0 overflow-hidden">
                   <Table size="lg">
                     <TableHead>
@@ -278,19 +278,19 @@ export function TablePage() {
       <Section title="API Reference">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Table</Heading>
+            <Typography level="h3">Table</Typography>
             <PropsTable props={tableProps} />
           </div>
           <div>
-            <Heading level={3}>TableRow</Heading>
+            <Typography level="h3">TableRow</Typography>
             <PropsTable props={rowProps} />
           </div>
           <div>
-            <Heading level={3}>TableHeader</Heading>
+            <Typography level="h3">TableHeader</Typography>
             <PropsTable props={headerProps} />
           </div>
           <div>
-            <Heading level={3}>TableCell</Heading>
+            <Typography level="h3">TableCell</Typography>
             <PropsTable props={cellProps} />
           </div>
         </div>

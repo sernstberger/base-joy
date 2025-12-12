@@ -1,15 +1,14 @@
-import { Select } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Select, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function SelectPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Select</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Select</Typography>
+        <Typography level="body-lg">
           A dropdown select component for choosing from a list of options.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

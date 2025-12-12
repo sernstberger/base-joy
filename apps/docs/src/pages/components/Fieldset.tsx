@@ -1,15 +1,14 @@
-import { Fieldset, Radio, RadioGroup, Checkbox, CheckboxGroup, Field } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Fieldset, Radio, RadioGroup, Checkbox, CheckboxGroup, Field, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function FieldsetPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Fieldset</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Fieldset</Typography>
+        <Typography level="body-lg">
           A component for grouping related form fields with a legend.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

@@ -1,8 +1,5 @@
 export {
-  Heading,
-  Text,
-  headingVariants,
-  textVariants,
-  type HeadingProps,
-  type TextProps,
+  Typography,
+  typographyVariants,
+  type TypographyProps,
 } from './Typography';

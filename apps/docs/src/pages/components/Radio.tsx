@@ -1,15 +1,14 @@
-import { Radio, RadioGroup } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Radio, RadioGroup, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function RadioPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Radio</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Radio</Typography>
+        <Typography level="body-lg">
           A radio button component for single selections within a group.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

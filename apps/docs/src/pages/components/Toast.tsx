@@ -1,5 +1,4 @@
-import { Sheet } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Sheet, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 function StaticToastExample({
@@ -46,18 +45,18 @@ export function ToastPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Toast</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Toast</Typography>
+        <Typography level="body-lg">
           A toast notification component for displaying brief messages.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Usage">
-        <Text className="mb-4">
+        <Typography className="mb-4">
           Toast uses Base UI's Toast component with useToastManager hook. Import{' '}
           <code className="bg-neutral-100 px-1 rounded">useToastManager</code> from{' '}
           <code className="bg-neutral-100 px-1 rounded">@base-ui/react/toast</code> to manage toasts.
-        </Text>
+        </Typography>
         <pre className="bg-neutral-100 p-4 rounded-lg text-sm overflow-x-auto">
 {`import { Toast } from '@base-joy/ui-core';
 import { useToastManager } from '@base-ui/react/toast';

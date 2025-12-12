@@ -1,12 +1,9 @@
 // Core components
 export { Sheet, sheetVariants, type SheetProps } from './Sheet';
 export {
-  Heading,
-  Text,
-  headingVariants,
-  textVariants,
-  type HeadingProps,
-  type TextProps,
+  Typography,
+  typographyVariants,
+  type TypographyProps,
 } from './Typography';
 export {
   Item,

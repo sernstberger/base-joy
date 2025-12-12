@@ -1,7 +1,6 @@
-import { Textarea, Sheet } from '@base-joy/ui-core';
+import { Textarea, Sheet, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
@@ -24,10 +23,10 @@ export function TextareaPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Textarea</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Textarea</Typography>
+        <Typography level="body-lg">
           A multi-line text input component with variants, colors, sizes, and auto-resize capabilities.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -46,7 +45,7 @@ export function TextareaPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Variants</Heading>
+            <Typography level="h3">Variants</Typography>
             <div className="space-y-3">
               <Textarea variant="solid" placeholder="Solid variant" />
               <Textarea variant="soft" placeholder="Soft variant (default)" />
@@ -56,7 +55,7 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <div className="space-y-3">
               <Textarea color="primary" placeholder="Primary color" />
               <Textarea color="neutral" placeholder="Neutral color (default)" />
@@ -67,7 +66,7 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="space-y-3">
               <Textarea size="sm" placeholder="Small size" />
               <Textarea size="md" placeholder="Medium size (default)" />
@@ -76,7 +75,7 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Error State</Heading>
+            <Typography level="h3">Error State</Typography>
             <div className="space-y-3">
               <Textarea error placeholder="This field has an error" />
               <Textarea variant="outlined" error placeholder="Outlined with error" />
@@ -84,7 +83,7 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Disabled State</Heading>
+            <Typography level="h3">Disabled State</Typography>
             <div className="space-y-3">
               <Textarea disabled placeholder="Disabled textarea" />
               <Textarea variant="outlined" disabled defaultValue="Disabled with value" />
@@ -92,10 +91,10 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Fixed Rows</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Fixed Rows</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use the <code>rows</code> prop to set a fixed number of visible rows.
-            </Text>
+            </Typography>
             <div className="space-y-3">
               <Textarea rows={2} placeholder="2 rows" />
               <Textarea rows={4} placeholder="4 rows" />
@@ -104,15 +103,15 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Auto-Resize with Min/Max Rows</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Auto-Resize with Min/Max Rows</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use <code>minRows</code> and <code>maxRows</code> to create a textarea that grows with content.
-            </Text>
+            </Typography>
             <div className="space-y-3">
               <div>
-                <Text variant="muted" className="mb-2 block">
+                <Typography level="body-sm" className="mb-2 block">
                   Min 2 rows, max 6 rows:
-                </Text>
+                </Typography>
                 <Textarea
                   minRows={2}
                   maxRows={6}
@@ -120,9 +119,9 @@ export function TextareaPage() {
                 />
               </div>
               <div>
-                <Text variant="muted" className="mb-2 block">
+                <Typography level="body-sm" className="mb-2 block">
                   Min 3 rows, no max:
-                </Text>
+                </Typography>
                 <Textarea
                   minRows={3}
                   placeholder="This textarea starts at 3 rows and grows without limit"
@@ -132,10 +131,10 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Controlled Mode</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Controlled Mode</Typography>
+            <Typography level="body-sm" className="mb-3">
               Control the textarea value through state.
-            </Text>
+            </Typography>
             <Textarea
               value="This is a controlled textarea. Edit me!"
               onChange={(e) => console.log(e.target.value)}
@@ -144,10 +143,10 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Uncontrolled Mode</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Uncontrolled Mode</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use <code>defaultValue</code> for uncontrolled mode.
-            </Text>
+            </Typography>
             <Textarea
               defaultValue="This is an uncontrolled textarea with default value."
               rows={3}
@@ -155,10 +154,10 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>In Context</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">In Context</Typography>
+            <Typography level="body-sm" className="mb-3">
               Textarea works well within other components like Sheet.
-            </Text>
+            </Typography>
             <Sheet variant="outlined" color="neutral">
               <div className="space-y-4">
                 <div>
@@ -185,7 +184,7 @@ export function TextareaPage() {
           </div>
 
           <div>
-            <Heading level={3}>Form Example</Heading>
+            <Typography level="h3">Form Example</Typography>
             <Sheet variant="outlined" color="neutral">
               <form className="space-y-4">
                 <div>

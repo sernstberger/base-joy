@@ -1,82 +1,34 @@
-import { Heading, Text, Sheet } from '@base-joy/ui-core';
+import { Typography, Sheet } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { ColorScale } from '@base-joy/tokens';
 
-// Manual props for Heading and Text since they're separate components in one file
-const headingProps: PropMeta[] = [
-  {
-    name: 'level',
-    type: '1 | 2 | 3 | 4 | 5 | 6',
-    defaultValue: '1',
-    description: 'The heading level (1-6), determines the HTML tag (h1-h6).',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color of the heading text.',
-    required: false,
-  },
-];
-
-const textProps: PropMeta[] = [
-  {
-    name: 'size',
-    type: '"xs" | "sm" | "md" | "lg" | "xl"',
-    defaultValue: '"md"',
-    description: 'The text size.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color of the text.',
-    required: false,
-  },
-  {
-    name: 'weight',
-    type: '"normal" | "medium" | "semibold" | "bold"',
-    defaultValue: '"normal"',
-    description: 'The font weight.',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: '"p" | "span" | "div" | "label"',
-    defaultValue: '"p"',
-    description: 'The HTML element to render as.',
-    required: false,
-  },
-];
-
-const headingControls: PlaygroundControl[] = [
+const typographyControls: PlaygroundControl[] = [
   { name: 'color', type: 'color', defaultValue: 'neutral' },
 ];
 
-const headingCodeTemplate = (props: Record<string, string>) =>
-  `<Heading level={1} color="${props.color}">Page Title</Heading>`;
+const typographyCodeTemplate = (props: Record<string, string>) =>
+  `<Typography level="h1" color="${props.color}">Page Title</Typography>`;
 
 export function TypographyPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Typography</Heading>
-        <Text size="lg" color="neutral">
-          Heading and Text components for consistent typography across the design system.
-        </Text>
+        <Typography level="h1">Typography</Typography>
+        <Typography level="body-lg">
+          A unified typography component for headings and body text across the design system.
+        </Typography>
       </header>
 
-      <Section title="Heading Playground">
-        <Playground controls={headingControls} codeTemplate={headingCodeTemplate}>
+      <Section title="Playground">
+        <Playground controls={typographyControls} codeTemplate={typographyCodeTemplate}>
           {(props) => (
             <div className="space-y-2">
-              <Heading level={1} color={props.color as ColorScale}>Heading 1</Heading>
-              <Heading level={2} color={props.color as ColorScale}>Heading 2</Heading>
-              <Heading level={3} color={props.color as ColorScale}>Heading 3</Heading>
+              <Typography level="h1" color={props.color as ColorScale}>Heading 1</Typography>
+              <Typography level="h2" color={props.color as ColorScale}>Heading 2</Typography>
+              <Typography level="h3" color={props.color as ColorScale}>Heading 3</Typography>
             </div>
           )}
         </Playground>
@@ -85,83 +37,74 @@ export function TypographyPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Heading Levels</Heading>
+            <Typography level="h3">Heading Levels</Typography>
             <Sheet variant="outlined" color="neutral" className="space-y-4">
-              <Heading level={1}>Heading Level 1</Heading>
-              <Heading level={2}>Heading Level 2</Heading>
-              <Heading level={3}>Heading Level 3</Heading>
-              <Heading level={4}>Heading Level 4</Heading>
-              <Heading level={5}>Heading Level 5</Heading>
-              <Heading level={6}>Heading Level 6</Heading>
+              <Typography level="h1">Heading Level h1</Typography>
+              <Typography level="h2">Heading Level h2</Typography>
+              <Typography level="h3">Heading Level h3</Typography>
+              <Typography level="h4">Heading Level h4</Typography>
+              <Typography level="h5">Heading Level h5</Typography>
+              <Typography level="h6">Heading Level h6</Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Heading Colors</Heading>
+            <Typography level="h3">Heading Colors</Typography>
             <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Heading level={3} color="primary">Primary Heading</Heading>
-              <Heading level={3} color="neutral">Neutral Heading</Heading>
-              <Heading level={3} color="success">Success Heading</Heading>
-              <Heading level={3} color="warning">Warning Heading</Heading>
-              <Heading level={3} color="danger">Danger Heading</Heading>
+              <Typography level="h3" color="primary">Primary Heading</Typography>
+              <Typography level="h3" color="neutral">Neutral Heading</Typography>
+              <Typography level="h3" color="success">Success Heading</Typography>
+              <Typography level="h3" color="warning">Warning Heading</Typography>
+              <Typography level="h3" color="danger">Danger Heading</Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Text Sizes</Heading>
+            <Typography level="h3">Body Levels</Typography>
             <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Text size="xs">Extra small text (xs)</Text>
-              <Text size="sm">Small text (sm)</Text>
-              <Text size="md">Medium text (md) - default</Text>
-              <Text size="lg">Large text (lg)</Text>
-              <Text size="xl">Extra large text (xl)</Text>
+              <Typography level="body-xs">Extra small text (body-xs)</Typography>
+              <Typography level="body-sm">Small text (body-sm)</Typography>
+              <Typography level="body-md">Medium text (body-md) - default</Typography>
+              <Typography level="body-lg">Large text (body-lg)</Typography>
+              <Typography level="body-xl">Extra large text (body-xl)</Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Text Colors</Heading>
+            <Typography level="h3">Body Colors</Typography>
             <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Text color="primary">Primary text</Text>
-              <Text color="neutral">Neutral text - default</Text>
-              <Text color="success">Success text</Text>
-              <Text color="warning">Warning text</Text>
-              <Text color="danger">Danger text</Text>
+              <Typography color="primary">Primary text</Typography>
+              <Typography color="neutral">Neutral text - default</Typography>
+              <Typography color="success">Success text</Typography>
+              <Typography color="warning">Warning text</Typography>
+              <Typography color="danger">Danger text</Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Text Weights</Heading>
+            <Typography level="h3">Body Weights</Typography>
             <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Text weight="normal">Normal weight - default</Text>
-              <Text weight="medium">Medium weight</Text>
-              <Text weight="semibold">Semibold weight</Text>
-              <Text weight="bold">Bold weight</Text>
+              <Typography weight="normal">Normal weight - default</Typography>
+              <Typography weight="medium">Medium weight</Typography>
+              <Typography weight="semibold">Semibold weight</Typography>
+              <Typography weight="bold">Bold weight</Typography>
             </Sheet>
           </div>
 
           <div>
-            <Heading level={3}>Text as Different Elements</Heading>
+            <Typography level="h3">Custom Elements</Typography>
             <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Text as="p">Paragraph element (default)</Text>
-              <Text as="span">Span element (inline)</Text>
-              <Text as="div">Div element (block)</Text>
-              <Text as="label">Label element (for forms)</Text>
+              <Typography component="p">Paragraph element (default for body)</Typography>
+              <Typography component="span">Span element (inline)</Typography>
+              <Typography component="div">Div element (block)</Typography>
+              <Typography component="label">Label element (for forms)</Typography>
             </Sheet>
           </div>
         </div>
       </Section>
 
       <Section title="API Reference">
-        <div className="space-y-8">
-          <div>
-            <Heading level={3}>Heading</Heading>
-            <PropsTable props={headingProps} />
-          </div>
-          <div>
-            <Heading level={3}>Text</Heading>
-            <PropsTable props={textProps} />
-          </div>
-        </div>
+        <PropsTable props={componentProps.Typography} />
       </Section>
     </div>
   );

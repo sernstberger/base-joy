@@ -1,15 +1,14 @@
-import { Field, Input } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Field, Input, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function FieldPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Field</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Field</Typography>
+        <Typography level="body-lg">
           A compound component for form fields with label, description, and error handling.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

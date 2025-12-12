@@ -1580,6 +1580,14 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+      "defaultValue": "neutral",
+      "description": "The color of the text",
+      "required": false
+    },
+    {
+      "name": "component",
+      "type": "TypographyElement",
+      "description": "Override the HTML element rendered",
       "required": false
     },
     {
@@ -1599,13 +1607,20 @@
     },
     {
       "name": "level",
-      "type": "HeadingLevel",
-      "defaultValue": "1",
+      "type": "TypographyLevel",
+      "defaultValue": "body-md",
+      "description": "The typography level determining size, weight, and default element",
       "required": false
     },
     {
       "name": "onChange",
-      "type": "FormEventHandler<HTMLHeadingElement>",
+      "type": "FormEventHandler<HTMLElement>",
+      "required": false
+    },
+    {
+      "name": "weight",
+      "type": "\"normal\" | \"medium\" | \"semibold\" | \"bold\"",
+      "description": "The font weight (only applies to body levels, headings are always bold)",
       "required": false
     }
   ]

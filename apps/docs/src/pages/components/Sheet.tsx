@@ -1,7 +1,6 @@
-import { Sheet } from '@base-joy/ui-core';
+import { Sheet, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
@@ -19,10 +18,10 @@ export function SheetPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Sheet</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Sheet</Typography>
+        <Typography level="body-lg">
           A styled container with CVA variants for colors, visual styles, and sizes.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -43,7 +42,7 @@ export function SheetPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Variants</Heading>
+            <Typography level="h3">Variants</Typography>
             <div className="flex flex-wrap gap-4">
               <Sheet variant="solid" color="primary">Solid</Sheet>
               <Sheet variant="soft" color="primary">Soft</Sheet>
@@ -53,7 +52,7 @@ export function SheetPage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors (Soft variant)</Heading>
+            <Typography level="h3">Colors (Soft variant)</Typography>
             <div className="flex flex-wrap gap-4">
               <Sheet variant="soft" color="primary">Primary</Sheet>
               <Sheet variant="soft" color="neutral">Neutral</Sheet>
@@ -64,7 +63,7 @@ export function SheetPage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="flex flex-wrap items-start gap-4">
               <Sheet variant="outlined" color="neutral" size="sm">Small (sm)</Sheet>
               <Sheet variant="outlined" color="neutral" size="md">Medium (md)</Sheet>
@@ -73,7 +72,7 @@ export function SheetPage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors (Solid variant)</Heading>
+            <Typography level="h3">Colors (Solid variant)</Typography>
             <div className="flex flex-wrap gap-4">
               <Sheet variant="solid" color="primary">Primary</Sheet>
               <Sheet variant="solid" color="neutral">Neutral</Sheet>

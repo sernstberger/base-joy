@@ -7,7 +7,7 @@ import {
   TableCell,
   Sheet,
 } from '@base-joy/ui-core';
-import { CodeBadge } from '../Typography';
+import { CodeBadge } from '../CodeBadge';
 
 export interface PropMeta {
   name: string;

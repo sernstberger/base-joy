@@ -1,7 +1,6 @@
-import { Avatar, AvatarGroup } from '@base-joy/ui-core';
+import { Avatar, AvatarGroup, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { Size, ColorScale } from '@base-joy/tokens';
@@ -47,10 +46,10 @@ export function AvatarPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Avatar</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Avatar</Typography>
+        <Typography level="body-lg">
           Display user profile images or initials with support for fallback content and grouping.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -70,7 +69,7 @@ export function AvatarPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>With Image</Heading>
+            <Typography level="h3">With Image</Typography>
             <div className="flex gap-3">
               <Avatar
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
@@ -88,7 +87,7 @@ export function AvatarPage() {
           </div>
 
           <div>
-            <Heading level={3}>With Initials</Heading>
+            <Typography level="h3">With Initials</Typography>
             <div className="flex gap-3">
               <Avatar>JD</Avatar>
               <Avatar>AB</Avatar>
@@ -97,7 +96,7 @@ export function AvatarPage() {
           </div>
 
           <div>
-            <Heading level={3}>Sizes</Heading>
+            <Typography level="h3">Sizes</Typography>
             <div className="flex items-center gap-3">
               <Avatar size="sm">SM</Avatar>
               <Avatar size="md">MD</Avatar>
@@ -106,7 +105,7 @@ export function AvatarPage() {
           </div>
 
           <div>
-            <Heading level={3}>Colors</Heading>
+            <Typography level="h3">Colors</Typography>
             <div className="flex gap-3">
               <Avatar color="primary">PR</Avatar>
               <Avatar color="neutral">NE</Avatar>
@@ -117,12 +116,12 @@ export function AvatarPage() {
           </div>
 
           <div>
-            <Heading level={3}>Variants</Heading>
+            <Typography level="h3">Variants</Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Solid
-                </Text>
+                </Typography>
                 <div className="flex gap-3">
                   <Avatar variant="solid" color="primary">
                     PR
@@ -142,9 +141,9 @@ export function AvatarPage() {
                 </div>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Soft
-                </Text>
+                </Typography>
                 <div className="flex gap-3">
                   <Avatar variant="soft" color="primary">
                     PR
@@ -164,9 +163,9 @@ export function AvatarPage() {
                 </div>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Outlined
-                </Text>
+                </Typography>
                 <div className="flex gap-3">
                   <Avatar variant="outlined" color="primary">
                     PR
@@ -189,11 +188,11 @@ export function AvatarPage() {
           </div>
 
           <div>
-            <Heading level={3}>AvatarGroup</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">AvatarGroup</Typography>
+            <Typography level="body-sm" className="mb-3">
               Display multiple avatars with overlap. The avatars stack with negative margin for a
               grouped appearance.
-            </Text>
+            </Typography>
             <AvatarGroup>
               <Avatar
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
@@ -212,11 +211,11 @@ export function AvatarPage() {
           </div>
 
           <div>
-            <Heading level={3}>AvatarGroup with Max</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">AvatarGroup with Max</Typography>
+            <Typography level="body-sm" className="mb-3">
               Limit the number of avatars displayed with the max prop. Extra avatars show as a +N
               indicator.
-            </Text>
+            </Typography>
             <AvatarGroup max={3}>
               <Avatar
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
@@ -237,12 +236,12 @@ export function AvatarPage() {
           </div>
 
           <div>
-            <Heading level={3}>AvatarGroup Sizes</Heading>
+            <Typography level="h3">AvatarGroup Sizes</Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Small
-                </Text>
+                </Typography>
                 <AvatarGroup size="sm">
                   <Avatar>AB</Avatar>
                   <Avatar>CD</Avatar>
@@ -250,9 +249,9 @@ export function AvatarPage() {
                 </AvatarGroup>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Medium
-                </Text>
+                </Typography>
                 <AvatarGroup size="md">
                   <Avatar>AB</Avatar>
                   <Avatar>CD</Avatar>
@@ -260,9 +259,9 @@ export function AvatarPage() {
                 </AvatarGroup>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Large
-                </Text>
+                </Typography>
                 <AvatarGroup size="lg">
                   <Avatar>AB</Avatar>
                   <Avatar>CD</Avatar>
@@ -277,11 +276,11 @@ export function AvatarPage() {
       <Section title="API Reference">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Avatar</Heading>
+            <Typography level="h3">Avatar</Typography>
             <PropsTable props={componentProps.Avatar} />
           </div>
           <div>
-            <Heading level={3}>AvatarGroup</Heading>
+            <Typography level="h3">AvatarGroup</Typography>
             <PropsTable props={avatarGroupProps} />
           </div>
         </div>

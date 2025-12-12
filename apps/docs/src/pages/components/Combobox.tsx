@@ -1,5 +1,4 @@
-import { Combobox } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Combobox, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 const fruits = [
@@ -17,10 +16,10 @@ export function ComboboxPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Combobox</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Combobox</Typography>
+        <Typography level="body-lg">
           A searchable dropdown component that combines an input with a list of options.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">

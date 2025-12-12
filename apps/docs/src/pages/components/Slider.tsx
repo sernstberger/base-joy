@@ -1,15 +1,14 @@
-import { Slider } from '@base-joy/ui-core';
-import { Heading, Text } from '../../components/Typography';
+import { Slider, Typography } from '@base-joy/ui-core';
 import { Section } from '../../components/Section';
 
 export function SliderPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Slider</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Slider</Typography>
+        <Typography level="body-lg">
           A slider component for selecting a value from a range.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Basic Usage">
@@ -45,7 +44,7 @@ export function SliderPage() {
       <Section title="Sizes">
         <div className="space-y-8 max-w-md">
           <div>
-            <Text variant="muted" className="mb-2">Small</Text>
+            <Typography level="body-sm" className="mb-2">Small</Typography>
             <Slider.Root size="sm" defaultValue={30}>
               <Slider.Control>
                 <Slider.Track>
@@ -57,7 +56,7 @@ export function SliderPage() {
           </div>
 
           <div>
-            <Text variant="muted" className="mb-2">Medium</Text>
+            <Typography level="body-sm" className="mb-2">Medium</Typography>
             <Slider.Root size="md" defaultValue={50}>
               <Slider.Control>
                 <Slider.Track>
@@ -69,7 +68,7 @@ export function SliderPage() {
           </div>
 
           <div>
-            <Text variant="muted" className="mb-2">Large</Text>
+            <Typography level="body-sm" className="mb-2">Large</Typography>
             <Slider.Root size="lg" defaultValue={70}>
               <Slider.Control>
                 <Slider.Track>

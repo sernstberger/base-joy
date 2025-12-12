@@ -1,7 +1,6 @@
-import { Grid, Sheet } from '@base-joy/ui-core';
+import { Grid, Sheet, Typography } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
-import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 import type { GridColumns, GridGap } from '@base-joy/ui-core';
@@ -40,10 +39,10 @@ export function GridPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Heading level={1}>Grid</Heading>
-        <Text variant="subtitle">
+        <Typography level="h1">Grid</Typography>
+        <Typography level="body-lg">
           A responsive grid layout system with configurable columns and gaps.
-        </Text>
+        </Typography>
       </header>
 
       <Section title="Playground">
@@ -85,10 +84,10 @@ export function GridPage() {
       <Section title="Examples">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Basic Grid</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Basic Grid</Typography>
+            <Typography level="body-sm" className="mb-3">
               A simple 3-column grid with gap spacing.
-            </Text>
+            </Typography>
             <Grid columns={3} gap={4}>
               <Grid.Item>
                 <Sheet variant="outlined" color="neutral" className="p-4 text-center">
@@ -109,10 +108,10 @@ export function GridPage() {
           </div>
 
           <div>
-            <Heading level={3}>Spanning Items</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Spanning Items</Typography>
+            <Typography level="body-sm" className="mb-3">
               Grid items can span multiple columns.
-            </Text>
+            </Typography>
             <Grid columns={4} gap={4}>
               <Grid.Item>
                 <Sheet variant="soft" color="neutral" className="p-4 text-center">
@@ -158,10 +157,10 @@ export function GridPage() {
           </div>
 
           <div>
-            <Heading level={3}>Full Width Item</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Full Width Item</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use span="full" to make an item span all columns.
-            </Text>
+            </Typography>
             <Grid columns={3} gap={4}>
               <Grid.Item>
                 <Sheet variant="soft" color="neutral" className="p-4 text-center">
@@ -187,15 +186,15 @@ export function GridPage() {
           </div>
 
           <div>
-            <Heading level={3}>Different Column Counts</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Different Column Counts</Typography>
+            <Typography level="body-sm" className="mb-3">
               Grids support 1-12 columns or auto.
-            </Text>
+            </Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   2 Columns
-                </Text>
+                </Typography>
                 <Grid columns={2} gap={3}>
                   <Grid.Item>
                     <Sheet variant="outlined" color="neutral" className="p-3 text-center text-sm">
@@ -210,9 +209,9 @@ export function GridPage() {
                 </Grid>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   6 Columns
-                </Text>
+                </Typography>
                 <Grid columns={6} gap={2}>
                   {Array.from({ length: 6 }, (_, i) => (
                     <Grid.Item key={i}>
@@ -228,9 +227,9 @@ export function GridPage() {
                 </Grid>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   12 Columns
-                </Text>
+                </Typography>
                 <Grid columns={12} gap={1}>
                   {Array.from({ length: 12 }, (_, i) => (
                     <Grid.Item key={i}>
@@ -249,15 +248,15 @@ export function GridPage() {
           </div>
 
           <div>
-            <Heading level={3}>Gap Variations</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Gap Variations</Typography>
+            <Typography level="body-sm" className="mb-3">
               Control spacing between grid items.
-            </Text>
+            </Typography>
             <div className="space-y-4">
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   No Gap (gap=0)
-                </Text>
+                </Typography>
                 <Grid columns={3} gap={0}>
                   <Grid.Item>
                     <Sheet variant="outlined" color="neutral" className="p-4 text-center">
@@ -277,9 +276,9 @@ export function GridPage() {
                 </Grid>
               </div>
               <div>
-                <Text variant="muted" className="mb-2">
+                <Typography level="body-sm" className="mb-2">
                   Large Gap (gap=8)
-                </Text>
+                </Typography>
                 <Grid columns={3} gap={8}>
                   <Grid.Item>
                     <Sheet variant="outlined" color="neutral" className="p-4 text-center">
@@ -302,42 +301,42 @@ export function GridPage() {
           </div>
 
           <div>
-            <Heading level={3}>Card Layout</Heading>
-            <Text variant="muted" className="mb-3">
+            <Typography level="h3">Card Layout</Typography>
+            <Typography level="body-sm" className="mb-3">
               Use Grid for card-based layouts.
-            </Text>
+            </Typography>
             <Grid columns={3} gap={4}>
               <Grid.Item>
                 <Sheet variant="outlined" color="neutral">
                   <div className="p-4">
-                    <Heading level={4}>Card Title</Heading>
-                    <Text variant="muted">Card content goes here.</Text>
+                    <Typography level="h4">Card Title</Typography>
+                    <Typography level="body-sm">Card content goes here.</Typography>
                   </div>
                 </Sheet>
               </Grid.Item>
               <Grid.Item>
                 <Sheet variant="outlined" color="neutral">
                   <div className="p-4">
-                    <Heading level={4}>Card Title</Heading>
-                    <Text variant="muted">Card content goes here.</Text>
+                    <Typography level="h4">Card Title</Typography>
+                    <Typography level="body-sm">Card content goes here.</Typography>
                   </div>
                 </Sheet>
               </Grid.Item>
               <Grid.Item>
                 <Sheet variant="outlined" color="neutral">
                   <div className="p-4">
-                    <Heading level={4}>Card Title</Heading>
-                    <Text variant="muted">Card content goes here.</Text>
+                    <Typography level="h4">Card Title</Typography>
+                    <Typography level="body-sm">Card content goes here.</Typography>
                   </div>
                 </Sheet>
               </Grid.Item>
               <Grid.Item span={3}>
                 <Sheet variant="outlined" color="neutral">
                   <div className="p-4">
-                    <Heading level={4}>Featured Card</Heading>
-                    <Text variant="muted">
+                    <Typography level="h4">Featured Card</Typography>
+                    <Typography level="body-sm">
                       This card spans the full width of the grid.
-                    </Text>
+                    </Typography>
                   </div>
                 </Sheet>
               </Grid.Item>
@@ -349,11 +348,11 @@ export function GridPage() {
       <Section title="API Reference">
         <div className="space-y-8">
           <div>
-            <Heading level={3}>Grid</Heading>
+            <Typography level="h3">Grid</Typography>
             <PropsTable props={componentProps.Grid} />
           </div>
           <div>
-            <Heading level={3}>Grid.Item</Heading>
+            <Typography level="h3">Grid.Item</Typography>
             <PropsTable props={gridItemProps} />
           </div>
         </div>
