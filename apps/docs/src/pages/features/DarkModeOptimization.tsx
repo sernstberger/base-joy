@@ -1,4 +1,4 @@
-import { Sheet, Typography, Button, Badge } from '@base-joy/ui-styled';
+import { Sheet, Typography } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Section } from '../../components/Section';
 import { CodeBlock } from '@base-joy/ui-styled';

@@ -3,6 +3,7 @@ import { Layout } from './components/Layout/Layout';
 import { HomePage } from './pages/index';
 import { GettingStartedPage } from './pages/getting-started/index';
 import ThemingPage from './pages/foundation/Theming';
+import CustomizeThemePage from './pages/foundation/CustomizeTheme';
 import { UnstyledItemPage } from './pages/unstyled/Item';
 import { SheetPage } from './pages/styled/Sheet';
 import { ItemPage } from './pages/styled/Item';
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: 'foundation/theming',
         element: <ThemingPage />,
+      },
+      {
+        path: 'foundation/customize-theme',
+        element: <CustomizeThemePage />,
       },
       {
         path: 'features/color-inversion',

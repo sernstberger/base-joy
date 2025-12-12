@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router';
 import {
   Button,
   Badge,
@@ -70,6 +71,7 @@ function ThemeSwitcher() {
 
     setTheme({
       colors: {
+        ...defaultTheme.colors,
         primary: newPrimaryScale,
       },
     });
@@ -202,6 +204,13 @@ function App() {
         <ThemeSwitcher />
         <Typography level="body-xs" className="text-neutral-600 mt-4">
           Theme changes are automatically saved to localStorage and will persist across page reloads.
+        </Typography>
+        <Typography level="body-sm" className="text-neutral-600 mt-4">
+          Want more control? Visit the{' '}
+          <Link to="/foundation/customize-theme" className="text-primary-600 hover:text-primary-700">
+            interactive theme customizer
+          </Link>{' '}
+          to customize all color scales, export/import themes, and check WCAG compliance.
         </Typography>
       </Section>
 

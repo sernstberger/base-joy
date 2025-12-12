@@ -85,7 +85,7 @@ export interface CardContentProps extends BaseCardContentProps {}
 
 export interface CardFooterProps extends BaseCardFooterProps {}
 
-export interface CardMediaProps extends BaseCardMediaProps {}
+export type CardMediaProps = BaseCardMediaProps;
 
 interface StyledCardContextValue {
   variant: Variant;
@@ -97,7 +97,7 @@ const StyledCardContext = React.createContext<StyledCardContextValue>({
   color: 'neutral',
 });
 
-const useStyledCardContext = () => React.useContext(StyledCardContext);
+export const useStyledCardContext = () => React.useContext(StyledCardContext);
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = 'outlined', color = 'neutral', size = 'md', children, ...props }, ref) => {

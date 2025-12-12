@@ -112,12 +112,9 @@ export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export type CardMediaProps = (
-  | React.ImgHTMLAttributes<HTMLImageElement>
-  | (React.VideoHTMLAttributes<HTMLVideoElement> & { as: 'video' })
-) & {
-  as?: 'img' | 'video';
-};
+export type CardMediaProps =
+  | (React.ImgHTMLAttributes<HTMLImageElement> & { as?: 'img' })
+  | (React.VideoHTMLAttributes<HTMLVideoElement> & { as: 'video' });
 
 interface CardContextValue {
   size: Size;

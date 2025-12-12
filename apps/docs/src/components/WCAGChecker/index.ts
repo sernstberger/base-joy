@@ -1,0 +1,1 @@
+export { WCAGChecker } from './WCAGChecker';

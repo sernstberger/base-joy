@@ -13,5 +13,6 @@ export { spacing, type SpacingKey } from './spacing';
 export {
   type Theme,
   type TypographyTokens,
+  type ColorScaleShades,
   defaultTheme,
 } from './theme';

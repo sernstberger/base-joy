@@ -29,7 +29,10 @@ export const navigation: NavSection[] = [
   },
   {
     title: 'Foundation',
-    items: [{ label: 'Theming', path: '/foundation/theming' }],
+    items: [
+      { label: 'Theming', path: '/foundation/theming' },
+      { label: 'Customize Theme', path: '/foundation/customize-theme' },
+    ],
   },
   {
     title: 'Styled',

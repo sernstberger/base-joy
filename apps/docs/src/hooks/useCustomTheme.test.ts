@@ -1,0 +1,289 @@
+import * as React from 'react';
+import { renderHook, act } from '@testing-library/react';
+import { useCustomTheme } from './useCustomTheme';
+import { useTheme, ThemeProvider } from '@base-joy/ui-styled';
+import { defaultTheme } from '@base-joy/tokens';
+
+jest.mock('@base-joy/ui-styled', () => {
+  const actual = jest.requireActual('@base-joy/ui-styled');
+  return {
+    ...actual,
+    useTheme: jest.fn(),
+  };
+});
+
+describe('useCustomTheme', () => {
+  let mockSetTheme: jest.Mock;
+  let localStorageMock: { [key: string]: string };
+
+  beforeEach(() => {
+    mockSetTheme = jest.fn();
+    (useTheme as jest.Mock).mockReturnValue({
+      theme: defaultTheme,
+      setTheme: mockSetTheme,
+    });
+
+    localStorageMock = {};
+    global.Storage.prototype.getItem = jest.fn((key: string) => localStorageMock[key] || null);
+    global.Storage.prototype.setItem = jest.fn((key: string, value: string) => {
+      localStorageMock[key] = value;
+    });
+    global.Storage.prototype.removeItem = jest.fn((key: string) => {
+      delete localStorageMock[key];
+    });
+
+    global.URL.createObjectURL = jest.fn(() => 'blob:mock-url');
+    global.URL.revokeObjectURL = jest.fn();
+    document.createElement = jest.fn((tagName: string) => {
+      if (tagName === 'a') {
+        return {
+          click: jest.fn(),
+          href: '',
+          download: '',
+        } as any;
+      }
+      return {} as any;
+    });
+  });
+
+  it('initializes with empty customizations when no stored theme', () => {
+    const { result } = renderHook(() => useCustomTheme());
+
+    expect(result.current.customizations).toEqual({});
+    expect(result.current.theme).toEqual(defaultTheme);
+  });
+
+  it('loads customizations from localStorage on mount', () => {
+    const storedTheme = {
+      colors: {
+        primary: {
+          500: '#ff0000',
+        },
+      },
+    };
+    localStorageMock['base-joy-custom-theme'] = JSON.stringify(storedTheme);
+
+    const { result } = renderHook(() => useCustomTheme());
+
+    expect(result.current.customizations).toEqual(storedTheme);
+  });
+
+  it('handles corrupted localStorage data gracefully', () => {
+    localStorageMock['base-joy-custom-theme'] = 'invalid json';
+
+    const { result } = renderHook(() => useCustomTheme());
+
+    expect(result.current.customizations).toEqual({});
+  });
+
+  describe('updateColorScale', () => {
+    it('generates and applies new color scale', () => {
+      const { result } = renderHook(() => useCustomTheme());
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      expect(mockSetTheme).toHaveBeenCalled();
+      const calledWith = mockSetTheme.mock.calls[0][0];
+      expect(calledWith.colors.primary).toBeDefined();
+      expect(calledWith.colors.primary[500]).toBe('#ff0000');
+    });
+
+    it('persists updated theme to localStorage', () => {
+      const { result } = renderHook(() => useCustomTheme());
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        'base-joy-custom-theme',
+        expect.stringContaining('#ff0000')
+      );
+    });
+
+    it('updates customizations state', () => {
+      const { result } = renderHook(() => useCustomTheme());
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      expect(result.current.customizations.colors?.primary[500]).toBe('#ff0000');
+    });
+
+    it('merges with existing customizations', () => {
+      const { result } = renderHook(() => useCustomTheme());
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      act(() => {
+        result.current.updateColorScale('success', '#00ff00');
+      });
+
+      expect(result.current.customizations.colors?.primary[500]).toBe('#ff0000');
+      expect(result.current.customizations.colors?.success[500]).toBe('#00ff00');
+    });
+  });
+
+  describe('resetTheme', () => {
+    it('clears customizations', () => {
+      const { result } = renderHook(() => useCustomTheme());
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      act(() => {
+        result.current.resetTheme();
+      });
+
+      expect(result.current.customizations).toEqual({});
+    });
+
+    it('resets theme to default', () => {
+      const { result } = renderHook(() => useCustomTheme());
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      mockSetTheme.mockClear();
+
+      act(() => {
+        result.current.resetTheme();
+      });
+
+      expect(mockSetTheme).toHaveBeenCalledWith({ colors: defaultTheme.colors });
+    });
+
+    it('removes theme from localStorage', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      act(() => {
+        result.current.resetTheme();
+      });
+
+      expect(localStorage.removeItem).toHaveBeenCalledWith('base-joy-custom-theme');
+    });
+  });
+
+  describe('exportTheme', () => {
+    it('returns JSON string of customizations', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+
+      act(() => {
+        result.current.updateColorScale('primary', '#ff0000');
+      });
+
+      let exported: string = '';
+      act(() => {
+        exported = result.current.exportTheme();
+      });
+
+      expect(exported).toContain('#ff0000');
+      expect(() => JSON.parse(exported)).not.toThrow();
+    });
+
+    it('triggers file download', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const mockAnchor = { click: jest.fn(), href: '', download: '' };
+      (document.createElement as jest.Mock).mockReturnValue(mockAnchor);
+
+      act(() => {
+        result.current.exportTheme();
+      });
+
+      expect(mockAnchor.download).toBe('base-joy-theme.json');
+      expect(mockAnchor.click).toHaveBeenCalled();
+    });
+  });
+
+  describe('importTheme', () => {
+    it('imports valid theme JSON', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const validTheme = {
+        colors: {
+          primary: {
+            500: '#ff0000',
+          },
+        },
+      };
+
+      let importResult: any;
+      act(() => {
+        importResult = result.current.importTheme(JSON.stringify(validTheme));
+      });
+
+      expect(importResult.success).toBe(true);
+      expect(mockSetTheme).toHaveBeenCalled();
+    });
+
+    it('rejects invalid JSON', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+
+      let importResult: any;
+      act(() => {
+        importResult = result.current.importTheme('invalid json');
+      });
+
+      expect(importResult.success).toBe(false);
+      expect(importResult.error).toBeDefined();
+    });
+
+    it('rejects theme without colors object', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const invalidTheme = { typography: {} };
+
+      let importResult: any;
+      act(() => {
+        importResult = result.current.importTheme(JSON.stringify(invalidTheme));
+      });
+
+      expect(importResult.success).toBe(false);
+      expect(importResult.error).toContain('colors');
+    });
+
+    it('persists imported theme to localStorage', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const validTheme = {
+        colors: {
+          primary: {
+            500: '#ff0000',
+          },
+        },
+      };
+      const themeJson = JSON.stringify(validTheme);
+
+      act(() => {
+        result.current.importTheme(themeJson);
+      });
+
+      expect(localStorage.setItem).toHaveBeenCalledWith('base-joy-custom-theme', themeJson);
+    });
+
+    it('updates customizations state with imported theme', () => {
+      const { result } = renderHook(() => useCustomTheme(), { wrapper });
+      const validTheme = {
+        colors: {
+          primary: {
+            500: '#ff0000',
+          },
+        },
+      };
+
+      act(() => {
+        result.current.importTheme(JSON.stringify(validTheme));
+      });
+
+      expect(result.current.customizations).toEqual(validTheme);
+    });
+  });
+});

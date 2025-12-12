@@ -4,7 +4,7 @@ import { fontSizes, lineHeights, fontFamilies } from './typography';
 /**
  * Color scale with 11 shades (50-950)
  */
-export interface ColorScale {
+export interface ColorScaleShades {
   50: string;
   100: string;
   200: string;
@@ -81,11 +81,11 @@ export interface TypographyTokens {
  */
 export interface Theme {
   colors: {
-    primary: ColorScale;
-    neutral: ColorScale;
-    success: ColorScale;
-    warning: ColorScale;
-    danger: ColorScale;
+    primary: ColorScaleShades;
+    neutral: ColorScaleShades;
+    success: ColorScaleShades;
+    warning: ColorScaleShades;
+    danger: ColorScaleShades;
   };
   typography: TypographyTokens;
 }
