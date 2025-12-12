@@ -1,4 +1,5 @@
 import { variants, colors, sizes, type ColorScale } from '@base-joy/tokens';
+import { Button } from '@base-joy/ui-core';
 
 export interface PlaygroundControl {
   name: string;
@@ -26,17 +27,15 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
           {control.type === 'variant' && (
             <div className="flex flex-wrap gap-2">
               {variants.map((variant) => (
-                <button
+                <Button
                   key={variant}
                   onClick={() => onChange(control.name, variant)}
-                  className={`px-3 py-1 text-sm rounded-full border transition-colors ${
-                    values[control.name] === variant
-                      ? 'bg-primary-500 text-white border-primary-500'
-                      : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400'
-                  }`}
+                  variant={values[control.name] === variant ? 'solid' : 'outlined'}
+                  color="primary"
+                  size="sm"
                 >
                   {variant}
-                </button>
+                </Button>
               ))}
             </div>
           )}
@@ -73,17 +72,15 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
           {control.type === 'size' && (
             <div className="flex gap-2">
               {sizes.map((size) => (
-                <button
+                <Button
                   key={size}
                   onClick={() => onChange(control.name, size)}
-                  className={`px-3 py-1 text-sm rounded border transition-colors ${
-                    values[control.name] === size
-                      ? 'bg-primary-500 text-white border-primary-500'
-                      : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400'
-                  }`}
+                  variant={values[control.name] === size ? 'solid' : 'outlined'}
+                  color="primary"
+                  size="sm"
                 >
                   {size}
-                </button>
+                </Button>
               ))}
             </div>
           )}

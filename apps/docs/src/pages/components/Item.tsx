@@ -1,5 +1,16 @@
 import { Sheet } from '@base-joy/ui-core';
-import { Item, ItemStart, ItemContent, ItemEnd } from '@base-joy/ui-core';
+import {
+  Item,
+  ItemStart,
+  ItemContent,
+  ItemEnd,
+  ItemHeader,
+  ItemTitle,
+  ItemDescription,
+  ItemActions,
+  ItemFooter,
+  ItemMedia,
+} from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
@@ -67,7 +78,7 @@ const slotProps: PropMeta[] = [
   {
     name: 'ItemStart',
     type: 'React.ReactNode',
-    description: 'Container for leading content (icons, avatars).',
+    description: 'Container for leading content (icons, small avatars).',
     required: false,
   },
   {
@@ -80,6 +91,42 @@ const slotProps: PropMeta[] = [
     name: 'ItemEnd',
     type: 'React.ReactNode',
     description: 'Container for trailing content (actions, badges).',
+    required: false,
+  },
+  {
+    name: 'ItemMedia',
+    type: 'React.ReactNode',
+    description: 'Container for larger media content (avatars, images).',
+    required: false,
+  },
+  {
+    name: 'ItemHeader',
+    type: 'React.ReactNode',
+    description: 'Container for title and actions with flex justify-between layout.',
+    required: false,
+  },
+  {
+    name: 'ItemTitle',
+    type: 'React.ReactNode',
+    description: 'Primary heading text (h3 element).',
+    required: false,
+  },
+  {
+    name: 'ItemDescription',
+    type: 'React.ReactNode',
+    description: 'Secondary descriptive text with muted color.',
+    required: false,
+  },
+  {
+    name: 'ItemActions',
+    type: 'React.ReactNode',
+    description: 'Right-aligned action area for buttons or controls.',
+    required: false,
+  },
+  {
+    name: 'ItemFooter',
+    type: 'React.ReactNode',
+    description: 'Bottom content area with optional border-top.',
     required: false,
   },
 ];
@@ -187,6 +234,121 @@ export function ItemPage() {
                 </Item>
               </Sheet>
             </div>
+          </div>
+
+          <div>
+            <Heading level={3}>Rich Card Layout</Heading>
+            <Sheet variant="outlined" color="neutral" className="max-w-md p-0 overflow-hidden">
+              <Item className="flex-col items-start">
+                <div className="flex items-start gap-3 w-full">
+                  <ItemMedia>
+                    <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center text-white font-semibold">
+                      JD
+                    </div>
+                  </ItemMedia>
+                  <ItemContent className="flex-col">
+                    <ItemHeader>
+                      <ItemTitle>John Doe</ItemTitle>
+                      <ItemActions>
+                        <button className="px-3 py-1 text-sm bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors">
+                          Follow
+                        </button>
+                      </ItemActions>
+                    </ItemHeader>
+                    <ItemDescription>
+                      Software Engineer at Acme Corp. Building the future of web development.
+                    </ItemDescription>
+                  </ItemContent>
+                </div>
+                <ItemFooter bordered className="text-sm text-neutral-500">
+                  <div className="flex items-center gap-4">
+                    <span>Joined Dec 2024</span>
+                    <span>&middot;</span>
+                    <span>San Francisco, CA</span>
+                  </div>
+                </ItemFooter>
+              </Item>
+            </Sheet>
+          </div>
+
+          <div>
+            <Heading level={3}>User List with Actions</Heading>
+            <Sheet variant="outlined" color="neutral" className="max-w-md p-0 overflow-hidden">
+              <Item className="flex-col items-start">
+                <div className="flex items-center gap-3 w-full">
+                  <ItemMedia>
+                    <div className="w-10 h-10 bg-gradient-to-br from-success-400 to-success-600 rounded-full flex items-center justify-center text-white font-semibold">
+                      AS
+                    </div>
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>Alice Smith</ItemTitle>
+                    <ItemDescription>Product Designer</ItemDescription>
+                  </ItemContent>
+                  <ItemActions>
+                    <button className="text-sm text-primary-500 hover:text-primary-600">
+                      Message
+                    </button>
+                  </ItemActions>
+                </div>
+              </Item>
+              <Item className="flex-col items-start">
+                <div className="flex items-center gap-3 w-full">
+                  <ItemMedia>
+                    <div className="w-10 h-10 bg-gradient-to-br from-warning-400 to-warning-600 rounded-full flex items-center justify-center text-white font-semibold">
+                      BJ
+                    </div>
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>Bob Johnson</ItemTitle>
+                    <ItemDescription>Frontend Developer</ItemDescription>
+                  </ItemContent>
+                  <ItemActions>
+                    <button className="text-sm text-primary-500 hover:text-primary-600">
+                      Message
+                    </button>
+                  </ItemActions>
+                </div>
+              </Item>
+            </Sheet>
+          </div>
+
+          <div>
+            <Heading level={3}>Notification Items</Heading>
+            <Sheet variant="outlined" color="neutral" className="max-w-md p-0 overflow-hidden">
+              <Item interactive className="flex-col items-start">
+                <div className="flex items-start gap-3 w-full">
+                  <ItemStart>
+                    <span className="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs">
+                      &#9733;
+                    </span>
+                  </ItemStart>
+                  <ItemContent>
+                    <ItemTitle>New feature available</ItemTitle>
+                    <ItemDescription>
+                      Check out our new dark mode feature. You can enable it in settings.
+                    </ItemDescription>
+                    <ItemFooter className="text-xs text-neutral-500">2 hours ago</ItemFooter>
+                  </ItemContent>
+                </div>
+              </Item>
+              <Item interactive className="flex-col items-start">
+                <div className="flex items-start gap-3 w-full">
+                  <ItemStart>
+                    <span className="w-5 h-5 bg-success-500 rounded-full flex items-center justify-center text-white text-xs">
+                      &#10003;
+                    </span>
+                  </ItemStart>
+                  <ItemContent>
+                    <ItemTitle>Update completed</ItemTitle>
+                    <ItemDescription>
+                      Your profile has been successfully updated.
+                    </ItemDescription>
+                    <ItemFooter className="text-xs text-neutral-500">1 day ago</ItemFooter>
+                  </ItemContent>
+                </div>
+              </Item>
+            </Sheet>
           </div>
         </div>
       </Section>

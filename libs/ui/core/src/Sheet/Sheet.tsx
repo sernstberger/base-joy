@@ -92,7 +92,7 @@ const sheetVariants = cva(
 );
 
 export interface SheetProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends Omit<React.AllHTMLAttributes<HTMLElement>, 'color' | 'size' | 'as'>,
     VariantProps<typeof sheetVariants> {
   /**
    * The visual style of the sheet.

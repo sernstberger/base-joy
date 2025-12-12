@@ -83,6 +83,89 @@ const itemEndVariants = cva('flex-shrink-0 flex items-center justify-center', {
   },
 });
 
+const itemHeaderVariants = cva('flex items-center justify-between w-full gap-3', {
+  variants: {
+    size: {
+      sm: 'mb-1',
+      md: 'mb-1.5',
+      lg: 'mb-2',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+const itemTitleVariants = cva('font-medium', {
+  variants: {
+    size: {
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+const itemDescriptionVariants = cva('text-neutral-600', {
+  variants: {
+    size: {
+      sm: 'text-xs',
+      md: 'text-sm',
+      lg: 'text-base',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+const itemActionsVariants = cva('flex-shrink-0 flex items-center gap-2', {
+  variants: {
+    size: {
+      sm: 'gap-1',
+      md: 'gap-2',
+      lg: 'gap-2',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+const itemFooterVariants = cva('w-full', {
+  variants: {
+    size: {
+      sm: 'mt-1 pt-1',
+      md: 'mt-1.5 pt-1.5',
+      lg: 'mt-2 pt-2',
+    },
+    bordered: {
+      true: 'border-t border-neutral-200',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    bordered: false,
+  },
+});
+
+const itemMediaVariants = cva('flex-shrink-0 flex items-center justify-center', {
+  variants: {
+    size: {
+      sm: 'w-8 h-8',
+      md: 'w-10 h-10',
+      lg: 'w-12 h-12',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
 export interface ItemProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
     VariantProps<typeof itemVariants> {
@@ -130,6 +213,31 @@ export interface ItemContentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface ItemEndProps extends React.HTMLAttributes<HTMLSpanElement> {
+  size?: Size;
+}
+
+export interface ItemHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: Size;
+}
+
+export interface ItemTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  size?: Size;
+}
+
+export interface ItemDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  size?: Size;
+}
+
+export interface ItemActionsProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: Size;
+}
+
+export interface ItemFooterProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: Size;
+  bordered?: boolean;
+}
+
+export interface ItemMediaProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: Size;
 }
 
@@ -207,4 +315,83 @@ export const ItemEnd = React.forwardRef<HTMLSpanElement, ItemEndProps>(
 
 ItemEnd.displayName = 'ItemEnd';
 
-export { itemVariants, itemStartVariants, itemContentVariants, itemEndVariants };
+export const ItemHeader = React.forwardRef<HTMLDivElement, ItemHeaderProps>(
+  ({ className, size: sizeProp, ...props }, ref) => {
+    const { size: contextSize } = useItemContext();
+    const size = sizeProp ?? contextSize;
+
+    return <div ref={ref} className={cn(itemHeaderVariants({ size }), className)} {...props} />;
+  }
+);
+
+ItemHeader.displayName = 'ItemHeader';
+
+export const ItemTitle = React.forwardRef<HTMLHeadingElement, ItemTitleProps>(
+  ({ className, size: sizeProp, ...props }, ref) => {
+    const { size: contextSize } = useItemContext();
+    const size = sizeProp ?? contextSize;
+
+    return <h3 ref={ref} className={cn(itemTitleVariants({ size }), className)} {...props} />;
+  }
+);
+
+ItemTitle.displayName = 'ItemTitle';
+
+export const ItemDescription = React.forwardRef<HTMLParagraphElement, ItemDescriptionProps>(
+  ({ className, size: sizeProp, ...props }, ref) => {
+    const { size: contextSize } = useItemContext();
+    const size = sizeProp ?? contextSize;
+
+    return <p ref={ref} className={cn(itemDescriptionVariants({ size }), className)} {...props} />;
+  }
+);
+
+ItemDescription.displayName = 'ItemDescription';
+
+export const ItemActions = React.forwardRef<HTMLDivElement, ItemActionsProps>(
+  ({ className, size: sizeProp, ...props }, ref) => {
+    const { size: contextSize } = useItemContext();
+    const size = sizeProp ?? contextSize;
+
+    return <div ref={ref} className={cn(itemActionsVariants({ size }), className)} {...props} />;
+  }
+);
+
+ItemActions.displayName = 'ItemActions';
+
+export const ItemFooter = React.forwardRef<HTMLDivElement, ItemFooterProps>(
+  ({ className, size: sizeProp, bordered, ...props }, ref) => {
+    const { size: contextSize } = useItemContext();
+    const size = sizeProp ?? contextSize;
+
+    return (
+      <div ref={ref} className={cn(itemFooterVariants({ size, bordered }), className)} {...props} />
+    );
+  }
+);
+
+ItemFooter.displayName = 'ItemFooter';
+
+export const ItemMedia = React.forwardRef<HTMLDivElement, ItemMediaProps>(
+  ({ className, size: sizeProp, ...props }, ref) => {
+    const { size: contextSize } = useItemContext();
+    const size = sizeProp ?? contextSize;
+
+    return <div ref={ref} className={cn(itemMediaVariants({ size }), className)} {...props} />;
+  }
+);
+
+ItemMedia.displayName = 'ItemMedia';
+
+export {
+  itemVariants,
+  itemStartVariants,
+  itemContentVariants,
+  itemEndVariants,
+  itemHeaderVariants,
+  itemTitleVariants,
+  itemDescriptionVariants,
+  itemActionsVariants,
+  itemFooterVariants,
+  itemMediaVariants,
+};

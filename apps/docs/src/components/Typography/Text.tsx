@@ -18,16 +18,7 @@ const textVariants = cva('', {
 export interface TextProps
   extends React.HTMLAttributes<HTMLParagraphElement>,
     VariantProps<typeof textVariants> {
-  /**
-   * The text style variant.
-   * @default 'body'
-   */
   variant?: 'body' | 'muted' | 'subtitle';
-
-  /**
-   * The element type to render.
-   * @default 'p'
-   */
   as?: 'p' | 'span' | 'div';
 }
 

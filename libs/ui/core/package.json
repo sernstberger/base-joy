@@ -25,5 +25,8 @@
   "dependencies": {
     "@base-joy/tokens": "*",
     "@base-joy/utils": "*"
+  },
+  "devDependencies": {
+    "@testing-library/user-event": "^14.6.1"
   }
 }

@@ -21,10 +21,6 @@ type HeadingLevel = 1 | 2 | 3 | 4;
 export interface HeadingProps
   extends React.HTMLAttributes<HTMLHeadingElement>,
     VariantProps<typeof headingVariants> {
-  /**
-   * The heading level (1-4).
-   * @default 1
-   */
   level?: HeadingLevel;
 }
 
