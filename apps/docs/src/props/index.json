@@ -426,6 +426,77 @@
       "required": false
     }
   ],
+  "CodeBlock": [
+    {
+      "name": "code",
+      "type": "string",
+      "description": "The code to display",
+      "required": true
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string | number | readonly string[]",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "defaultValue": "tsx",
+      "description": "The language for syntax highlighting",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "FormEventHandler<HTMLDivElement>",
+      "required": false
+    },
+    {
+      "name": "rounded",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | null",
+      "required": false
+    },
+    {
+      "name": "showCopyButton",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "Whether to show the copy button",
+      "required": false
+    },
+    {
+      "name": "showLineNumbers",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether to show line numbers",
+      "required": false
+    },
+    {
+      "name": "theme",
+      "type": "\"github-dark\" | \"github-light\"",
+      "defaultValue": "github-dark",
+      "description": "The color theme for syntax highlighting",
+      "required": false
+    }
+  ],
   "Combobox": [
     {
       "name": "color",

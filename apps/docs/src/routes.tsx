@@ -30,6 +30,7 @@ import { AutocompletePage } from './pages/components/Autocomplete';
 import { SliderPage } from './pages/components/Slider';
 import { NumberFieldPage } from './pages/components/NumberField';
 import { ToastPage } from './pages/components/Toast';
+import { CodeBlockPage } from './pages/components/CodeBlock';
 
 export const router = createBrowserRouter([
   {
@@ -155,6 +156,10 @@ export const router = createBrowserRouter([
       {
         path: 'components/toast',
         element: <ToastPage />,
+      },
+      {
+        path: 'components/code-block',
+        element: <CodeBlockPage />,
       },
     ],
   },

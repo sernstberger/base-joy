@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@base-joy/tokens": "*",
-    "@base-joy/utils": "*",
     "@base-joy/ui-core": "*",
+    "@base-joy/utils": "*",
     "react-router": "^7.1.1"
   }
 }

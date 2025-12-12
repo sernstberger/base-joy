@@ -8,6 +8,7 @@ import ButtonProps from './Button.json';
 import CardProps from './Card.json';
 import CheckboxProps from './Checkbox.json';
 import CheckboxGroupProps from './CheckboxGroup.json';
+import CodeBlockProps from './CodeBlock.json';
 import ComboboxProps from './Combobox.json';
 import ContainerProps from './Container.json';
 import DividerProps from './Divider.json';
@@ -39,6 +40,7 @@ export const componentProps = {
   Card: CardProps,
   Checkbox: CheckboxProps,
   CheckboxGroup: CheckboxGroupProps,
+  CodeBlock: CodeBlockProps,
   Combobox: ComboboxProps,
   Container: ContainerProps,
   Divider: DividerProps,

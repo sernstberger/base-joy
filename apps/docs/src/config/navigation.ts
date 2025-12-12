@@ -19,6 +19,7 @@ export const navigation: NavSection[] = [
       { label: 'Card', path: '/components/card' },
       { label: 'Typography', path: '/components/typography' },
       { label: 'Badge', path: '/components/badge' },
+      { label: 'CodeBlock', path: '/components/code-block' },
       { label: 'Divider', path: '/components/divider' },
       { label: 'Avatar', path: '/components/avatar' },
       { label: 'Container', path: '/components/container' },

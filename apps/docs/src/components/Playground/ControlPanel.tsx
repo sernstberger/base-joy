@@ -1,5 +1,5 @@
 import { variants, colors, sizes, type ColorScale } from '@base-joy/tokens';
-import { Button } from '@base-joy/ui-core';
+import { Button, Typography } from '@base-joy/ui-core';
 
 export interface PlaygroundControl {
   name: string;
@@ -16,13 +16,13 @@ interface ControlPanelProps {
 export function ControlPanel({ controls, values, onChange }: ControlPanelProps) {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-neutral-900">Playground</h3>
+      <Typography level="h5">Playground</Typography>
 
       {controls.map((control) => (
         <div key={control.name}>
-          <label className="block text-sm font-medium text-neutral-700 mb-2 capitalize">
+          <Typography level="body-sm" weight="medium" className="mb-2 capitalize">
             {control.name}
-          </label>
+          </Typography>
 
           {control.type === 'variant' && (
             <div className="flex flex-wrap gap-2">
@@ -63,9 +63,9 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
                   </button>
                 ))}
               </div>
-              <span className="text-xs text-neutral-500 capitalize">
+              <Typography level="body-xs" className="capitalize">
                 {values[control.name]}
-              </span>
+              </Typography>
             </div>
           )}
 

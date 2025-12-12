@@ -18,6 +18,7 @@ const COMPONENTS = [
   'Card',
   'Checkbox',
   'CheckboxGroup',
+  'CodeBlock',
   'Combobox',
   'Container',
   'Divider',

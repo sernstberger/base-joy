@@ -250,6 +250,9 @@ export {
   type AutocompleteGroupLabelProps,
 } from './Autocomplete';
 
+// Code display components
+export { CodeBlock, codeBlockVariants, type CodeBlockProps } from './CodeBlock';
+
 // Feedback components
 export {
   Toast,
