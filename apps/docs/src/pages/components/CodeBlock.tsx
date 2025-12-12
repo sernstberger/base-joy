@@ -1,9 +1,9 @@
-import { CodeBlock, Typography, Sheet } from '@base-joy/ui-core';
+import { CodeBlock, Typography, Sheet } from '@base-joy/ui-components';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 
-const exampleCode = `import { Button } from '@base-joy/ui-core';
+const exampleCode = `import { Button } from '@base-joy/ui-components';
 
 export function MyComponent() {
   return (
@@ -17,7 +17,7 @@ const jsonExample = `{
   "name": "base-joy",
   "version": "1.0.0",
   "dependencies": {
-    "@base-joy/ui-core": "^1.0.0"
+    "@base-joy/ui-components": "^1.0.0"
   }
 }`;
 
@@ -29,7 +29,7 @@ const cssExample = `.button {
 }`;
 
 const bashExample = `# Install dependencies
-yarn add @base-joy/ui-core
+yarn add @base-joy/ui-components
 
 # Start development server
 yarn dev`;

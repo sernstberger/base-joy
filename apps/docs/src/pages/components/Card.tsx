@@ -8,7 +8,7 @@ import {
   CardMedia,
   Button,
   Typography,
-} from '@base-joy/ui-core';
+} from '@base-joy/ui-components';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Section } from '../../components/Section';

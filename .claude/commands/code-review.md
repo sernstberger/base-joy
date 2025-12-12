@@ -221,9 +221,9 @@ If the code looks good:
 ┌────────────────────────────────────┬──────────┬─────────────┐
 │ File                               │ Changes  │ Issues      │
 ├────────────────────────────────────┼──────────┼─────────────┤
-│ libs/ui/core/src/Button/Button.tsx │ +89 -0   │ ✅           │
-│ libs/ui/core/src/Button/index.ts   │ +3 -0    │ ✅           │
-│ libs/ui/core/src/index.ts          │ +1 -0    │ ✅           │
+│ libs/ui/components/src/Button/Button.tsx │ +89 -0   │ ✅           │
+│ libs/ui/components/src/Button/index.ts   │ +3 -0    │ ✅           │
+│ libs/ui/components/src/index.ts          │ +1 -0    │ ✅           │
 └────────────────────────────────────┴──────────┴─────────────┘
 
 ✅ LGTM - No issues found. Code follows project patterns and best practices.

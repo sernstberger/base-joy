@@ -1,4 +1,4 @@
-import { Stack, Sheet, Button, Badge, Divider, Typography } from '@base-joy/ui-core';
+import { Stack, Sheet, Button, Badge, Divider, Typography } from '@base-joy/ui-components';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';

@@ -1,4 +1,4 @@
-import { NumberField, Typography } from '@base-joy/ui-core';
+import { NumberField, Typography } from '@base-joy/ui-components';
 import { Section } from '../../components/Section';
 
 export function NumberFieldPage() {

@@ -3,7 +3,7 @@ import { Button as BaseButton } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
-import { ItemContext, ItemIcon } from '../Item';
+import { ItemContext, ItemIcon } from '@base-joy/ui-base';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const buttonVariants = cva(

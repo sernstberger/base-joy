@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { Sheet, Typography } from '@base-joy/ui-core';
+import { Sheet, Typography } from '@base-joy/ui-components';
 import { Section } from '../components/Section';
 
 export function HomePage() {
@@ -15,7 +15,7 @@ export function HomePage() {
       <Section title="Getting Started">
         <Sheet variant="soft" color="neutral" className="mb-4">
           <pre className="text-sm">
-            <code>npm install @base-joy/ui-core</code>
+            <code>npm install @base-joy/ui-components</code>
           </pre>
         </Sheet>
         <Typography>

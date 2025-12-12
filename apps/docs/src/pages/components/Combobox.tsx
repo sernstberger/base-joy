@@ -1,4 +1,4 @@
-import { Combobox, Typography } from '@base-joy/ui-core';
+import { Combobox, Typography } from '@base-joy/ui-components';
 import { Section } from '../../components/Section';
 
 const fruits = [

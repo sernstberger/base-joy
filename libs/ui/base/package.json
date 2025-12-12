@@ -1,5 +1,5 @@
 {
-  "name": "@base-joy/ui-core",
+  "name": "@base-joy/ui-base",
   "version": "0.0.1",
   "type": "module",
   "main": "./src/index.ts",
@@ -8,10 +8,6 @@
     ".": {
       "import": "./src/index.ts",
       "types": "./src/index.ts"
-    },
-    "./Sheet": {
-      "import": "./src/Sheet/index.ts",
-      "types": "./src/Sheet/index.ts"
     },
     "./Item": {
       "import": "./src/Item/index.ts",
@@ -24,10 +20,6 @@
   },
   "dependencies": {
     "@base-joy/tokens": "*",
-    "@base-joy/utils": "*",
-    "shiki": "^3.20.0"
-  },
-  "devDependencies": {
-    "@testing-library/user-event": "^14.6.1"
+    "@base-joy/utils": "*"
   }
 }

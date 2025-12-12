@@ -1,4 +1,4 @@
-import { Sheet, Typography } from '@base-joy/ui-core';
+import { Sheet, Typography } from '@base-joy/ui-components';
 import { Section } from '../../components/Section';
 
 function StaticToastExample({
@@ -58,7 +58,7 @@ export function ToastPage() {
           <code className="bg-neutral-100 px-1 rounded">@base-ui/react/toast</code> to manage toasts.
         </Typography>
         <pre className="bg-neutral-100 p-4 rounded-lg text-sm overflow-x-auto">
-{`import { Toast } from '@base-joy/ui-core';
+{`import { Toast } from '@base-joy/ui-components';
 import { useToastManager } from '@base-ui/react/toast';
 
 function MyComponent() {

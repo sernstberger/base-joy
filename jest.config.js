@@ -7,8 +7,10 @@ const config = {
     '^@base-joy/tokens$': '<rootDir>/libs/design-system/tokens/src/index.ts',
     '^@base-joy/tokens/(.*)$': '<rootDir>/libs/design-system/tokens/src/$1',
     '^@base-joy/utils$': '<rootDir>/libs/design-system/utils/src/index.ts',
-    '^@base-joy/ui-core$': '<rootDir>/libs/ui/core/src/index.ts',
-    '^@base-joy/ui-core/(.*)$': '<rootDir>/libs/ui/core/src/$1',
+    '^@base-joy/ui-base$': '<rootDir>/libs/ui/base/src/index.ts',
+    '^@base-joy/ui-base/(.*)$': '<rootDir>/libs/ui/base/src/$1',
+    '^@base-joy/ui-components$': '<rootDir>/libs/ui/components/src/index.ts',
+    '^@base-joy/ui-components/(.*)$': '<rootDir>/libs/ui/components/src/$1',
   },
   testMatch: ['**/*.test.{ts,tsx}'],
   transform: {

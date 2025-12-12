@@ -1,5 +1,5 @@
 import { variants, colors, sizes, type ColorScale } from '@base-joy/tokens';
-import { Toggle, ToggleGroup, Typography } from '@base-joy/ui-core';
+import { Toggle, ToggleGroup, Typography } from '@base-joy/ui-components';
 
 export interface PlaygroundControl {
   name: string;

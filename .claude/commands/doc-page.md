@@ -6,7 +6,7 @@ Create an individual documentation page for a base-joy component, following MUI 
 Parse the component name from the arguments. It should be PascalCase (e.g., Sheet, Button, Card).
 
 ## Prerequisites
-- The component must already exist in `libs/ui/core/src/{ComponentName}/`
+- The component must already exist in `libs/ui/components/src/{ComponentName}/` (or `libs/ui/base/src/{ComponentName}/` for primitives)
 - The Playground components must exist in `apps/docs/src/components/Playground/`
 - React Router must be set up in the docs app
 
@@ -17,7 +17,7 @@ Parse the component name from the arguments. It should be PascalCase (e.g., Shee
 Create `apps/docs/src/pages/components/{ComponentName}.tsx`:
 
 ```tsx
-import { {ComponentName} } from '@base-joy/ui-core';
+import { {ComponentName} } from '@base-joy/ui-components';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';

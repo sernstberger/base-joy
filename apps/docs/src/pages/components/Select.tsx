@@ -1,4 +1,4 @@
-import { Select, Typography } from '@base-joy/ui-core';
+import { Select, Typography } from '@base-joy/ui-components';
 import { Section } from '../../components/Section';
 
 export function SelectPage() {

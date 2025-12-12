@@ -15,6 +15,10 @@ const sortByLabel = (items: NavItem[]) =>
 
 export const navigation: NavSection[] = [
   {
+    title: 'Base',
+    items: sortByLabel([{ label: 'Item', path: '/components/item' }]),
+  },
+  {
     title: 'Primitives',
     items: sortByLabel([
       {
@@ -28,7 +32,6 @@ export const navigation: NavSection[] = [
       { label: 'Container', path: '/components/container' },
       { label: 'Divider', path: '/components/divider' },
       { label: 'Grid', path: '/components/grid' },
-      { label: 'Item', path: '/components/item' },
       { label: 'Link', path: '/components/link' },
       {
         label: 'ScrollArea',

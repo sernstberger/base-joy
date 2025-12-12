@@ -1,4 +1,4 @@
-import { Container, Sheet, Typography } from '@base-joy/ui-core';
+import { Container, Sheet, Typography } from '@base-joy/ui-components';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';

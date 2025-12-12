@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-@source "../../../libs/ui/core/src/**/*.tsx";
+@source "../../../libs/ui/base/src/**/*.tsx";
+@source "../../../libs/ui/components/src/**/*.tsx";
 @source "../../../libs/design-system/**/*.ts";
 
 @theme {

@@ -6,8 +6,12 @@ import * as docgen from 'react-docgen-typescript';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const UI_CORE_PATH = path.resolve(__dirname, '../../../libs/ui/core/src');
+const UI_BASE_PATH = path.resolve(__dirname, '../../../libs/ui/base/src');
+const UI_COMPONENTS_PATH = path.resolve(__dirname, '../../../libs/ui/components/src');
 const OUTPUT_PATH = path.resolve(__dirname, '../src/props');
+
+// Components in ui-base (unstyled primitives)
+const UI_BASE_COMPONENTS = new Set(['Item']);
 
 // Components to extract props from (only existing components)
 const COMPONENTS = [
@@ -130,7 +134,8 @@ function formatType(type: docgen.PropItem['type'], propName: string): string {
 }
 
 function extractProps(componentName: string): PropMeta[] | null {
-  const componentPath = path.join(UI_CORE_PATH, componentName, `${componentName}.tsx`);
+  const basePath = UI_BASE_COMPONENTS.has(componentName) ? UI_BASE_PATH : UI_COMPONENTS_PATH;
+  const componentPath = path.join(basePath, componentName, `${componentName}.tsx`);
 
   if (!fs.existsSync(componentPath)) {
     console.warn(`Component not found: ${componentPath}`);

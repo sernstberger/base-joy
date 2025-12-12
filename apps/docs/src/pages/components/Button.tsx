@@ -1,4 +1,4 @@
-import { Button, Sheet, Typography } from '@base-joy/ui-core';
+import { Button, Sheet, Typography } from '@base-joy/ui-components';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,

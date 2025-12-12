@@ -9,7 +9,8 @@ export default defineConfig({
     alias: {
       '@base-joy/tokens': path.resolve(__dirname, '../../libs/design-system/tokens/src'),
       '@base-joy/utils': path.resolve(__dirname, '../../libs/design-system/utils/src'),
-      '@base-joy/ui-core': path.resolve(__dirname, '../../libs/ui/core/src'),
+      '@base-joy/ui-base': path.resolve(__dirname, '../../libs/ui/base/src'),
+      '@base-joy/ui-components': path.resolve(__dirname, '../../libs/ui/components/src'),
     },
   },
 });

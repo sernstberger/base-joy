@@ -1,9 +1,9 @@
-import { Grid, Sheet, Typography } from '@base-joy/ui-core';
+import { Grid, Sheet, Typography } from '@base-joy/ui-components';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
-import type { GridColumns, GridGap } from '@base-joy/ui-core';
+import type { GridColumns, GridGap } from '@base-joy/ui-components';
 
 const gridControls: PlaygroundControl[] = [
   { name: 'size', type: 'size', defaultValue: 'md' },

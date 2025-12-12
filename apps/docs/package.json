@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@base-joy/tokens": "*",
-    "@base-joy/ui-core": "*",
+    "@base-joy/ui-base": "*",
+    "@base-joy/ui-components": "*",
     "@base-joy/utils": "*",
     "lucide-react": "^0.561.0",
     "react-router": "^7.1.1"

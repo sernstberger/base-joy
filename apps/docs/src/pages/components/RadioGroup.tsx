@@ -1,4 +1,4 @@
-import { Radio, RadioGroup, Typography } from '@base-joy/ui-core';
+import { Radio, RadioGroup, Typography } from '@base-joy/ui-components';
 import { Section } from '../../components/Section';
 
 export function RadioGroupPage() {

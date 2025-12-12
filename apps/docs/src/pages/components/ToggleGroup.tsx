@@ -1,4 +1,4 @@
-import { Toggle, ToggleGroup } from '@base-joy/ui-core';
+import { Toggle, ToggleGroup } from '@base-joy/ui-components';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Section } from '../../components/Section';
 

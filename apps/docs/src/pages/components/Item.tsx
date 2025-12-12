@@ -1,4 +1,4 @@
-import { Sheet } from '@base-joy/ui-core';
+import { Sheet, Typography } from '@base-joy/ui-components';
 import {
   Item,
   ItemStart,
@@ -10,8 +10,7 @@ import {
   ItemActions,
   ItemFooter,
   ItemMedia,
-  Typography,
-} from '@base-joy/ui-core';
+} from '@base-joy/ui-base';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Section } from '../../components/Section';

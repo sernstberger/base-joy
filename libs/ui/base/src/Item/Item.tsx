@@ -290,13 +290,14 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
     );
 
     if (render) {
+      const renderProps = render.props as { className?: string };
       return React.cloneElement(render, {
         ref,
-        className: cn(itemClassName, render.props.className),
+        className: cn(itemClassName, renderProps.className),
         'aria-disabled': disabled || undefined,
         ...props,
         children: content,
-      });
+      } as React.HTMLAttributes<HTMLElement>);
     }
 
     return (

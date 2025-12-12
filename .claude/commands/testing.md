@@ -24,7 +24,7 @@ Parse the component name from the arguments. It should be PascalCase (e.g., Shee
 
 ## Test File Template
 
-**Path:** `libs/ui/core/src/{ComponentName}/{ComponentName}.test.tsx`
+**Path:** `libs/ui/components/src/{ComponentName}/{ComponentName}.test.tsx`
 
 ```tsx
 import * as React from 'react';

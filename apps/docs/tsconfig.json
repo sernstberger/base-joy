@@ -19,8 +19,10 @@
       "@base-joy/tokens": ["../../libs/design-system/tokens/src/index.ts"],
       "@base-joy/tokens/*": ["../../libs/design-system/tokens/src/*"],
       "@base-joy/utils": ["../../libs/design-system/utils/src/index.ts"],
-      "@base-joy/ui-core": ["../../libs/ui/core/src/index.ts"],
-      "@base-joy/ui-core/*": ["../../libs/ui/core/src/*"]
+      "@base-joy/ui-base": ["../../libs/ui/base/src/index.ts"],
+      "@base-joy/ui-base/*": ["../../libs/ui/base/src/*"],
+      "@base-joy/ui-components": ["../../libs/ui/components/src/index.ts"],
+      "@base-joy/ui-components/*": ["../../libs/ui/components/src/*"]
     }
   },
   "include": ["src"]

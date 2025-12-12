@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
-import { Typography } from '@base-joy/ui-core';
+import { Typography } from '@base-joy/ui-components';
 
 const sectionVariants = cva('', {
   variants: {

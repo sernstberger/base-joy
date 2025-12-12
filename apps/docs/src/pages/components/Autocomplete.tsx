@@ -1,4 +1,4 @@
-import { Autocomplete, Typography } from '@base-joy/ui-core';
+import { Autocomplete, Typography } from '@base-joy/ui-components';
 import { Section } from '../../components/Section';
 
 const countries = [

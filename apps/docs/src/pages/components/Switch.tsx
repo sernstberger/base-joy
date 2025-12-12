@@ -1,4 +1,4 @@
-import { Switch } from '@base-joy/ui-core';
+import { Switch } from '@base-joy/ui-components';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Section } from '../../components/Section';
 

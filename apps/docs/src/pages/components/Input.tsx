@@ -1,4 +1,4 @@
-import { Input, Typography } from '@base-joy/ui-core';
+import { Input, Typography } from '@base-joy/ui-components';
 import {
   Playground,
   type PlaygroundControl,

@@ -8,9 +8,9 @@ Parse the component name from the arguments. It should be PascalCase (e.g., Butt
 ## Files to Create
 
 ### 1. Component File
-**Path:** `libs/ui/core/src/{ComponentName}/{ComponentName}.tsx`
+**Path:** `libs/ui/components/src/{ComponentName}/{ComponentName}.tsx`
 
-Follow the pattern from `libs/ui/core/src/Sheet/Sheet.tsx`:
+Follow the pattern from `libs/ui/components/src/Sheet/Sheet.tsx`:
 
 ```tsx
 import * as React from 'react';
@@ -113,19 +113,19 @@ export { {componentName}Variants };
 ```
 
 ### 2. Barrel Export
-**Path:** `libs/ui/core/src/{ComponentName}/index.ts`
+**Path:** `libs/ui/components/src/{ComponentName}/index.ts`
 
 ```typescript
 export { {ComponentName}, {componentName}Variants, type {ComponentName}Props } from './{ComponentName}';
 ```
 
 ### 3. Test File
-**Path:** `libs/ui/core/src/{ComponentName}/{ComponentName}.test.tsx`
+**Path:** `libs/ui/components/src/{ComponentName}/{ComponentName}.test.tsx`
 
 Use the `/testing` command to generate tests following Kent C. Dodds methodology with jest-axe.
 
 ### 4. Update Main Index
-**Path:** `libs/ui/core/src/index.ts`
+**Path:** `libs/ui/components/src/index.ts`
 
 Add export:
 ```typescript
@@ -133,7 +133,7 @@ export { {ComponentName}, {componentName}Variants, type {ComponentName}Props } f
 ```
 
 ### 5. Update Package Exports
-**Path:** `libs/ui/core/package.json`
+**Path:** `libs/ui/components/package.json`
 
 Add to exports:
 ```json

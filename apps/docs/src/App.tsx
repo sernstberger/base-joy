@@ -1,5 +1,5 @@
-import { Sheet } from '@base-joy/ui-core';
-import { Item, ItemStart, ItemContent, ItemEnd } from '@base-joy/ui-core';
+import { Sheet } from '@base-joy/ui-components';
+import { Item, ItemStart, ItemContent, ItemEnd } from '@base-joy/ui-base';
 import { Playground, type PlaygroundControl } from './components/Playground';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
 
