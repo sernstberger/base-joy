@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
+import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
 
 const radioRootVariants = cva(
   'inline-flex items-center justify-center rounded-full cursor-pointer transition-colors',
@@ -50,8 +51,20 @@ const useRadioContext = () => React.useContext(RadioContext);
 
 export interface RadioRootProps
   extends Omit<React.ComponentProps<typeof BaseRadio.Root>, 'className'> {
+  /**
+   * The visual style of the radio.
+   * @default 'outlined'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the radio.
+   * @default 'primary'
+   */
   color?: ColorScale;
+  /**
+   * The size of the radio.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }
@@ -60,14 +73,22 @@ const Root = React.forwardRef<HTMLButtonElement, RadioRootProps>(
   (
     {
       className,
-      variant = 'outlined',
-      color = 'primary',
+      variant: variantProp,
+      color: colorProp,
       size = 'md',
       disabled,
       ...props
     },
     ref
   ) => {
+    // Resolve color and variant from context (inherits from parent Sheet)
+    const { color, variant, isInsideSolid } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'primary', // defaultColor
+      'outlined' // defaultVariant
+    );
+
     return (
       <RadioContext.Provider value={{ size }}>
         <BaseRadio.Root
@@ -76,7 +97,8 @@ const Root = React.forwardRef<HTMLButtonElement, RadioRootProps>(
           className={cn(
             sheetVariants({ variant, color, interactive: true }),
             radioRootVariants({ size, disabled }),
-            'data-[checked]:bg-primary-500 data-[checked]:text-white data-[checked]:border-primary-500',
+            `data-[checked]:bg-${color}-500 data-[checked]:text-white data-[checked]:border-${color}-500`,
+            isInsideSolid && getSolidContainerStyles(variant, true),
             className
           )}
           {...props}

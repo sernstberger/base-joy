@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Button } from './Button';
+import { Sheet } from '../Sheet';
 
 describe('Button', () => {
   describe('rendering', () => {
@@ -369,6 +370,83 @@ describe('Button', () => {
     it('has no accessibility violations as link', async () => {
       const { container } = render(
         <Button render={<a href="/test" />}>Link button</Button>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('ColorContext integration', () => {
+    it('inherits color from parent Sheet', () => {
+      const { container } = render(
+        <Sheet color="success">
+          <Button>Inherited</Button>
+        </Sheet>
+      );
+      const button = container.querySelector('button') as HTMLElement;
+      // Button inherits success color from Sheet, uses default solid variant
+      expect(button).toHaveClass('bg-success-500');
+    });
+
+    it('inverts to plain variant inside solid Sheet', () => {
+      const { container } = render(
+        <Sheet variant="solid" color="primary">
+          <Button>Auto-adjusted</Button>
+        </Sheet>
+      );
+      const button = container.querySelector('button') as HTMLElement;
+      // Should have plain variant styles (white text on transparent bg)
+      expect(button).toHaveClass('text-white');
+      // Should NOT have solid background (that would be solid-on-solid)
+      expect(button).not.toHaveClass('bg-primary-500');
+    });
+
+    it('applies solid container styles for plain variant inside solid Sheet', () => {
+      const { container } = render(
+        <Sheet variant="solid" color="primary">
+          <Button>Auto-adjusted</Button>
+        </Sheet>
+      );
+      const button = container.querySelector('button') as HTMLElement;
+      // Should have solid container hover styles
+      expect(button).toHaveClass('hover:bg-white/10');
+    });
+
+    it('allows explicit color override inside Sheet', () => {
+      const { container } = render(
+        <Sheet color="primary">
+          <Button color="danger">Override</Button>
+        </Sheet>
+      );
+      const button = container.querySelector('button') as HTMLElement;
+      expect(button).toHaveClass('bg-danger-500');
+    });
+
+    it('allows explicit variant override inside solid Sheet', () => {
+      const { container } = render(
+        <Sheet variant="solid" color="primary">
+          <Button variant="soft" color="success">Override</Button>
+        </Sheet>
+      );
+      const button = container.querySelector('button') as HTMLElement;
+      // Should use explicit soft success, not auto-inverted
+      expect(button).toHaveClass('bg-success-100');
+      expect(button).toHaveClass('text-success-900');
+    });
+
+    it('works without Sheet (uses defaults)', () => {
+      const { container } = render(<Button>No Sheet</Button>);
+      const button = container.firstChild as HTMLElement;
+      // Should use default solid primary
+      expect(button).toHaveClass('bg-primary-500');
+      expect(button).toHaveClass('text-white');
+    });
+
+    it('has no accessibility violations inside solid Sheet', async () => {
+      const { container } = render(
+        <Sheet variant="solid" color="primary">
+          <Button>Auto-adjusted button</Button>
+        </Sheet>
       );
       const results = await axe(container);
       expect(results).toHaveNoViolations();

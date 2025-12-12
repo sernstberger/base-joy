@@ -4,6 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { Sheet } from '../Sheet';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { useResolvedColorProps } from '../ColorContext';
 
 const inputVariants = cva(
   'flex items-center w-full p-0 focus-visible:outline-none',
@@ -32,8 +33,20 @@ const inputVariants = cva(
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'disabled'>,
     Omit<VariantProps<typeof inputVariants>, 'disabled'> {
+  /**
+   * The visual style of the input.
+   * @default 'outlined'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the input.
+   * @default 'neutral'
+   */
   color?: ColorScale;
+  /**
+   * The size of the input.
+   * @default 'md'
+   */
   size?: Size;
   fullWidth?: boolean;
   error?: boolean;
@@ -46,8 +59,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
-      variant = 'outlined',
-      color = 'neutral',
+      variant: variantProp,
+      color: colorProp,
       size = 'md',
       fullWidth,
       error,
@@ -59,6 +72,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
+    // Resolve color and variant from context (inherits from parent Sheet)
+    const { color, variant } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'neutral', // defaultColor
+      'outlined' // defaultVariant
+    );
+
     const effectiveColor = error ? 'danger' : color;
 
     return (

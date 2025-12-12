@@ -12,6 +12,7 @@ import {
   type ItemDescriptionProps as BaseItemDescriptionProps,
 } from '@base-joy/ui-unstyled';
 import { sheetVariants } from '../Sheet';
+import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
 
 interface StyledItemContextValue {
   variant: Variant;
@@ -196,8 +197,20 @@ const styledItemEndVariants = cva('', {
 });
 
 export interface ItemProps extends Omit<BaseItemProps, 'interactive' | 'selected' | 'disabled'> {
+  /**
+   * The visual style of the item.
+   * @default 'soft'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the item.
+   * @default 'neutral'
+   */
   color?: ColorScale;
+  /**
+   * The size of the item.
+   * @default 'md'
+   */
   size?: Size;
   interactive?: boolean;
   selected?: boolean;
@@ -225,8 +238,8 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
   (
     {
       className,
-      variant = 'soft',
-      color = 'neutral',
+      variant: variantProp,
+      color: colorProp,
       size = 'md',
       interactive = false,
       selected = false,
@@ -237,6 +250,14 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
     },
     ref
   ) => {
+    // Resolve color and variant from context (inherits from parent Sheet)
+    const { color, variant, isInsideSolid } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'neutral', // defaultColor
+      'soft' // defaultVariant
+    );
+
     const itemClassName = cn(
       'flex items-center gap-3 w-full rounded-lg',
       sheetVariants({ variant, color, interactive }),
@@ -244,6 +265,7 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
       'p-0',
       sizeVariants({ size }),
       styledItemVariants({ interactive, selected, disabled, variant, color }),
+      isInsideSolid && getSolidContainerStyles(variant, interactive),
       className
     );
 

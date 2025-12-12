@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
+import { useResolvedColorProps } from '../ColorContext';
 
 const selectTriggerVariants = cva(
   'inline-flex items-center justify-between gap-2 cursor-pointer transition-colors',
@@ -89,12 +90,32 @@ const useSelectContext = () => React.useContext(SelectContext);
 
 export interface SelectRootProps
   extends Omit<React.ComponentProps<typeof BaseSelect.Root>, 'className'> {
+  /**
+   * The visual style of the select trigger.
+   * @default 'outlined'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the select.
+   * @default 'neutral'
+   */
   color?: ColorScale;
+  /**
+   * The size of the select.
+   * @default 'md'
+   */
   size?: Size;
 }
 
-const Root = ({ variant = 'outlined', color = 'neutral', size = 'md', ...props }: SelectRootProps) => {
+const Root = ({ variant: variantProp, color: colorProp, size = 'md', ...props }: SelectRootProps) => {
+  // Resolve color and variant from context (inherits from parent Sheet)
+  const { color, variant } = useResolvedColorProps(
+    colorProp,
+    variantProp,
+    'neutral', // defaultColor
+    'outlined' // defaultVariant
+  );
+
   return (
     <SelectContext.Provider value={{ size, color, variant }}>
       <BaseSelect.Root {...props} />

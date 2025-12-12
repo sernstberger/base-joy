@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { Sheet } from '../Sheet/Sheet';
+import { useResolvedColorProps } from '../ColorContext';
 
 const textareaSizeVariants = cva('', {
   variants: {
@@ -19,8 +20,20 @@ const textareaSizeVariants = cva('', {
 
 export interface TextareaProps
   extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'color' | 'size'> {
+  /**
+   * The visual style of the textarea.
+   * @default 'outlined'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the textarea.
+   * @default 'neutral'
+   */
   color?: ColorScale;
+  /**
+   * The size of the textarea.
+   * @default 'md'
+   */
   size?: Size;
   error?: boolean;
   fullWidth?: boolean;
@@ -32,8 +45,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       className,
-      variant = 'outlined',
-      color = 'neutral',
+      variant: variantProp,
+      color: colorProp,
       size = 'md',
       error,
       fullWidth = true,
@@ -47,6 +60,15 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ) => {
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);
     const combinedRef = (ref as any) || textareaRef;
+
+    // Resolve color and variant from context (inherits from parent Sheet)
+    const { color, variant } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'neutral', // defaultColor
+      'outlined' // defaultVariant
+    );
+
     const effectiveColor = error ? 'danger' : color;
 
     React.useEffect(() => {

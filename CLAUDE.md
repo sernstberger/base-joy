@@ -220,6 +220,62 @@ Reference implementations:
 - **forwardRef**: All components use forwardRef.
 - **Context for inheritance**: Use React Context to pass props (size, variant) to child components.
 
+### ColorContext Props Pattern (CRITICAL)
+
+Components that support `variant` and `color` props use `useResolvedColorProps` hook for context inheritance. This enables automatic color/variant inheritance from parent Sheet components.
+
+**NEVER use destructuring defaults for `variant` or `color` props:**
+
+```tsx
+// ❌ WRONG - Breaks ColorContext inheritance
+const Button = ({ variant = 'solid', color = 'primary', ...props }) => {
+  const { color: resolvedColor, variant: resolvedVariant } = useResolvedColorProps(
+    color,    // Always receives 'primary', never undefined
+    variant,  // Always receives 'solid', never undefined
+    'primary',
+    'solid'
+  );
+  // Hook can't detect "not explicitly set" - inheritance broken!
+};
+
+// ✅ CORRECT - Preserves context inheritance
+const Button = ({ variant: variantProp, color: colorProp, ...props }) => {
+  const { color, variant } = useResolvedColorProps(
+    colorProp,   // undefined when not set → inherits from context
+    variantProp, // undefined when not set → enables variant inversion
+    'primary',   // default if no context
+    'solid'      // default if no context
+  );
+};
+```
+
+**Why this matters:**
+- `useResolvedColorProps` checks if props are `undefined` to know if they were explicitly set
+- With destructuring defaults, the hook receives the default value instead of `undefined`
+- This breaks color inheritance and variant inversion inside solid containers
+- The hook's default parameters handle runtime defaults correctly
+
+**For props documentation (react-docgen-typescript), use JSDoc `@default` tags:**
+
+```tsx
+export interface ButtonProps {
+  /**
+   * The visual style of the button.
+   * @default 'solid'
+   */
+  variant?: Variant;
+  /**
+   * The color scheme of the button.
+   * @default 'primary'
+   */
+  color?: ColorScale;
+}
+```
+
+**Note:** `size` prop CAN use destructuring default (`size = 'md'`) because it doesn't affect context inheritance - only variant/color are resolved through ColorContext.
+
+Reference implementation: `libs/ui/styled/src/Button/Button.tsx`
+
 ## Tech Stack
 
 - React 19

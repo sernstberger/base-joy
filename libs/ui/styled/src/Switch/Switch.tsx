@@ -3,6 +3,7 @@ import { Switch as BaseSwitch } from '@base-ui/react/switch';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size, ColorScale } from '@base-joy/tokens';
+import { useColorContext } from '../ColorContext';
 
 const switchRootVariants = cva(
   'relative inline-flex shrink-0 cursor-pointer rounded-full transition-colors bg-neutral-300 data-[checked]:bg-primary-500',
@@ -58,7 +59,12 @@ export interface SwitchRootProps
 }
 
 const Root = React.forwardRef<HTMLButtonElement, SwitchRootProps>(
-  ({ className, color = 'primary', size = 'md', disabled, ...props }, ref) => {
+  ({ className, color: colorProp, size = 'md', disabled, ...props }, ref) => {
+    const colorContext = useColorContext();
+
+    // Resolve color: explicit prop > context > default
+    const color = colorProp ?? colorContext?.color ?? 'primary';
+
     const colorClass =
       color === 'primary'
         ? 'data-[checked]:bg-primary-500'

@@ -21,6 +21,7 @@ export const navigation: NavSection[] = [
   {
     title: 'Features',
     items: [
+      { label: 'Color Context', path: '/features/color-context' },
       { label: 'Color Inversion', path: '/features/color-inversion' },
       { label: 'Global Variants', path: '/features/global-variants' },
       { label: 'Automatic Adjustment', path: '/features/automatic-adjustment' },

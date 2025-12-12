@@ -38,6 +38,7 @@ import { CodeBlockPage } from './pages/styled/CodeBlock';
 import { TogglePage } from './pages/styled/Toggle';
 import { ToggleGroupPage } from './pages/styled/ToggleGroup';
 import { ColorInversionPage } from './pages/features/ColorInversion';
+import { ColorContextPage } from './pages/features/ColorContext';
 import { GlobalVariantsPage } from './pages/features/GlobalVariants';
 import { AutomaticAdjustmentPage } from './pages/features/AutomaticAdjustment';
 import { DarkModeOptimizationPage } from './pages/features/DarkModeOptimization';
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: 'features/color-inversion',
         element: <ColorInversionPage />,
+      },
+      {
+        path: 'features/color-context',
+        element: <ColorContextPage />,
       },
       {
         path: 'features/global-variants',

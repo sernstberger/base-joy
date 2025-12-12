@@ -3,6 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { Sheet } from '../Sheet';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
 
 const badgeVariants = cva(
   'inline-flex items-center font-medium rounded-full',
@@ -56,8 +57,8 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   (
     {
       className,
-      variant = 'soft',
-      color = 'primary',
+      variant: variantProp,
+      color: colorProp,
       size = 'md',
       startDecorator,
       endDecorator,
@@ -66,13 +67,26 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     },
     ref
   ) => {
+    // Resolve color and variant from context (inherits from parent Sheet)
+    const { color, variant, isInsideSolid } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'primary', // defaultColor
+      'soft' // defaultVariant
+    );
+
     return (
       <Sheet
         ref={ref as React.Ref<HTMLDivElement>}
         as="span"
         variant={variant}
         color={color}
-        className={cn('p-0', badgeVariants({ size }), className)}
+        className={cn(
+          'p-0',
+          badgeVariants({ size }),
+          isInsideSolid && getSolidContainerStyles(variant, false),
+          className
+        )}
         {...props}
       >
         {startDecorator && <span className="inline-flex">{startDecorator}</span>}

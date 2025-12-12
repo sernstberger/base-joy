@@ -2,6 +2,19 @@
 export { ThemeProvider, useTheme, type ThemeProviderProps } from './ThemeProvider';
 export { type Theme, defaultTheme } from '@base-joy/tokens';
 
+// Color context (automatic color adjustment)
+export {
+  ColorContext,
+  useColorContext,
+  useResolvedColorProps,
+  getSolidContainerStyles,
+  solidContainerStyles,
+  getInvertedVariant,
+  VARIANT_INVERSION_MAP,
+  type ColorContextValue,
+  type ResolvedColorProps,
+} from './ColorContext';
+
 // Core styled components
 export { Sheet, sheetVariants, type SheetProps } from './Sheet';
 export {

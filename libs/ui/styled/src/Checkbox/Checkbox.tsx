@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
+import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
 
 const checkboxRootVariants = cva(
   'inline-flex items-center justify-center rounded cursor-pointer transition-colors',
@@ -53,8 +54,20 @@ const useCheckboxContext = () => React.useContext(CheckboxContext);
 
 export interface CheckboxRootProps
   extends Omit<React.ComponentProps<typeof BaseCheckbox.Root>, 'className'> {
+  /**
+   * The visual style of the checkbox.
+   * @default 'outlined'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the checkbox.
+   * @default 'primary'
+   */
   color?: ColorScale;
+  /**
+   * The size of the checkbox.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }
@@ -63,14 +76,22 @@ const Root = React.forwardRef<HTMLButtonElement, CheckboxRootProps>(
   (
     {
       className,
-      variant = 'outlined',
-      color = 'primary',
+      variant: variantProp,
+      color: colorProp,
       size = 'md',
       disabled,
       ...props
     },
     ref
   ) => {
+    // Resolve color and variant from context (inherits from parent Sheet)
+    const { color, variant, isInsideSolid } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'primary', // defaultColor
+      'outlined' // defaultVariant
+    );
+
     return (
       <CheckboxContext.Provider value={{ size }}>
         <BaseCheckbox.Root
@@ -79,7 +100,8 @@ const Root = React.forwardRef<HTMLButtonElement, CheckboxRootProps>(
           className={cn(
             sheetVariants({ variant, color, interactive: true }),
             checkboxRootVariants({ size, disabled }),
-            'data-[checked]:bg-primary-500 data-[checked]:text-white data-[checked]:border-primary-500',
+            `data-[checked]:bg-${color}-500 data-[checked]:text-white data-[checked]:border-${color}-500`,
+            isInsideSolid && getSolidContainerStyles(variant, true),
             className
           )}
           {...props}

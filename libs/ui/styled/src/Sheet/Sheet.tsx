@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { ColorContext, type ColorContextValue } from '../ColorContext';
 
 /**
  * Sheet component - A styled container with CVA variants.
@@ -249,7 +250,7 @@ export interface SheetProps
 }
 
 export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
-  ({ className, variant, color, size, interactive, focusWithin, as: Component = 'div', ...props }, ref) => {
+  ({ className, variant = 'soft', color = 'neutral', size, interactive, focusWithin, as: Component = 'div', children, ...props }, ref) => {
     // Warn if focusWithin is used without interactive
     if (process.env.NODE_ENV !== 'production' && focusWithin && !interactive) {
       console.error(
@@ -258,12 +259,26 @@ export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
       );
     }
 
+    // Memoize context value to prevent unnecessary re-renders of consuming components
+    const colorContextValue = React.useMemo<ColorContextValue>(
+      () => ({
+        color,
+        isInsideSolid: variant === 'solid',
+        parentVariant: variant,
+      }),
+      [color, variant]
+    );
+
     return (
-      <Component
-        ref={ref}
-        className={cn(sheetVariants({ variant, color, size, interactive, focusWithin }), className)}
-        {...props}
-      />
+      <ColorContext.Provider value={colorContextValue}>
+        <Component
+          ref={ref}
+          className={cn(sheetVariants({ variant, color, size, interactive, focusWithin }), className)}
+          {...props}
+        >
+          {children}
+        </Component>
+      </ColorContext.Provider>
     );
   }
 );

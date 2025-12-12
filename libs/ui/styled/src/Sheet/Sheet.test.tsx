@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Sheet } from './Sheet';
+import { useColorContext } from '../ColorContext';
 
 describe('Sheet', () => {
   describe('rendering', () => {
@@ -375,6 +376,71 @@ describe('Sheet', () => {
       );
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('ColorContext integration', () => {
+    const ColorContextConsumer = () => {
+      const ctx = useColorContext();
+      return (
+        <span data-testid="context">
+          {ctx ? JSON.stringify(ctx) : 'null'}
+        </span>
+      );
+    };
+
+    it('provides color context to children', () => {
+      render(
+        <Sheet variant="solid" color="primary">
+          <ColorContextConsumer />
+        </Sheet>
+      );
+
+      const context = JSON.parse(screen.getByTestId('context').textContent!);
+      expect(context.color).toBe('primary');
+      expect(context.isInsideSolid).toBe(true);
+      expect(context.parentVariant).toBe('solid');
+    });
+
+    it('provides isInsideSolid=false for non-solid variants', () => {
+      render(
+        <Sheet variant="soft" color="danger">
+          <ColorContextConsumer />
+        </Sheet>
+      );
+
+      const context = JSON.parse(screen.getByTestId('context').textContent!);
+      expect(context.color).toBe('danger');
+      expect(context.isInsideSolid).toBe(false);
+      expect(context.parentVariant).toBe('soft');
+    });
+
+    it('provides default values when using default props', () => {
+      render(
+        <Sheet>
+          <ColorContextConsumer />
+        </Sheet>
+      );
+
+      const context = JSON.parse(screen.getByTestId('context').textContent!);
+      expect(context.color).toBe('neutral');
+      expect(context.isInsideSolid).toBe(false);
+      expect(context.parentVariant).toBe('soft');
+    });
+
+    it('nested Sheets override parent context', () => {
+      render(
+        <Sheet variant="solid" color="primary">
+          <Sheet variant="outlined" color="success">
+            <ColorContextConsumer />
+          </Sheet>
+        </Sheet>
+      );
+
+      const context = JSON.parse(screen.getByTestId('context').textContent!);
+      expect(context.color).toBe('success');
+      expect(context.isInsideSolid).toBe(false);
+      expect(context.parentVariant).toBe('outlined');
     });
   });
 });

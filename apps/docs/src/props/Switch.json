@@ -13,7 +13,6 @@
   {
     "name": "color",
     "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-    "defaultValue": "primary",
     "required": false
   },
   {

@@ -1,4 +1,4 @@
-import { Sheet, Typography, Input } from '@base-joy/ui-styled';
+import { Sheet, Typography, Input, Button, Badge } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
@@ -42,6 +42,9 @@ const sections = [
   { id: 'focus-within', title: 'Focus Within', level: 3 },
   { id: 'nested-sheets', title: 'Nested Sheets', level: 3 },
   { id: 'automatic-contrast', title: 'Automatic Contrast' },
+  { id: 'color-context', title: 'Color Context' },
+  { id: 'color-inheritance', title: 'Color Inheritance', level: 3 },
+  { id: 'variant-inversion', title: 'Variant Inversion', level: 3 },
   { id: 'api', title: 'API Reference' },
 ];
 
@@ -505,6 +508,116 @@ export function SheetPage() {
                   constant text colors.
                 </Typography>
               </div>
+            </div>
+          </Section>
+
+          <Section title="Color Context" id="color-context">
+            <Typography level="body-sm" className="mb-4">
+              Sheet provides a Color Context that enables automatic color
+              inheritance for child components. When components are placed
+              inside a Sheet, they inherit the Sheet's color and automatically
+              adjust their variant for optimal contrast on solid backgrounds.
+            </Typography>
+
+            <div className="space-y-8">
+              <Section
+                title="Color Inheritance"
+                titleLevel="h3"
+                id="color-inheritance"
+                code={`// Children automatically inherit the Sheet's color
+<Sheet variant="soft" color="primary">
+  <Button>Button</Button>  {/* Inherits primary */}
+  <Badge>Badge</Badge>     {/* Inherits primary */}
+</Sheet>
+
+<Sheet variant="soft" color="success">
+  <Button>Button</Button>  {/* Inherits success */}
+  <Badge>Badge</Badge>     {/* Inherits success */}
+</Sheet>`}
+                codeLanguage="tsx"
+              >
+                <Typography level="body-xs" className="text-neutral-600 mb-4">
+                  Child components automatically inherit the parent Sheet's
+                  color, eliminating the need to pass color props to every
+                  nested component.
+                </Typography>
+                <div className="flex flex-wrap gap-4">
+                  <Sheet variant="soft" color="primary" className="space-y-2">
+                    <Typography level="body-sm" weight="medium">
+                      Primary Sheet
+                    </Typography>
+                    <div className="flex gap-2">
+                      <Button size="sm">Button</Button>
+                      <Badge>Badge</Badge>
+                    </div>
+                  </Sheet>
+                  <Sheet variant="soft" color="success" className="space-y-2">
+                    <Typography level="body-sm" weight="medium">
+                      Success Sheet
+                    </Typography>
+                    <div className="flex gap-2">
+                      <Button size="sm">Button</Button>
+                      <Badge>Badge</Badge>
+                    </div>
+                  </Sheet>
+                </div>
+              </Section>
+
+              <Section
+                title="Variant Inversion"
+                titleLevel="h3"
+                id="variant-inversion"
+                code={`// Inside solid Sheets, variants auto-invert for contrast
+<Sheet variant="solid" color="primary">
+  {/* Button (default: solid) becomes plain */}
+  <Button>Inverted</Button>
+  {/* Badge (default: soft) becomes plain */}
+  <Badge>Badge</Badge>
+</Sheet>
+
+// Explicit variant overrides the inversion
+<Sheet variant="solid" color="primary">
+  <Button variant="outlined">Stays outlined</Button>
+</Sheet>`}
+                codeLanguage="tsx"
+              >
+                <Typography level="body-xs" className="text-neutral-600 mb-4">
+                  Components inside solid Sheets automatically switch to
+                  contrast-friendly variants (e.g., solid→plain) to ensure
+                  proper visibility.
+                </Typography>
+                <div className="flex flex-wrap gap-4">
+                  <Sheet variant="solid" color="primary" className="space-y-2">
+                    <Typography level="body-sm" weight="medium">
+                      Solid Primary
+                    </Typography>
+                    <div className="flex gap-2">
+                      <Button size="sm">Inverted</Button>
+                      <Badge>Badge</Badge>
+                    </div>
+                  </Sheet>
+                  <Sheet variant="solid" color="danger" className="space-y-2">
+                    <Typography level="body-sm" weight="medium">
+                      Solid Danger
+                    </Typography>
+                    <div className="flex gap-2">
+                      <Button size="sm">Inverted</Button>
+                      <Badge>Badge</Badge>
+                    </div>
+                  </Sheet>
+                </div>
+              </Section>
+
+              <Typography level="body-xs" className="text-neutral-600">
+                Learn more about this feature in the{' '}
+                <a
+                  href="/features/color-context"
+                  className="text-primary-700 hover:underline"
+                >
+                  Color Context documentation
+                </a>
+                .
+              </Typography>
             </div>
           </Section>
 

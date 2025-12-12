@@ -5,6 +5,7 @@ import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import { ItemContext, ItemIcon } from '@base-joy/ui-unstyled';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center font-medium cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50',
@@ -42,8 +43,20 @@ const spinnerVariants = cva('animate-spin rounded-full border-2 border-current',
 export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
+  /**
+   * The visual style of the button.
+   * @default 'solid'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the button.
+   * @default 'primary'
+   */
   color?: ColorScale;
+  /**
+   * The size of the button.
+   * @default 'md'
+   */
   size?: Size;
   fullWidth?: boolean;
   loading?: boolean;
@@ -61,8 +74,11 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
   (
     {
       className,
-      variant = 'solid',
-      color = 'primary',
+      // NOTE: Do NOT add destructuring defaults for variant/color (e.g., variant: variantProp = 'solid')
+      // This breaks ColorContext inheritance - the hook needs undefined to detect "not explicitly set"
+      // Defaults are documented via JSDoc @default tags on the interface for props generation
+      variant: variantProp,
+      color: colorProp,
       size = 'md',
       fullWidth,
       loading,
@@ -76,6 +92,14 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
     },
     ref
   ) => {
+    // Resolve color and variant from context (inherits from parent Sheet)
+    const { color, variant, isInsideSolid } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'primary', // defaultColor
+      'solid' // defaultVariant
+    );
+
     const isDisabled = disabled || loading;
 
     return (
@@ -89,6 +113,8 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
           className={cn(
             sheetVariants({ variant, color, interactive: true }),
             buttonVariants({ size, fullWidth }),
+            // Apply solid container styles when inside a solid Sheet
+            isInsideSolid && getSolidContainerStyles(variant, true),
             className
           )}
           {...props}
