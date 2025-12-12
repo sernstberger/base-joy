@@ -229,6 +229,14 @@ export interface SheetProps
 
 export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
   ({ className, variant, color, size, interactive, focusWithin, as: Component = 'div', ...props }, ref) => {
+    // Warn if focusWithin is used without interactive
+    if (process.env.NODE_ENV !== 'production' && focusWithin && !interactive) {
+      console.error(
+        'Sheet: focusWithin prop only works when interactive is true. ' +
+        'Please set interactive={true} or remove focusWithin.'
+      );
+    }
+
     return (
       <Component
         ref={ref}

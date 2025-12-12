@@ -1,4 +1,6 @@
-import { Toggle, ToggleGroup } from '@base-joy/ui-styled';
+import { Toggle, ToggleGroup, Typography } from '@base-joy/ui-styled';
+import { colors, type ColorScale } from '@base-joy/tokens';
+import { cn } from '@base-joy/utils';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Section } from '../../components/Section';
 
@@ -145,6 +147,46 @@ export function ToggleGroupPage() {
           <Toggle value="b">Disabled B</Toggle>
           <Toggle value="c">Disabled C</Toggle>
         </ToggleGroup.Root>
+      </Section>
+
+      <Section title="Custom Styling">
+        <Typography level="body-sm" className="mb-4">
+          ToggleGroup can be heavily customized to create unique UI patterns like
+          color pickers. This example shows how custom className overrides can
+          transform Toggle buttons into color swatches, as used in the documentation
+          playground controls.
+        </Typography>
+        <div className="flex flex-col gap-3">
+          <ToggleGroup.Root
+            defaultValue={['primary']}
+            aria-label="Color picker"
+            className="flex flex-wrap gap-2"
+          >
+            {(Object.keys(colors) as ColorScale[]).map((color) => (
+              <Toggle
+                key={color}
+                value={color}
+                title={color}
+                className={cn(
+                  'w-8 h-8 p-0 rounded-full border-2 transition-all',
+                  'border-transparent hover:scale-110',
+                  'data-pressed:scale-125 data-pressed:border-neutral-900',
+                  'data-pressed:ring-2 data-pressed:ring-offset-1 data-pressed:ring-neutral-400'
+                )}
+                style={{ backgroundColor: colors[color][500] }}
+              >
+                <span className="hidden data-pressed:flex items-center justify-center text-white text-xs">
+                  ✓
+                </span>
+              </Toggle>
+            ))}
+          </ToggleGroup.Root>
+          <Typography level="body-xs" className="text-neutral-600">
+            The Toggle buttons use custom styles to create circular color swatches
+            with scale and ring effects on selection, demonstrating how the component
+            can be adapted beyond standard button appearances.
+          </Typography>
+        </div>
       </Section>
     </div>
   );

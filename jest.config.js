@@ -11,6 +11,7 @@ const config = {
     '^@base-joy/ui-unstyled/(.*)$': '<rootDir>/libs/ui/unstyled/src/$1',
     '^@base-joy/ui-styled$': '<rootDir>/libs/ui/styled/src/index.ts',
     '^@base-joy/ui-styled/(.*)$': '<rootDir>/libs/ui/styled/src/$1',
+    '^shiki$': '<rootDir>/__mocks__/shiki.ts',
   },
   testMatch: ['**/*.test.{ts,tsx}'],
   transform: {

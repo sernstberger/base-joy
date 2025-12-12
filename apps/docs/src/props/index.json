@@ -268,51 +268,7 @@
       "required": false
     }
   ],
-  "Card": [
-    {
-      "name": "className",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "color",
-      "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "neutral",
-      "required": false
-    },
-    {
-      "name": "defaultChecked",
-      "type": "boolean",
-      "required": false
-    },
-    {
-      "name": "defaultValue",
-      "type": "string | number | readonly string[]",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "onChange",
-      "type": "FormEventHandler<HTMLDivElement>",
-      "required": false
-    },
-    {
-      "name": "size",
-      "type": "\"sm\" | \"md\" | \"lg\"",
-      "defaultValue": "md",
-      "required": false
-    },
-    {
-      "name": "variant",
-      "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "outlined",
-      "required": false
-    }
-  ],
+  "Card": [],
   "Checkbox": [
     {
       "name": "checked",
@@ -1225,20 +1181,10 @@
   ],
   "Sheet": [
     {
-      "name": "alt",
-      "type": "string",
-      "required": false
-    },
-    {
       "name": "as",
       "type": "ElementType<any, keyof IntrinsicElements>",
       "defaultValue": "div",
       "description": "The element type to render as.",
-      "required": false
-    },
-    {
-      "name": "checked",
-      "type": "boolean",
       "required": false
     },
     {
@@ -1254,18 +1200,10 @@
       "required": false
     },
     {
-      "name": "defaultChecked",
+      "name": "focusWithin",
       "type": "boolean",
-      "required": false
-    },
-    {
-      "name": "defaultValue",
-      "type": "string | number | readonly string[]",
-      "required": false
-    },
-    {
-      "name": "disabled",
-      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Use focus-within instead of focus for containers with focusable children.\nOnly works when interactive is true.",
       "required": false
     },
     {
@@ -1274,23 +1212,10 @@
       "required": false
     },
     {
-      "name": "label",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "name",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "onChange",
-      "type": "FormEventHandler<HTMLElement>",
-      "required": false
-    },
-    {
-      "name": "placeholder",
-      "type": "string",
+      "name": "interactive",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the sheet is interactive (adds focus ring styling).\nUse for clickable cards, buttons, or any focusable element.",
       "required": false
     },
     {
@@ -1298,21 +1223,6 @@
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "'md'",
       "description": "The size (padding) of the sheet.",
-      "required": false
-    },
-    {
-      "name": "src",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "type",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "value",
-      "type": "string | number | readonly string[]",
       "required": false
     },
     {
@@ -1516,47 +1426,15 @@
   ],
   "Table": [
     {
-      "name": "className",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "color",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "defaultChecked",
-      "type": "boolean",
-      "required": false
-    },
-    {
-      "name": "defaultValue",
-      "type": "string | number | readonly string[]",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "required": false
-    },
-    {
-      "name": "onChange",
-      "type": "FormEventHandler<HTMLTableElement>",
-      "required": false
-    },
-    {
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
-      "description": "The size of the table cells.",
       "required": false
     },
     {
       "name": "variant",
       "type": "TableVariant",
       "defaultValue": "default",
-      "description": "The visual variant of the table.",
       "required": false
     }
   ],
@@ -1626,6 +1504,7 @@
     {
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
+      "defaultValue": "md",
       "required": false
     },
     {

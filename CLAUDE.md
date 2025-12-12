@@ -11,6 +11,43 @@ Project conventions and guidance for AI assistants.
 - **No redundant comments**: Don't add comments stating the obvious. `const tableVariants` doesn't need a comment saying "Table variants".
 - **Minimal JSDoc**: Only add JSDoc for public APIs that need usage examples or non-obvious behavior.
 - **No over-commenting**: Code should be self-documenting through good naming.
+- **Use Typography for all text**: Always use the Typography component instead of custom text styling. This ensures consistency across the design system and makes it easier to maintain.
+
+### Typography Usage
+
+Use the Typography component for all text content instead of raw HTML elements or custom Tailwind classes:
+
+```tsx
+// ✅ Good - Use Typography component
+<Typography level="h1">Page Title</Typography>
+<Typography level="body-sm" className="mb-4">
+  Description text with additional spacing
+</Typography>
+<Typography level="body-xs" className="text-neutral-600">
+  Supplementary text
+</Typography>
+
+// ❌ Bad - Don't use raw elements with custom styling
+<h1 className="text-4xl font-bold">Page Title</h1>
+<p className="text-sm text-gray-600 mb-4">Description text</p>
+<span className="text-xs text-gray-500">Supplementary text</span>
+```
+
+**Typography levels:**
+- **Headings**: `h1`, `h2`, `h3`, `h4`
+- **Body text**: `body-lg`, `body-md` (default), `body-sm`, `body-xs`
+
+**Typography props:**
+- `level`: Semantic and visual level
+- `weight`: `normal`, `medium`, `semibold`, `bold`
+- `className`: Additional Tailwind classes for spacing, colors, etc.
+
+**When to use additional classes:**
+- Spacing: `mb-4`, `mt-2`, etc.
+- Color overrides: `text-neutral-600`, `text-danger-700`, etc. (when not using default color)
+- Alignment: `text-center`, `text-right`, etc.
+
+**Exception:** Inline code snippets should use `<code className="font-mono text-sm">` for proper monospace styling.
 
 ## Component Architecture
 
@@ -313,3 +350,239 @@ import { componentProps } from '../../props';
 - Run `yarn props:generate` manually during development
 
 **Note:** Typography page uses manual props since it exports multiple components (Heading, Text) from one file.
+
+## Documentation Page Patterns
+
+Documentation pages follow consistent patterns for maintainability and user experience.
+
+### Page Structure
+
+All component documentation pages use this structure:
+
+1. **ComponentHeader** - Title, description, optional Base UI link
+2. **Playground Section** - Interactive component tester
+3. **Examples Section** - Visual demonstrations (multiple subsections)
+4. **API Reference Section** - PropsTable with component props
+
+Example structure:
+```tsx
+export function ComponentPage() {
+  return (
+    <div className="max-w-4xl">
+      <ComponentHeader
+        title="ComponentName"
+        description="Brief description..."
+        baseUiUrl="https://base-ui.com/react/components/..."
+      />
+
+      <Section title="Playground" id="playground">
+        <Playground controls={controls} codeTemplate={codeTemplate}>
+          {(props) => <Component {...props} />}
+        </Playground>
+      </Section>
+
+      <Section title="Examples" id="examples">
+        {/* Example subsections */}
+      </Section>
+
+      <Section title="API Reference" id="api">
+        <PropsTable props={componentProps.ComponentName} />
+      </Section>
+    </div>
+  );
+}
+```
+
+### Using ComponentHeader
+
+Import and use ComponentHeader for consistent page headers:
+
+```tsx
+import { ComponentHeader } from '../../components/ComponentHeader';
+
+<ComponentHeader
+  title="Button"
+  description="A versatile button component with variants, colors, sizes, and loading states."
+  baseUiUrl="https://base-ui.com/react/components/button"
+/>
+```
+
+The `baseUiUrl` prop is optional. When provided, it displays a "Base UI" button that links to the Base UI documentation for that component.
+
+### Section Organization
+
+Use Section component for all major sections and subsections:
+
+```tsx
+<Section title="Examples" id="examples">
+  <div className="space-y-8">
+    <Section title="Variants" titleLevel="h3" id="variants">
+      {/* content */}
+    </Section>
+    <Section title="Colors" titleLevel="h3" id="colors">
+      {/* content */}
+    </Section>
+  </div>
+</Section>
+```
+
+Key points:
+- Main sections use default h2 level
+- Subsections use `titleLevel="h3"`
+- Add `id` attributes for TableOfContents navigation
+- Use `space-y-8` for spacing between subsections
+
+### Playground Pattern
+
+Define controls and code template outside the component:
+
+```tsx
+const controls: PlaygroundControl[] = [
+  { name: 'variant', type: 'variant', defaultValue: 'soft' },
+  { name: 'color', type: 'color', defaultValue: 'primary' },
+  { name: 'size', type: 'size', defaultValue: 'md' },
+];
+
+const codeTemplate = (props: Record<string, string>) =>
+  `<Component variant="${props.variant}" color="${props.color}" size="${props.size}">
+  Content
+</Component>`;
+```
+
+Then use in JSX:
+
+```tsx
+<Playground controls={controls} codeTemplate={codeTemplate}>
+  {(props) => (
+    <Component
+      variant={props.variant as Variant}
+      color={props.color as ColorScale}
+      size={props.size as Size}
+    >
+      Demo content
+    </Component>
+  )}
+</Playground>
+```
+
+### Example Organization
+
+Organize examples from basic to advanced:
+
+1. **Variants** - Show all variant options (solid/soft/outlined/plain)
+2. **Colors** - Demonstrate color palette for each variant
+3. **Sizes** - Display size options (sm/md/lg)
+4. **States** - Show disabled, error, loading, etc.
+5. **Advanced Usage** - Composition, polymorphism, edge cases
+
+Use consistent container classes:
+```tsx
+<div className="space-y-8">  {/* outer wrapper for all examples */}
+  <Section title="Variants" titleLevel="h3" id="variants">
+    <div className="flex flex-wrap gap-4">  {/* component grid */}
+      <Component variant="solid">Solid</Component>
+      <Component variant="soft">Soft</Component>
+    </div>
+  </Section>
+</div>
+```
+
+Common patterns:
+- `flex flex-wrap gap-4` - Horizontal grid that wraps
+- `space-y-3` or `space-y-4` - Vertical stack
+- `items-start` - Align items to top for size comparisons
+
+### API Reference
+
+Use PropsTable with auto-generated props:
+
+```tsx
+import { PropsTable } from '../../components/PropsTable';
+import { componentProps } from '../../props';
+
+<Section title="API Reference" id="api">
+  <PropsTable props={componentProps.ComponentName} />
+</Section>
+```
+
+The PropsTable displays:
+- **Prop** - Property name with asterisk (*) for required props
+- **Type** - TypeScript type signature
+- **Required** - Yes/No indicator
+- **Default** - Default value or dash (-)
+- **Description** - Property description or dash (-)
+
+### Table of Contents (for longer pages)
+
+Add right sidebar navigation for pages with 5+ sections:
+
+```tsx
+import { TableOfContents } from '../../components/TableOfContents';
+
+// Define sections array outside component
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'variants', title: 'Variants', level: 3 },
+  { id: 'colors', title: 'Colors', level: 3 },
+  { id: 'api', title: 'API Reference' },
+];
+
+export function ComponentPage() {
+  return (
+    <div className="flex gap-8 max-w-7xl">
+      <div className="flex-1 max-w-4xl">
+        {/* page content with id attributes */}
+      </div>
+      <TableOfContents sections={sections} />
+    </div>
+  );
+}
+```
+
+Key points:
+- `level: 3` for h3 subsections (indented in TOC)
+- Sections array matches `id` attributes in JSX
+- TableOfContents is hidden on mobile/tablet (lg+ only)
+- Active section highlighted based on scroll position
+
+### Typography in Examples
+
+Use Typography component for labels and descriptions within examples:
+
+```tsx
+<Section title="Interactive" titleLevel="h3" id="interactive">
+  <Typography level="body-sm" className="mb-4">
+    The <code className="font-mono text-sm">interactive</code> prop
+    adds focus rings and hover states.
+  </Typography>
+  <div className="flex flex-wrap gap-4">
+    {/* examples */}
+  </div>
+</Section>
+```
+
+- Use `body-sm` for descriptions
+- Use `body-xs` for supplementary text
+- Use `<code className="font-mono text-sm">` for inline code
+- Add `mb-4` for spacing before examples
+
+### Common Imports
+
+Typical imports for a doc page:
+
+```tsx
+import { ComponentName, Typography } from '@base-joy/ui-styled';
+import { ComponentHeader } from '../../components/ComponentHeader';
+import { Playground, type PlaygroundControl } from '../../components/Playground';
+import { PropsTable } from '../../components/PropsTable';
+import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
+import { componentProps } from '../../props';
+import type { Variant, ColorScale, Size } from '@base-joy/tokens';
+```
+
+Reference pages:
+- **Simple page**: Button (`/apps/docs/src/pages/styled/Button.tsx`)
+- **With TOC**: Sheet (`/apps/docs/src/pages/styled/Sheet.tsx`)
+- **Custom styling example**: ToggleGroup (`/apps/docs/src/pages/styled/ToggleGroup.tsx`)

@@ -68,6 +68,7 @@ const EXCLUDE_PROPS: Record<string, Set<string>> = {
   Input: new Set(['alt', 'checked', 'defaultChecked', 'src']),
   Textarea: new Set(['alt', 'checked', 'defaultChecked', 'src']),
   Button: new Set(['alt', 'src']),
+  Sheet: new Set(['disabled', 'checked', 'defaultChecked', 'onChange', 'value', 'defaultValue', 'placeholder', 'type', 'alt', 'src', 'label', 'name']),
 };
 
 const parser = docgen.withCustomConfig(

@@ -7,7 +7,7 @@ export function Sidenav() {
     <Sheet
       variant="plain"
       color="neutral"
-      className="w-64 min-h-screen border-r border-neutral-200 p-4 flex flex-col"
+      className="w-64 h-screen border-r border-neutral-200 p-4 flex flex-col overflow-y-auto"
     >
       {/* Logo/Title */}
       <NavLink to="/" className="mb-6">
@@ -16,7 +16,7 @@ export function Sidenav() {
       </NavLink>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto" aria-label="Component navigation">
+      <nav className="flex-1" aria-label="Component navigation">
         {navigation.map((section) => (
           <div key={section.title} className="mb-6">
             <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2">

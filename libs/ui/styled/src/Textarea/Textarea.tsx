@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
-import { Sheet } from '../Sheet/Sheet.js';
+import { Sheet } from '../Sheet/Sheet';
 
 const textareaSizeVariants = cva('', {
   variants: {

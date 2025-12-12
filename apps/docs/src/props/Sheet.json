@@ -1,19 +1,9 @@
 [
   {
-    "name": "alt",
-    "type": "string",
-    "required": false
-  },
-  {
     "name": "as",
     "type": "ElementType<any, keyof IntrinsicElements>",
     "defaultValue": "div",
     "description": "The element type to render as.",
-    "required": false
-  },
-  {
-    "name": "checked",
-    "type": "boolean",
     "required": false
   },
   {
@@ -29,18 +19,10 @@
     "required": false
   },
   {
-    "name": "defaultChecked",
+    "name": "focusWithin",
     "type": "boolean",
-    "required": false
-  },
-  {
-    "name": "defaultValue",
-    "type": "string | number | readonly string[]",
-    "required": false
-  },
-  {
-    "name": "disabled",
-    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Use focus-within instead of focus for containers with focusable children.\nOnly works when interactive is true.",
     "required": false
   },
   {
@@ -49,23 +31,10 @@
     "required": false
   },
   {
-    "name": "label",
-    "type": "string",
-    "required": false
-  },
-  {
-    "name": "name",
-    "type": "string",
-    "required": false
-  },
-  {
-    "name": "onChange",
-    "type": "FormEventHandler<HTMLElement>",
-    "required": false
-  },
-  {
-    "name": "placeholder",
-    "type": "string",
+    "name": "interactive",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the sheet is interactive (adds focus ring styling).\nUse for clickable cards, buttons, or any focusable element.",
     "required": false
   },
   {
@@ -73,21 +42,6 @@
     "type": "\"sm\" | \"md\" | \"lg\"",
     "defaultValue": "'md'",
     "description": "The size (padding) of the sheet.",
-    "required": false
-  },
-  {
-    "name": "src",
-    "type": "string",
-    "required": false
-  },
-  {
-    "name": "type",
-    "type": "string",
-    "required": false
-  },
-  {
-    "name": "value",
-    "type": "string | number | readonly string[]",
     "required": false
   },
   {

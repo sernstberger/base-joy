@@ -29,6 +29,7 @@ export function PropsTable({ props }: PropsTableProps) {
           <TableRow>
             <TableHeader>Prop</TableHeader>
             <TableHeader>Type</TableHeader>
+            <TableHeader className="w-20 text-center">Required</TableHeader>
             <TableHeader>Default</TableHeader>
             <TableHeader>Description</TableHeader>
           </TableRow>
@@ -44,6 +45,13 @@ export function PropsTable({ props }: PropsTableProps) {
               </TableCell>
               <TableCell>
                 <CodeBadge color="neutral">{prop.type}</CodeBadge>
+              </TableCell>
+              <TableCell className="text-center">
+                {prop.required ? (
+                  <span className="text-success-600 font-medium">Yes</span>
+                ) : (
+                  <span className="text-neutral-400">No</span>
+                )}
               </TableCell>
               <TableCell className="text-neutral-500">
                 {prop.defaultValue ? (

@@ -218,6 +218,52 @@ describe('Sheet', () => {
     });
   });
 
+  describe('warnings', () => {
+    it('warns when focusWithin is used without interactive', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      render(
+        <Sheet focusWithin interactive={false}>
+          Content
+        </Sheet>
+      );
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect.stringContaining('focusWithin prop only works when interactive is true')
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('does not warn when focusWithin is used with interactive', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      render(
+        <Sheet focusWithin interactive>
+          Content
+        </Sheet>
+      );
+
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('does not warn when focusWithin is false', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      render(
+        <Sheet focusWithin={false} interactive={false}>
+          Content
+        </Sheet>
+      );
+
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
   describe('accessibility', () => {
     it('has no accessibility violations with default props', async () => {
       const { container } = render(

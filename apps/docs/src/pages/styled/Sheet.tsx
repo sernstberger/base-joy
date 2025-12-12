@@ -1,7 +1,12 @@
-import { Sheet, Typography } from '@base-joy/ui-styled';
-import { Playground, type PlaygroundControl } from '../../components/Playground';
+import { Sheet, Typography, Input } from '@base-joy/ui-styled';
+import { ComponentHeader } from '../../components/ComponentHeader';
+import {
+  Playground,
+  type PlaygroundControl,
+} from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
 
@@ -9,84 +14,287 @@ const sheetControls: PlaygroundControl[] = [
   { name: 'variant', type: 'variant', defaultValue: 'soft' },
   { name: 'color', type: 'color', defaultValue: 'primary' },
   { name: 'size', type: 'size', defaultValue: 'md' },
+  { name: 'interactive', type: 'boolean', defaultValue: false },
+  { name: 'focusWithin', type: 'boolean', defaultValue: false },
 ];
 
-const sheetCodeTemplate = (props: Record<string, string>) =>
-  `<Sheet variant="${props.variant}" color="${props.color}" size="${props.size}">\n  Your content here\n</Sheet>`;
+const sheetCodeTemplate = (props: Record<string, string | boolean>) => {
+  const booleanProps = [];
+  if (props.interactive) booleanProps.push('interactive');
+  if (props.focusWithin) booleanProps.push('focusWithin');
+  const booleanPropsStr =
+    booleanProps.length > 0 ? ' ' + booleanProps.join(' ') : '';
+
+  return `<Sheet variant="${props.variant}" color="${props.color}" size="${props.size}"${booleanPropsStr}>
+  Sheet Content
+</Sheet>`;
+};
+
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'variants', title: 'Variants', level: 3 },
+  { id: 'colors-soft', title: 'Colors (Soft)', level: 3 },
+  { id: 'sizes', title: 'Sizes', level: 3 },
+  { id: 'colors-solid', title: 'Colors (Solid)', level: 3 },
+  { id: 'interactive', title: 'Interactive', level: 3 },
+  { id: 'as-different-elements', title: 'As Different Elements', level: 3 },
+  { id: 'focus-within', title: 'Focus Within', level: 3 },
+  { id: 'nested-sheets', title: 'Nested Sheets', level: 3 },
+  { id: 'api', title: 'API Reference' },
+];
 
 export function SheetPage() {
   return (
-    <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">Sheet</Typography>
-        <Typography level="body-lg">
-          A styled container with CVA variants for colors, visual styles, and sizes.
-        </Typography>
-      </header>
-
-      <Section title="Playground">
-        <Playground controls={sheetControls} codeTemplate={sheetCodeTemplate}>
-          {(props) => (
-            <Sheet
-              variant={props.variant as Variant}
-              color={props.color as ColorScale}
-              size={props.size as Size}
-              className="min-w-50"
+    <div>
+      <ComponentHeader
+        title="Sheet"
+        description="A styled container component with CVA variants for visual styles, colors, and sizes. Sheet is the foundation for many components like Card, Badge, and form inputs."
+        baseUiUrl="https://base-ui.com/react/handbook/styling"
+      />
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Playground" id="playground">
+            <Playground
+              controls={sheetControls}
+              codeTemplate={sheetCodeTemplate}
             >
-              <p className="font-medium">Sheet</p>
-            </Sheet>
-          )}
-        </Playground>
-      </Section>
+              {(props) => {
+                const interactive = Boolean(props.interactive);
+                const focusWithin = Boolean(props.focusWithin);
 
-      <Section title="Examples">
-        <div className="space-y-8">
-          <div>
-            <Typography level="h3">Variants</Typography>
-            <div className="flex flex-wrap gap-4">
-              <Sheet variant="solid" color="primary">Solid</Sheet>
-              <Sheet variant="soft" color="primary">Soft</Sheet>
-              <Sheet variant="outlined" color="primary">Outlined</Sheet>
-              <Sheet variant="plain" color="primary">Plain</Sheet>
-            </div>
-          </div>
+                return (
+                  <Sheet
+                    variant={props.variant as Variant}
+                    color={props.color as ColorScale}
+                    size={props.size as Size}
+                    interactive={interactive}
+                    focusWithin={focusWithin}
+                    className="min-w-80"
+                    {...(interactive ? { tabIndex: 0 } : {})}
+                  >
+                    <Typography level="body-md" weight="medium">
+                      Sheet Component
+                    </Typography>
+                    <Typography level="body-sm" className="text-neutral-600">
+                      {interactive
+                        ? 'Try clicking or tabbing to see focus styles'
+                        : 'A styled container with CVA variants'}
+                    </Typography>
+                  </Sheet>
+                );
+              }}
+            </Playground>
+          </Section>
 
-          <div>
-            <Typography level="h3">Colors (Soft variant)</Typography>
-            <div className="flex flex-wrap gap-4">
-              <Sheet variant="soft" color="primary">Primary</Sheet>
-              <Sheet variant="soft" color="neutral">Neutral</Sheet>
-              <Sheet variant="soft" color="success">Success</Sheet>
-              <Sheet variant="soft" color="warning">Warning</Sheet>
-              <Sheet variant="soft" color="danger">Danger</Sheet>
-            </div>
-          </div>
+          <Section title="Examples" id="examples">
+            <div className="space-y-8">
+              <Section title="Variants" titleLevel="h3" id="variants">
+                <div className="flex flex-wrap gap-4">
+                  <Sheet variant="solid" color="primary">
+                    Solid
+                  </Sheet>
+                  <Sheet variant="soft" color="primary">
+                    Soft
+                  </Sheet>
+                  <Sheet variant="outlined" color="primary">
+                    Outlined
+                  </Sheet>
+                  <Sheet variant="plain" color="primary">
+                    Plain
+                  </Sheet>
+                </div>
+              </Section>
 
-          <div>
-            <Typography level="h3">Sizes</Typography>
-            <div className="flex flex-wrap items-start gap-4">
-              <Sheet variant="outlined" color="neutral" size="sm">Small (sm)</Sheet>
-              <Sheet variant="outlined" color="neutral" size="md">Medium (md)</Sheet>
-              <Sheet variant="outlined" color="neutral" size="lg">Large (lg)</Sheet>
-            </div>
-          </div>
+              <Section
+                title="Colors (Soft variant)"
+                titleLevel="h3"
+                id="colors-soft"
+              >
+                <div className="flex flex-wrap gap-4">
+                  <Sheet variant="soft" color="primary">
+                    Primary
+                  </Sheet>
+                  <Sheet variant="soft" color="neutral">
+                    Neutral
+                  </Sheet>
+                  <Sheet variant="soft" color="success">
+                    Success
+                  </Sheet>
+                  <Sheet variant="soft" color="warning">
+                    Warning
+                  </Sheet>
+                  <Sheet variant="soft" color="danger">
+                    Danger
+                  </Sheet>
+                </div>
+              </Section>
 
-          <div>
-            <Typography level="h3">Colors (Solid variant)</Typography>
-            <div className="flex flex-wrap gap-4">
-              <Sheet variant="solid" color="primary">Primary</Sheet>
-              <Sheet variant="solid" color="neutral">Neutral</Sheet>
-              <Sheet variant="solid" color="success">Success</Sheet>
-              <Sheet variant="solid" color="warning">Warning</Sheet>
-              <Sheet variant="solid" color="danger">Danger</Sheet>
+              <Section title="Sizes" titleLevel="h3" id="sizes">
+                <div className="flex flex-wrap items-start gap-4">
+                  <Sheet variant="outlined" color="neutral" size="sm">
+                    Small (sm)
+                  </Sheet>
+                  <Sheet variant="outlined" color="neutral" size="md">
+                    Medium (md)
+                  </Sheet>
+                  <Sheet variant="outlined" color="neutral" size="lg">
+                    Large (lg)
+                  </Sheet>
+                </div>
+              </Section>
+
+              <Section
+                title="Colors (Solid variant)"
+                titleLevel="h3"
+                id="colors-solid"
+              >
+                <div className="flex flex-wrap gap-4">
+                  <Sheet variant="solid" color="primary">
+                    Primary
+                  </Sheet>
+                  <Sheet variant="solid" color="neutral">
+                    Neutral
+                  </Sheet>
+                  <Sheet variant="solid" color="success">
+                    Success
+                  </Sheet>
+                  <Sheet variant="solid" color="warning">
+                    Warning
+                  </Sheet>
+                  <Sheet variant="solid" color="danger">
+                    Danger
+                  </Sheet>
+                </div>
+              </Section>
+
+              <Section title="Interactive" titleLevel="h3" id="interactive">
+                <Typography level="body-sm" className="mb-4">
+                  The <code className="font-mono text-sm">interactive</code>{' '}
+                  prop adds focus rings and hover states for clickable or
+                  focusable elements.
+                </Typography>
+                <div className="flex flex-wrap gap-4">
+                  <Sheet
+                    variant="outlined"
+                    color="primary"
+                    interactive
+                    as="button"
+                    className="cursor-pointer"
+                  >
+                    Click me
+                  </Sheet>
+                  <Sheet
+                    variant="soft"
+                    color="success"
+                    interactive
+                    as="button"
+                    className="cursor-pointer"
+                  >
+                    Interactive Sheet
+                  </Sheet>
+                </div>
+              </Section>
+
+              <Section
+                title="As Different Elements"
+                titleLevel="h3"
+                id="as-different-elements"
+              >
+                <Typography level="body-sm" className="mb-4">
+                  Use the <code className="font-mono text-sm">as</code> prop to
+                  render Sheet as different HTML elements for semantic
+                  correctness.
+                </Typography>
+                <div className="space-y-3">
+                  <Sheet variant="outlined" color="neutral" as="section">
+                    <Typography level="body-sm" weight="medium">
+                      as="section"
+                    </Typography>
+                    <Typography level="body-xs">
+                      Rendered as a section element
+                    </Typography>
+                  </Sheet>
+                  <Sheet variant="outlined" color="neutral" as="article">
+                    <Typography level="body-sm" weight="medium">
+                      as="article"
+                    </Typography>
+                    <Typography level="body-xs">
+                      Rendered as an article element
+                    </Typography>
+                  </Sheet>
+                  <Sheet variant="outlined" color="neutral" as="aside">
+                    <Typography level="body-sm" weight="medium">
+                      as="aside"
+                    </Typography>
+                    <Typography level="body-xs">
+                      Rendered as an aside element
+                    </Typography>
+                  </Sheet>
+                </div>
+              </Section>
+
+              <Section title="Focus Within" titleLevel="h3" id="focus-within">
+                <Typography level="body-sm" className="mb-4">
+                  Use <code className="font-mono text-sm">focusWithin</code>{' '}
+                  prop for containers with focusable children to show focus
+                  rings on the container.
+                </Typography>
+                <div className="flex flex-wrap gap-4">
+                  <Sheet
+                    variant="outlined"
+                    color="primary"
+                    interactive
+                    focusWithin
+                    className="space-y-2 min-w-60"
+                  >
+                    <Typography level="body-sm" weight="medium">
+                      Container with input
+                    </Typography>
+                    <Input placeholder="Focus me" size="sm" />
+                  </Sheet>
+                </div>
+              </Section>
+
+              <Section title="Nested Sheets" titleLevel="h3" id="nested-sheets">
+                <Typography level="body-sm" className="mb-4">
+                  Sheets can be nested to create layered interfaces with
+                  different visual styles.
+                </Typography>
+                <Sheet
+                  variant="outlined"
+                  color="neutral"
+                  size="lg"
+                  className="space-y-4"
+                >
+                  <Typography level="h5">Outer Sheet</Typography>
+                  <Typography level="body-sm">
+                    This is the outer container with outlined variant.
+                  </Typography>
+                  <Sheet
+                    variant="soft"
+                    color="primary"
+                    size="md"
+                    className="space-y-2"
+                  >
+                    <Typography level="body-sm" weight="medium">
+                      Inner Sheet
+                    </Typography>
+                    <Typography level="body-xs">
+                      Nested soft variant sheet inside the outlined container.
+                    </Typography>
+                  </Sheet>
+                </Sheet>
+              </Section>
             </div>
-          </div>
+          </Section>
+
+          <Section title="API Reference" id="api">
+            <PropsTable props={componentProps.Sheet} />
+          </Section>
         </div>
-      </Section>
-
-      <Section title="API Reference">
-        <PropsTable props={componentProps.Sheet} />
-      </Section>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }

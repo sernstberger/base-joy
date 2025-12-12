@@ -1,16 +1,17 @@
 import { variants, colors, sizes, type ColorScale } from '@base-joy/tokens';
-import { Toggle, ToggleGroup, Typography } from '@base-joy/ui-styled';
+import { Toggle, ToggleGroup, Typography, Switch } from '@base-joy/ui-styled';
+import { cn } from '@base-joy/utils';
 
 export interface PlaygroundControl {
   name: string;
-  type: 'variant' | 'color' | 'size';
-  defaultValue: string;
+  type: 'variant' | 'color' | 'size' | 'boolean';
+  defaultValue: string | boolean;
 }
 
 interface ControlPanelProps {
   controls: PlaygroundControl[];
-  values: Record<string, string>;
-  onChange: (name: string, value: string) => void;
+  values: Record<string, string | boolean>;
+  onChange: (name: string, value: string | boolean) => void;
 }
 
 export function ControlPanel({ controls, values, onChange }: ControlPanelProps) {
@@ -44,27 +45,34 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
 
           {control.type === 'color' && (
             <div className="flex flex-col gap-2">
-              <div className="flex gap-2">
+              <ToggleGroup.Root
+                value={[values[control.name]]}
+                onValueChange={(newValue) => {
+                  if (newValue.length > 0) {
+                    onChange(control.name, newValue[0]);
+                  }
+                }}
+                className="flex flex-wrap gap-2"
+              >
                 {(Object.keys(colors) as ColorScale[]).map((color) => (
-                  <button
+                  <Toggle
                     key={color}
-                    onClick={() => onChange(control.name, color)}
+                    value={color}
                     title={color}
-                    className={`w-6 h-6 rounded-full border-2 transition-all ${
-                      values[control.name] === color
-                        ? 'scale-125 border-neutral-900 ring-2 ring-offset-1 ring-neutral-400'
-                        : 'border-transparent hover:scale-110'
-                    }`}
+                    className={cn(
+                      'w-6 h-6 p-0 rounded-full border-2 transition-all',
+                      'border-transparent hover:scale-110',
+                      'data-pressed:scale-125 data-pressed:border-neutral-900',
+                      'data-pressed:ring-2 data-pressed:ring-offset-1 data-pressed:ring-neutral-400'
+                    )}
                     style={{ backgroundColor: colors[color][500] }}
                   >
-                    {values[control.name] === color && (
-                      <span className="flex items-center justify-center text-white text-xs">
-                        ✓
-                      </span>
-                    )}
-                  </button>
+                    <span className="hidden data-pressed:flex items-center justify-center text-white text-xs">
+                      ✓
+                    </span>
+                  </Toggle>
                 ))}
-              </div>
+              </ToggleGroup.Root>
               <Typography level="body-xs" className="capitalize">
                 {values[control.name]}
               </Typography>
@@ -73,7 +81,7 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
 
           {control.type === 'size' && (
             <ToggleGroup.Root
-              value={[values[control.name]]}
+              value={[values[control.name] as string]}
               onValueChange={(newValue) => {
                 if (newValue.length > 0) {
                   onChange(control.name, newValue[0]);
@@ -87,6 +95,21 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
                 </Toggle>
               ))}
             </ToggleGroup.Root>
+          )}
+
+          {control.type === 'boolean' && (
+            <div className="flex items-center gap-2">
+              <Switch.Root
+                checked={Boolean(values[control.name])}
+                onCheckedChange={(checked) => onChange(control.name, checked)}
+                size="sm"
+              >
+                <Switch.Thumb />
+              </Switch.Root>
+              <Typography level="body-xs" className="capitalize text-neutral-600">
+                {values[control.name] ? 'On' : 'Off'}
+              </Typography>
+            </div>
           )}
         </div>
       ))}

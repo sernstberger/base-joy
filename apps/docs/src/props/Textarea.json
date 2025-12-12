@@ -64,6 +64,7 @@
   {
     "name": "size",
     "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
     "required": false
   },
   {
