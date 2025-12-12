@@ -1,3 +1,7 @@
+// Theme system
+export { ThemeProvider, useTheme, type ThemeProviderProps } from './ThemeProvider';
+export { type Theme, defaultTheme } from '@base-joy/tokens';
+
 // Core styled components
 export { Sheet, sheetVariants, type SheetProps } from './Sheet';
 export {

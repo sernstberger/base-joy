@@ -1529,8 +1529,8 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "neutral",
-      "description": "The color of the text",
+      "defaultValue": "inherit",
+      "description": "The color of the text. Use 'inherit' to inherit from parent (default).",
       "required": false
     },
     {

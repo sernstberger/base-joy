@@ -10,3 +10,8 @@ export {
   type FontFamily,
 } from './typography';
 export { spacing, type SpacingKey } from './spacing';
+export {
+  type Theme,
+  type TypographyTokens,
+  defaultTheme,
+} from './theme';

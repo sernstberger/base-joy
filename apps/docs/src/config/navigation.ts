@@ -28,6 +28,10 @@ export const navigation: NavSection[] = [
     ],
   },
   {
+    title: 'Foundation',
+    items: [{ label: 'Theming', path: '/foundation/theming' }],
+  },
+  {
     title: 'Styled',
     items: sortByLabel([
       { label: 'Accordion', path: '/styled/accordion', baseUiUrl: 'https://base-ui.com/react/components/accordion', comingSoon: true },
