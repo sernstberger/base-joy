@@ -15,6 +15,7 @@ import { Playground, type PlaygroundControl } from '../../components/Playground'
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Size } from '@base-joy/tokens';
 
 const itemControls: PlaygroundControl[] = [
@@ -23,56 +24,6 @@ const itemControls: PlaygroundControl[] = [
 
 const itemCodeTemplate = (props: Record<string, string>) =>
   `<Item size="${props.size}">\n  <ItemStart><Icon /></ItemStart>\n  <ItemContent>Content</ItemContent>\n  <ItemEnd>End</ItemEnd>\n</Item>`;
-
-const itemProps: PropMeta[] = [
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the item affecting padding.',
-    required: false,
-  },
-  {
-    name: 'interactive',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Whether the item should have hover/focus states.',
-    required: false,
-  },
-  {
-    name: 'selected',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Whether the item is in a selected state.',
-    required: false,
-  },
-  {
-    name: 'disabled',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Whether the item is disabled.',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: 'React.ElementType',
-    defaultValue: '"div"',
-    description: 'The component used for the root node.',
-    required: false,
-  },
-  {
-    name: 'children',
-    type: 'React.ReactNode',
-    description: 'The content of the item (ItemStart, ItemContent, ItemEnd).',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 const slotProps: PropMeta[] = [
   {
@@ -355,7 +306,7 @@ export function ItemPage() {
 
       <Section title="API Reference">
         <Heading level={3}>Item Props</Heading>
-        <PropsTable props={itemProps} />
+        <PropsTable props={componentProps.Item} />
       </Section>
 
       <Section title="Slot Components" spacing="sm">

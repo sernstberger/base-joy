@@ -1,37 +1,8 @@
 import { Container, Sheet } from '@base-joy/ui-core';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
-
-const containerProps: PropMeta[] = [
-  {
-    name: 'maxWidth',
-    type: '"xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "full"',
-    defaultValue: '"lg"',
-    description: 'The maximum width of the container.',
-    required: false,
-  },
-  {
-    name: 'centered',
-    type: 'boolean',
-    defaultValue: 'true',
-    description: 'Whether to center the container with mx-auto.',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: 'React.ElementType',
-    defaultValue: '"div"',
-    description: 'The element type to render as.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
+import { componentProps } from '../../props';
 
 export function ContainerPage() {
   return (
@@ -264,7 +235,7 @@ export function ContainerPage() {
       <Section title="API Reference">
         <div>
           <Heading level={3}>Container</Heading>
-          <PropsTable props={containerProps} />
+          <PropsTable props={componentProps.Container} />
         </div>
       </Section>
     </div>

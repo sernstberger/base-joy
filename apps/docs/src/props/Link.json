@@ -1,0 +1,67 @@
+[
+  {
+    "name": "as",
+    "type": "ElementType<any, keyof IntrinsicElements>",
+    "defaultValue": "a",
+    "description": "The element type to render as (for use with router links).",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "defaultValue": "'primary'",
+    "description": "The color scheme of the link.",
+    "required": false
+  },
+  {
+    "name": "defaultChecked",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "string | number | readonly string[]",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "If true, link is disabled.",
+    "required": false
+  },
+  {
+    "name": "external",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "If true, opens link in new tab with security attributes.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "FormEventHandler<HTMLAnchorElement>",
+    "required": false
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "underline",
+    "type": "\"none\" | \"hover\" | \"always\"",
+    "defaultValue": "'hover'",
+    "description": "When to show the underline.",
+    "required": false
+  }
+]

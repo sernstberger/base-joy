@@ -1,0 +1,22 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "((event: BaseUIEvent<FormEvent<HTMLFormElement>>) => void)",
+    "required": false
+  }
+]

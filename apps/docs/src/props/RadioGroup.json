@@ -1,0 +1,54 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "unknown",
+    "description": "The uncontrolled value of the radio button that should be initially selected.\n\nTo render a controlled radio group, use the `value` prop instead.",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the component should ignore user interaction.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Identifies the field when a form is submitted.",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "((event: BaseUIEvent<FormEvent<HTMLDivElement>>) => void)",
+    "required": false
+  },
+  {
+    "name": "orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "defaultValue": "vertical",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
+    "required": false
+  },
+  {
+    "name": "value",
+    "type": "unknown",
+    "description": "The controlled value of the radio item that should be currently selected.\n\nTo render an uncontrolled radio group, use the `defaultValue` prop instead.",
+    "required": false
+  }
+]

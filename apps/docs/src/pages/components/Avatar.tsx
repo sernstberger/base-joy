@@ -3,6 +3,7 @@ import { Playground, type PlaygroundControl } from '../../components/Playground'
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Size, ColorScale } from '@base-joy/tokens';
 
 const avatarControls: PlaygroundControl[] = [
@@ -13,54 +14,6 @@ const avatarControls: PlaygroundControl[] = [
 
 const avatarCodeTemplate = (props: Record<string, string>) =>
   `<Avatar variant="${props.variant}" color="${props.color}" size="${props.size}">JD</Avatar>`;
-
-const avatarProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"solid" | "soft" | "outlined"',
-    defaultValue: '"soft"',
-    description: 'The visual style of the avatar.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color scheme of the avatar.',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the avatar.',
-    required: false,
-  },
-  {
-    name: 'src',
-    type: 'string',
-    description: 'Image source URL.',
-    required: false,
-  },
-  {
-    name: 'alt',
-    type: 'string',
-    description: 'Alt text for the image.',
-    required: false,
-  },
-  {
-    name: 'children',
-    type: 'React.ReactNode',
-    description: 'Fallback content (typically initials) displayed when no src is provided or image fails to load.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 const avatarGroupProps: PropMeta[] = [
   {
@@ -325,7 +278,7 @@ export function AvatarPage() {
         <div className="space-y-8">
           <div>
             <Heading level={3}>Avatar</Heading>
-            <PropsTable props={avatarProps} />
+            <PropsTable props={componentProps.Avatar} />
           </div>
           <div>
             <Heading level={3}>AvatarGroup</Heading>

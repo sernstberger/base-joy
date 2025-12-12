@@ -1,8 +1,9 @@
 import { Textarea, Sheet } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const textareaControls: PlaygroundControl[] = [
@@ -18,99 +19,6 @@ const textareaCodeTemplate = (props: Record<string, string>) =>
   size="${props.size}"
   placeholder="Enter description"
 />`;
-
-const textareaProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"solid" | "soft" | "outlined" | "plain"',
-    defaultValue: '"soft"',
-    description: 'The visual style of the textarea.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color scheme of the textarea.',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the textarea.',
-    required: false,
-  },
-  {
-    name: 'error',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Displays the textarea in error state with danger styling.',
-    required: false,
-  },
-  {
-    name: 'disabled',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Disables the textarea.',
-    required: false,
-  },
-  {
-    name: 'fullWidth',
-    type: 'boolean',
-    defaultValue: 'true',
-    description: 'Makes the textarea take full width of its container.',
-    required: false,
-  },
-  {
-    name: 'rows',
-    type: 'number',
-    description: 'Number of visible text rows.',
-    required: false,
-  },
-  {
-    name: 'minRows',
-    type: 'number',
-    description: 'Minimum number of rows. Auto-adjusts height on input.',
-    required: false,
-  },
-  {
-    name: 'maxRows',
-    type: 'number',
-    description: 'Maximum number of rows. Auto-adjusts height on input.',
-    required: false,
-  },
-  {
-    name: 'placeholder',
-    type: 'string',
-    description: 'Placeholder text.',
-    required: false,
-  },
-  {
-    name: 'value',
-    type: 'string',
-    description: 'Controlled value.',
-    required: false,
-  },
-  {
-    name: 'defaultValue',
-    type: 'string',
-    description: 'Uncontrolled default value.',
-    required: false,
-  },
-  {
-    name: 'onChange',
-    type: '(event: React.ChangeEvent<HTMLTextAreaElement>) => void',
-    description: 'Callback when value changes.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 export function TextareaPage() {
   return (
@@ -320,7 +228,7 @@ export function TextareaPage() {
       </Section>
 
       <Section title="API Reference">
-        <PropsTable props={textareaProps} />
+        <PropsTable props={componentProps.Textarea} />
       </Section>
     </div>
   );

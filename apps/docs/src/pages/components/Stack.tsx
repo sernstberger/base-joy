@@ -1,8 +1,9 @@
 import { Stack, Sheet, Button, Badge, Divider } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 
 const stackControls: PlaygroundControl[] = [];
 
@@ -12,63 +13,6 @@ const stackCodeTemplate = () =>
   <div>Item 2</div>
   <div>Item 3</div>
 </Stack>`;
-
-const stackProps: PropMeta[] = [
-  {
-    name: 'direction',
-    type: '"column" | "row" | "column-reverse" | "row-reverse"',
-    defaultValue: '"column"',
-    description: 'The flex direction.',
-    required: false,
-  },
-  {
-    name: 'spacing',
-    type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12',
-    defaultValue: '2',
-    description: 'The spacing between children (maps to gap-0 through gap-12).',
-    required: false,
-  },
-  {
-    name: 'align',
-    type: '"start" | "center" | "end" | "stretch" | "baseline"',
-    defaultValue: '"stretch"',
-    description: 'The alignment of children (align-items).',
-    required: false,
-  },
-  {
-    name: 'justify',
-    type: '"start" | "center" | "end" | "between" | "around" | "evenly"',
-    defaultValue: '"start"',
-    description: 'The justification of children (justify-content).',
-    required: false,
-  },
-  {
-    name: 'wrap',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Whether to wrap children.',
-    required: false,
-  },
-  {
-    name: 'divider',
-    type: 'ReactNode',
-    description: 'Optional divider element to insert between children.',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: 'React.ElementType',
-    defaultValue: '"div"',
-    description: 'The element type to render as.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 export function StackPage() {
   return (
@@ -355,7 +299,7 @@ export function StackPage() {
 
       <Section title="API Reference">
         <Heading level={3}>Stack</Heading>
-        <PropsTable props={stackProps} />
+        <PropsTable props={componentProps.Stack} />
       </Section>
     </div>
   );

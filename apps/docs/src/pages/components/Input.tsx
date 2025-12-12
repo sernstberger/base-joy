@@ -1,12 +1,16 @@
 import { Input } from '@base-joy/ui-core';
-import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import {
+  Playground,
+  type PlaygroundControl,
+} from '../../components/Playground';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const inputControls: PlaygroundControl[] = [
-  { name: 'variant', type: 'variant', defaultValue: 'soft' },
+  { name: 'variant', type: 'variant', defaultValue: 'outlined' },
   { name: 'color', type: 'color', defaultValue: 'neutral' },
   { name: 'size', type: 'size', defaultValue: 'md' },
 ];
@@ -19,100 +23,6 @@ const inputCodeTemplate = (props: Record<string, string>) =>
   placeholder="Enter text"
 />`;
 
-const inputProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"solid" | "soft" | "outlined" | "plain"',
-    defaultValue: '"soft"',
-    description: 'The visual style of the input.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color scheme of the input.',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the input.',
-    required: false,
-  },
-  {
-    name: 'type',
-    type: '"text" | "email" | "password" | "number" | "search" | "tel" | "url"',
-    defaultValue: '"text"',
-    description: 'The HTML input type.',
-    required: false,
-  },
-  {
-    name: 'error',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Shows error styling (danger color).',
-    required: false,
-  },
-  {
-    name: 'disabled',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Disables the input.',
-    required: false,
-  },
-  {
-    name: 'fullWidth',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Makes the input take full width of its container.',
-    required: false,
-  },
-  {
-    name: 'startDecorator',
-    type: 'React.ReactNode',
-    description: 'Element to display before the input (typically an icon).',
-    required: false,
-  },
-  {
-    name: 'endDecorator',
-    type: 'React.ReactNode',
-    description: 'Element to display after the input (typically an icon or button).',
-    required: false,
-  },
-  {
-    name: 'value',
-    type: 'string',
-    description: 'The controlled value of the input.',
-    required: false,
-  },
-  {
-    name: 'defaultValue',
-    type: 'string',
-    description: 'The default value for uncontrolled mode.',
-    required: false,
-  },
-  {
-    name: 'onChange',
-    type: '(event: React.ChangeEvent<HTMLInputElement>) => void',
-    description: 'Callback when input value changes.',
-    required: false,
-  },
-  {
-    name: 'placeholder',
-    type: 'string',
-    description: 'Placeholder text.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
-
 const SearchIcon = () => (
   <svg
     width="16"
@@ -121,13 +31,7 @@ const SearchIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle
-      cx="7"
-      cy="7"
-      r="4.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    />
+    <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
     <path
       d="M10 10l3.5 3.5"
       stroke="currentColor"
@@ -214,7 +118,8 @@ export function InputPage() {
       <header className="mb-8">
         <Heading level={1}>Input</Heading>
         <Text variant="subtitle">
-          A versatile input component with variants, colors, sizes, and decorators.
+          A versatile input component with variants, colors, sizes, and
+          decorators.
         </Text>
       </header>
 
@@ -259,10 +164,26 @@ export function InputPage() {
             </div>
             <div className="space-y-3 mt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <Input variant="outlined" color="primary" placeholder="Primary" />
-                <Input variant="outlined" color="neutral" placeholder="Neutral" />
-                <Input variant="outlined" color="success" placeholder="Success" />
-                <Input variant="outlined" color="warning" placeholder="Warning" />
+                <Input
+                  variant="outlined"
+                  color="primary"
+                  placeholder="Primary"
+                />
+                <Input
+                  variant="outlined"
+                  color="neutral"
+                  placeholder="Neutral"
+                />
+                <Input
+                  variant="outlined"
+                  color="success"
+                  placeholder="Success"
+                />
+                <Input
+                  variant="outlined"
+                  color="warning"
+                  placeholder="Warning"
+                />
                 <Input variant="outlined" color="danger" placeholder="Danger" />
               </div>
               <Text variant="muted" className="mt-2">
@@ -296,10 +217,7 @@ export function InputPage() {
           <div>
             <Heading level={3}>With Start Decorator</Heading>
             <div className="space-y-3 max-w-md">
-              <Input
-                startDecorator={<SearchIcon />}
-                placeholder="Search..."
-              />
+              <Input startDecorator={<SearchIcon />} placeholder="Search..." />
               <Input
                 startDecorator={<EmailIcon />}
                 type="email"
@@ -312,7 +230,9 @@ export function InputPage() {
               />
               <Input
                 variant="outlined"
-                startDecorator={<span className="text-neutral-500">https://</span>}
+                startDecorator={
+                  <span className="text-neutral-500">https://</span>
+                }
                 placeholder="example.com"
               />
             </div>
@@ -416,13 +336,19 @@ export function InputPage() {
             <Heading level={3}>Form Example</Heading>
             <form className="space-y-4 max-w-md">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-1"
+                >
                   Full Name
                 </label>
                 <Input id="name" type="text" placeholder="John Doe" />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-1"
+                >
                   Email
                 </label>
                 <Input
@@ -433,7 +359,10 @@ export function InputPage() {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium mb-1"
+                >
                   Password
                 </label>
                 <Input
@@ -444,7 +373,10 @@ export function InputPage() {
                 />
               </div>
               <div>
-                <label htmlFor="website" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="website"
+                  className="block text-sm font-medium mb-1"
+                >
                   Website
                 </label>
                 <Input
@@ -452,7 +384,9 @@ export function InputPage() {
                   type="url"
                   variant="outlined"
                   placeholder="example.com"
-                  startDecorator={<span className="text-neutral-500">https://</span>}
+                  startDecorator={
+                    <span className="text-neutral-500">https://</span>
+                  }
                 />
               </div>
             </form>
@@ -491,7 +425,7 @@ export function InputPage() {
       </Section>
 
       <Section title="API Reference">
-        <PropsTable props={inputProps} />
+        <PropsTable props={componentProps.Input} />
       </Section>
     </div>
   );

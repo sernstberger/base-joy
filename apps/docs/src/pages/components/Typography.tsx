@@ -4,32 +4,20 @@ import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import type { ColorScale } from '@base-joy/tokens';
 
-const headingControls: PlaygroundControl[] = [
-  { name: 'color', type: 'color', defaultValue: 'neutral' },
-];
-
-const headingCodeTemplate = (props: Record<string, string>) =>
-  `<Heading level={1} color="${props.color}">Page Title</Heading>`;
-
+// Manual props for Heading and Text since they're separate components in one file
 const headingProps: PropMeta[] = [
   {
     name: 'level',
     type: '1 | 2 | 3 | 4 | 5 | 6',
     defaultValue: '1',
-    description: 'The heading level, maps to h1-h6 tags.',
+    description: 'The heading level (1-6), determines the HTML tag (h1-h6).',
     required: false,
   },
   {
     name: 'color',
     type: '"primary" | "neutral" | "success" | "warning" | "danger"',
     defaultValue: '"neutral"',
-    description: 'The text color.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
+    description: 'The color of the heading text.',
     required: false,
   },
 ];
@@ -46,7 +34,7 @@ const textProps: PropMeta[] = [
     name: 'color',
     type: '"primary" | "neutral" | "success" | "warning" | "danger"',
     defaultValue: '"neutral"',
-    description: 'The text color.',
+    description: 'The color of the text.',
     required: false,
   },
   {
@@ -60,16 +48,17 @@ const textProps: PropMeta[] = [
     name: 'as',
     type: '"p" | "span" | "div" | "label"',
     defaultValue: '"p"',
-    description: 'The element type to render.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
+    description: 'The HTML element to render as.',
     required: false,
   },
 ];
+
+const headingControls: PlaygroundControl[] = [
+  { name: 'color', type: 'color', defaultValue: 'neutral' },
+];
+
+const headingCodeTemplate = (props: Record<string, string>) =>
+  `<Heading level={1} color="${props.color}">Page Title</Heading>`;
 
 export function TypographyPage() {
   return (

@@ -1,8 +1,9 @@
 import { Sheet } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
 
 const sheetControls: PlaygroundControl[] = [
@@ -13,49 +14,6 @@ const sheetControls: PlaygroundControl[] = [
 
 const sheetCodeTemplate = (props: Record<string, string>) =>
   `<Sheet variant="${props.variant}" color="${props.color}" size="${props.size}">\n  Your content here\n</Sheet>`;
-
-const sheetProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"solid" | "soft" | "outlined" | "plain"',
-    defaultValue: '"soft"',
-    description: 'The visual variant of the sheet.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color scheme of the sheet.',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size variant affecting padding and text size.',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: 'React.ElementType',
-    defaultValue: '"div"',
-    description: 'The component used for the root node.',
-    required: false,
-  },
-  {
-    name: 'children',
-    type: 'React.ReactNode',
-    description: 'The content of the sheet.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 export function SheetPage() {
   return (
@@ -128,7 +86,7 @@ export function SheetPage() {
       </Section>
 
       <Section title="API Reference">
-        <PropsTable props={sheetProps} />
+        <PropsTable props={componentProps.Sheet} />
       </Section>
     </div>
   );

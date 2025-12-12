@@ -1,0 +1,53 @@
+[
+  {
+    "name": "as",
+    "type": "ElementType<any, keyof IntrinsicElements>",
+    "defaultValue": "div",
+    "description": "The element type to render as.",
+    "required": false
+  },
+  {
+    "name": "centered",
+    "type": "boolean",
+    "defaultValue": "true",
+    "description": "Whether to center the container with mx-auto.",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "defaultChecked",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "string | number | readonly string[]",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "maxWidth",
+    "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"full\"",
+    "defaultValue": "'lg'",
+    "description": "The maximum width of the container.",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "FormEventHandler<HTMLDivElement>",
+    "required": false
+  }
+]

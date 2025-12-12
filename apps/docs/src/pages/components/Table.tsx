@@ -11,7 +11,10 @@ import { Playground, type PlaygroundControl } from '../../components/Playground'
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Size } from '@base-joy/tokens';
+
+const tableProps = componentProps.Table;
 
 const tableControls: PlaygroundControl[] = [
   { name: 'size', type: 'size', defaultValue: 'md' },
@@ -19,29 +22,6 @@ const tableControls: PlaygroundControl[] = [
 
 const tableCodeTemplate = (props: Record<string, string>) =>
   `<Table size="${props.size}">\n  <TableHead>\n    <TableRow>\n      <TableHeader>Name</TableHeader>\n      <TableHeader>Value</TableHeader>\n    </TableRow>\n  </TableHead>\n  <TableBody>\n    <TableRow>\n      <TableCell>Row 1</TableCell>\n      <TableCell>Value 1</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>`;
-
-const tableProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"default" | "striped"',
-    defaultValue: '"default"',
-    description: 'The visual variant of the table.',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the table cells.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 const rowProps: PropMeta[] = [
   {

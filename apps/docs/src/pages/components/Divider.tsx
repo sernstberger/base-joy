@@ -1,8 +1,9 @@
 import { Divider, Sheet } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 
 const dividerControls: PlaygroundControl[] = [
   {
@@ -16,42 +17,6 @@ const dividerCodeTemplate = (props: Record<string, string>) => {
   const color = props.color !== 'neutral' ? ` color="${props.color}"` : '';
   return `<Divider${color} />`;
 };
-
-const dividerProps: PropMeta[] = [
-  {
-    name: 'orientation',
-    type: '"horizontal" | "vertical"',
-    defaultValue: '"horizontal"',
-    description: 'The orientation of the divider.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color scheme of the divider.',
-    required: false,
-  },
-  {
-    name: 'inset',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Adds margin on the ends of the divider.',
-    required: false,
-  },
-  {
-    name: 'children',
-    type: 'ReactNode',
-    description: 'Optional text content to display in the center of the divider.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 export function DividerPage() {
   return (
@@ -238,7 +203,7 @@ export function DividerPage() {
       <Section title="API Reference">
         <div>
           <Heading level={3}>Divider</Heading>
-          <PropsTable props={dividerProps} />
+          <PropsTable props={componentProps.Divider} />
         </div>
       </Section>
     </div>

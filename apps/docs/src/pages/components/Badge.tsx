@@ -1,8 +1,9 @@
 import { Badge } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const badgeControls: PlaygroundControl[] = [
@@ -13,48 +14,6 @@ const badgeControls: PlaygroundControl[] = [
 
 const badgeCodeTemplate = (props: Record<string, string>) =>
   `<Badge variant="${props.variant}" color="${props.color}" size="${props.size}">New</Badge>`;
-
-const badgeProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"solid" | "soft" | "outlined" | "plain"',
-    defaultValue: '"soft"',
-    description: 'The visual style of the badge.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"primary"',
-    description: 'The color scheme of the badge.',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the badge.',
-    required: false,
-  },
-  {
-    name: 'startDecorator',
-    type: 'ReactNode',
-    description: 'Element to display before the badge content (e.g., icons).',
-    required: false,
-  },
-  {
-    name: 'endDecorator',
-    type: 'ReactNode',
-    description: 'Element to display after the badge content (e.g., icons).',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 export function BadgePage() {
   return (
@@ -339,7 +298,7 @@ export function BadgePage() {
 
       <Section title="API Reference">
         <Heading level={3}>Badge</Heading>
-        <PropsTable props={badgeProps} />
+        <PropsTable props={componentProps.Badge} />
       </Section>
     </div>
   );

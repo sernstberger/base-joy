@@ -12,6 +12,7 @@ import { Playground, type PlaygroundControl } from '../../components/Playground'
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
 
 const cardControls: PlaygroundControl[] = [
@@ -33,36 +34,6 @@ const cardCodeTemplate = (props: Record<string, string>) =>
     <Button>Action</Button>
   </CardFooter>
 </Card>`;
-
-const cardProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"solid" | "soft" | "outlined" | "plain"',
-    defaultValue: '"outlined"',
-    description: 'The visual style of the card (inherited from Sheet).',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"neutral"',
-    description: 'The color scheme of the card (inherited from Sheet).',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the card padding.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 const mediaProps: PropMeta[] = [
   {
@@ -327,7 +298,7 @@ export function CardPage() {
         <div className="space-y-8">
           <div>
             <Heading level={3}>Card</Heading>
-            <PropsTable props={cardProps} />
+            <PropsTable props={componentProps.Card} />
           </div>
           <div>
             <Heading level={3}>CardHeader</Heading>

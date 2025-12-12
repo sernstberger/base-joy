@@ -1,0 +1,53 @@
+[
+  {
+    "name": "as",
+    "type": "ElementType<any, keyof IntrinsicElements>",
+    "defaultValue": "div",
+    "description": "The element type to render as.",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "columns",
+    "type": "GridColumns",
+    "defaultValue": "1",
+    "description": "Number of columns in the grid.",
+    "required": false
+  },
+  {
+    "name": "defaultChecked",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "string | number | readonly string[]",
+    "required": false
+  },
+  {
+    "name": "gap",
+    "type": "GridGap",
+    "defaultValue": "0",
+    "description": "Gap between grid items.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "FormEventHandler<HTMLDivElement>",
+    "required": false
+  }
+]

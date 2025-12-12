@@ -1,0 +1,39 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "((event: BaseUIEvent<FormEvent<HTMLFieldSetElement>>) => void)",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
+    "required": false
+  },
+  {
+    "name": "variant",
+    "type": "\"plain\" | \"outlined\"",
+    "defaultValue": "plain",
+    "required": false
+  }
+]

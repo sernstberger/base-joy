@@ -1,0 +1,80 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "defaultValue": "neutral",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "string | number | readonly string[]",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "error",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "fullWidth",
+    "type": "boolean",
+    "defaultValue": "true",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "maxRows",
+    "type": "number",
+    "required": false
+  },
+  {
+    "name": "minRows",
+    "type": "number",
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "ChangeEventHandler<HTMLTextAreaElement>",
+    "required": false
+  },
+  {
+    "name": "placeholder",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "required": false
+  },
+  {
+    "name": "value",
+    "type": "string | number | readonly string[]",
+    "required": false
+  },
+  {
+    "name": "variant",
+    "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
+    "defaultValue": "outlined",
+    "required": false
+  }
+]

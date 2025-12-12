@@ -1,8 +1,9 @@
 import { Button, Sheet } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
 const buttonControls: PlaygroundControl[] = [
@@ -15,76 +16,6 @@ const buttonCodeTemplate = (props: Record<string, string>) =>
   `<Button variant="${props.variant}" color="${props.color}" size="${props.size}">
   Click me
 </Button>`;
-
-const buttonProps: PropMeta[] = [
-  {
-    name: 'variant',
-    type: '"solid" | "soft" | "outlined" | "plain"',
-    defaultValue: '"solid"',
-    description: 'The visual style of the button.',
-    required: false,
-  },
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"primary"',
-    description: 'The color scheme of the button.',
-    required: false,
-  },
-  {
-    name: 'size',
-    type: '"sm" | "md" | "lg"',
-    defaultValue: '"md"',
-    description: 'The size of the button.',
-    required: false,
-  },
-  {
-    name: 'loading',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Shows a loading spinner and disables the button.',
-    required: false,
-  },
-  {
-    name: 'disabled',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Disables the button.',
-    required: false,
-  },
-  {
-    name: 'fullWidth',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'Makes the button take full width of its container.',
-    required: false,
-  },
-  {
-    name: 'startDecorator',
-    type: 'React.ReactNode',
-    description: 'Element to display before the button text (typically an icon).',
-    required: false,
-  },
-  {
-    name: 'endDecorator',
-    type: 'React.ReactNode',
-    description: 'Element to display after the button text (typically an icon).',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: 'React.ElementType',
-    defaultValue: '"button"',
-    description: 'The element type to render as (e.g., "a" for links).',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 export function ButtonPage() {
   return (
@@ -337,7 +268,7 @@ export function ButtonPage() {
       </Section>
 
       <Section title="API Reference">
-        <PropsTable props={buttonProps} />
+        <PropsTable props={componentProps.Button} />
       </Section>
     </div>
   );

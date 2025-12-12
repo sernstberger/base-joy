@@ -1,0 +1,54 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "defaultValue": "primary",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "number | readonly number[]",
+    "description": "The uncontrolled value of the slider when it’s initially rendered.\n\nTo render a controlled slider, use the `value` prop instead.",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the slider should ignore user interaction.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Identifies the field when a form is submitted.",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "((event: BaseUIEvent<FormEvent<HTMLDivElement>>) => void)",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
+    "required": false
+  },
+  {
+    "name": "value",
+    "type": "number | readonly number[]",
+    "description": "The value of the slider.\nFor ranged sliders, provide an array with two values.",
+    "required": false
+  }
+]

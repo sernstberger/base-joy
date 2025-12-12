@@ -1,8 +1,9 @@
 import { Link, Sheet } from '@base-joy/ui-core';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
-import { PropsTable, type PropMeta } from '../../components/PropsTable';
+import { PropsTable } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { ColorScale } from '@base-joy/tokens';
 
 const linkControls: PlaygroundControl[] = [
@@ -11,56 +12,6 @@ const linkControls: PlaygroundControl[] = [
 
 const linkCodeTemplate = (props: Record<string, string>) =>
   `<Link href="/page" color="${props.color}" underline="${props.underline}">Click here</Link>`;
-
-const linkProps: PropMeta[] = [
-  {
-    name: 'color',
-    type: '"primary" | "neutral" | "success" | "warning" | "danger"',
-    defaultValue: '"primary"',
-    description: 'The color scheme of the link.',
-    required: false,
-  },
-  {
-    name: 'underline',
-    type: '"none" | "hover" | "always"',
-    defaultValue: '"hover"',
-    description: 'When to show the underline.',
-    required: false,
-  },
-  {
-    name: 'external',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'If true, opens link in new tab with security attributes.',
-    required: false,
-  },
-  {
-    name: 'disabled',
-    type: 'boolean',
-    defaultValue: 'false',
-    description: 'If true, link is disabled.',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: 'React.ElementType',
-    defaultValue: '"a"',
-    description: 'The element type to render as (for use with router links).',
-    required: false,
-  },
-  {
-    name: 'href',
-    type: 'string',
-    description: 'The URL to navigate to.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 export function LinkPage() {
   return (
@@ -224,7 +175,7 @@ export function LinkPage() {
       </Section>
 
       <Section title="API Reference">
-        <PropsTable props={linkProps} />
+        <PropsTable props={componentProps.Link} />
       </Section>
     </div>
   );

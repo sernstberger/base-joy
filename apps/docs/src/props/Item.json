@@ -1,0 +1,67 @@
+[
+  {
+    "name": "as",
+    "type": "ElementType<any, keyof IntrinsicElements>",
+    "defaultValue": "div",
+    "description": "The element type to render as.",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "defaultChecked",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "string | number | readonly string[]",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the item is disabled.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "interactive",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the item is interactive (hoverable/clickable).",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "FormEventHandler<HTMLDivElement>",
+    "required": false
+  },
+  {
+    "name": "selected",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the item is selected.",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
+    "description": "The size of the item.",
+    "required": false
+  }
+]

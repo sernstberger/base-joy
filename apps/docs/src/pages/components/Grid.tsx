@@ -3,6 +3,7 @@ import { Playground, type PlaygroundControl } from '../../components/Playground'
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Heading, Text } from '../../components/Typography';
 import { Section } from '../../components/Section';
+import { componentProps } from '../../props';
 import type { GridColumns, GridGap } from '@base-joy/ui-core';
 
 const gridControls: PlaygroundControl[] = [
@@ -11,36 +12,6 @@ const gridControls: PlaygroundControl[] = [
 
 const gridCodeTemplate = (props: Record<string, string>) =>
   `<Grid columns={${props.columns}} gap={${props.gap}}>\n  <Grid.Item>1</Grid.Item>\n  <Grid.Item>2</Grid.Item>\n  <Grid.Item span={2}>Wide item</Grid.Item>\n</Grid>`;
-
-const gridProps: PropMeta[] = [
-  {
-    name: 'columns',
-    type: '1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "auto"',
-    defaultValue: '1',
-    description: 'Number of columns in the grid.',
-    required: false,
-  },
-  {
-    name: 'gap',
-    type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12',
-    defaultValue: '0',
-    description: 'Gap between grid items.',
-    required: false,
-  },
-  {
-    name: 'as',
-    type: 'React.ElementType',
-    defaultValue: '"div"',
-    description: 'The element type to render as.',
-    required: false,
-  },
-  {
-    name: 'className',
-    type: 'string',
-    description: 'Additional CSS classes to apply.',
-    required: false,
-  },
-];
 
 const gridItemProps: PropMeta[] = [
   {
@@ -379,7 +350,7 @@ export function GridPage() {
         <div className="space-y-8">
           <div>
             <Heading level={3}>Grid</Heading>
-            <PropsTable props={gridProps} />
+            <PropsTable props={componentProps.Grid} />
           </div>
           <div>
             <Heading level={3}>Grid.Item</Heading>

@@ -1,0 +1,46 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "defaultChecked",
+    "type": "boolean",
+    "required": false
+  },
+  {
+    "name": "defaultValue",
+    "type": "string | number | readonly string[]",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "FormEventHandler<HTMLTableElement>",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
+    "description": "The size of the table cells.",
+    "required": false
+  },
+  {
+    "name": "variant",
+    "type": "TableVariant",
+    "defaultValue": "default",
+    "description": "The visual variant of the table.",
+    "required": false
+  }
+]

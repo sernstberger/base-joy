@@ -1,0 +1,51 @@
+[
+  {
+    "name": "checked",
+    "type": "boolean",
+    "description": "Whether the switch is currently active.\n\nTo render an uncontrolled switch, use the `defaultChecked` prop instead.",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "defaultValue": "primary",
+    "required": false
+  },
+  {
+    "name": "defaultChecked",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the switch is initially active.\n\nTo render a controlled switch, use the `checked` prop instead.",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the component should ignore user interaction.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The id of the switch element.",
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Identifies the field when a form is submitted.",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
+    "required": false
+  }
+]

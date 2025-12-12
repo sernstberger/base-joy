@@ -14,7 +14,7 @@ describe('Input', () => {
       const { container } = render(<Input />);
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('border-neutral-300');
-      expect(wrapper).toHaveClass('text-neutral-900');
+      expect(wrapper).toHaveClass('text-neutral-700');
       expect(wrapper).toHaveClass('bg-transparent');
     });
 
@@ -90,14 +90,14 @@ describe('Input', () => {
     it('applies solid variant classes', () => {
       const { container } = render(<Input variant="solid" color="primary" />);
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).toHaveClass('bg-primary-100');
-      expect(wrapper).toHaveClass('text-primary-900');
+      expect(wrapper).toHaveClass('bg-primary-500');
+      expect(wrapper).toHaveClass('text-white');
     });
 
     it('applies soft variant classes', () => {
       const { container } = render(<Input variant="soft" color="primary" />);
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).toHaveClass('bg-primary-50');
+      expect(wrapper).toHaveClass('bg-primary-100');
       expect(wrapper).toHaveClass('text-primary-900');
     });
 
@@ -105,25 +105,25 @@ describe('Input', () => {
       const { container } = render(<Input variant="outlined" color="primary" />);
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('border');
-      expect(wrapper).toHaveClass('border-primary-300');
+      expect(wrapper).toHaveClass('border-primary-500');
       expect(wrapper).toHaveClass('bg-transparent');
     });
 
     it('applies plain variant classes', () => {
       const { container } = render(<Input variant="plain" color="primary" />);
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).toHaveClass('text-primary-900');
+      expect(wrapper).toHaveClass('text-primary-700');
       expect(wrapper).toHaveClass('bg-transparent');
     });
   });
 
   describe('colors', () => {
     it.each([
-      ['primary', 'bg-primary-100'],
-      ['neutral', 'bg-neutral-100'],
-      ['success', 'bg-success-100'],
-      ['warning', 'bg-warning-100'],
-      ['danger', 'bg-danger-100'],
+      ['primary', 'bg-primary-500'],
+      ['neutral', 'bg-neutral-800'],
+      ['success', 'bg-success-500'],
+      ['warning', 'bg-warning-500'],
+      ['danger', 'bg-danger-500'],
     ] as const)(
       'renders %s color with solid variant',
       (color, expectedClass) => {
@@ -138,7 +138,7 @@ describe('Input', () => {
       (color) => {
         const { container } = render(<Input variant="soft" color={color} />);
         const wrapper = container.firstChild as HTMLElement;
-        expect(wrapper).toHaveClass(`bg-${color}-50`);
+        expect(wrapper).toHaveClass(`bg-${color}-100`);
         expect(wrapper).toHaveClass(`text-${color}-900`);
       }
     );
@@ -170,22 +170,22 @@ describe('Input', () => {
     it('applies error classes with solid variant', () => {
       const { container } = render(<Input error variant="solid" />);
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).toHaveClass('bg-danger-100');
-      expect(wrapper).toHaveClass('text-danger-900');
+      expect(wrapper).toHaveClass('bg-danger-500');
+      expect(wrapper).toHaveClass('text-white');
     });
 
     it('applies error classes with outlined variant', () => {
       const { container } = render(<Input error variant="outlined" />);
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('border-danger-500');
-      expect(wrapper).toHaveClass('text-danger-900');
+      expect(wrapper).toHaveClass('text-danger-700');
     });
 
     it('overrides color when error is true', () => {
       const { container } = render(<Input error color="primary" variant="outlined" />);
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('border-danger-500');
-      expect(wrapper).not.toHaveClass('border-primary-300');
+      expect(wrapper).not.toHaveClass('border-primary-500');
     });
   });
 

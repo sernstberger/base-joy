@@ -1,0 +1,45 @@
+[
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "description": "Optional text content to display in the center of the divider.",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string | ((state: SeparatorState) => string)",
+    "description": "CSS class applied to the element, or a function that\nreturns a class based on the component’s state.",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "defaultValue": "'neutral'",
+    "description": "The color scheme of the divider.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "inset",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Adds margin on the ends of the divider.",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "((event: BaseUIEvent<FormEvent<HTMLDivElement>>) => void)",
+    "required": false
+  },
+  {
+    "name": "orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "defaultValue": "horizontal",
+    "description": "The orientation of the divider.",
+    "required": false
+  }
+]

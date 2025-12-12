@@ -97,4 +97,29 @@ libs/ui/core/src/
 - `yarn build` - Build all packages
 - `yarn test` - Run tests (or `yarn jest`)
 - `yarn docs:dev` - Run docs dev server
-- `yarn docs:build` - Build docs
+- `yarn docs:build` - Build docs (includes props generation)
+- `yarn props:generate` - Generate component props JSON for docs
+
+## Docs Props Generation
+
+Component API documentation is auto-generated from TypeScript interfaces using `react-docgen-typescript`.
+
+**How it works:**
+1. `yarn props:generate` extracts props from `libs/ui/core/src/*/ComponentName.tsx`
+2. Writes JSON files to `apps/docs/src/props/ComponentName.json`
+3. Generates `apps/docs/src/props/index.ts` with exports
+
+**Usage in doc pages:**
+```tsx
+import { PropsTable } from '../../components/PropsTable';
+import { componentProps } from '../../props';
+
+<PropsTable props={componentProps.Button} />
+```
+
+**When to regenerate:**
+- After adding/changing component props
+- `yarn docs:build` runs it automatically
+- Run `yarn props:generate` manually during development
+
+**Note:** Typography page uses manual props since it exports multiple components (Heading, Text) from one file.
