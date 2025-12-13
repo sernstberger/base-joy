@@ -139,6 +139,44 @@ export function GettingStartedPage() {
         </Sheet>
       </Section>
 
+      <Section title="CSS Reset & Tailwind">
+        <Typography level="body-md" className="mb-4">
+          Base Joy requires Tailwind CSS v4. When you import Tailwind in your CSS,
+          it automatically includes <strong>preflight</strong> - a comprehensive CSS reset
+          based on modern-normalize.
+        </Typography>
+
+        <Typography level="h4" className="mb-2">What Preflight Provides</Typography>
+        <ul className="list-disc list-inside space-y-1 text-neutral-700 mb-4">
+          <li>Box-sizing border-box on all elements</li>
+          <li>Consistent margins and padding (reset to 0)</li>
+          <li>Normalized typography (headings, links, lists)</li>
+          <li>Consistent form element styling</li>
+          <li>Responsive images (max-width: 100%)</li>
+          <li>Modern focus ring handling</li>
+        </ul>
+
+        <Typography level="h4" className="mb-2">Setup</Typography>
+        <Typography level="body-sm" className="mb-2">
+          Create a CSS file with the Tailwind import and your theme colors:
+        </Typography>
+        <Sheet variant="outlined" color="neutral" className="font-mono text-sm p-3 mb-4">
+          <pre className="whitespace-pre-wrap">
+{`@import "tailwindcss";
+
+@theme {
+  --color-primary-500: #3b82f6;
+  /* ... your theme tokens */
+}`}
+          </pre>
+        </Sheet>
+
+        <Typography level="body-sm" className="text-neutral-600">
+          No additional CSS reset or normalize library is needed. Tailwind v4's preflight
+          provides everything required for consistent cross-browser rendering.
+        </Typography>
+      </Section>
+
       <Section title="Documentation Structure">
         <Typography level="body-md" className="mb-4">
           The documentation is organized into two sections:

@@ -212,14 +212,9 @@
 }
 
 body {
-  margin: 0;
   font-family: ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-neutral-50);
   color: var(--color-neutral-900);
-}
-
-* {
-  box-sizing: border-box;
 }
