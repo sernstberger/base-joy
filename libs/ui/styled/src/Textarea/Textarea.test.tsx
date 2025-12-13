@@ -21,7 +21,7 @@ describe('Textarea', () => {
       const textarea = container.querySelector('textarea') as HTMLElement;
       expect(textarea).toHaveClass('border-neutral-300');
       expect(textarea).toHaveClass('text-neutral-700');
-      expect(textarea).toHaveClass('bg-transparent');
+      expect(textarea).toHaveClass('bg-neutral-50');
     });
 
     it('applies base classes', () => {
@@ -69,7 +69,7 @@ describe('Textarea', () => {
       const textarea = container.querySelector('textarea') as HTMLElement;
       expect(textarea).toHaveClass('border');
       expect(textarea).toHaveClass('border-primary-500');
-      expect(textarea).toHaveClass('bg-transparent');
+      expect(textarea).toHaveClass('bg-neutral-50');
     });
 
     it('applies plain variant classes', () => {

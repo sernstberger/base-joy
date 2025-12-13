@@ -15,7 +15,7 @@ describe('Input', () => {
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('border-neutral-300');
       expect(wrapper).toHaveClass('text-neutral-700');
-      expect(wrapper).toHaveClass('bg-transparent');
+      expect(wrapper).toHaveClass('bg-neutral-50');
     });
 
     it('applies base classes', () => {
@@ -106,7 +106,7 @@ describe('Input', () => {
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('border');
       expect(wrapper).toHaveClass('border-primary-500');
-      expect(wrapper).toHaveClass('bg-transparent');
+      expect(wrapper).toHaveClass('bg-neutral-50');
     });
 
     it('applies plain variant classes', () => {

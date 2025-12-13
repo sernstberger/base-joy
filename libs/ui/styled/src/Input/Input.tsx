@@ -103,7 +103,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           type={type}
           disabled={disabled}
-          className="flex-1 bg-transparent outline-none placeholder:text-neutral-400 disabled:cursor-not-allowed"
+          className={cn(
+            'flex-1 bg-transparent outline-none disabled:cursor-not-allowed',
+            variant === 'solid'
+              ? 'placeholder:text-white/60'
+              : 'placeholder:text-neutral-400'
+          )}
           {...props}
         />
         {endDecorator && <span className="flex-shrink-0">{endDecorator}</span>}

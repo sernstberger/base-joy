@@ -44,10 +44,17 @@ const numberFieldInputVariants = cva(
       disabled: {
         true: 'opacity-50 cursor-not-allowed',
       },
+      variant: {
+        solid: 'placeholder:text-white/60',
+        soft: 'placeholder:text-neutral-400',
+        outlined: 'placeholder:text-neutral-400',
+        plain: 'placeholder:text-neutral-400',
+      },
     },
     defaultVariants: {
       size: 'md',
       disabled: false,
+      variant: 'outlined',
     },
   }
 );
@@ -156,13 +163,13 @@ export interface NumberFieldInputProps
 
 const Input = React.forwardRef<HTMLInputElement, NumberFieldInputProps>(
   ({ className, disabled, ...props }, ref) => {
-    const { size } = useNumberFieldContext();
+    const { size, variant } = useNumberFieldContext();
 
     return (
       <BaseNumberField.Input
         ref={ref}
         disabled={disabled}
-        className={cn(numberFieldInputVariants({ size, disabled }), className)}
+        className={cn(numberFieldInputVariants({ size, disabled, variant }), className)}
         {...props}
       />
     );

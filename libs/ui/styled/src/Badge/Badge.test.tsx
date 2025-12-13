@@ -73,7 +73,7 @@ describe('Badge', () => {
       expect(badge).toHaveClass('border');
       expect(badge).toHaveClass('border-warning-500');
       expect(badge).toHaveClass('text-warning-700');
-      expect(badge).toHaveClass('bg-transparent');
+      expect(badge).toHaveClass('bg-neutral-50');
     });
 
     it('applies plain variant classes', () => {

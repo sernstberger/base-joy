@@ -59,31 +59,32 @@ const sheetVariants = cva(
       { variant: 'soft', color: 'warning', className: 'bg-warning-100 text-warning-900' },
       { variant: 'soft', color: 'danger', className: 'bg-danger-100 text-danger-900' },
 
-      // Outlined variants
+      // Outlined variants - solid background for overlays/cards
+      // Uses neutral-50 which auto-adapts: light in light mode, dark in dark mode
       {
         variant: 'outlined',
         color: 'primary',
-        className: 'border-primary-500 text-primary-700 bg-transparent',
+        className: 'border-primary-500 text-primary-700 bg-neutral-50',
       },
       {
         variant: 'outlined',
         color: 'neutral',
-        className: 'border-neutral-300 text-neutral-700 bg-transparent',
+        className: 'border-neutral-300 text-neutral-700 bg-neutral-50',
       },
       {
         variant: 'outlined',
         color: 'success',
-        className: 'border-success-500 text-success-700 bg-transparent',
+        className: 'border-success-500 text-success-700 bg-neutral-50',
       },
       {
         variant: 'outlined',
         color: 'warning',
-        className: 'border-warning-500 text-warning-700 bg-transparent',
+        className: 'border-warning-500 text-warning-700 bg-neutral-50',
       },
       {
         variant: 'outlined',
         color: 'danger',
-        className: 'border-danger-500 text-danger-700 bg-transparent',
+        className: 'border-danger-500 text-danger-700 bg-neutral-50',
       },
 
       // Plain variants
@@ -252,11 +253,10 @@ export interface SheetProps
 export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
   ({ className, variant = 'soft', color = 'neutral', size, interactive, focusWithin, as: Component = 'div', children, ...props }, ref) => {
     // Warn if focusWithin is used without interactive
-    if (process.env.NODE_ENV !== 'production' && focusWithin && !interactive) {
-      console.error(
-        'Sheet: focusWithin prop only works when interactive is true. ' +
-        'Please set interactive={true} or remove focusWithin.'
-      );
+    if (process.env.NODE_ENV !== 'production') {
+      if (focusWithin && !interactive) {
+        console.error('focusWithin prop only works when interactive is true');
+      }
     }
 
     // Memoize context value to prevent unnecessary re-renders of consuming components

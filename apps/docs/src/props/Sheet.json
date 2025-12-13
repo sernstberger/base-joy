@@ -40,8 +40,7 @@
   {
     "name": "size",
     "type": "\"sm\" | \"md\" | \"lg\"",
-    "defaultValue": "md",
-    "description": "The size (padding) of the sheet.",
+    "description": "The size of the sheet for context propagation to children.",
     "required": false
   },
   {

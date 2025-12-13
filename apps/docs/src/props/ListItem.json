@@ -1,0 +1,59 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "description": "The color scheme. Inherits from List if not specified.",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the item is disabled.",
+    "required": false
+  },
+  {
+    "name": "interactive",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the item is interactive (hoverable/clickable).",
+    "required": false
+  },
+  {
+    "name": "nested",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "If true, the ListItem acts as a container for nested Lists and ListSubheaders.",
+    "required": false
+  },
+  {
+    "name": "render",
+    "type": "React.ReactElement",
+    "description": "Render prop for polymorphism (e.g., render as a link).",
+    "required": false
+  },
+  {
+    "name": "selected",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the item is selected.",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "description": "The size. Inherits from List if not specified.",
+    "required": false
+  },
+  {
+    "name": "variant",
+    "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
+    "description": "The visual style. Inherits from List if not specified.",
+    "required": false
+  }
+]

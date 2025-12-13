@@ -18,6 +18,7 @@ import {
   type PlaygroundControl,
 } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
+import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
@@ -33,6 +34,20 @@ const toggleCodeTemplate = (props: Record<string, string>) =>
   color="${props.color}"
   size="${props.size}"
 />`;
+
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'basic-usage', title: 'Basic Usage', level: 3 },
+  { id: 'using-hook', title: 'Using the Hook', level: 3 },
+  { id: 'variants', title: 'Variants and Colors', level: 3 },
+  { id: 'sizes', title: 'Sizes', level: 3 },
+  { id: 'no-system', title: 'Without System Option', level: 3 },
+  { id: 'colors', title: 'Color Schemes', level: 3 },
+  { id: 'showcase', title: 'Component Showcase', level: 3 },
+  { id: 'how-it-works', title: 'How It Works' },
+  { id: 'api', title: 'API Reference' },
+];
 
 function ColorSchemeDemo() {
   const { colorScheme, resolvedColorScheme, setColorScheme } = useColorScheme();
@@ -84,13 +99,14 @@ function ColorSchemeDemo() {
 
 export function DarkModePage() {
   return (
-    <div className="max-w-4xl">
+    <div>
       <ComponentHeader
         title="Dark Mode"
         description="Joy UI-inspired dark mode support with automatic color scheme switching, system preference detection, and persistent storage."
       />
-
-      <Section title="Playground" id="playground">
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Playground" id="playground">
         <Playground controls={toggleControls} codeTemplate={toggleCodeTemplate}>
           {(props) => (
             <ColorSchemeToggle
@@ -346,6 +362,9 @@ function MyComponent() {
           </div>
         </div>
       </Section>
+        </div>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }

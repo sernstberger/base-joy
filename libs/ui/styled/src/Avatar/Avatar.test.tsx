@@ -99,7 +99,7 @@ describe('Avatar', () => {
       const avatar = container.firstChild as HTMLElement;
       expect(avatar).toHaveClass('border-2');
       expect(avatar).toHaveClass('border-danger-500');
-      expect(avatar).toHaveClass('bg-transparent');
+      expect(avatar).toHaveClass('bg-neutral-50');
     });
   });
 

@@ -7,7 +7,7 @@ import { useColorContext } from '../ColorContext';
 import { useResolvedSizeProps } from '../SizeContext';
 
 const switchRootVariants = cva(
-  'relative inline-flex shrink-0 cursor-pointer rounded-full transition-colors bg-neutral-300 data-[checked]:bg-primary-500',
+  'relative inline-flex items-center shrink-0 cursor-pointer rounded-full transition-colors bg-neutral-300 data-[checked]:bg-primary-500',
   {
     variants: {
       size: {
@@ -31,9 +31,12 @@ const switchThumbVariants = cva(
   {
     variants: {
       size: {
-        sm: 'h-4 w-4 translate-x-0.5 data-[checked]:translate-x-4',
-        md: 'h-5 w-5 translate-x-0.5 data-[checked]:translate-x-5',
-        lg: 'h-6 w-6 translate-x-0.5 data-[checked]:translate-x-7',
+        // Track w-9 (36px), thumb w-4 (16px): 2px margin each side → left=2px, right=36-16-2=18px
+        sm: 'h-4 w-4 translate-x-0.5 data-[checked]:translate-x-[18px]',
+        // Track w-11 (44px), thumb w-5 (20px): 2px margin each side → left=2px, right=44-20-2=22px
+        md: 'h-5 w-5 translate-x-0.5 data-[checked]:translate-x-[22px]',
+        // Track w-14 (56px), thumb w-6 (24px): 2px margin each side → left=2px, right=56-24-2=30px
+        lg: 'h-6 w-6 translate-x-0.5 data-[checked]:translate-x-[30px]',
       },
     },
     defaultVariants: {

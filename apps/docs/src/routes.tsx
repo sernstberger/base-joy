@@ -40,6 +40,19 @@ import { ToggleGroupPage } from './pages/styled/ToggleGroup';
 import { ListPage } from './pages/styled/List';
 import { AccordionPage } from './pages/styled/Accordion';
 import { NavListPage } from './pages/styled/NavList';
+import { DialogPage } from './pages/styled/Dialog';
+import { MenuPage } from './pages/styled/Menu';
+import { NavigationMenuPage } from './pages/styled/NavigationMenu';
+import { TabsPage } from './pages/styled/Tabs';
+import { TooltipPage } from './pages/styled/Tooltip';
+import { PopoverPage } from './pages/styled/Popover';
+import { PreviewCardPage } from './pages/styled/PreviewCard';
+import { ProgressPage } from './pages/styled/Progress';
+import { MeterPage } from './pages/styled/Meter';
+import { AlertDialogPage } from './pages/styled/AlertDialog';
+import { CollapsiblePage } from './pages/styled/Collapsible';
+import { ScrollAreaPage } from './pages/styled/ScrollArea';
+import { ToolbarPage } from './pages/styled/Toolbar';
 import { ColorInversionPage } from './pages/features/ColorInversion';
 import { ColorContextPage } from './pages/features/ColorContext';
 import { GlobalVariantsPage } from './pages/features/GlobalVariants';
@@ -239,6 +252,58 @@ export const router = createBrowserRouter([
       {
         path: 'styled/navlist',
         element: <NavListPage />,
+      },
+      {
+        path: 'styled/dialog',
+        element: <DialogPage />,
+      },
+      {
+        path: 'styled/menu',
+        element: <MenuPage />,
+      },
+      {
+        path: 'styled/navigation-menu',
+        element: <NavigationMenuPage />,
+      },
+      {
+        path: 'styled/tabs',
+        element: <TabsPage />,
+      },
+      {
+        path: 'styled/tooltip',
+        element: <TooltipPage />,
+      },
+      {
+        path: 'styled/popover',
+        element: <PopoverPage />,
+      },
+      {
+        path: 'styled/preview-card',
+        element: <PreviewCardPage />,
+      },
+      {
+        path: 'styled/progress',
+        element: <ProgressPage />,
+      },
+      {
+        path: 'styled/meter',
+        element: <MeterPage />,
+      },
+      {
+        path: 'styled/alert-dialog',
+        element: <AlertDialogPage />,
+      },
+      {
+        path: 'styled/collapsible',
+        element: <CollapsiblePage />,
+      },
+      {
+        path: 'styled/scroll-area',
+        element: <ScrollAreaPage />,
+      },
+      {
+        path: 'styled/toolbar',
+        element: <ToolbarPage />,
       },
     ],
   },

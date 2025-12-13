@@ -20,6 +20,9 @@ import GridProps from './Grid.json';
 import InputProps from './Input.json';
 import ItemProps from './Item.json';
 import LinkProps from './Link.json';
+import ListProps from './List.json';
+import ListItemProps from './ListItem.json';
+import ListSubheaderProps from './ListSubheader.json';
 import NumberFieldProps from './NumberField.json';
 import RadioProps from './Radio.json';
 import RadioGroupProps from './RadioGroup.json';
@@ -31,6 +34,8 @@ import SwitchProps from './Switch.json';
 import TableProps from './Table.json';
 import TextareaProps from './Textarea.json';
 import ToastProps from './Toast.json';
+import ToggleProps from './Toggle.json';
+import ToggleGroupProps from './ToggleGroup.json';
 import TypographyProps from './Typography.json';
 
 export const componentProps = {
@@ -53,6 +58,9 @@ export const componentProps = {
   Input: InputProps,
   Item: ItemProps,
   Link: LinkProps,
+  List: ListProps,
+  ListItem: ListItemProps,
+  ListSubheader: ListSubheaderProps,
   NumberField: NumberFieldProps,
   Radio: RadioProps,
   RadioGroup: RadioGroupProps,
@@ -64,6 +72,8 @@ export const componentProps = {
   Table: TableProps,
   Textarea: TextareaProps,
   Toast: ToastProps,
+  Toggle: ToggleProps,
+  ToggleGroup: ToggleGroupProps,
   Typography: TypographyProps,
 } as const;
 

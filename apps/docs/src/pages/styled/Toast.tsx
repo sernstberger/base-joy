@@ -1,78 +1,367 @@
-import { Sheet, Typography } from '@base-joy/ui-styled';
+import { Toast, Typography } from '@base-joy/ui-styled';
+import { ComponentHeader } from '../../components/ComponentHeader';
+import {
+  Playground,
+  type PlaygroundControl,
+} from '../../components/Playground';
+import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
+import type { Variant, ColorScale, Size } from '@base-joy/tokens';
+
+const rootProps: PropMeta[] = [
+  {
+    name: 'variant',
+    type: "'solid' | 'soft' | 'outlined' | 'plain'",
+    defaultValue: "'solid'",
+    description: 'The visual style of the toast.',
+    required: false,
+  },
+  {
+    name: 'color',
+    type: "'primary' | 'neutral' | 'success' | 'warning' | 'danger'",
+    defaultValue: "'neutral'",
+    description: 'The color scheme of the toast.',
+    required: false,
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    defaultValue: "'md'",
+    description: 'The size of the toast.',
+    required: false,
+  },
+];
+
+const viewportProps: PropMeta[] = [
+  {
+    name: 'position',
+    type: "'top-right' | 'top-left' | 'top-center' | 'bottom-right' | 'bottom-left' | 'bottom-center'",
+    defaultValue: "'bottom-right'",
+    description: 'The position where toasts appear on screen.',
+    required: false,
+  },
+];
 
 function StaticToastExample({
-  variant,
-  color,
-  size,
+  variant = 'solid',
+  color = 'neutral',
+  size = 'md',
   title,
   description,
+  showAction = false,
 }: {
-  variant?: 'solid' | 'soft' | 'outlined';
-  color?: 'neutral' | 'primary' | 'success' | 'warning' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: Variant;
+  color?: ColorScale;
+  size?: Size;
   title: string;
   description: string;
+  showAction?: boolean;
 }) {
+  // Create a mock toast object for static examples
+  const mockToast = {
+    id: 'static-toast',
+    open: true,
+  };
+
   return (
-    <Sheet
-      variant={variant ?? 'solid'}
-      color={color ?? 'neutral'}
-      className={`pointer-events-auto relative flex w-full items-start gap-3 overflow-hidden rounded-lg p-4 shadow-lg transition-all ${
-        size === 'sm' ? 'min-w-[280px] max-w-[320px]' :
-        size === 'lg' ? 'min-w-[360px] max-w-[480px]' :
-        'min-w-[320px] max-w-[400px]'
-      }`}
-    >
-      <div className="flex-1">
-        <div className={`font-semibold ${size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-lg' : 'text-base'}`}>
-          {title}
+    <div className="relative">
+      <Toast.Root variant={variant} color={color} size={size} toast={mockToast}>
+        <div className="flex-1">
+          <Toast.Title>{title}</Toast.Title>
+          <Toast.Description>{description}</Toast.Description>
         </div>
-        <div className={`opacity-90 ${size === 'sm' ? 'text-xs' : size === 'lg' ? 'text-base' : 'text-sm'}`}>
-          {description}
-        </div>
-      </div>
-      <button className="absolute top-2 right-2 rounded p-1 opacity-70 transition-opacity hover:opacity-100">
-        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4">
-          <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      </button>
-    </Sheet>
+        {showAction && <Toast.Action>Undo</Toast.Action>}
+        <Toast.Close />
+      </Toast.Root>
+    </div>
   );
 }
 
+const toastControls: PlaygroundControl[] = [
+  { name: 'variant', type: 'variant', defaultValue: 'solid' },
+  { name: 'color', type: 'color', defaultValue: 'neutral' },
+  { name: 'size', type: 'size', defaultValue: 'md' },
+];
+
+const toastCodeTemplate = (props: Record<string, string>) =>
+  `<Toast.Root variant="${props.variant}" color="${props.color}" size="${props.size}">
+  <div className="flex-1">
+    <Toast.Title>Notification</Toast.Title>
+    <Toast.Description>Your changes have been saved.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>`;
+
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'variants', title: 'Variants', level: 3 },
+  { id: 'colors', title: 'Colors', level: 3 },
+  { id: 'sizes', title: 'Sizes', level: 3 },
+  { id: 'with-action', title: 'With Action', level: 3 },
+  { id: 'usage', title: 'Usage Example' },
+  { id: 'api', title: 'API Reference' },
+];
+
 export function ToastPage() {
   return (
-    <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">Toast</Typography>
-        <Typography level="body-lg">
-          A toast notification component for displaying brief messages.
-        </Typography>
-      </header>
+    <div>
+      <ComponentHeader
+        title="Toast"
+        description="A toast notification component for displaying brief, dismissible messages. Built on Base UI's Toast with useToastManager hook for state management."
+        baseUiUrl="https://base-ui.com/react/components/toast"
+      />
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Playground" id="playground">
+            <Playground
+              controls={toastControls}
+              codeTemplate={toastCodeTemplate}
+            >
+              {(props) => (
+                <StaticToastExample
+                  variant={props.variant as Variant}
+                  color={props.color as ColorScale}
+                  size={props.size as Size}
+                  title="Notification"
+                  description="Your changes have been saved."
+                />
+              )}
+            </Playground>
+          </Section>
 
-      <Section title="Usage">
-        <Typography className="mb-4">
-          Toast uses Base UI's Toast component with useToastManager hook. Import{' '}
-          <code className="bg-neutral-100 px-1 rounded">useToastManager</code> from{' '}
-          <code className="bg-neutral-100 px-1 rounded">@base-ui/react/toast</code> to manage toasts.
-        </Typography>
-        <pre className="bg-neutral-100 p-4 rounded-lg text-sm overflow-x-auto">
-{`import { Toast } from '@base-joy/ui-styled';
-import { useToastManager } from '@base-ui/react/toast';
+          <Section title="Examples" id="examples">
+            <div className="space-y-8">
+              <Section
+                title="Variants"
+                titleLevel="h3"
+                id="variants"
+                code={`<Toast.Root variant="solid" color="primary">
+  <div className="flex-1">
+    <Toast.Title>Solid Variant</Toast.Title>
+    <Toast.Description>This is a solid toast.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root variant="soft" color="primary">
+  <div className="flex-1">
+    <Toast.Title>Soft Variant</Toast.Title>
+    <Toast.Description>This is a soft toast.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root variant="outlined" color="primary">
+  <div className="flex-1">
+    <Toast.Title>Outlined Variant</Toast.Title>
+    <Toast.Description>This is an outlined toast.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-4">
+                  <StaticToastExample
+                    variant="solid"
+                    color="primary"
+                    title="Solid Variant"
+                    description="This is a solid toast."
+                  />
+                  <StaticToastExample
+                    variant="soft"
+                    color="primary"
+                    title="Soft Variant"
+                    description="This is a soft toast."
+                  />
+                  <StaticToastExample
+                    variant="outlined"
+                    color="primary"
+                    title="Outlined Variant"
+                    description="This is an outlined toast."
+                  />
+                </div>
+              </Section>
+
+              <Section
+                title="Colors"
+                titleLevel="h3"
+                id="colors"
+                code={`<Toast.Root variant="solid" color="neutral">
+  <div className="flex-1">
+    <Toast.Title>Notification</Toast.Title>
+    <Toast.Description>This is a neutral toast message.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root variant="solid" color="primary">
+  <div className="flex-1">
+    <Toast.Title>Info</Toast.Title>
+    <Toast.Description>This is an informational toast.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root variant="solid" color="success">
+  <div className="flex-1">
+    <Toast.Title>Success!</Toast.Title>
+    <Toast.Description>Operation completed successfully.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root variant="solid" color="warning">
+  <div className="flex-1">
+    <Toast.Title>Warning</Toast.Title>
+    <Toast.Description>Please review before continuing.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root variant="solid" color="danger">
+  <div className="flex-1">
+    <Toast.Title>Error</Toast.Title>
+    <Toast.Description>Something went wrong.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-4">
+                  <StaticToastExample
+                    variant="solid"
+                    color="neutral"
+                    title="Notification"
+                    description="This is a neutral toast message."
+                  />
+                  <StaticToastExample
+                    variant="solid"
+                    color="primary"
+                    title="Info"
+                    description="This is an informational toast."
+                  />
+                  <StaticToastExample
+                    variant="solid"
+                    color="success"
+                    title="Success!"
+                    description="Operation completed successfully."
+                  />
+                  <StaticToastExample
+                    variant="solid"
+                    color="warning"
+                    title="Warning"
+                    description="Please review before continuing."
+                  />
+                  <StaticToastExample
+                    variant="solid"
+                    color="danger"
+                    title="Error"
+                    description="Something went wrong."
+                  />
+                </div>
+              </Section>
+
+              <Section
+                title="Sizes"
+                titleLevel="h3"
+                id="sizes"
+                code={`<Toast.Root size="sm">
+  <div className="flex-1">
+    <Toast.Title>Small Toast</Toast.Title>
+    <Toast.Description>This is a small toast.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root size="md">
+  <div className="flex-1">
+    <Toast.Title>Medium Toast</Toast.Title>
+    <Toast.Description>This is a medium toast.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>
+<Toast.Root size="lg">
+  <div className="flex-1">
+    <Toast.Title>Large Toast</Toast.Title>
+    <Toast.Description>This is a large toast.</Toast.Description>
+  </div>
+  <Toast.Close />
+</Toast.Root>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-4">
+                  <StaticToastExample
+                    size="sm"
+                    title="Small Toast"
+                    description="This is a small toast."
+                  />
+                  <StaticToastExample
+                    size="md"
+                    title="Medium Toast"
+                    description="This is a medium toast."
+                  />
+                  <StaticToastExample
+                    size="lg"
+                    title="Large Toast"
+                    description="This is a large toast."
+                  />
+                </div>
+              </Section>
+
+              <Section
+                title="With Action"
+                titleLevel="h3"
+                id="with-action"
+                code={`<Toast.Root variant="solid" color="neutral" toast={toast}>
+  <div className="flex-1">
+    <Toast.Title>Undo Action</Toast.Title>
+    <Toast.Description>Item deleted.</Toast.Description>
+  </div>
+  <Toast.Action>Undo</Toast.Action>
+  <Toast.Close />
+</Toast.Root>`}
+                codeLanguage="tsx"
+              >
+                <Typography level="body-sm" className="mb-4">
+                  Use <code className="font-mono text-sm">Toast.Action</code> to add interactive buttons to toasts.
+                </Typography>
+                <StaticToastExample
+                  variant="solid"
+                  color="neutral"
+                  title="Undo Action"
+                  description="Item deleted."
+                  showAction
+                />
+              </Section>
+            </div>
+          </Section>
+
+          <Section title="Usage Example" id="usage">
+            <Typography level="body-sm" className="mb-4">
+              Toast uses Base UI's Toast component with <code className="font-mono text-sm">useToastManager</code> hook for managing toast state. Import <code className="font-mono text-sm">useToastManager</code> from <code className="font-mono text-sm">@base-joy/ui-styled</code> to manage toasts dynamically.
+            </Typography>
+            <Section
+              code={`import { Toast, useToastManager } from '@base-joy/ui-styled';
 
 function MyComponent() {
   const toastManager = useToastManager();
 
   return (
     <Toast.Provider>
-      <button onClick={() => toastManager.add({ title: 'Hello!' })}>
+      <button
+        onClick={() =>
+          toastManager.add({
+            title: 'Hello!',
+            description: 'This is a toast message.',
+          })
+        }
+      >
         Show Toast
       </button>
       <Toast.Viewport position="bottom-right">
         {toastManager.toasts.map((toast) => (
           <Toast.Root key={toast.id} toast={toast}>
-            <Toast.Title>{toast.title}</Toast.Title>
+            <div className="flex-1">
+              <Toast.Title>{toast.title}</Toast.Title>
+              {toast.description && (
+                <Toast.Description>{toast.description}</Toast.Description>
+              )}
+            </div>
             <Toast.Close />
           </Toast.Root>
         ))}
@@ -80,107 +369,29 @@ function MyComponent() {
     </Toast.Provider>
   );
 }`}
-        </pre>
-      </Section>
+              codeLanguage="tsx"
+            />
+          </Section>
 
-      <Section title="Colors">
-        <div className="space-y-4">
-          <StaticToastExample
-            variant="solid"
-            color="neutral"
-            title="Notification"
-            description="This is a neutral toast message."
-          />
-          <StaticToastExample
-            variant="solid"
-            color="primary"
-            title="Info"
-            description="This is an informational toast."
-          />
-          <StaticToastExample
-            variant="solid"
-            color="success"
-            title="Success!"
-            description="Operation completed successfully."
-          />
-          <StaticToastExample
-            variant="solid"
-            color="warning"
-            title="Warning"
-            description="Please review before continuing."
-          />
-          <StaticToastExample
-            variant="solid"
-            color="danger"
-            title="Error"
-            description="Something went wrong."
-          />
+          <Section title="API Reference" id="api">
+            <div className="space-y-8">
+              <div>
+                <Typography level="h3" className="mb-4">
+                  Toast.Root
+                </Typography>
+                <PropsTable props={rootProps} />
+              </div>
+              <div>
+                <Typography level="h3" className="mb-4">
+                  Toast.Viewport
+                </Typography>
+                <PropsTable props={viewportProps} />
+              </div>
+            </div>
+          </Section>
         </div>
-      </Section>
-
-      <Section title="Variants">
-        <div className="space-y-4">
-          <StaticToastExample
-            variant="solid"
-            color="primary"
-            title="Solid Variant"
-            description="This is a solid toast."
-          />
-          <StaticToastExample
-            variant="soft"
-            color="primary"
-            title="Soft Variant"
-            description="This is a soft toast."
-          />
-          <StaticToastExample
-            variant="outlined"
-            color="primary"
-            title="Outlined Variant"
-            description="This is an outlined toast."
-          />
-        </div>
-      </Section>
-
-      <Section title="Sizes">
-        <div className="space-y-4">
-          <StaticToastExample
-            size="sm"
-            title="Small Toast"
-            description="This is a small toast."
-          />
-          <StaticToastExample
-            size="md"
-            title="Medium Toast"
-            description="This is a medium toast."
-          />
-          <StaticToastExample
-            size="lg"
-            title="Large Toast"
-            description="This is a large toast."
-          />
-        </div>
-      </Section>
-
-      <Section title="With Action">
-        <Sheet
-          variant="solid"
-          color="neutral"
-          className="pointer-events-auto relative flex w-full items-start gap-3 overflow-hidden rounded-lg p-4 shadow-lg min-w-[320px] max-w-[400px]"
-        >
-          <div className="flex-1">
-            <div className="font-semibold">Undo Action</div>
-            <div className="text-sm opacity-90">Item deleted.</div>
-          </div>
-          <button className="inline-flex items-center justify-center rounded px-3 py-1.5 text-sm font-medium transition-colors hover:bg-black/10">
-            Undo
-          </button>
-          <button className="absolute top-2 right-2 rounded p-1 opacity-70 transition-opacity hover:opacity-100">
-            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4">
-              <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </button>
-        </Sheet>
-      </Section>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }

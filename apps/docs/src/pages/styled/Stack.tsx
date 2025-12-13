@@ -1,7 +1,9 @@
 import { Stack, Sheet, Button, Badge, Separator, Typography } from '@base-joy/ui-styled';
+import { ComponentHeader } from '../../components/ComponentHeader';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
 
 const stackControls: PlaygroundControl[] = [];
@@ -13,17 +15,31 @@ const stackCodeTemplate = () =>
   <div>Item 3</div>
 </Stack>`;
 
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'column', title: 'Column Direction', level: 3 },
+  { id: 'row', title: 'Row Direction', level: 3 },
+  { id: 'alignment', title: 'Alignment', level: 3 },
+  { id: 'justification', title: 'Justification', level: 3 },
+  { id: 'spacing', title: 'Spacing Variants', level: 3 },
+  { id: 'separators', title: 'With Separators', level: 3 },
+  { id: 'wrapping', title: 'Wrapping', level: 3 },
+  { id: 'reverse', title: 'Reverse Directions', level: 3 },
+  { id: 'polymorphic', title: 'Polymorphic', level: 3 },
+  { id: 'api', title: 'API Reference' },
+];
+
 export function StackPage() {
   return (
-    <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">Stack</Typography>
-        <Typography level="body-lg">
-          A flexible layout component for stacking elements with consistent spacing and alignment.
-        </Typography>
-      </header>
-
-      <Section title="Playground">
+    <div>
+      <ComponentHeader
+        title="Stack"
+        description="A flexible layout component for stacking elements with consistent spacing and alignment."
+      />
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Playground" id="playground">
         <Playground controls={stackControls} codeTemplate={stackCodeTemplate}>
           {() => (
             <Sheet variant="outlined" color="neutral">
@@ -43,10 +59,25 @@ export function StackPage() {
         </Playground>
       </Section>
 
-      <Section title="Examples">
+      <Section title="Examples" id="examples">
         <div className="space-y-8">
-          <div>
-            <Typography level="h3">Column Direction (Default)</Typography>
+          <Section
+            title="Column Direction (Default)"
+            titleLevel="h3"
+            id="column"
+            code={`<Stack spacing={4}>
+  <Sheet variant="soft" color="neutral" size="sm">
+    First item
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Second item
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Third item
+  </Sheet>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Stack items vertically with consistent spacing.
             </Typography>
@@ -63,10 +94,19 @@ export function StackPage() {
                 </Sheet>
               </Stack>
             </Sheet>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Row Direction</Typography>
+          <Section
+            title="Row Direction"
+            titleLevel="h3"
+            id="row"
+            code={`<Stack direction="row" spacing={2} align="center">
+  <Button>Primary</Button>
+  <Button>Secondary</Button>
+  <Button>Tertiary</Button>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Stack items horizontally for button groups and toolbars.
             </Typography>
@@ -77,10 +117,37 @@ export function StackPage() {
                 <Button>Tertiary</Button>
               </Stack>
             </Sheet>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Alignment</Typography>
+          <Section
+            title="Alignment"
+            titleLevel="h3"
+            id="alignment"
+            code={`<Stack direction="row" spacing={2} align="start">
+  <Sheet variant="soft" color="neutral" size="sm">
+    Small
+  </Sheet>
+  <Sheet variant="soft" color="neutral" className="p-6">
+    Larger item
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Small
+  </Sheet>
+</Stack>
+
+<Stack direction="row" spacing={2} align="center">
+  <Sheet variant="soft" color="neutral" size="sm">
+    Small
+  </Sheet>
+  <Sheet variant="soft" color="neutral" className="p-6">
+    Larger item
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Small
+  </Sheet>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Control how items align along the cross axis.
             </Typography>
@@ -122,10 +189,23 @@ export function StackPage() {
                 </Sheet>
               </div>
             </div>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Justification</Typography>
+          <Section
+            title="Justification"
+            titleLevel="h3"
+            id="justification"
+            code={`<Stack direction="row" justify="between">
+  <Button>Left</Button>
+  <Button>Right</Button>
+</Stack>
+
+<Stack direction="row" justify="center" spacing={2}>
+  <Button>Center 1</Button>
+  <Button>Center 2</Button>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Control how items are distributed along the main axis.
             </Typography>
@@ -153,10 +233,31 @@ export function StackPage() {
                 </Sheet>
               </div>
             </div>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Spacing Variants</Typography>
+          <Section
+            title="Spacing Variants"
+            titleLevel="h3"
+            id="spacing"
+            code={`<Stack direction="row" spacing={0}>
+  <Sheet variant="soft" color="neutral" size="sm">
+    No
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Gap
+  </Sheet>
+</Stack>
+
+<Stack direction="row" spacing={8}>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Large
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Gap
+  </Sheet>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Control the gap between items.
             </Typography>
@@ -192,10 +293,19 @@ export function StackPage() {
                 </Sheet>
               </div>
             </div>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">With Separators</Typography>
+          <Section
+            title="With Separators"
+            titleLevel="h3"
+            id="separators"
+            code={`<Stack spacing={3} separator={<Separator />}>
+  <div>Section 1</div>
+  <div>Section 2</div>
+  <div>Section 3</div>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Insert separators between children for visual separation.
             </Typography>
@@ -206,10 +316,26 @@ export function StackPage() {
                 <div>Section 3</div>
               </Stack>
             </Sheet>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Wrapping</Typography>
+          <Section
+            title="Wrapping"
+            titleLevel="h3"
+            id="wrapping"
+            code={`<Stack direction="row" spacing={2} wrap>
+  <Badge>Tag 1</Badge>
+  <Badge>Tag 2</Badge>
+  <Badge>Tag 3</Badge>
+  <Badge>Tag 4</Badge>
+  <Badge>Tag 5</Badge>
+  <Badge>Tag 6</Badge>
+  <Badge>Tag 7</Badge>
+  <Badge>Tag 8</Badge>
+  <Badge>Tag 9</Badge>
+  <Badge>Tag 10</Badge>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Allow items to wrap to the next line.
             </Typography>
@@ -227,10 +353,37 @@ export function StackPage() {
                 <Badge>Tag 10</Badge>
               </Stack>
             </Sheet>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Reverse Directions</Typography>
+          <Section
+            title="Reverse Directions"
+            titleLevel="h3"
+            id="reverse"
+            code={`<Stack direction="column-reverse" spacing={2}>
+  <Sheet variant="soft" color="neutral" size="sm">
+    First in DOM
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Second in DOM
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Third in DOM (appears first)
+  </Sheet>
+</Stack>
+
+<Stack direction="row-reverse" spacing={2}>
+  <Sheet variant="soft" color="neutral" size="sm">
+    First
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Second
+  </Sheet>
+  <Sheet variant="soft" color="neutral" size="sm">
+    Third (appears first)
+  </Sheet>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Reverse the order of items.
             </Typography>
@@ -272,10 +425,25 @@ export function StackPage() {
                 </Sheet>
               </div>
             </div>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Polymorphic</Typography>
+          <Section
+            title="Polymorphic"
+            titleLevel="h3"
+            id="polymorphic"
+            code={`<Stack as="nav" direction="row" spacing={4} aria-label="Main navigation">
+  <a href="#home" className="text-primary-600 hover:underline">
+    Home
+  </a>
+  <a href="#about" className="text-primary-600 hover:underline">
+    About
+  </a>
+  <a href="#contact" className="text-primary-600 hover:underline">
+    Contact
+  </a>
+</Stack>`}
+            codeLanguage="tsx"
+          >
             <Typography level="body-sm" className="mb-3">
               Render as different HTML elements for semantic markup.
             </Typography>
@@ -292,14 +460,16 @@ export function StackPage() {
                 </a>
               </Stack>
             </Sheet>
-          </div>
+          </Section>
         </div>
       </Section>
 
-      <Section title="API Reference">
-        <Typography level="h3">Stack</Typography>
+      <Section title="API Reference" id="api">
         <PropsTable props={componentProps.Stack} />
       </Section>
+        </div>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }

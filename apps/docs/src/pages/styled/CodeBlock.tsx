@@ -1,6 +1,8 @@
-import { CodeBlock, Typography, Sheet } from '@base-joy/ui-styled';
+import { CodeBlock } from '@base-joy/ui-styled';
+import { ComponentHeader } from '../../components/ComponentHeader';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
 
 const exampleCode = `import { Button } from '@base-joy/ui-styled';
@@ -34,132 +36,95 @@ yarn add @base-joy/ui-styled
 # Start development server
 yarn dev`;
 
+const sections = [
+  { id: 'basic-usage', title: 'Basic Usage' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'languages', title: 'Languages', level: 3 },
+  { id: 'themes', title: 'Themes', level: 3 },
+  { id: 'rounded', title: 'Rounded Corners', level: 3 },
+  { id: 'no-copy', title: 'Without Copy Button', level: 3 },
+  { id: 'api', title: 'API Reference' },
+];
+
 export function CodeBlockPage() {
   return (
-    <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">CodeBlock</Typography>
-        <Typography level="body-lg">
-          Display code with syntax highlighting and copy functionality.
-        </Typography>
-      </header>
+    <div>
+      <ComponentHeader
+        title="CodeBlock"
+        description="Display code with syntax highlighting and copy functionality."
+      />
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Basic Usage" id="basic-usage" code={exampleCode} codeLanguage="tsx">
+            <CodeBlock code={exampleCode} language="tsx" />
+          </Section>
 
-      <Section title="Basic Usage">
-        <Sheet variant="outlined" color="neutral" className="p-6">
-          <CodeBlock code={exampleCode} language="tsx" />
-        </Sheet>
-      </Section>
+          <Section title="Examples" id="examples">
+            <div className="space-y-8">
+              <Section
+                title="Languages"
+                titleLevel="h3"
+                id="languages"
+                code={`<CodeBlock code={exampleCode} language="tsx" />
+<CodeBlock code={jsonExample} language="json" />
+<CodeBlock code={cssExample} language="css" />
+<CodeBlock code={bashExample} language="bash" />`}
+              >
+                <div className="space-y-4">
+                  <CodeBlock code={exampleCode} language="tsx" />
+                  <CodeBlock code={jsonExample} language="json" />
+                  <CodeBlock code={cssExample} language="css" />
+                  <CodeBlock code={bashExample} language="bash" />
+                </div>
+              </Section>
 
-      <Section title="Examples">
-        <div className="space-y-8">
-          <div>
-            <Typography level="h3">Languages</Typography>
-            <Typography level="body-md" className="mb-4">
-              CodeBlock supports multiple languages including TypeScript, JavaScript, JSON, CSS, and shell commands.
-            </Typography>
-            <div className="space-y-4">
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  TSX / TypeScript
-                </Typography>
-                <CodeBlock code={exampleCode} language="tsx" />
-              </div>
+              <Section
+                title="Themes"
+                titleLevel="h3"
+                id="themes"
+                code={`<CodeBlock code="const greeting = 'Hello, World!';" theme="github-dark" />
+<CodeBlock code="const greeting = 'Hello, World!';" theme="github-light" />`}
+              >
+                <div className="space-y-4">
+                  <CodeBlock code="const greeting = 'Hello, World!';" theme="github-dark" />
+                  <CodeBlock code="const greeting = 'Hello, World!';" theme="github-light" />
+                </div>
+              </Section>
 
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  JSON
-                </Typography>
-                <CodeBlock code={jsonExample} language="json" />
-              </div>
+              <Section
+                title="Rounded Corners"
+                titleLevel="h3"
+                id="rounded"
+                code={`<CodeBlock code="const x = 1;" rounded="none" />
+<CodeBlock code="const x = 1;" rounded="sm" />
+<CodeBlock code="const x = 1;" rounded="md" />
+<CodeBlock code="const x = 1;" rounded="lg" />`}
+              >
+                <div className="space-y-4">
+                  <CodeBlock code="const x = 1;" rounded="none" />
+                  <CodeBlock code="const x = 1;" rounded="sm" />
+                  <CodeBlock code="const x = 1;" rounded="md" />
+                  <CodeBlock code="const x = 1;" rounded="lg" />
+                </div>
+              </Section>
 
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  CSS
-                </Typography>
-                <CodeBlock code={cssExample} language="css" />
-              </div>
-
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  Bash / Shell
-                </Typography>
-                <CodeBlock code={bashExample} language="bash" />
-              </div>
+              <Section
+                title="Without Copy Button"
+                titleLevel="h3"
+                id="no-copy"
+                code={`<CodeBlock code="const simple = true;" showCopyButton={false} />`}
+              >
+                <CodeBlock code="const simple = true;" showCopyButton={false} />
+              </Section>
             </div>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Themes</Typography>
-            <Typography level="body-md" className="mb-4">
-              Choose between dark and light themes.
-            </Typography>
-            <div className="space-y-4">
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  Dark Theme (default)
-                </Typography>
-                <CodeBlock code="const greeting = 'Hello, World!';" theme="github-dark" />
-              </div>
-
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  Light Theme
-                </Typography>
-                <CodeBlock code="const greeting = 'Hello, World!';" theme="github-light" />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Rounded Corners</Typography>
-            <Typography level="body-md" className="mb-4">
-              Customize the border radius.
-            </Typography>
-            <div className="space-y-4">
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  None
-                </Typography>
-                <CodeBlock code="const x = 1;" rounded="none" />
-              </div>
-
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  Small
-                </Typography>
-                <CodeBlock code="const x = 1;" rounded="sm" />
-              </div>
-
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  Medium (default)
-                </Typography>
-                <CodeBlock code="const x = 1;" rounded="md" />
-              </div>
-
-              <div>
-                <Typography level="body-sm" weight="medium" className="mb-2">
-                  Large
-                </Typography>
-                <CodeBlock code="const x = 1;" rounded="lg" />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Without Copy Button</Typography>
-            <Typography level="body-md" className="mb-4">
-              Hide the copy button when not needed.
-            </Typography>
-            <CodeBlock code="const simple = true;" showCopyButton={false} />
-          </div>
+          <Section title="API Reference" id="api">
+            <PropsTable props={componentProps.CodeBlock} />
+          </Section>
         </div>
-      </Section>
-
-      <Section title="API Reference">
-        <Typography level="h3">CodeBlock</Typography>
-        <PropsTable props={componentProps.CodeBlock} />
-      </Section>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import type { Size, ColorScale, Variant } from '@base-joy/tokens';
 import { useResolvedSizeProps } from '../SizeContext';
 
 const comboboxInputVariants = cva(
-  'flex-1 bg-transparent outline-none placeholder:text-neutral-400',
+  'flex-1 bg-transparent outline-none',
   {
     variants: {
       size: {
@@ -18,10 +18,17 @@ const comboboxInputVariants = cva(
       disabled: {
         true: 'opacity-50 cursor-not-allowed',
       },
+      variant: {
+        solid: 'placeholder:text-white/60',
+        soft: 'placeholder:text-neutral-400',
+        outlined: 'placeholder:text-neutral-400',
+        plain: 'placeholder:text-neutral-400',
+      },
     },
     defaultVariants: {
       size: 'md',
       disabled: false,
+      variant: 'outlined',
     },
   }
 );
@@ -131,13 +138,14 @@ const Input = React.forwardRef<HTMLInputElement, ComboboxInputProps>(
         className={cn(
           'inline-flex items-center rounded-lg',
           variant === 'outlined' && 'border',
+          variant === 'plain' && 'border-0',
           sheetVariants({ variant, color, interactive: true, focusWithin: true })
         )}
       >
         <BaseCombobox.Input
           ref={ref}
           disabled={disabled}
-          className={cn(comboboxInputVariants({ size, disabled }), className)}
+          className={cn(comboboxInputVariants({ size, disabled, variant }), className)}
           {...props}
         />
       </div>

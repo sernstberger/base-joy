@@ -75,7 +75,7 @@ describe('Button', () => {
       const button = container.firstChild as HTMLElement;
       expect(button).toHaveClass('border');
       expect(button).toHaveClass('border-primary-500');
-      expect(button).toHaveClass('bg-transparent');
+      expect(button).toHaveClass('bg-neutral-50');
     });
 
     it('applies plain variant classes', () => {

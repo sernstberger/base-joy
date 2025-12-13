@@ -40,6 +40,7 @@ const sections = [
   { id: 'inset', title: 'Inset', level: 3 },
   { id: 'use-cases', title: 'Use Cases', level: 3 },
   { id: 'color-context', title: 'Color Context' },
+  { id: 'color-inheritance', title: 'Color Inheritance', level: 3 },
   { id: 'api', title: 'API Reference' },
 ];
 
@@ -353,8 +354,12 @@ export function SeparatorPage() {
               components via ColorContext. This means separators inside colored
               containers will match the container's color scheme.
             </Typography>
-            <Section
-              code={`// Separator inherits color from parent Sheet
+            <div className="space-y-8">
+              <Section
+                title="Color Inheritance"
+                titleLevel="h3"
+                id="color-inheritance"
+                code={`// Separator inherits color from parent Sheet
 <Sheet variant="soft" color="primary">
   <Typography>Content above</Typography>
   <Separator />  {/* Inherits primary color */}
@@ -365,38 +370,43 @@ export function SeparatorPage() {
 <Sheet variant="soft" color="success">
   <Separator color="danger" />  {/* Uses danger, not success */}
 </Sheet>`}
-              codeLanguage="tsx"
-            >
-              <div className="flex flex-wrap gap-4">
-                <Sheet variant="soft" color="primary" className="flex-1 min-w-60">
-                  <Typography level="body-sm" weight="medium">
-                    Primary Sheet
-                  </Typography>
-                  <Separator className="my-2" />
-                  <Typography level="body-xs">
-                    Separator inherits primary color
-                  </Typography>
-                </Sheet>
-                <Sheet variant="soft" color="success" className="flex-1 min-w-60">
-                  <Typography level="body-sm" weight="medium">
-                    Success Sheet
-                  </Typography>
-                  <Separator className="my-2" />
-                  <Typography level="body-xs">
-                    Separator inherits success color
-                  </Typography>
-                </Sheet>
-                <Sheet variant="soft" color="danger" className="flex-1 min-w-60">
-                  <Typography level="body-sm" weight="medium">
-                    Danger Sheet
-                  </Typography>
-                  <Separator className="my-2" />
-                  <Typography level="body-xs">
-                    Separator inherits danger color
-                  </Typography>
-                </Sheet>
-              </div>
-            </Section>
+                codeLanguage="tsx"
+              >
+                <Typography level="body-xs" className="text-neutral-600 mb-4">
+                  Child separators automatically inherit the parent Sheet's color,
+                  eliminating the need to pass color props.
+                </Typography>
+                <div className="flex flex-wrap gap-4">
+                  <Sheet variant="soft" color="primary" className="flex-1 min-w-60">
+                    <Typography level="body-sm" weight="medium">
+                      Primary Sheet
+                    </Typography>
+                    <Separator className="my-2" />
+                    <Typography level="body-xs">
+                      Separator inherits primary color
+                    </Typography>
+                  </Sheet>
+                  <Sheet variant="soft" color="success" className="flex-1 min-w-60">
+                    <Typography level="body-sm" weight="medium">
+                      Success Sheet
+                    </Typography>
+                    <Separator className="my-2" />
+                    <Typography level="body-xs">
+                      Separator inherits success color
+                    </Typography>
+                  </Sheet>
+                  <Sheet variant="soft" color="danger" className="flex-1 min-w-60">
+                    <Typography level="body-sm" weight="medium">
+                      Danger Sheet
+                    </Typography>
+                    <Separator className="my-2" />
+                    <Typography level="body-xs">
+                      Separator inherits danger color
+                    </Typography>
+                  </Sheet>
+                </div>
+              </Section>
+            </div>
           </Section>
 
           <Section title="API Reference" id="api">

@@ -122,10 +122,13 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         rows={rows}
         className={cn(
           'p-0 w-full resize-none disabled:cursor-not-allowed disabled:opacity-50',
-          variant !== 'plain' && 'border',
+          variant === 'outlined' && 'border',
           variant === 'plain' && 'border-0',
+          variant === 'solid'
+            ? 'placeholder:text-white/60'
+            : 'placeholder:text-neutral-400',
           textareaSizeVariants({ size }),
-          error && 'border-danger-500 focus:border-danger-500',
+          error && variant === 'outlined' && 'border-danger-500 focus:border-danger-500',
           className
         )}
         style={style}

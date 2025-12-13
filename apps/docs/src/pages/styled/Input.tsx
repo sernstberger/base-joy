@@ -1,10 +1,12 @@
 import { Input, Typography } from '@base-joy/ui-styled';
+import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
   type PlaygroundControl,
 } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 
@@ -111,321 +113,503 @@ const CheckIcon = () => (
   </svg>
 );
 
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'variants', title: 'Variants', level: 3 },
+  { id: 'colors', title: 'Colors', level: 3 },
+  { id: 'sizes', title: 'Sizes', level: 3 },
+  { id: 'input-types', title: 'Input Types', level: 3 },
+  { id: 'start-decorator', title: 'Start Decorator', level: 3 },
+  { id: 'end-decorator', title: 'End Decorator', level: 3 },
+  { id: 'both-decorators', title: 'Both Decorators', level: 3 },
+  { id: 'error-state', title: 'Error State', level: 3 },
+  { id: 'disabled-state', title: 'Disabled State', level: 3 },
+  { id: 'full-width', title: 'Full Width', level: 3 },
+  { id: 'form-example', title: 'Form Example', level: 3 },
+  { id: 'api', title: 'API Reference' },
+];
+
 export function InputPage() {
   return (
-    <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">Input</Typography>
-        <Typography level="body-lg">
-          A versatile input component with variants, colors, sizes, and
-          decorators.
-        </Typography>
-      </header>
-
-      <Section title="Playground">
-        <Playground controls={inputControls} codeTemplate={inputCodeTemplate}>
-          {(props) => (
-            <Input
-              variant={props.variant as Variant}
-              color={props.color as ColorScale}
-              size={props.size as Size}
-              placeholder="Enter text"
-            />
-          )}
-        </Playground>
-      </Section>
-
-      <Section title="Examples">
-        <div className="space-y-8">
-          <div>
-            <Typography level="h3">Variants</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input variant="solid" placeholder="Solid variant" />
-              <Input variant="soft" placeholder="Soft variant" />
-              <Input variant="outlined" placeholder="Outlined variant" />
-              <Input variant="plain" placeholder="Plain variant" />
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Colors</Typography>
-            <div className="space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <Input color="primary" placeholder="Primary" />
-                <Input color="neutral" placeholder="Neutral" />
-                <Input color="success" placeholder="Success" />
-                <Input color="warning" placeholder="Warning" />
-                <Input color="danger" placeholder="Danger" />
-              </div>
-              <Typography level="body-sm" className="mt-2">
-                Soft variant with different colors
-              </Typography>
-            </div>
-            <div className="space-y-3 mt-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div>
+      <ComponentHeader
+        title="Input"
+        description="A versatile input component with variants, colors, sizes, and decorators."
+        baseUiUrl="https://base-ui.com/react/components/input"
+      />
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Playground" id="playground">
+            <Playground controls={inputControls} codeTemplate={inputCodeTemplate}>
+              {(props) => (
                 <Input
-                  variant="outlined"
-                  color="primary"
-                  placeholder="Primary"
+                  variant={props.variant as Variant}
+                  color={props.color as ColorScale}
+                  size={props.size as Size}
+                  placeholder="Enter text"
                 />
-                <Input
-                  variant="outlined"
-                  color="neutral"
-                  placeholder="Neutral"
-                />
-                <Input
-                  variant="outlined"
-                  color="success"
-                  placeholder="Success"
-                />
-                <Input
-                  variant="outlined"
-                  color="warning"
-                  placeholder="Warning"
-                />
-                <Input variant="outlined" color="danger" placeholder="Danger" />
-              </div>
-              <Typography level="body-sm" className="mt-2">
-                Outlined variant with different colors
-              </Typography>
+              )}
+            </Playground>
+          </Section>
+
+          <Section title="Examples" id="examples">
+            <div className="space-y-8">
+              <Section
+                title="Variants"
+                titleLevel="h3"
+                id="variants"
+                code={`<Input variant="solid" placeholder="Solid variant" />
+<Input variant="soft" placeholder="Soft variant" />
+<Input variant="outlined" placeholder="Outlined variant" />
+<Input variant="plain" placeholder="Plain variant" />`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <Input variant="solid" placeholder="Solid variant" />
+                  <Input variant="soft" placeholder="Soft variant" />
+                  <Input variant="outlined" placeholder="Outlined variant" />
+                  <Input variant="plain" placeholder="Plain variant" />
+                </div>
+              </Section>
+
+              <Section
+                title="Colors"
+                titleLevel="h3"
+                id="colors"
+                code={`<Input variant="soft" color="primary" placeholder="Primary" />
+<Input variant="soft" color="neutral" placeholder="Neutral" />
+<Input variant="soft" color="success" placeholder="Success" />
+<Input variant="soft" color="warning" placeholder="Warning" />
+<Input variant="soft" color="danger" placeholder="Danger" />
+
+<Input variant="outlined" color="primary" placeholder="Primary" />
+<Input variant="outlined" color="neutral" placeholder="Neutral" />
+<Input variant="outlined" color="success" placeholder="Success" />
+<Input variant="outlined" color="warning" placeholder="Warning" />
+<Input variant="outlined" color="danger" placeholder="Danger" />`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-4">
+                  <div>
+                    <Typography level="body-sm" className="mb-2">
+                      Soft variant with different colors
+                    </Typography>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Input variant="soft" color="primary" placeholder="Primary" />
+                      <Input variant="soft" color="neutral" placeholder="Neutral" />
+                      <Input variant="soft" color="success" placeholder="Success" />
+                      <Input variant="soft" color="warning" placeholder="Warning" />
+                      <Input variant="soft" color="danger" placeholder="Danger" />
+                    </div>
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">
+                      Outlined variant with different colors
+                    </Typography>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Input
+                        variant="outlined"
+                        color="primary"
+                        placeholder="Primary"
+                      />
+                      <Input
+                        variant="outlined"
+                        color="neutral"
+                        placeholder="Neutral"
+                      />
+                      <Input
+                        variant="outlined"
+                        color="success"
+                        placeholder="Success"
+                      />
+                      <Input
+                        variant="outlined"
+                        color="warning"
+                        placeholder="Warning"
+                      />
+                      <Input variant="outlined" color="danger" placeholder="Danger" />
+                    </div>
+                  </div>
+                </div>
+              </Section>
+
+              <Section
+                title="Sizes"
+                titleLevel="h3"
+                id="sizes"
+                code={`<Input size="sm" placeholder="Small input" />
+<Input size="md" placeholder="Medium input" />
+<Input size="lg" placeholder="Large input" />`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <Input size="sm" placeholder="Small input" />
+                  <Input size="md" placeholder="Medium input" />
+                  <Input size="lg" placeholder="Large input" />
+                </div>
+              </Section>
+
+              <Section
+                title="Input Types"
+                titleLevel="h3"
+                id="input-types"
+                code={`<Input type="text" placeholder="Text input" />
+<Input type="email" placeholder="Email input" />
+<Input type="password" placeholder="Password input" />
+<Input type="number" placeholder="Number input" />
+<Input type="search" placeholder="Search input" />
+<Input type="tel" placeholder="Phone number" />
+<Input type="url" placeholder="URL input" />`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <Input type="text" placeholder="Text input" />
+                  <Input type="email" placeholder="Email input" />
+                  <Input type="password" placeholder="Password input" />
+                  <Input type="number" placeholder="Number input" />
+                  <Input type="search" placeholder="Search input" />
+                  <Input type="tel" placeholder="Phone number" />
+                  <Input type="url" placeholder="URL input" />
+                </div>
+              </Section>
+
+              <Section
+                title="With Start Decorator"
+                titleLevel="h3"
+                id="start-decorator"
+                code={`<Input startDecorator={<SearchIcon />} placeholder="Search..." />
+<Input
+  startDecorator={<EmailIcon />}
+  type="email"
+  placeholder="Email address"
+/>
+<Input
+  startDecorator={<LockIcon />}
+  type="password"
+  placeholder="Password"
+/>
+<Input
+  variant="outlined"
+  startDecorator={<span className="text-neutral-500">https://</span>}
+  placeholder="example.com"
+/>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <Input startDecorator={<SearchIcon />} placeholder="Search..." />
+                  <Input
+                    startDecorator={<EmailIcon />}
+                    type="email"
+                    placeholder="Email address"
+                  />
+                  <Input
+                    startDecorator={<LockIcon />}
+                    type="password"
+                    placeholder="Password"
+                  />
+                  <Input
+                    variant="outlined"
+                    startDecorator={
+                      <span className="text-neutral-500">https://</span>
+                    }
+                    placeholder="example.com"
+                  />
+                </div>
+              </Section>
+
+              <Section
+                title="With End Decorator"
+                titleLevel="h3"
+                id="end-decorator"
+                code={`<Input
+  endDecorator={<CheckIcon />}
+  placeholder="Verified input"
+  color="success"
+/>
+<Input
+  endDecorator={
+    <button
+      type="button"
+      className="text-neutral-500 hover:text-neutral-700"
+      aria-label="Clear"
+    >
+      ✕
+    </button>
+  }
+  placeholder="Clearable input"
+/>
+<Input
+  variant="outlined"
+  endDecorator={<span className="text-sm text-neutral-500">0/100</span>}
+  placeholder="Character counter"
+/>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <Input
+                    endDecorator={<CheckIcon />}
+                    placeholder="Verified input"
+                    color="success"
+                  />
+                  <Input
+                    endDecorator={
+                      <button
+                        type="button"
+                        className="text-neutral-500 hover:text-neutral-700"
+                        aria-label="Clear"
+                      >
+                        ✕
+                      </button>
+                    }
+                    placeholder="Clearable input"
+                  />
+                  <Input
+                    variant="outlined"
+                    endDecorator={
+                      <span className="text-sm text-neutral-500">0/100</span>
+                    }
+                    placeholder="Character counter"
+                  />
+                </div>
+              </Section>
+
+              <Section
+                title="Both Decorators"
+                titleLevel="h3"
+                id="both-decorators"
+                code={`<Input
+  startDecorator={<SearchIcon />}
+  endDecorator={
+    <kbd className="px-1.5 py-0.5 text-xs bg-neutral-200 rounded">
+      ⌘K
+    </kbd>
+  }
+  placeholder="Search..."
+/>
+<Input
+  variant="outlined"
+  startDecorator={<span className="text-neutral-500">$</span>}
+  endDecorator={<span className="text-neutral-500">USD</span>}
+  type="number"
+  placeholder="0.00"
+/>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <Input
+                    startDecorator={<SearchIcon />}
+                    endDecorator={
+                      <kbd className="px-1.5 py-0.5 text-xs bg-neutral-200 rounded">
+                        ⌘K
+                      </kbd>
+                    }
+                    placeholder="Search..."
+                  />
+                  <Input
+                    variant="outlined"
+                    startDecorator={<span className="text-neutral-500">$</span>}
+                    endDecorator={<span className="text-neutral-500">USD</span>}
+                    type="number"
+                    placeholder="0.00"
+                  />
+                </div>
+              </Section>
+
+              <Section
+                title="Error State"
+                titleLevel="h3"
+                id="error-state"
+                code={`<div>
+  <Input error placeholder="Invalid input" />
+  <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
+    This field is required
+  </Typography>
+</div>
+<div>
+  <Input
+    variant="outlined"
+    error
+    type="email"
+    placeholder="email@example.com"
+    startDecorator={<EmailIcon />}
+  />
+  <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
+    Please enter a valid email address
+  </Typography>
+</div>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <div>
+                    <Input error placeholder="Invalid input" />
+                    <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
+                      This field is required
+                    </Typography>
+                  </div>
+                  <div>
+                    <Input
+                      variant="outlined"
+                      error
+                      type="email"
+                      placeholder="email@example.com"
+                      startDecorator={<EmailIcon />}
+                    />
+                    <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
+                      Please enter a valid email address
+                    </Typography>
+                  </div>
+                </div>
+              </Section>
+
+              <Section
+                title="Disabled State"
+                titleLevel="h3"
+                id="disabled-state"
+                code={`<Input disabled placeholder="Disabled input" />
+<Input
+  variant="outlined"
+  disabled
+  startDecorator={<EmailIcon />}
+  placeholder="Disabled with icon"
+/>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-3 max-w-md">
+                  <Input disabled placeholder="Disabled input" />
+                  <Input
+                    variant="outlined"
+                    disabled
+                    startDecorator={<EmailIcon />}
+                    placeholder="Disabled with icon"
+                  />
+                </div>
+              </Section>
+
+              <Section
+                title="Full Width"
+                titleLevel="h3"
+                id="full-width"
+                code={`<Input fullWidth placeholder="Full width input" />`}
+                codeLanguage="tsx"
+              >
+                <Input fullWidth placeholder="Full width input" />
+              </Section>
+
+              <Section
+                title="Form Example"
+                titleLevel="h3"
+                id="form-example"
+                code={`<form className="space-y-4 max-w-md">
+  <div>
+    <label htmlFor="name" className="block text-sm font-medium mb-1">
+      Full Name
+    </label>
+    <Input id="name" type="text" placeholder="John Doe" />
+  </div>
+  <div>
+    <label htmlFor="email" className="block text-sm font-medium mb-1">
+      Email
+    </label>
+    <Input
+      id="email"
+      type="email"
+      placeholder="john@example.com"
+      startDecorator={<EmailIcon />}
+    />
+  </div>
+  <div>
+    <label htmlFor="password" className="block text-sm font-medium mb-1">
+      Password
+    </label>
+    <Input
+      id="password"
+      type="password"
+      placeholder="••••••••"
+      startDecorator={<LockIcon />}
+    />
+  </div>
+  <div>
+    <label htmlFor="website" className="block text-sm font-medium mb-1">
+      Website
+    </label>
+    <Input
+      id="website"
+      type="url"
+      variant="outlined"
+      placeholder="example.com"
+      startDecorator={<span className="text-neutral-500">https://</span>}
+    />
+  </div>
+</form>`}
+                codeLanguage="tsx"
+              >
+                <form className="space-y-4 max-w-md">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium mb-1"
+                    >
+                      Full Name
+                    </label>
+                    <Input id="name" type="text" placeholder="John Doe" />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium mb-1"
+                    >
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="john@example.com"
+                      startDecorator={<EmailIcon />}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium mb-1"
+                    >
+                      Password
+                    </label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      startDecorator={<LockIcon />}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="website"
+                      className="block text-sm font-medium mb-1"
+                    >
+                      Website
+                    </label>
+                    <Input
+                      id="website"
+                      type="url"
+                      variant="outlined"
+                      placeholder="example.com"
+                      startDecorator={
+                        <span className="text-neutral-500">https://</span>
+                      }
+                    />
+                  </div>
+                </form>
+              </Section>
             </div>
-          </div>
+          </Section>
 
-          <div>
-            <Typography level="h3">Sizes</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input size="sm" placeholder="Small input" />
-              <Input size="md" placeholder="Medium input" />
-              <Input size="lg" placeholder="Large input" />
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Input Types</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input type="text" placeholder="Text input" />
-              <Input type="email" placeholder="Email input" />
-              <Input type="password" placeholder="Password input" />
-              <Input type="number" placeholder="Number input" />
-              <Input type="search" placeholder="Search input" />
-              <Input type="tel" placeholder="Phone number" />
-              <Input type="url" placeholder="URL input" />
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">With Start Decorator</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input startDecorator={<SearchIcon />} placeholder="Search..." />
-              <Input
-                startDecorator={<EmailIcon />}
-                type="email"
-                placeholder="Email address"
-              />
-              <Input
-                startDecorator={<LockIcon />}
-                type="password"
-                placeholder="Password"
-              />
-              <Input
-                variant="outlined"
-                startDecorator={
-                  <span className="text-neutral-500">https://</span>
-                }
-                placeholder="example.com"
-              />
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">With End Decorator</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input
-                endDecorator={<CheckIcon />}
-                placeholder="Verified input"
-                color="success"
-              />
-              <Input
-                endDecorator={
-                  <button
-                    type="button"
-                    className="text-neutral-500 hover:text-neutral-700"
-                    aria-label="Clear"
-                  >
-                    ✕
-                  </button>
-                }
-                placeholder="Clearable input"
-              />
-              <Input
-                variant="outlined"
-                endDecorator={
-                  <span className="text-sm text-neutral-500">0/100</span>
-                }
-                placeholder="Character counter"
-              />
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Both Decorators</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input
-                startDecorator={<SearchIcon />}
-                endDecorator={
-                  <kbd className="px-1.5 py-0.5 text-xs bg-neutral-200 rounded">
-                    ⌘K
-                  </kbd>
-                }
-                placeholder="Search..."
-              />
-              <Input
-                variant="outlined"
-                startDecorator={<span className="text-neutral-500">$</span>}
-                endDecorator={<span className="text-neutral-500">USD</span>}
-                type="number"
-                placeholder="0.00"
-              />
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Error State</Typography>
-            <div className="space-y-3 max-w-md">
-              <div>
-                <Input error placeholder="Invalid input" />
-                <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
-                  This field is required
-                </Typography>
-              </div>
-              <div>
-                <Input
-                  variant="outlined"
-                  error
-                  type="email"
-                  placeholder="email@example.com"
-                  startDecorator={<EmailIcon />}
-                />
-                <Typography level="body-sm" className="text-danger-600 text-sm mt-1">
-                  Please enter a valid email address
-                </Typography>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Disabled State</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input disabled placeholder="Disabled input" />
-              <Input
-                variant="outlined"
-                disabled
-                startDecorator={<EmailIcon />}
-                placeholder="Disabled with icon"
-              />
-            </div>
-          </div>
-
-          <div>
-            <Typography level="h3">Full Width</Typography>
-            <Input fullWidth placeholder="Full width input" />
-          </div>
-
-          <div>
-            <Typography level="h3">Form Example</Typography>
-            <form className="space-y-4 max-w-md">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-1"
-                >
-                  Full Name
-                </label>
-                <Input id="name" type="text" placeholder="John Doe" />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mb-1"
-                >
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="john@example.com"
-                  startDecorator={<EmailIcon />}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium mb-1"
-                >
-                  Password
-                </label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  startDecorator={<LockIcon />}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="website"
-                  className="block text-sm font-medium mb-1"
-                >
-                  Website
-                </label>
-                <Input
-                  id="website"
-                  type="url"
-                  variant="outlined"
-                  placeholder="example.com"
-                  startDecorator={
-                    <span className="text-neutral-500">https://</span>
-                  }
-                />
-              </div>
-            </form>
-          </div>
-
-          <div>
-            <Typography level="h3">Search Variants</Typography>
-            <div className="space-y-3 max-w-md">
-              <Input
-                type="search"
-                variant="soft"
-                startDecorator={<SearchIcon />}
-                placeholder="Search in soft variant..."
-              />
-              <Input
-                type="search"
-                variant="outlined"
-                startDecorator={<SearchIcon />}
-                placeholder="Search in outlined variant..."
-              />
-              <Input
-                type="search"
-                variant="outlined"
-                color="primary"
-                startDecorator={<SearchIcon />}
-                endDecorator={
-                  <kbd className="px-1.5 py-0.5 text-xs bg-primary-100 text-primary-700 rounded">
-                    /
-                  </kbd>
-                }
-                placeholder="Quick search..."
-              />
-            </div>
-          </div>
+          <Section title="API Reference" id="api">
+            <PropsTable props={componentProps.Input} />
+          </Section>
         </div>
-      </Section>
-
-      <Section title="API Reference">
-        <PropsTable props={componentProps.Input} />
-      </Section>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }

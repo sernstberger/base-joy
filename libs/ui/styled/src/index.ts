@@ -340,6 +340,14 @@ export {
   type AccordionPanelProps,
 } from './Accordion';
 
+// Collapsible components
+export {
+  Collapsible,
+  type CollapsibleRootProps,
+  type CollapsibleTriggerProps,
+  type CollapsiblePanelProps,
+} from './Collapsible';
+
 // NavList components
 export {
   NavList,
@@ -375,3 +383,191 @@ export {
   type ToastActionProps,
   type ToastCloseProps,
 } from './Toast';
+export {
+  Tooltip,
+  tooltipPopupVariants,
+  tooltipArrowVariants,
+  type TooltipRootProps,
+  type TooltipTriggerProps,
+  type TooltipPortalProps,
+  type TooltipPositionerProps,
+  type TooltipPopupProps,
+  type TooltipArrowProps,
+  type TooltipProviderProps,
+} from './Tooltip';
+export {
+  Popover,
+  popoverPopupVariants,
+  popoverArrowVariants,
+  popoverTitleVariants,
+  popoverDescriptionVariants,
+  popoverCloseVariants,
+  type PopoverRootProps,
+  type PopoverTriggerProps,
+  type PopoverPortalProps,
+  type PopoverPositionerProps,
+  type PopoverPopupProps,
+  type PopoverArrowProps,
+  type PopoverTitleProps,
+  type PopoverDescriptionProps,
+  type PopoverCloseProps,
+} from './Popover';
+export {
+  PreviewCard,
+  previewCardPopupVariants,
+  previewCardArrowVariants,
+  type PreviewCardRootProps,
+  type PreviewCardTriggerProps,
+  type PreviewCardPortalProps,
+  type PreviewCardBackdropProps,
+  type PreviewCardPositionerProps,
+  type PreviewCardPopupProps,
+  type PreviewCardArrowProps,
+} from './PreviewCard';
+
+// Tabs components
+export {
+  Tabs,
+  tabListVariants,
+  tabVariants,
+  tabIndicatorVariants,
+  tabPanelVariants,
+  type TabsRootProps,
+  type TabsListProps,
+  type TabsTabProps,
+  type TabsIndicatorProps,
+  type TabsPanelProps,
+} from './Tabs';
+
+// Dialog components
+export {
+  Dialog,
+  dialogPopupVariants,
+  dialogBackdropVariants,
+  dialogTitleVariants,
+  dialogDescriptionVariants,
+  dialogCloseVariants,
+  type DialogRootProps,
+  type DialogTriggerProps,
+  type DialogPortalProps,
+  type DialogBackdropProps,
+  type DialogPopupProps,
+  type DialogTitleProps,
+  type DialogDescriptionProps,
+  type DialogCloseProps,
+} from './Dialog';
+export {
+  AlertDialog,
+  alertDialogPopupVariants,
+  alertDialogBackdropVariants,
+  alertDialogTitleVariants,
+  alertDialogDescriptionVariants,
+  type AlertDialogRootProps,
+  type AlertDialogTriggerProps,
+  type AlertDialogPortalProps,
+  type AlertDialogBackdropProps,
+  type AlertDialogPopupProps,
+  type AlertDialogTitleProps,
+  type AlertDialogDescriptionProps,
+  type AlertDialogCloseProps,
+} from './AlertDialog';
+
+// Menu components
+export {
+  Menu,
+  menuPopupVariants,
+  menuItemVariants,
+  menuSeparatorVariants,
+  menuGroupLabelVariants,
+  type MenuRootProps,
+  type MenuTriggerProps,
+  type MenuPortalProps,
+  type MenuPositionerProps,
+  type MenuPopupProps,
+  type MenuItemProps,
+  type MenuSeparatorProps,
+  type MenuGroupProps,
+  type MenuGroupLabelProps,
+  type MenuRadioGroupProps,
+  type MenuRadioItemProps,
+  type MenuCheckboxItemProps,
+  type MenuSubmenuTriggerProps,
+} from './Menu';
+
+// NavigationMenu components
+export {
+  NavigationMenu,
+  navigationMenuListVariants,
+  navigationMenuItemVariants,
+  navigationMenuTriggerVariants,
+  navigationMenuLinkVariants,
+  navigationMenuPopupVariants,
+  navigationMenuViewportVariants,
+  navigationMenuContentVariants,
+  type NavigationMenuRootProps,
+  type NavigationMenuListProps,
+  type NavigationMenuItemProps,
+  type NavigationMenuTriggerProps,
+  type NavigationMenuLinkProps,
+  type NavigationMenuPortalProps,
+  type NavigationMenuPositionerProps,
+  type NavigationMenuPopupProps,
+  type NavigationMenuViewportProps,
+  type NavigationMenuContentProps,
+  type NavigationMenuBackdropProps,
+  type NavigationMenuArrowProps,
+  type NavigationMenuIconProps,
+} from './NavigationMenu';
+
+// Progress components
+export {
+  Progress,
+  ProgressContext,
+  useProgressContext,
+  progressRootVariants,
+  progressTrackVariants,
+  progressIndicatorVariants,
+  type ProgressRootProps,
+  type ProgressTrackProps,
+  type ProgressIndicatorProps,
+} from './Progress';
+
+// Meter components
+export {
+  Meter,
+  MeterContext,
+  useMeterContext,
+  meterRootVariants,
+  meterTrackVariants,
+  meterIndicatorVariants,
+  type MeterRootProps,
+  type MeterTrackProps,
+  type MeterIndicatorProps,
+} from './Meter';
+
+// ScrollArea components
+export {
+  ScrollArea,
+  scrollbarVariants,
+  scrollbarThumbVariants,
+  type ScrollAreaRootProps,
+  type ScrollAreaViewportProps,
+  type ScrollAreaScrollbarProps,
+  type ScrollAreaThumbProps,
+  type ScrollAreaCornerProps,
+} from './ScrollArea';
+
+// Toolbar components
+export {
+  Toolbar,
+  toolbarRootVariants,
+  toolbarButtonVariants,
+  toolbarLinkVariants,
+  toolbarSeparatorVariants,
+  toolbarGroupVariants,
+  type ToolbarRootProps,
+  type ToolbarButtonProps,
+  type ToolbarLinkProps,
+  type ToolbarSeparatorProps,
+  type ToolbarGroupProps,
+} from './Toolbar';

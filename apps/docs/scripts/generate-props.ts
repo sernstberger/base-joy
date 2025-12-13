@@ -34,6 +34,9 @@ const COMPONENTS = [
   'Input',
   'Item',
   'Link',
+  'List',
+  'ListItem',
+  'ListSubheader',
   'NumberField',
   'Radio',
   'RadioGroup',
@@ -45,6 +48,8 @@ const COMPONENTS = [
   'Table',
   'Textarea',
   'Toast',
+  'Toggle',
+  'ToggleGroup',
   'Typography',
 ];
 

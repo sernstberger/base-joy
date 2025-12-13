@@ -1,0 +1,14 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "sticky",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the subheader sticks to the top when scrolling.",
+    "required": false
+  }
+]

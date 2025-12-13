@@ -1,0 +1,57 @@
+[
+  {
+    "name": "className",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the component should ignore user interaction.",
+    "required": false
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "required": false
+  },
+  {
+    "name": "onChange",
+    "type": "((event: BaseUIEvent<FormEvent<HTMLButtonElement>>) => void)",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "\"sm\" | \"md\" | \"lg\"",
+    "defaultValue": "md",
+    "description": "The size of the toggle button.",
+    "required": false
+  },
+  {
+    "name": "type",
+    "type": "\"button\" | \"submit\" | \"reset\"",
+    "required": false
+  },
+  {
+    "name": "value",
+    "type": "string",
+    "description": "A unique string that identifies the toggle when used\ninside a toggle group.",
+    "required": false
+  },
+  {
+    "name": "variant",
+    "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
+    "required": false
+  }
+]

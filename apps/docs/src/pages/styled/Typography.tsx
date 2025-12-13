@@ -1,111 +1,177 @@
-import { Typography, Sheet } from '@base-joy/ui-styled';
+import { Typography } from '@base-joy/ui-styled';
+import { ComponentHeader } from '../../components/ComponentHeader';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
 import type { ColorScale } from '@base-joy/tokens';
 
 const typographyControls: PlaygroundControl[] = [
+  {
+    name: 'level',
+    type: 'select',
+    defaultValue: 'h1',
+    options: ['h1', 'h2', 'h3', 'h4', 'body-lg', 'body-md', 'body-sm', 'body-xs'],
+  },
+  {
+    name: 'weight',
+    type: 'select',
+    defaultValue: 'normal',
+    options: ['normal', 'medium', 'semibold', 'bold'],
+  },
   { name: 'color', type: 'color', defaultValue: 'neutral' },
 ];
 
-const typographyCodeTemplate = (props: Record<string, string>) =>
-  `<Typography level="h1" color="${props.color}">Page Title</Typography>`;
+const typographyCodeTemplate = (props: Record<string, string>) => {
+  const weightProp = props.weight ? ` weight="${props.weight}"` : '';
+  return `<Typography level="${props.level}" color="${props.color}"${weightProp}>
+  Typography Text
+</Typography>`;
+};
+
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'heading-levels', title: 'Heading Levels', level: 3 },
+  { id: 'body-levels', title: 'Body Levels', level: 3 },
+  { id: 'font-weights', title: 'Font Weights', level: 3 },
+  { id: 'colors', title: 'Colors', level: 3 },
+  { id: 'semantic-elements', title: 'Semantic Elements', level: 3 },
+  { id: 'api', title: 'API Reference' },
+];
 
 export function TypographyPage() {
   return (
-    <div className="max-w-4xl">
-      <header className="mb-8">
-        <Typography level="h1">Typography</Typography>
-        <Typography level="body-lg">
-          A unified typography component for headings and body text across the design system.
-        </Typography>
-      </header>
+    <div>
+      <ComponentHeader
+        title="Typography"
+        description="A unified typography component for headings and body text across the design system. Provides consistent text styling with support for various levels, weights, and colors."
+      />
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Playground" id="playground">
+            <Playground controls={typographyControls} codeTemplate={typographyCodeTemplate}>
+              {(props) => (
+                <Typography
+                  level={props.level as any}
+                  color={props.color as ColorScale | 'inherit'}
+                  weight={props.weight ? (props.weight as any) : undefined}
+                >
+                  Typography Text
+                </Typography>
+              )}
+            </Playground>
+          </Section>
 
-      <Section title="Playground">
-        <Playground controls={typographyControls} codeTemplate={typographyCodeTemplate}>
-          {(props) => (
-            <div className="space-y-2">
-              <Typography level="h1" color={props.color as ColorScale}>Heading 1</Typography>
-              <Typography level="h2" color={props.color as ColorScale}>Heading 2</Typography>
-              <Typography level="h3" color={props.color as ColorScale}>Heading 3</Typography>
+          <Section title="Examples" id="examples">
+            <div className="space-y-8">
+              <Section
+                title="Heading Levels"
+                titleLevel="h3"
+                id="heading-levels"
+                code={`<Typography level="h1">Heading Level h1</Typography>
+<Typography level="h2">Heading Level h2</Typography>
+<Typography level="h3">Heading Level h3</Typography>
+<Typography level="h4">Heading Level h4</Typography>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-4">
+                  <Typography level="h1">Heading Level h1</Typography>
+                  <Typography level="h2">Heading Level h2</Typography>
+                  <Typography level="h3">Heading Level h3</Typography>
+                  <Typography level="h4">Heading Level h4</Typography>
+                </div>
+              </Section>
+
+              <Section
+                title="Body Levels"
+                titleLevel="h3"
+                id="body-levels"
+                code={`<Typography level="body-lg">Large text (body-lg)</Typography>
+<Typography level="body-md">Medium text (body-md) - default</Typography>
+<Typography level="body-sm">Small text (body-sm)</Typography>
+<Typography level="body-xs">Extra small text (body-xs)</Typography>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-2">
+                  <Typography level="body-lg">Large text (body-lg)</Typography>
+                  <Typography level="body-md">Medium text (body-md) - default</Typography>
+                  <Typography level="body-sm">Small text (body-sm)</Typography>
+                  <Typography level="body-xs">Extra small text (body-xs)</Typography>
+                </div>
+              </Section>
+
+              <Section
+                title="Font Weights"
+                titleLevel="h3"
+                id="font-weights"
+                code={`<Typography weight="normal">Normal weight</Typography>
+<Typography weight="medium">Medium weight</Typography>
+<Typography weight="semibold">Semibold weight</Typography>
+<Typography weight="bold">Bold weight</Typography>`}
+                codeLanguage="tsx"
+              >
+                <Typography level="body-sm" className="mb-4">
+                  Weight props only apply to body levels. Headings are always bold.
+                </Typography>
+                <div className="space-y-2">
+                  <Typography weight="normal">Normal weight</Typography>
+                  <Typography weight="medium">Medium weight</Typography>
+                  <Typography weight="semibold">Semibold weight</Typography>
+                  <Typography weight="bold">Bold weight</Typography>
+                </div>
+              </Section>
+
+              <Section
+                title="Colors"
+                titleLevel="h3"
+                id="colors"
+                code={`<Typography color="primary">Primary text</Typography>
+<Typography color="neutral">Neutral text</Typography>
+<Typography color="success">Success text</Typography>
+<Typography color="warning">Warning text</Typography>
+<Typography color="danger">Danger text</Typography>`}
+                codeLanguage="tsx"
+              >
+                <div className="space-y-2">
+                  <Typography color="primary">Primary text</Typography>
+                  <Typography color="neutral">Neutral text</Typography>
+                  <Typography color="success">Success text</Typography>
+                  <Typography color="warning">Warning text</Typography>
+                  <Typography color="danger">Danger text</Typography>
+                </div>
+              </Section>
+
+              <Section
+                title="Semantic Elements"
+                titleLevel="h3"
+                id="semantic-elements"
+                code={`<Typography component="p">Paragraph element (default for body)</Typography>
+<Typography component="span">Span element (inline)</Typography>
+<Typography component="div">Div element (block)</Typography>
+<Typography component="label">Label element (for forms)</Typography>`}
+                codeLanguage="tsx"
+              >
+                <Typography level="body-sm" className="mb-4">
+                  Use the <code className="font-mono text-sm">component</code> prop to override the default HTML element.
+                </Typography>
+                <div className="space-y-2">
+                  <Typography component="p">Paragraph element (default for body)</Typography>
+                  <Typography component="span">Span element (inline)</Typography>
+                  <Typography component="div">Div element (block)</Typography>
+                  <Typography component="label">Label element (for forms)</Typography>
+                </div>
+              </Section>
             </div>
-          )}
-        </Playground>
-      </Section>
+          </Section>
 
-      <Section title="Examples">
-        <div className="space-y-8">
-          <div>
-            <Typography level="h3">Heading Levels</Typography>
-            <Sheet variant="outlined" color="neutral" className="space-y-4">
-              <Typography level="h1">Heading Level h1</Typography>
-              <Typography level="h2">Heading Level h2</Typography>
-              <Typography level="h3">Heading Level h3</Typography>
-              <Typography level="h4">Heading Level h4</Typography>
-              <Typography level="h5">Heading Level h5</Typography>
-              <Typography level="h6">Heading Level h6</Typography>
-            </Sheet>
-          </div>
-
-          <div>
-            <Typography level="h3">Heading Colors</Typography>
-            <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Typography level="h3" color="primary">Primary Heading</Typography>
-              <Typography level="h3" color="neutral">Neutral Heading</Typography>
-              <Typography level="h3" color="success">Success Heading</Typography>
-              <Typography level="h3" color="warning">Warning Heading</Typography>
-              <Typography level="h3" color="danger">Danger Heading</Typography>
-            </Sheet>
-          </div>
-
-          <div>
-            <Typography level="h3">Body Levels</Typography>
-            <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Typography level="body-xs">Extra small text (body-xs)</Typography>
-              <Typography level="body-sm">Small text (body-sm)</Typography>
-              <Typography level="body-md">Medium text (body-md) - default</Typography>
-              <Typography level="body-lg">Large text (body-lg)</Typography>
-              <Typography level="body-xl">Extra large text (body-xl)</Typography>
-            </Sheet>
-          </div>
-
-          <div>
-            <Typography level="h3">Body Colors</Typography>
-            <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Typography color="primary">Primary text</Typography>
-              <Typography color="neutral">Neutral text - default</Typography>
-              <Typography color="success">Success text</Typography>
-              <Typography color="warning">Warning text</Typography>
-              <Typography color="danger">Danger text</Typography>
-            </Sheet>
-          </div>
-
-          <div>
-            <Typography level="h3">Body Weights</Typography>
-            <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Typography weight="normal">Normal weight - default</Typography>
-              <Typography weight="medium">Medium weight</Typography>
-              <Typography weight="semibold">Semibold weight</Typography>
-              <Typography weight="bold">Bold weight</Typography>
-            </Sheet>
-          </div>
-
-          <div>
-            <Typography level="h3">Custom Elements</Typography>
-            <Sheet variant="outlined" color="neutral" className="space-y-2">
-              <Typography component="p">Paragraph element (default for body)</Typography>
-              <Typography component="span">Span element (inline)</Typography>
-              <Typography component="div">Div element (block)</Typography>
-              <Typography component="label">Label element (for forms)</Typography>
-            </Sheet>
-          </div>
+          <Section title="API Reference" id="api">
+            <PropsTable props={componentProps.Typography} />
+          </Section>
         </div>
-      </Section>
-
-      <Section title="API Reference">
-        <PropsTable props={componentProps.Typography} />
-      </Section>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }

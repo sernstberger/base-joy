@@ -68,7 +68,7 @@ describe('Sheet', () => {
       const sheet = container.firstChild as HTMLElement;
       expect(sheet).toHaveClass('border');
       expect(sheet).toHaveClass('border-primary-500');
-      expect(sheet).toHaveClass('bg-transparent');
+      expect(sheet).toHaveClass('bg-neutral-50');
     });
 
     it('applies plain variant classes', () => {

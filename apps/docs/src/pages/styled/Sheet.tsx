@@ -20,8 +20,8 @@ const sheetControls: PlaygroundControl[] = [
 
 const sheetCodeTemplate = (props: Record<string, string | boolean>) => {
   const booleanProps = [];
-  if (props.interactive) booleanProps.push('interactive');
-  if (props.focusWithin) booleanProps.push('focusWithin');
+  if (props.interactive === 'true' || props.interactive === true) booleanProps.push('interactive');
+  if (props.focusWithin === 'true' || props.focusWithin === true) booleanProps.push('focusWithin');
   const booleanPropsStr =
     booleanProps.length > 0 ? ' ' + booleanProps.join(' ') : '';
 
@@ -64,8 +64,8 @@ export function SheetPage() {
               codeTemplate={sheetCodeTemplate}
             >
               {(props) => {
-                const interactive = Boolean(props.interactive);
-                const focusWithin = Boolean(props.focusWithin);
+                const interactive = props.interactive === 'true';
+                const focusWithin = props.focusWithin === 'true';
 
                 return (
                   <Sheet

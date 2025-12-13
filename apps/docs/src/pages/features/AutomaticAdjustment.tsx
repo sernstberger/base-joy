@@ -5,8 +5,6 @@ import {
   Input,
   Badge,
   Checkbox,
-  Switch,
-  Select,
   CodeBlock,
 } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
