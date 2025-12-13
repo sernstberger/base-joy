@@ -40,7 +40,7 @@
   {
     "name": "size",
     "type": "\"sm\" | \"md\" | \"lg\"",
-    "defaultValue": "'md'",
+    "defaultValue": "md",
     "description": "The size (padding) of the sheet.",
     "required": false
   },

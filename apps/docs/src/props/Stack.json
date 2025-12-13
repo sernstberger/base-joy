@@ -2,7 +2,7 @@
   {
     "name": "align",
     "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
-    "defaultValue": "'stretch'",
+    "defaultValue": "stretch",
     "description": "The alignment of children (align-items).",
     "required": false
   },
@@ -42,7 +42,7 @@
   {
     "name": "direction",
     "type": "\"column\" | \"row\" | \"column-reverse\" | \"row-reverse\"",
-    "defaultValue": "'column'",
+    "defaultValue": "column",
     "description": "The flex direction.",
     "required": false
   },
@@ -54,7 +54,7 @@
   {
     "name": "justify",
     "type": "\"start\" | \"center\" | \"end\" | \"between\" | \"around\" | \"evenly\"",
-    "defaultValue": "'start'",
+    "defaultValue": "start",
     "description": "The justification of children (justify-content).",
     "required": false
   },

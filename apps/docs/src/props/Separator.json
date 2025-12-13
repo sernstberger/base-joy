@@ -14,7 +14,7 @@
   {
     "name": "color",
     "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-    "defaultValue": "'neutral'",
+    "defaultValue": "neutral",
     "description": "The color scheme of the separator.",
     "required": false
   },

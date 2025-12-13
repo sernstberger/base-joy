@@ -73,6 +73,10 @@ const useFieldContext = () => React.useContext(FieldContext);
 
 export interface FieldRootProps
   extends Omit<React.ComponentProps<typeof BaseField.Root>, 'className'> {
+  /**
+   * The size of the field.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

@@ -34,6 +34,7 @@
     "name": "size",
     "type": "\"sm\" | \"md\" | \"lg\"",
     "defaultValue": "md",
+    "description": "The size of the autocomplete.",
     "required": false
   },
   {

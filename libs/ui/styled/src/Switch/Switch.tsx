@@ -55,6 +55,10 @@ const useSwitchContext = () => React.useContext(SwitchContext);
 export interface SwitchRootProps
   extends Omit<React.ComponentProps<typeof BaseSwitch.Root>, 'className'> {
   color?: ColorScale;
+  /**
+   * The size of the switch.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

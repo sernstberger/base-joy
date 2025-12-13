@@ -104,6 +104,10 @@ const useStyledTableContext = () => React.useContext(StyledTableContext);
 
 export interface TableProps extends BaseTableProps {
   variant?: TableVariant;
+  /**
+   * The size of the table cells.
+   * @default 'md'
+   */
   size?: Size;
 }
 

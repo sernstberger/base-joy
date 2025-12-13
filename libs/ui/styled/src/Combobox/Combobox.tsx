@@ -92,6 +92,10 @@ export interface ComboboxRootProps
   extends Omit<React.ComponentProps<typeof BaseCombobox.Root>, 'className'> {
   variant?: Variant;
   color?: ColorScale;
+  /**
+   * The size of the combobox.
+   * @default 'md'
+   */
   size?: Size;
 }
 

@@ -26,6 +26,10 @@ const checkboxGroupVariants = cva('flex', {
 export interface CheckboxGroupProps
   extends Omit<React.ComponentProps<typeof BaseCheckboxGroup>, 'className'> {
   orientation?: 'horizontal' | 'vertical';
+  /**
+   * The size of the checkboxes.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

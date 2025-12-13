@@ -76,6 +76,10 @@ export interface AutocompleteRootProps
   extends Omit<React.ComponentProps<typeof BaseAutocomplete.Root>, 'className'> {
   variant?: Variant;
   color?: ColorScale;
+  /**
+   * The size of the autocomplete.
+   * @default 'md'
+   */
   size?: Size;
 }
 

@@ -52,6 +52,10 @@ const useFieldsetContext = () => React.useContext(FieldsetContext);
 export interface FieldsetRootProps
   extends Omit<React.ComponentProps<typeof BaseFieldset.Root>, 'className'> {
   variant?: 'plain' | 'outlined';
+  /**
+   * The size of the fieldset.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

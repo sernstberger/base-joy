@@ -35,6 +35,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the autocomplete.",
       "required": false
     },
     {
@@ -125,7 +126,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'primary'",
+      "defaultValue": "primary",
       "description": "The color scheme of the badge.",
       "required": false
     },
@@ -171,7 +172,7 @@
     {
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "'soft'",
+      "defaultValue": "soft",
       "description": "The visual style of the badge.",
       "required": false
     }
@@ -185,7 +186,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'primary'",
+      "defaultValue": "primary",
       "description": "The color scheme of the button.",
       "required": false
     },
@@ -266,7 +267,7 @@
     {
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "'solid'",
+      "defaultValue": "solid",
       "description": "The visual style of the button.",
       "required": false
     }
@@ -288,7 +289,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'primary'",
+      "defaultValue": "primary",
       "description": "The color scheme of the checkbox.",
       "required": false
     },
@@ -335,7 +336,7 @@
     {
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "'outlined'",
+      "defaultValue": "outlined",
       "description": "The visual style of the checkbox.",
       "required": false
     }
@@ -379,6 +380,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the checkboxes.",
       "required": false
     },
     {
@@ -531,6 +533,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the combobox.",
       "required": false
     },
     {
@@ -589,7 +592,7 @@
     {
       "name": "maxWidth",
       "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"full\"",
-      "defaultValue": "'lg'",
+      "defaultValue": "lg",
       "description": "The maximum width of the container.",
       "required": false
     },
@@ -615,7 +618,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'neutral'",
+      "defaultValue": "neutral",
       "description": "The color scheme of the separator.",
       "required": false
     },
@@ -677,6 +680,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the field.",
       "required": false
     }
   ],
@@ -710,6 +714,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the fieldset.",
       "required": false
     },
     {
@@ -803,7 +808,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'neutral'",
+      "defaultValue": "neutral",
       "description": "The color scheme of the input.",
       "required": false
     },
@@ -878,7 +883,7 @@
     {
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "'outlined'",
+      "defaultValue": "outlined",
       "description": "The visual style of the input.",
       "required": false
     }
@@ -965,7 +970,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'primary'",
+      "defaultValue": "primary",
       "description": "The color scheme of the link.",
       "required": false
     },
@@ -1011,7 +1016,7 @@
     {
       "name": "underline",
       "type": "\"none\" | \"hover\" | \"always\"",
-      "defaultValue": "'hover'",
+      "defaultValue": "hover",
       "description": "When to show the underline.",
       "required": false
     }
@@ -1057,6 +1062,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the number field.",
       "required": false
     },
     {
@@ -1087,7 +1093,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'primary'",
+      "defaultValue": "primary",
       "description": "The color scheme of the radio.",
       "required": false
     },
@@ -1117,7 +1123,7 @@
     {
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "'outlined'",
+      "defaultValue": "outlined",
       "description": "The visual style of the radio.",
       "required": false
     }
@@ -1167,6 +1173,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the radio buttons.",
       "required": false
     },
     {
@@ -1180,7 +1187,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'neutral'",
+      "defaultValue": "neutral",
       "description": "The color scheme of the select.",
       "required": false
     },
@@ -1225,7 +1232,7 @@
     {
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "'outlined'",
+      "defaultValue": "outlined",
       "description": "The visual style of the select trigger.",
       "required": false
     }
@@ -1272,7 +1279,7 @@
     {
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
-      "defaultValue": "'md'",
+      "defaultValue": "md",
       "description": "The size (padding) of the sheet.",
       "required": false
     },
@@ -1329,6 +1336,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the slider.",
       "required": false
     },
     {
@@ -1342,7 +1350,7 @@
     {
       "name": "align",
       "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
-      "defaultValue": "'stretch'",
+      "defaultValue": "stretch",
       "description": "The alignment of children (align-items).",
       "required": false
     },
@@ -1382,7 +1390,7 @@
     {
       "name": "direction",
       "type": "\"column\" | \"row\" | \"column-reverse\" | \"row-reverse\"",
-      "defaultValue": "'column'",
+      "defaultValue": "column",
       "description": "The flex direction.",
       "required": false
     },
@@ -1394,7 +1402,7 @@
     {
       "name": "justify",
       "type": "\"start\" | \"center\" | \"end\" | \"between\" | \"around\" | \"evenly\"",
-      "defaultValue": "'start'",
+      "defaultValue": "start",
       "description": "The justification of children (justify-content).",
       "required": false
     },
@@ -1471,6 +1479,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the switch.",
       "required": false
     }
   ],
@@ -1479,6 +1488,7 @@
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
       "defaultValue": "md",
+      "description": "The size of the table cells.",
       "required": false
     },
     {
@@ -1497,7 +1507,7 @@
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
-      "defaultValue": "'neutral'",
+      "defaultValue": "neutral",
       "description": "The color scheme of the textarea.",
       "required": false
     },
@@ -1567,7 +1577,7 @@
     {
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
-      "defaultValue": "'outlined'",
+      "defaultValue": "outlined",
       "description": "The visual style of the textarea.",
       "required": false
     }

@@ -86,6 +86,10 @@ export interface NumberFieldRootProps
   extends Omit<React.ComponentProps<typeof BaseNumberField.Root>, 'className'> {
   variant?: Variant;
   color?: ColorScale;
+  /**
+   * The size of the number field.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

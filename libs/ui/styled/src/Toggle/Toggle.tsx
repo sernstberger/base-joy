@@ -80,6 +80,10 @@ export interface ToggleProps
   extends Omit<React.ComponentProps<typeof BaseToggle>, 'className'> {
   variant?: Variant;
   color?: ColorScale;
+  /**
+   * The size of the toggle button.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

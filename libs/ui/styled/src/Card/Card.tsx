@@ -73,6 +73,10 @@ const cardMediaVariants = cva('w-full object-cover', {
 export interface CardProps extends Omit<BaseCardProps, 'size'> {
   variant?: Variant;
   color?: ColorScale;
+  /**
+   * The size (padding) of the card.
+   * @default 'md'
+   */
   size?: Size;
 }
 

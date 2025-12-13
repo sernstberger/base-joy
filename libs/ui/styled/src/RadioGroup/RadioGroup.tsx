@@ -26,6 +26,10 @@ const radioGroupVariants = cva('flex', {
 export interface RadioGroupProps
   extends Omit<React.ComponentProps<typeof BaseRadioGroup>, 'className'> {
   orientation?: 'horizontal' | 'vertical';
+  /**
+   * The size of the radio buttons.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

@@ -112,6 +112,10 @@ const useSliderContext = () => React.useContext(SliderContext);
 export interface SliderRootProps
   extends Omit<React.ComponentProps<typeof BaseSlider.Root>, 'className'> {
   color?: ColorScale;
+  /**
+   * The size of the slider.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

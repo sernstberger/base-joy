@@ -105,6 +105,16 @@ interface PropMeta {
   required: boolean;
 }
 
+function stripQuotes(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  // Strip surrounding single or double quotes from JSDoc @default values
+  if ((value.startsWith("'") && value.endsWith("'")) ||
+      (value.startsWith('"') && value.endsWith('"'))) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+
 function formatType(type: docgen.PropItem['type'], propName: string): string {
   if (!type) return 'unknown';
 
@@ -161,7 +171,7 @@ function extractProps(componentName: string): PropMeta[] | null {
     .map(([name, prop]) => ({
       name,
       type: formatType(prop.type, name),
-      defaultValue: prop.defaultValue?.value,
+      defaultValue: stripQuotes(prop.defaultValue?.value),
       description: prop.description || undefined,
       required: prop.required,
     }));

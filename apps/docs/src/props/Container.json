@@ -41,7 +41,7 @@
   {
     "name": "maxWidth",
     "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"full\"",
-    "defaultValue": "'lg'",
+    "defaultValue": "lg",
     "description": "The maximum width of the container.",
     "required": false
   },

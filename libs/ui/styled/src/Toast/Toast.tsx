@@ -117,6 +117,10 @@ export interface ToastRootProps
   extends Omit<React.ComponentProps<typeof BaseToast.Root>, 'className'> {
   variant?: Variant;
   color?: ColorScale;
+  /**
+   * The size of the toast.
+   * @default 'md'
+   */
   size?: Size;
   className?: string;
 }

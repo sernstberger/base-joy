@@ -28,6 +28,10 @@ export interface ToggleGroupRootProps
   extends Omit<React.ComponentProps<typeof BaseToggleGroup>, 'className'> {
   variant?: Variant;
   color?: ColorScale;
+  /**
+   * The size of the toggle group.
+   * @default 'md'
+   */
   size?: Size;
   orientation?: 'horizontal' | 'vertical';
   className?: string;
