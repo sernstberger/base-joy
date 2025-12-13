@@ -3,7 +3,6 @@ export {
   ItemStart,
   ItemContent,
   ItemHeader,
-  ItemTitle,
   ItemActions,
   ItemFooter,
   ItemMedia,
@@ -13,7 +12,6 @@ export {
   itemStartVariants,
   itemContentVariants,
   itemHeaderVariants,
-  itemTitleVariants,
   itemActionsVariants,
   itemFooterVariants,
   itemMediaVariants,
@@ -21,7 +19,6 @@ export {
   type ItemStartProps,
   type ItemContentProps,
   type ItemHeaderProps,
-  type ItemTitleProps,
   type ItemActionsProps,
   type ItemFooterProps,
   type ItemMediaProps,
@@ -32,6 +29,7 @@ export {
 export {
   Item,
   ItemEnd,
+  ItemTitle,
   ItemDescription,
   styledItemVariants,
   styledItemDescriptionVariants,
@@ -40,5 +38,6 @@ export {
   useStyledItemContext,
   type ItemProps,
   type ItemEndProps,
+  type ItemTitleProps,
   type ItemDescriptionProps,
 } from './Item';

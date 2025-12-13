@@ -6,14 +6,16 @@ import {
   ItemContext,
   useItemContext,
   itemEndVariants,
-  itemDescriptionVariants,
   type ItemProps as BaseItemProps,
   type ItemEndProps as BaseItemEndProps,
-  type ItemDescriptionProps as BaseItemDescriptionProps,
 } from '@base-joy/ui-unstyled';
 import { sheetVariants } from '../Sheet';
-import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
+import {
+  useResolvedColorProps,
+  getSolidContainerStyles,
+} from '../ColorContext';
 import { useResolvedSizeProps } from '../SizeContext';
+import { Typography, type TypographyProps } from '../Typography';
 
 interface StyledItemContextValue {
   variant: Variant;
@@ -59,46 +61,211 @@ const styledItemVariants = cva('', {
   },
   compoundVariants: [
     // Selected states for soft variant
-    { selected: true, variant: 'soft', color: 'primary', className: 'bg-primary-200' },
-    { selected: true, variant: 'soft', color: 'neutral', className: 'bg-neutral-200' },
-    { selected: true, variant: 'soft', color: 'success', className: 'bg-success-200' },
-    { selected: true, variant: 'soft', color: 'warning', className: 'bg-warning-200' },
-    { selected: true, variant: 'soft', color: 'danger', className: 'bg-danger-200' },
+    {
+      selected: true,
+      variant: 'soft',
+      color: 'primary',
+      className: 'bg-primary-200',
+    },
+    {
+      selected: true,
+      variant: 'soft',
+      color: 'neutral',
+      className: 'bg-neutral-200',
+    },
+    {
+      selected: true,
+      variant: 'soft',
+      color: 'success',
+      className: 'bg-success-200',
+    },
+    {
+      selected: true,
+      variant: 'soft',
+      color: 'warning',
+      className: 'bg-warning-200',
+    },
+    {
+      selected: true,
+      variant: 'soft',
+      color: 'danger',
+      className: 'bg-danger-200',
+    },
 
     // Selected states for outlined variant
-    { selected: true, variant: 'outlined', color: 'primary', className: 'bg-primary-50' },
-    { selected: true, variant: 'outlined', color: 'neutral', className: 'bg-neutral-50' },
-    { selected: true, variant: 'outlined', color: 'success', className: 'bg-success-50' },
-    { selected: true, variant: 'outlined', color: 'warning', className: 'bg-warning-50' },
-    { selected: true, variant: 'outlined', color: 'danger', className: 'bg-danger-50' },
+    {
+      selected: true,
+      variant: 'outlined',
+      color: 'primary',
+      className: 'bg-primary-50',
+    },
+    {
+      selected: true,
+      variant: 'outlined',
+      color: 'neutral',
+      className: 'bg-neutral-50',
+    },
+    {
+      selected: true,
+      variant: 'outlined',
+      color: 'success',
+      className: 'bg-success-50',
+    },
+    {
+      selected: true,
+      variant: 'outlined',
+      color: 'warning',
+      className: 'bg-warning-50',
+    },
+    {
+      selected: true,
+      variant: 'outlined',
+      color: 'danger',
+      className: 'bg-danger-50',
+    },
 
     // Selected states for plain variant
-    { selected: true, variant: 'plain', color: 'primary', className: 'bg-primary-50' },
-    { selected: true, variant: 'plain', color: 'neutral', className: 'bg-neutral-50' },
-    { selected: true, variant: 'plain', color: 'success', className: 'bg-success-50' },
-    { selected: true, variant: 'plain', color: 'warning', className: 'bg-warning-50' },
-    { selected: true, variant: 'plain', color: 'danger', className: 'bg-danger-50' },
+    {
+      selected: true,
+      variant: 'plain',
+      color: 'primary',
+      className: 'bg-primary-50',
+    },
+    {
+      selected: true,
+      variant: 'plain',
+      color: 'neutral',
+      className: 'bg-neutral-50',
+    },
+    {
+      selected: true,
+      variant: 'plain',
+      color: 'success',
+      className: 'bg-success-50',
+    },
+    {
+      selected: true,
+      variant: 'plain',
+      color: 'warning',
+      className: 'bg-warning-50',
+    },
+    {
+      selected: true,
+      variant: 'plain',
+      color: 'danger',
+      className: 'bg-danger-50',
+    },
 
     // Selected + interactive compound hover states for soft
-    { selected: true, interactive: true, variant: 'soft', color: 'primary', className: 'hover:bg-primary-300 active:bg-primary-400' },
-    { selected: true, interactive: true, variant: 'soft', color: 'neutral', className: 'hover:bg-neutral-300 active:bg-neutral-400' },
-    { selected: true, interactive: true, variant: 'soft', color: 'success', className: 'hover:bg-success-300 active:bg-success-400' },
-    { selected: true, interactive: true, variant: 'soft', color: 'warning', className: 'hover:bg-warning-300 active:bg-warning-400' },
-    { selected: true, interactive: true, variant: 'soft', color: 'danger', className: 'hover:bg-danger-300 active:bg-danger-400' },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'soft',
+      color: 'primary',
+      className: 'hover:bg-primary-300 active:bg-primary-400',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'soft',
+      color: 'neutral',
+      className: 'hover:bg-neutral-300 active:bg-neutral-400',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'soft',
+      color: 'success',
+      className: 'hover:bg-success-300 active:bg-success-400',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'soft',
+      color: 'warning',
+      className: 'hover:bg-warning-300 active:bg-warning-400',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'soft',
+      color: 'danger',
+      className: 'hover:bg-danger-300 active:bg-danger-400',
+    },
 
     // Selected + interactive compound hover states for outlined
-    { selected: true, interactive: true, variant: 'outlined', color: 'primary', className: 'hover:bg-primary-100 active:bg-primary-200' },
-    { selected: true, interactive: true, variant: 'outlined', color: 'neutral', className: 'hover:bg-neutral-100 active:bg-neutral-200' },
-    { selected: true, interactive: true, variant: 'outlined', color: 'success', className: 'hover:bg-success-100 active:bg-success-200' },
-    { selected: true, interactive: true, variant: 'outlined', color: 'warning', className: 'hover:bg-warning-100 active:bg-warning-200' },
-    { selected: true, interactive: true, variant: 'outlined', color: 'danger', className: 'hover:bg-danger-100 active:bg-danger-200' },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'outlined',
+      color: 'primary',
+      className: 'hover:bg-primary-100 active:bg-primary-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'outlined',
+      color: 'neutral',
+      className: 'hover:bg-neutral-100 active:bg-neutral-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'outlined',
+      color: 'success',
+      className: 'hover:bg-success-100 active:bg-success-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'outlined',
+      color: 'warning',
+      className: 'hover:bg-warning-100 active:bg-warning-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'outlined',
+      color: 'danger',
+      className: 'hover:bg-danger-100 active:bg-danger-200',
+    },
 
     // Selected + interactive compound hover states for plain
-    { selected: true, interactive: true, variant: 'plain', color: 'primary', className: 'hover:bg-primary-100 active:bg-primary-200' },
-    { selected: true, interactive: true, variant: 'plain', color: 'neutral', className: 'hover:bg-neutral-100 active:bg-neutral-200' },
-    { selected: true, interactive: true, variant: 'plain', color: 'success', className: 'hover:bg-success-100 active:bg-success-200' },
-    { selected: true, interactive: true, variant: 'plain', color: 'warning', className: 'hover:bg-warning-100 active:bg-warning-200' },
-    { selected: true, interactive: true, variant: 'plain', color: 'danger', className: 'hover:bg-danger-100 active:bg-danger-200' },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'plain',
+      color: 'primary',
+      className: 'hover:bg-primary-100 active:bg-primary-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'plain',
+      color: 'neutral',
+      className: 'hover:bg-neutral-100 active:bg-neutral-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'plain',
+      color: 'success',
+      className: 'hover:bg-success-100 active:bg-success-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'plain',
+      color: 'warning',
+      className: 'hover:bg-warning-100 active:bg-warning-200',
+    },
+    {
+      selected: true,
+      interactive: true,
+      variant: 'plain',
+      color: 'danger',
+      className: 'hover:bg-danger-100 active:bg-danger-200',
+    },
   ],
   defaultVariants: {
     interactive: false,
@@ -197,7 +364,8 @@ const styledItemEndVariants = cva('', {
   },
 });
 
-export interface ItemProps extends Omit<BaseItemProps, 'interactive' | 'selected' | 'disabled'> {
+export interface ItemProps
+  extends Omit<BaseItemProps, 'interactive' | 'selected' | 'disabled'> {
   /**
    * The visual style of the item.
    * @default 'soft'
@@ -220,7 +388,8 @@ export interface ItemProps extends Omit<BaseItemProps, 'interactive' | 'selected
 
 export interface ItemEndProps extends BaseItemEndProps {}
 
-export interface ItemDescriptionProps extends BaseItemDescriptionProps {}
+export interface ItemTitleProps extends TypographyProps {}
+export interface ItemDescriptionProps extends TypographyProps {}
 
 const sizeVariants = cva('', {
   variants: {
@@ -272,9 +441,7 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
 
     const content = (
       <StyledItemContext.Provider value={{ variant, color, size }}>
-        <ItemContext.Provider value={{ size }}>
-          {children}
-        </ItemContext.Provider>
+        <ItemContext.Provider value={{ size }}>{children}</ItemContext.Provider>
       </StyledItemContext.Provider>
     );
 
@@ -326,25 +493,40 @@ export const ItemEnd = React.forwardRef<HTMLSpanElement, ItemEndProps>(
 
 ItemEnd.displayName = 'ItemEnd';
 
-export const ItemDescription = React.forwardRef<HTMLParagraphElement, ItemDescriptionProps>(
-  ({ className, size: sizeProp, ...props }, ref) => {
-    const { size: contextSize } = useItemContext();
-    const { variant, color } = useStyledItemContext();
-    const size = sizeProp ?? contextSize;
-
+export const ItemTitle = React.forwardRef<HTMLElement, ItemTitleProps>(
+  ({ className, level = 'body-md', weight = 'medium', ...props }, ref) => {
     return (
-      <p
+      <Typography
         ref={ref}
-        className={cn(
-          itemDescriptionVariants({ size }),
-          styledItemDescriptionVariants({ variant, color }),
-          className
-        )}
+        level={level}
+        weight={weight}
+        className={className}
         {...props}
       />
     );
   }
 );
+
+ItemTitle.displayName = 'ItemTitle';
+
+export const ItemDescription = React.forwardRef<
+  HTMLElement,
+  ItemDescriptionProps
+>(({ className, level = 'body-sm', ...props }, ref) => {
+  const { variant, color } = useStyledItemContext();
+
+  return (
+    <Typography
+      ref={ref}
+      level={level}
+      className={cn(
+        styledItemDescriptionVariants({ variant, color }),
+        className
+      )}
+      {...props}
+    />
+  );
+});
 
 ItemDescription.displayName = 'ItemDescription';
 

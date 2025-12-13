@@ -242,24 +242,24 @@ describe('ItemDescription (Styled)', () => {
     expect(screen.getByText('Description')).toHaveClass('text-inherit', 'opacity-80');
   });
 
-  it('inherits size from Item context', () => {
+  it('uses Typography level prop to control text size', () => {
     const { rerender } = render(
-      <Item size="sm">
-        <ItemDescription>Description</ItemDescription>
+      <Item>
+        <ItemDescription level="body-xs">Description</ItemDescription>
       </Item>
     );
     expect(screen.getByText('Description')).toHaveClass('text-xs');
 
     rerender(
-      <Item size="md">
-        <ItemDescription>Description</ItemDescription>
+      <Item>
+        <ItemDescription level="body-sm">Description</ItemDescription>
       </Item>
     );
     expect(screen.getByText('Description')).toHaveClass('text-sm');
 
     rerender(
-      <Item size="lg">
-        <ItemDescription>Description</ItemDescription>
+      <Item>
+        <ItemDescription level="body-md">Description</ItemDescription>
       </Item>
     );
     expect(screen.getByText('Description')).toHaveClass('text-base');

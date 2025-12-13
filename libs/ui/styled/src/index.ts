@@ -268,7 +268,6 @@ export {
   itemStartVariants,
   itemContentVariants,
   itemHeaderVariants,
-  itemTitleVariants,
   itemActionsVariants,
   itemFooterVariants,
   itemMediaVariants,

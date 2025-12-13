@@ -1,11 +1,10 @@
 import {
   Button,
   Item,
-  ItemActions,
   ItemContent,
   ItemDescription,
-  ItemHeader,
-  Typography,
+  ItemTitle,
+  ItemEnd,
 } from '@base-joy/ui-styled';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router';
@@ -22,38 +21,28 @@ export function ComponentHeader({
   baseUiUrl,
 }: ComponentHeaderProps) {
   return (
-    <Item
-      render={<header />}
-      variant="plain"
-      color="neutral"
-      size="lg"
-      className="mb-8 flex-col items-start p-0"
-    >
-      <ItemContent truncate={false}>
-        <ItemHeader className="mb-2">
-          <Typography level="h1">{title}</Typography>
-          {baseUiUrl && (
-            <ItemActions>
-              <Button
-                render={
-                  <Link
-                    to={baseUiUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                }
-                variant="outlined"
-                color="neutral"
-                size="sm"
-                endDecorator={<ArrowUpRight size={16} />}
-              >
-                Base UI
-              </Button>
-            </ItemActions>
-          )}
-        </ItemHeader>
-        <ItemDescription>{description}</ItemDescription>
+    <Item render={<header />} variant="plain" size="lg" className="p-0">
+      <ItemContent>
+        <ItemTitle level="h1" component="h1">
+          {title}
+        </ItemTitle>
+        <ItemDescription level="body-md">{description}</ItemDescription>
       </ItemContent>
+      {baseUiUrl && (
+        <ItemEnd>
+          <Button
+            render={
+              <Link to={baseUiUrl} target="_blank" rel="noopener noreferrer" />
+            }
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            endDecorator={<ArrowUpRight size={16} />}
+          >
+            Base UI
+          </Button>
+        </ItemEnd>
+      )}
     </Item>
   );
 }
