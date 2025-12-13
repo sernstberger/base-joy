@@ -27,7 +27,7 @@ export function ComponentHeader({
       variant="plain"
       color="neutral"
       size="lg"
-      className="mb-8 flex-col items-start"
+      className="mb-8 flex-col items-start p-0"
     >
       <ItemContent truncate={false}>
         <ItemHeader className="mb-2">
@@ -36,7 +36,11 @@ export function ComponentHeader({
             <ItemActions>
               <Button
                 render={
-                  <Link to={baseUiUrl} target="_blank" rel="noopener noreferrer" />
+                  <Link
+                    to={baseUiUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
                 }
                 variant="outlined"
                 color="neutral"

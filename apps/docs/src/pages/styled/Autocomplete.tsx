@@ -1,4 +1,4 @@
-import { Autocomplete, type AutocompleteOption } from '@base-joy/ui-styled';
+import { Autocomplete, Typography, type AutocompleteOption } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
@@ -62,6 +62,11 @@ export function AutocompletePage() {
         description="An input component with automatic filtering and suggestions. Built on Base UI's Autocomplete for accessibility."
         baseUiUrl="https://base-ui.com/react/components/autocomplete"
       />
+      <Typography level="body-sm" className="mb-6 p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+        <strong>Autocomplete vs Combobox:</strong> Use Autocomplete when you want search suggestions
+        but also allow free-form text input. Use Combobox when selection must come from a predefined
+        list.
+      </Typography>
       <div className="flex gap-8">
         <div className="flex-1">
           <Section title="Playground" id="playground">

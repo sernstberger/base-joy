@@ -1,4 +1,4 @@
-import { Combobox } from '@base-joy/ui-styled';
+import { Combobox, Typography } from '@base-joy/ui-styled';
 import type { ColorScale, Size, Variant } from '@base-joy/tokens';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
@@ -6,8 +6,9 @@ import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
+import type { ComboboxOption } from '@base-joy/ui-styled';
 
-const fruits = [
+const fruits: ComboboxOption[] = [
   { value: 'apple', label: 'Apple' },
   { value: 'banana', label: 'Banana' },
   { value: 'cherry', label: 'Cherry' },
@@ -18,6 +19,25 @@ const fruits = [
   { value: 'strawberry', label: 'Strawberry' },
 ];
 
+const groupedOptions: ComboboxOption[] = [
+  {
+    group: 'Fruits',
+    options: [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+      { value: 'cherry', label: 'Cherry' },
+    ],
+  },
+  {
+    group: 'Vegetables',
+    options: [
+      { value: 'carrot', label: 'Carrot' },
+      { value: 'broccoli', label: 'Broccoli' },
+      { value: 'spinach', label: 'Spinach' },
+    ],
+  },
+];
+
 const sections = [
   { id: 'playground', title: 'Playground' },
   { id: 'examples', title: 'Examples' },
@@ -26,7 +46,6 @@ const sections = [
   { id: 'sizes', title: 'Sizes', level: 3 },
   { id: 'disabled', title: 'Disabled', level: 3 },
   { id: 'groups', title: 'With Groups', level: 3 },
-  { id: 'clear', title: 'With Clear Button', level: 3 },
   { id: 'api', title: 'API Reference' },
 ];
 
@@ -38,28 +57,13 @@ const controls: PlaygroundControl[] = [
 ];
 
 const codeTemplate = (props: Record<string, string | boolean>) =>
-  `<Combobox.Root
+  `<Combobox
+  options={fruits}
+  placeholder="Search fruits..."
   variant="${props.variant}"
   color="${props.color}"
   size="${props.size}"${props.disabled === 'true' || props.disabled === true ? '\n  disabled' : ''}
->
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Search fruits..." />
-  </Combobox.Trigger>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit.value} value={fruit.value}>
-              <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-            </Combobox.Item>
-          ))}
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>`;
+/>`;
 
 export function ComboboxPage() {
   return (
@@ -69,35 +73,25 @@ export function ComboboxPage() {
         description="A searchable dropdown component that combines an input with a list of options."
         baseUiUrl="https://base-ui.com/react/components/combobox"
       />
+      <Typography level="body-sm" className="mb-6 p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+        <strong>Combobox vs Autocomplete:</strong> Use Combobox when selection must come from a
+        predefined list. Use Autocomplete when you want search suggestions but also allow free-form
+        text input.
+      </Typography>
       <div className="flex gap-8">
         <div className="flex-1">
           <Section title="Playground" id="playground">
             <Playground controls={controls} codeTemplate={codeTemplate}>
               {(props) => (
                 <div className="max-w-xs">
-                  <Combobox.Root
+                  <Combobox
+                    options={fruits}
+                    placeholder="Search fruits..."
                     variant={props.variant as Variant}
                     color={props.color as ColorScale}
                     size={props.size as Size}
                     disabled={props.disabled === 'true'}
-                  >
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Search fruits..." />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
+                  />
                 </div>
               )}
             </Playground>
@@ -109,158 +103,32 @@ export function ComboboxPage() {
                 title="Variants"
                 titleLevel="h3"
                 id="variants"
-                code={`<Combobox.Root variant="solid">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Solid variant" />
-  </Combobox.Trigger>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit.value} value={fruit.value}>
-              <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-            </Combobox.Item>
-          ))}
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>
-
-<Combobox.Root variant="soft">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Soft variant" />
-  </Combobox.Trigger>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit.value} value={fruit.value}>
-              <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-            </Combobox.Item>
-          ))}
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>
-
-<Combobox.Root variant="outlined">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Outlined variant" />
-  </Combobox.Trigger>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit.value} value={fruit.value}>
-              <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-            </Combobox.Item>
-          ))}
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>
-
-<Combobox.Root variant="plain">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Plain variant" />
-  </Combobox.Trigger>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit.value} value={fruit.value}>
-              <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-            </Combobox.Item>
-          ))}
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>`}
+                code={`<Combobox variant="solid" options={fruits} placeholder="Solid" />
+<Combobox variant="soft" options={fruits} placeholder="Soft" />
+<Combobox variant="outlined" options={fruits} placeholder="Outlined" />
+<Combobox variant="plain" options={fruits} placeholder="Plain" />`}
               >
                 <div className="space-y-4 max-w-xs">
-                  <Combobox.Root variant="solid">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Solid variant" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root variant="soft">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Soft variant" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root variant="outlined">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Outlined variant" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root variant="plain">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Plain variant" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    variant="solid"
+                    placeholder="Solid variant"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    variant="soft"
+                    placeholder="Soft variant"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    variant="outlined"
+                    placeholder="Outlined variant"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    variant="plain"
+                    placeholder="Plain variant"
+                  />
                 </div>
               </Section>
 
@@ -268,136 +136,38 @@ export function ComboboxPage() {
                 title="Colors"
                 titleLevel="h3"
                 id="colors"
-                code={`<Combobox.Root color="primary">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Primary" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>
-
-<Combobox.Root color="neutral">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Neutral" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>
-
-<Combobox.Root color="success">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Success" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>
-
-<Combobox.Root color="warning">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Warning" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>
-
-<Combobox.Root color="danger">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Danger" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>`}
+                code={`<Combobox color="primary" options={fruits} placeholder="Primary" />
+<Combobox color="neutral" options={fruits} placeholder="Neutral" />
+<Combobox color="success" options={fruits} placeholder="Success" />
+<Combobox color="warning" options={fruits} placeholder="Warning" />
+<Combobox color="danger" options={fruits} placeholder="Danger" />`}
               >
                 <div className="space-y-4 max-w-xs">
-                  <Combobox.Root color="primary">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Primary" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root color="neutral">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Neutral" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root color="success">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Success" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root color="warning">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Warning" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root color="danger">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Danger" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    color="primary"
+                    placeholder="Primary"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    color="neutral"
+                    placeholder="Neutral"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    color="success"
+                    placeholder="Success"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    color="warning"
+                    placeholder="Warning"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    color="danger"
+                    placeholder="Danger"
+                  />
                 </div>
               </Section>
 
@@ -405,84 +175,26 @@ export function ComboboxPage() {
                 title="Sizes"
                 titleLevel="h3"
                 id="sizes"
-                code={`<Combobox.Root size="sm">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Small combobox" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>
-
-<Combobox.Root size="md">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Medium combobox" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>
-
-<Combobox.Root size="lg">
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Large combobox" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>`}
+                code={`<Combobox size="sm" options={fruits} placeholder="Small" />
+<Combobox size="md" options={fruits} placeholder="Medium" />
+<Combobox size="lg" options={fruits} placeholder="Large" />`}
               >
                 <div className="space-y-4 max-w-xs">
-                  <Combobox.Root size="sm">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Small combobox" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root size="md">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Medium combobox" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-
-                  <Combobox.Root size="lg">
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Large combobox" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    size="sm"
+                    placeholder="Small combobox"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    size="md"
+                    placeholder="Medium combobox"
+                  />
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    size="lg"
+                    placeholder="Large combobox"
+                  />
                 </div>
               </Section>
 
@@ -490,32 +202,14 @@ export function ComboboxPage() {
                 title="Disabled"
                 titleLevel="h3"
                 id="disabled"
-                code={`<Combobox.Root disabled>
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Disabled combobox" />
-  </Combobox.Trigger>
-  {/* ... */}
-</Combobox.Root>`}
+                code={`<Combobox disabled options={fruits} placeholder="Disabled combobox" />`}
               >
                 <div className="max-w-xs">
-                  <Combobox.Root disabled>
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Disabled combobox" />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.slice(0, 3).map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
+                  <Combobox
+                    options={fruits.slice(0, 3)}
+                    disabled
+                    placeholder="Disabled combobox"
+                  />
                 </div>
               </Section>
 
@@ -523,117 +217,34 @@ export function ComboboxPage() {
                 title="With Groups"
                 titleLevel="h3"
                 id="groups"
-                code={`<Combobox.Root>
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Search foods..." />
-  </Combobox.Trigger>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          <Combobox.Group>
-            <Combobox.GroupLabel>Fruits</Combobox.GroupLabel>
-            <Combobox.Item value="apple">
-              <Combobox.ItemText>Apple</Combobox.ItemText>
-            </Combobox.Item>
-            <Combobox.Item value="banana">
-              <Combobox.ItemText>Banana</Combobox.ItemText>
-            </Combobox.Item>
-          </Combobox.Group>
-          <Combobox.Group>
-            <Combobox.GroupLabel>Vegetables</Combobox.GroupLabel>
-            <Combobox.Item value="carrot">
-              <Combobox.ItemText>Carrot</Combobox.ItemText>
-            </Combobox.Item>
-            <Combobox.Item value="broccoli">
-              <Combobox.ItemText>Broccoli</Combobox.ItemText>
-            </Combobox.Item>
-          </Combobox.Group>
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>`}
-              >
-                <div className="max-w-xs">
-                  <Combobox.Root>
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Search foods..." />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            <Combobox.Group>
-                              <Combobox.GroupLabel>Fruits</Combobox.GroupLabel>
-                              <Combobox.Item value="apple">
-                                <Combobox.ItemText>Apple</Combobox.ItemText>
-                              </Combobox.Item>
-                              <Combobox.Item value="banana">
-                                <Combobox.ItemText>Banana</Combobox.ItemText>
-                              </Combobox.Item>
-                            </Combobox.Group>
-                            <Combobox.Group>
-                              <Combobox.GroupLabel>Vegetables</Combobox.GroupLabel>
-                              <Combobox.Item value="carrot">
-                                <Combobox.ItemText>Carrot</Combobox.ItemText>
-                              </Combobox.Item>
-                              <Combobox.Item value="broccoli">
-                                <Combobox.ItemText>Broccoli</Combobox.ItemText>
-                              </Combobox.Item>
-                            </Combobox.Group>
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
-                </div>
-              </Section>
+                code={`const groupedOptions = [
+  {
+    group: 'Fruits',
+    options: [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ],
+  },
+  {
+    group: 'Vegetables',
+    options: [
+      { value: 'carrot', label: 'Carrot' },
+      { value: 'broccoli', label: 'Broccoli' },
+    ],
+  },
+];
 
-              <Section
-                title="With Clear Button"
-                titleLevel="h3"
-                id="clear"
-                code={`<Combobox.Root>
-  <Combobox.Trigger>
-    <Combobox.Input placeholder="Search and clear..." />
-    <Combobox.Clear />
-  </Combobox.Trigger>
-  <Combobox.Portal>
-    <Combobox.Positioner>
-      <Combobox.Popup>
-        <Combobox.List>
-          {fruits.map((fruit) => (
-            <Combobox.Item key={fruit.value} value={fruit.value}>
-              <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-            </Combobox.Item>
-          ))}
-        </Combobox.List>
-      </Combobox.Popup>
-    </Combobox.Positioner>
-  </Combobox.Portal>
-</Combobox.Root>`}
+<Combobox options={groupedOptions} placeholder="Search foods..." />`}
               >
+                <Typography level="body-sm" className="mb-4">
+                  Use objects with a <code className="font-mono text-sm">group</code> property
+                  to create option groups.
+                </Typography>
                 <div className="max-w-xs">
-                  <Combobox.Root>
-                    <Combobox.Trigger>
-                      <Combobox.Input placeholder="Search and clear..." />
-                      <Combobox.Clear />
-                    </Combobox.Trigger>
-                    <Combobox.Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Popup>
-                          <Combobox.List>
-                            {fruits.map((fruit) => (
-                              <Combobox.Item key={fruit.value} value={fruit.value}>
-                                <Combobox.ItemText>{fruit.label}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Popup>
-                      </Combobox.Positioner>
-                    </Combobox.Portal>
-                  </Combobox.Root>
+                  <Combobox
+                    options={groupedOptions}
+                    placeholder="Search foods..."
+                  />
                 </div>
               </Section>
             </div>
