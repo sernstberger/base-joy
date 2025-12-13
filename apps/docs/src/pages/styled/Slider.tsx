@@ -22,14 +22,7 @@ const codeTemplate = (props: Record<string, string>) => {
   const booleanPropsStr =
     booleanProps.length > 0 ? ' ' + booleanProps.join(' ') : '';
 
-  return `<Slider.Root color="${props.color}" size="${props.size}"${booleanPropsStr} defaultValue={60}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>`;
+  return `<Slider color="${props.color}" size="${props.size}"${booleanPropsStr} defaultValue={60} />`;
 };
 
 const sections = [
@@ -38,7 +31,6 @@ const sections = [
   { id: 'colors', title: 'Colors', level: 3 },
   { id: 'sizes', title: 'Sizes', level: 3 },
   { id: 'range-slider', title: 'Range Slider', level: 3 },
-  { id: 'with-value-display', title: 'With Value Display', level: 3 },
   { id: 'custom-range', title: 'Custom Range', level: 3 },
   { id: 'disabled', title: 'Disabled', level: 3 },
   { id: 'api', title: 'API Reference' },
@@ -58,19 +50,13 @@ export function SliderPage() {
             <Playground controls={controls} codeTemplate={codeTemplate}>
               {(props) => (
                 <div className="max-w-md">
-                  <Slider.Root
+                  <Slider
                     color={props.color as ColorScale}
                     size={props.size as Size}
                     disabled={props.disabled === 'true'}
                     defaultValue={60}
-                  >
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
+                    aria-label="Slider"
+                  />
                 </div>
               )}
             </Playground>
@@ -82,79 +68,17 @@ export function SliderPage() {
                 title="Colors"
                 titleLevel="h3"
                 id="colors"
-                code={`<Slider.Root color="primary" defaultValue={60}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>
-
-<Slider.Root color="success" defaultValue={60}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>
-
-<Slider.Root color="warning" defaultValue={60}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>
-
-<Slider.Root color="danger" defaultValue={60}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>`}
+                code={`<Slider color="primary" defaultValue={60} aria-label="Primary slider" />
+<Slider color="success" defaultValue={60} aria-label="Success slider" />
+<Slider color="warning" defaultValue={60} aria-label="Warning slider" />
+<Slider color="danger" defaultValue={60} aria-label="Danger slider" />`}
                 codeLanguage="tsx"
               >
                 <div className="space-y-6 max-w-md">
-                  <Slider.Root color="primary" defaultValue={60}>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
-
-                  <Slider.Root color="success" defaultValue={60}>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
-
-                  <Slider.Root color="warning" defaultValue={60}>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
-
-                  <Slider.Root color="danger" defaultValue={60}>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
+                  <Slider color="primary" defaultValue={60} aria-label="Primary slider" />
+                  <Slider color="success" defaultValue={60} aria-label="Success slider" />
+                  <Slider color="warning" defaultValue={60} aria-label="Warning slider" />
+                  <Slider color="danger" defaultValue={60} aria-label="Danger slider" />
                 </div>
               </Section>
 
@@ -162,32 +86,9 @@ export function SliderPage() {
                 title="Sizes"
                 titleLevel="h3"
                 id="sizes"
-                code={`<Slider.Root size="sm" defaultValue={30}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>
-
-<Slider.Root size="md" defaultValue={50}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>
-
-<Slider.Root size="lg" defaultValue={70}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>`}
+                code={`<Slider size="sm" defaultValue={30} aria-label="Small slider" />
+<Slider size="md" defaultValue={50} aria-label="Medium slider" />
+<Slider size="lg" defaultValue={70} aria-label="Large slider" />`}
                 codeLanguage="tsx"
               >
                 <div className="space-y-8 max-w-md">
@@ -195,42 +96,21 @@ export function SliderPage() {
                     <Typography level="body-sm" className="mb-2">
                       Small
                     </Typography>
-                    <Slider.Root size="sm" defaultValue={30}>
-                      <Slider.Control>
-                        <Slider.Track>
-                          <Slider.Indicator />
-                        </Slider.Track>
-                        <Slider.Thumb />
-                      </Slider.Control>
-                    </Slider.Root>
+                    <Slider size="sm" defaultValue={30} aria-label="Small slider" />
                   </div>
 
                   <div>
                     <Typography level="body-sm" className="mb-2">
                       Medium
                     </Typography>
-                    <Slider.Root size="md" defaultValue={50}>
-                      <Slider.Control>
-                        <Slider.Track>
-                          <Slider.Indicator />
-                        </Slider.Track>
-                        <Slider.Thumb />
-                      </Slider.Control>
-                    </Slider.Root>
+                    <Slider size="md" defaultValue={50} aria-label="Medium slider" />
                   </div>
 
                   <div>
                     <Typography level="body-sm" className="mb-2">
                       Large
                     </Typography>
-                    <Slider.Root size="lg" defaultValue={70}>
-                      <Slider.Control>
-                        <Slider.Track>
-                          <Slider.Indicator />
-                        </Slider.Track>
-                        <Slider.Thumb />
-                      </Slider.Control>
-                    </Slider.Root>
+                    <Slider size="lg" defaultValue={70} aria-label="Large slider" />
                   </div>
                 </div>
               </Section>
@@ -239,75 +119,14 @@ export function SliderPage() {
                 title="Range Slider"
                 titleLevel="h3"
                 id="range-slider"
-                code={`<Slider.Root defaultValue={[25, 75]}>
-  <div className="flex justify-between mb-2">
-    <Typography level="body-sm">Price Range</Typography>
-    <Slider.Value />
-  </div>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>`}
+                code={`<Slider defaultValue={[25, 75]} aria-label="Price range" />`}
                 codeLanguage="tsx"
               >
                 <Typography level="body-sm" className="mb-4">
-                  Use an array value with multiple Thumb components for range selection.
+                  Use an array value for range selection. The component automatically renders the correct number of thumbs.
                 </Typography>
                 <div className="max-w-md">
-                  <Slider.Root defaultValue={[25, 75]}>
-                    <div className="flex justify-between mb-2">
-                      <Typography level="body-sm">Price Range</Typography>
-                      <Slider.Value />
-                    </div>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
-                </div>
-              </Section>
-
-              <Section
-                title="With Value Display"
-                titleLevel="h3"
-                id="with-value-display"
-                code={`<Slider.Root defaultValue={75}>
-  <div className="flex justify-between mb-2">
-    <Typography level="body-sm">Volume</Typography>
-    <Slider.Value />
-  </div>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>`}
-                codeLanguage="tsx"
-              >
-                <Typography level="body-sm" className="mb-4">
-                  The Value component displays the current slider value.
-                </Typography>
-                <div className="max-w-md">
-                  <Slider.Root defaultValue={75}>
-                    <div className="flex justify-between mb-2">
-                      <Typography level="body-sm">Volume</Typography>
-                      <Slider.Value />
-                    </div>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
+                  <Slider defaultValue={[25, 75]} aria-label="Price range" />
                 </div>
               </Section>
 
@@ -315,18 +134,7 @@ export function SliderPage() {
                 title="Custom Range"
                 titleLevel="h3"
                 id="custom-range"
-                code={`<Slider.Root min={0} max={1000} step={50} defaultValue={500}>
-  <div className="flex justify-between mb-2">
-    <Typography level="body-sm">Budget</Typography>
-    <Slider.Value />
-  </div>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>`}
+                code={`<Slider min={0} max={1000} step={50} defaultValue={500} aria-label="Budget" />`}
                 codeLanguage="tsx"
               >
                 <Typography level="body-sm" className="mb-4">
@@ -335,18 +143,7 @@ export function SliderPage() {
                   <code className="font-mono text-sm">step</code> props.
                 </Typography>
                 <div className="max-w-md">
-                  <Slider.Root min={0} max={1000} step={50} defaultValue={500}>
-                    <div className="flex justify-between mb-2">
-                      <Typography level="body-sm">Budget</Typography>
-                      <Slider.Value />
-                    </div>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
+                  <Slider min={0} max={1000} step={50} defaultValue={500} aria-label="Budget" />
                 </div>
               </Section>
 
@@ -354,25 +151,11 @@ export function SliderPage() {
                 title="Disabled"
                 titleLevel="h3"
                 id="disabled"
-                code={`<Slider.Root disabled defaultValue={50}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
-</Slider.Root>`}
+                code={`<Slider disabled defaultValue={50} aria-label="Volume" />`}
                 codeLanguage="tsx"
               >
                 <div className="max-w-md">
-                  <Slider.Root disabled defaultValue={50}>
-                    <Slider.Control>
-                      <Slider.Track>
-                        <Slider.Indicator />
-                      </Slider.Track>
-                      <Slider.Thumb />
-                    </Slider.Control>
-                  </Slider.Root>
+                  <Slider disabled defaultValue={50} aria-label="Volume" />
                 </div>
               </Section>
             </div>

@@ -4,16 +4,10 @@ export {
   selectPopupVariants,
   selectItemVariants,
   selectGroupLabelVariants,
-  type SelectRootProps,
-  type SelectTriggerProps,
-  type SelectValueProps,
-  type SelectIconProps,
-  type SelectPortalProps,
-  type SelectPositionerProps,
-  type SelectPopupProps,
-  type SelectItemProps,
-  type SelectItemIndicatorProps,
-  type SelectItemTextProps,
-  type SelectGroupProps,
-  type SelectGroupLabelProps,
+} from './Select';
+export type {
+  SelectProps,
+  SelectOption,
+  SelectOptionItem,
+  SelectOptionGroup,
 } from './Select';

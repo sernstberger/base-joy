@@ -49,20 +49,13 @@ const scrollbarThumbVariants = cva(
   }
 );
 
-interface ScrollAreaContextValue {
-  size: Size;
-  color: ColorScale;
-}
-
-const ScrollAreaContext = React.createContext<ScrollAreaContextValue>({
-  size: 'md',
-  color: 'neutral',
-});
-
-const useScrollAreaContext = () => React.useContext(ScrollAreaContext);
-
-export interface ScrollAreaRootProps
+export interface ScrollAreaProps
   extends Omit<React.ComponentProps<typeof BaseScrollArea.Root>, 'className'> {
+  /**
+   * Which scrollbars to display.
+   * @default 'vertical'
+   */
+  scrollbars?: 'vertical' | 'horizontal' | 'both' | 'none';
   /**
    * The color scheme for scrollbar thumbs.
    * @default 'neutral'
@@ -73,118 +66,81 @@ export interface ScrollAreaRootProps
    * @default 'md'
    */
   size?: Size;
+  /**
+   * Additional class name for the root element.
+   */
   className?: string;
+  /**
+   * Additional class name for the viewport element.
+   */
+  viewportClassName?: string;
+  /**
+   * The content to scroll.
+   */
+  children?: React.ReactNode;
 }
 
-const Root = React.forwardRef<HTMLDivElement, ScrollAreaRootProps>(
-  ({ className, color = 'neutral', size: sizeProp, ...props }, ref) => {
-    // Resolve size from context (inherits from parent Sheet)
+export const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
+  (
+    {
+      className,
+      viewportClassName,
+      scrollbars = 'vertical',
+      color = 'neutral',
+      size: sizeProp,
+      children,
+      ...props
+    },
+    ref
+  ) => {
     const size = useResolvedSizeProps(sizeProp, 'md');
 
+    const showVertical = scrollbars === 'vertical' || scrollbars === 'both';
+    const showHorizontal = scrollbars === 'horizontal' || scrollbars === 'both';
+    const showCorner = scrollbars === 'both';
+
     return (
-      <ScrollAreaContext.Provider value={{ size, color }}>
-        <BaseScrollArea.Root
-          ref={ref}
-          className={cn('overflow-hidden', className)}
-          {...props}
-        />
-      </ScrollAreaContext.Provider>
-    );
-  }
-);
-
-Root.displayName = 'ScrollArea.Root';
-
-export interface ScrollAreaViewportProps
-  extends Omit<React.ComponentProps<typeof BaseScrollArea.Viewport>, 'className'> {
-  className?: string;
-}
-
-const Viewport = React.forwardRef<HTMLDivElement, ScrollAreaViewportProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <BaseScrollArea.Viewport
+      <BaseScrollArea.Root
         ref={ref}
-        className={cn('h-full w-full rounded-[inherit]', className)}
+        className={cn('overflow-hidden', className)}
         {...props}
-      />
+      >
+        <BaseScrollArea.Viewport
+          className={cn('h-full w-full rounded-[inherit]', viewportClassName)}
+        >
+          {children}
+        </BaseScrollArea.Viewport>
+
+        {showVertical && (
+          <BaseScrollArea.Scrollbar
+            orientation="vertical"
+            className={scrollbarVariants({ orientation: 'vertical', size })}
+          >
+            <BaseScrollArea.Thumb
+              className={scrollbarThumbVariants({ color })}
+            />
+          </BaseScrollArea.Scrollbar>
+        )}
+
+        {showHorizontal && (
+          <BaseScrollArea.Scrollbar
+            orientation="horizontal"
+            className={scrollbarVariants({ orientation: 'horizontal', size })}
+          >
+            <BaseScrollArea.Thumb
+              className={scrollbarThumbVariants({ color })}
+            />
+          </BaseScrollArea.Scrollbar>
+        )}
+
+        {showCorner && (
+          <BaseScrollArea.Corner className="bg-neutral-100" />
+        )}
+      </BaseScrollArea.Root>
     );
   }
 );
 
-Viewport.displayName = 'ScrollArea.Viewport';
+ScrollArea.displayName = 'ScrollArea';
 
-export interface ScrollAreaScrollbarProps
-  extends Omit<React.ComponentProps<typeof BaseScrollArea.Scrollbar>, 'className'> {
-  className?: string;
-}
-
-const Scrollbar = React.forwardRef<HTMLDivElement, ScrollAreaScrollbarProps>(
-  ({ className, ...props }, ref) => {
-    const { size } = useScrollAreaContext();
-    const orientation = props.orientation || 'vertical';
-
-    return (
-      <BaseScrollArea.Scrollbar
-        ref={ref}
-        className={cn(scrollbarVariants({ orientation, size }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Scrollbar.displayName = 'ScrollArea.Scrollbar';
-
-export interface ScrollAreaThumbProps
-  extends Omit<React.ComponentProps<typeof BaseScrollArea.Thumb>, 'className'> {
-  className?: string;
-}
-
-const Thumb = React.forwardRef<HTMLDivElement, ScrollAreaThumbProps>(
-  ({ className, ...props }, ref) => {
-    const { color } = useScrollAreaContext();
-
-    return (
-      <BaseScrollArea.Thumb
-        ref={ref}
-        className={cn(scrollbarThumbVariants({ color }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Thumb.displayName = 'ScrollArea.Thumb';
-
-export interface ScrollAreaCornerProps
-  extends Omit<React.ComponentProps<typeof BaseScrollArea.Corner>, 'className'> {
-  className?: string;
-}
-
-const Corner = React.forwardRef<HTMLDivElement, ScrollAreaCornerProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <BaseScrollArea.Corner
-        ref={ref}
-        className={cn('bg-neutral-100', className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Corner.displayName = 'ScrollArea.Corner';
-
-export const ScrollArea = {
-  Root,
-  Viewport,
-  Scrollbar,
-  Thumb,
-  Corner,
-};
-
-export {
-  scrollbarVariants,
-  scrollbarThumbVariants,
-};
+export { scrollbarVariants, scrollbarThumbVariants };

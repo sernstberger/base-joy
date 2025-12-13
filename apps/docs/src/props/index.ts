@@ -36,6 +36,7 @@ import TextareaProps from './Textarea.json';
 import ToastProps from './Toast.json';
 import ToggleProps from './Toggle.json';
 import ToggleGroupProps from './ToggleGroup.json';
+import TooltipProps from './Tooltip.json';
 import TypographyProps from './Typography.json';
 
 export const componentProps = {
@@ -74,6 +75,7 @@ export const componentProps = {
   Toast: ToastProps,
   Toggle: ToggleProps,
   ToggleGroup: ToggleGroupProps,
+  Tooltip: TooltipProps,
   Typography: TypographyProps,
 } as const;
 

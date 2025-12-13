@@ -1,0 +1,75 @@
+[
+  {
+    "name": "children",
+    "type": "React.ReactNode",
+    "description": "The element that triggers the tooltip.",
+    "required": true
+  },
+  {
+    "name": "content",
+    "type": "React.ReactNode",
+    "description": "The tooltip content to display.",
+    "required": true
+  },
+  {
+    "name": "color",
+    "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "defaultValue": "neutral",
+    "description": "The color scheme of the tooltip.",
+    "required": false
+  },
+  {
+    "name": "disabled",
+    "type": "boolean",
+    "defaultValue": "false",
+    "description": "Whether the tooltip is disabled.",
+    "required": false
+  },
+  {
+    "name": "popupClassName",
+    "type": "string",
+    "description": "Additional class name for the popup element.",
+    "required": false
+  },
+  {
+    "name": "showArrow",
+    "type": "boolean",
+    "defaultValue": "true",
+    "description": "Whether to show an arrow pointing to the trigger.",
+    "required": false
+  },
+  {
+    "name": "side",
+    "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+    "defaultValue": "top",
+    "description": "The side of the trigger where the tooltip appears.",
+    "required": false
+  },
+  {
+    "name": "sideOffset",
+    "type": "number",
+    "defaultValue": "8",
+    "description": "The offset in pixels from the trigger.",
+    "required": false
+  },
+  {
+    "name": "size",
+    "type": "TooltipSize",
+    "defaultValue": "sm",
+    "description": "The size of the tooltip.",
+    "required": false
+  },
+  {
+    "name": "triggerClassName",
+    "type": "string",
+    "description": "Additional class name for the trigger element.",
+    "required": false
+  },
+  {
+    "name": "variant",
+    "type": "TooltipVariant",
+    "defaultValue": "solid",
+    "description": "The visual style of the tooltip.",
+    "required": false
+  }
+]

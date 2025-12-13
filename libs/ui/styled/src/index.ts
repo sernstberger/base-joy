@@ -60,6 +60,7 @@ export {
 } from './Table';
 export { Separator, separatorVariants, type SeparatorProps } from './Separator';
 export { Badge, badgeVariants, type BadgeProps } from './Badge';
+export { Chip, chipVariants, type ChipProps } from './Chip';
 export {
   Avatar,
   AvatarGroup,
@@ -142,7 +143,11 @@ export {
 export {
   CheckboxGroup,
   checkboxGroupVariants,
+  checkboxVariants as checkboxGroupCheckboxVariants,
+  checkboxIndicatorVariants as checkboxGroupIndicatorVariants,
+  checkboxLabelVariants,
   type CheckboxGroupProps,
+  type CheckboxOption,
 } from './CheckboxGroup';
 export {
   Radio,
@@ -154,14 +159,17 @@ export {
 export {
   RadioGroup,
   radioGroupVariants,
+  radioVariants,
+  radioIndicatorVariants as radioGroupIndicatorVariants,
+  labelVariants as radioLabelVariants,
   type RadioGroupProps,
+  type RadioOption,
 } from './RadioGroup';
 export {
   Switch,
   switchRootVariants,
   switchThumbVariants,
-  type SwitchRootProps,
-  type SwitchThumbProps,
+  type SwitchProps,
 } from './Switch';
 export {
   Toggle,
@@ -182,18 +190,10 @@ export {
   selectPopupVariants,
   selectItemVariants,
   selectGroupLabelVariants,
-  type SelectRootProps,
-  type SelectTriggerProps,
-  type SelectValueProps,
-  type SelectIconProps,
-  type SelectPortalProps,
-  type SelectPositionerProps,
-  type SelectPopupProps,
-  type SelectItemProps,
-  type SelectItemIndicatorProps,
-  type SelectItemTextProps,
-  type SelectGroupProps,
-  type SelectGroupLabelProps,
+  type SelectProps,
+  type SelectOption,
+  type SelectOptionItem,
+  type SelectOptionGroup,
 } from './Select';
 
 // Input components
@@ -204,12 +204,7 @@ export {
   sliderTrackVariants,
   sliderIndicatorVariants,
   sliderThumbVariants,
-  type SliderRootProps,
-  type SliderControlProps,
-  type SliderTrackProps,
-  type SliderIndicatorProps,
-  type SliderThumbProps,
-  type SliderValueProps,
+  type SliderProps,
 } from './Slider';
 export {
   NumberField,
@@ -249,18 +244,11 @@ export {
   autocompleteInputVariants,
   autocompletePopupVariants,
   autocompleteItemVariants,
-  type AutocompleteRootProps,
-  type AutocompleteInputProps,
-  type AutocompletePortalProps,
-  type AutocompletePositionerProps,
-  type AutocompletePopupProps,
-  type AutocompleteListProps,
-  type AutocompleteItemProps,
-  type AutocompleteItemIndicatorProps,
-  type AutocompleteItemTextProps,
-  type AutocompleteEmptyProps,
-  type AutocompleteGroupProps,
-  type AutocompleteGroupLabelProps,
+  autocompleteGroupLabelVariants,
+  type AutocompleteProps,
+  type AutocompleteOption,
+  type AutocompleteOptionItem,
+  type AutocompleteOptionGroup,
 } from './Autocomplete';
 
 // Item components
@@ -385,14 +373,10 @@ export {
 } from './Toast';
 export {
   Tooltip,
+  TooltipProvider,
   tooltipPopupVariants,
   tooltipArrowVariants,
-  type TooltipRootProps,
-  type TooltipTriggerProps,
-  type TooltipPortalProps,
-  type TooltipPositionerProps,
-  type TooltipPopupProps,
-  type TooltipArrowProps,
+  type TooltipProps,
   type TooltipProviderProps,
 } from './Tooltip';
 export {
@@ -550,11 +534,7 @@ export {
   ScrollArea,
   scrollbarVariants,
   scrollbarThumbVariants,
-  type ScrollAreaRootProps,
-  type ScrollAreaViewportProps,
-  type ScrollAreaScrollbarProps,
-  type ScrollAreaThumbProps,
-  type ScrollAreaCornerProps,
+  type ScrollAreaProps,
 } from './ScrollArea';
 
 // Toolbar components

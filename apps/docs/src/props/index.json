@@ -1,9 +1,34 @@
 {
   "Autocomplete": [
     {
+      "name": "options",
+      "type": "AutocompleteOption[]",
+      "description": "The options to display in the autocomplete.",
+      "required": true
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible label for the autocomplete input.",
+      "required": false
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "ID of the element that labels this autocomplete.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Additional class name for the input element.",
+      "required": false
+    },
+    {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
       "defaultValue": "neutral",
+      "description": "The color scheme of the autocomplete.",
       "required": false
     },
     {
@@ -15,8 +40,14 @@
     {
       "name": "disabled",
       "type": "boolean",
-      "defaultValue": "false",
-      "description": "Whether the component should ignore user interaction.",
+      "description": "Whether the autocomplete is disabled.",
+      "required": false
+    },
+    {
+      "name": "emptyMessage",
+      "type": "string",
+      "defaultValue": "No results found",
+      "description": "Message to display when no options match the input.",
       "required": false
     },
     {
@@ -29,6 +60,18 @@
       "name": "name",
       "type": "string",
       "description": "Identifies the field when a form is submitted.",
+      "required": false
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "Placeholder text when no value is entered.",
+      "required": false
+    },
+    {
+      "name": "renderOption",
+      "type": "((option: AutocompleteOptionItem) => ReactNode)",
+      "description": "Custom render function for option items.",
       "required": false
     },
     {
@@ -48,6 +91,7 @@
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
       "defaultValue": "outlined",
+      "description": "The visual style of the autocomplete input.",
       "required": false
     }
   ],
@@ -343,8 +387,34 @@
   ],
   "CheckboxGroup": [
     {
+      "name": "options",
+      "type": "CheckboxOption[]",
+      "description": "The options to display as checkboxes.",
+      "required": true
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible label for the checkbox group.",
+      "required": false
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "ID of the element that labels this checkbox group.",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
+      "description": "Additional CSS classes for the root element.",
+      "required": false
+    },
+    {
+      "name": "color",
+      "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+      "defaultValue": "primary",
+      "description": "The color scheme of the checkboxes.",
       "required": false
     },
     {
@@ -374,6 +444,7 @@
       "name": "orientation",
       "type": "\"horizontal\" | \"vertical\"",
       "defaultValue": "vertical",
+      "description": "The layout orientation of the checkbox group.",
       "required": false
     },
     {
@@ -387,6 +458,13 @@
       "name": "value",
       "type": "string[]",
       "description": "Names of the checkboxes in the group that should be ticked.\n\nTo render an uncontrolled checkbox group, use the `defaultValue` prop instead.",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
+      "defaultValue": "outlined",
+      "description": "The visual style of the checkboxes.",
       "required": false
     }
   ],
@@ -1191,8 +1269,34 @@
   ],
   "RadioGroup": [
     {
+      "name": "options",
+      "type": "RadioOption[]",
+      "description": "The options to display as radio buttons.",
+      "required": true
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible label for the radio group.",
+      "required": false
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "ID of the element that labels this radio group.",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
+      "description": "Additional CSS classes for the root element.",
+      "required": false
+    },
+    {
+      "name": "color",
+      "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+      "defaultValue": "primary",
+      "description": "The color scheme of the radio buttons.",
       "required": false
     },
     {
@@ -1228,6 +1332,7 @@
       "name": "orientation",
       "type": "\"horizontal\" | \"vertical\"",
       "defaultValue": "vertical",
+      "description": "The layout orientation of the radio group.",
       "required": false
     },
     {
@@ -1242,9 +1347,40 @@
       "type": "unknown",
       "description": "The controlled value of the radio item that should be currently selected.\n\nTo render an uncontrolled radio group, use the `defaultValue` prop instead.",
       "required": false
+    },
+    {
+      "name": "variant",
+      "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
+      "defaultValue": "outlined",
+      "description": "The visual style of the radio buttons.",
+      "required": false
     }
   ],
   "Select": [
+    {
+      "name": "options",
+      "type": "SelectOption[]",
+      "description": "The options to display in the select.",
+      "required": true
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible label for the select trigger.",
+      "required": false
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "ID of the element that labels this select.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Additional class name for the trigger element.",
+      "required": false
+    },
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
@@ -1261,8 +1397,7 @@
     {
       "name": "disabled",
       "type": "boolean",
-      "defaultValue": "false",
-      "description": "Whether the component should ignore user interaction.",
+      "description": "Whether the select is disabled.",
       "required": false
     },
     {
@@ -1275,6 +1410,19 @@
       "name": "name",
       "type": "string",
       "description": "Identifies the field when a form is submitted.",
+      "required": false
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "defaultValue": "Select...",
+      "description": "Placeholder text when no value is selected.",
+      "required": false
+    },
+    {
+      "name": "renderOption",
+      "type": "((option: SelectOptionItem) => ReactNode)",
+      "description": "Custom render function for option items.",
       "required": false
     },
     {
@@ -1353,14 +1501,28 @@
   ],
   "Slider": [
     {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible label for the slider.",
+      "required": false
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "ID of element that labels the slider.",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
+      "description": "Additional class name for the root element.",
       "required": false
     },
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
       "defaultValue": "primary",
+      "description": "The color scheme of the slider.",
       "required": false
     },
     {
@@ -1403,6 +1565,13 @@
       "name": "value",
       "type": "number | readonly number[]",
       "description": "The value of the slider.\nFor ranged sliders, provide an array with two values.",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
+      "defaultValue": "solid",
+      "description": "The variant style of the slider.\nNote: Currently only affects color inheritance from ColorContext.",
       "required": false
     }
   ],
@@ -1494,6 +1663,18 @@
   ],
   "Switch": [
     {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible label for the switch.",
+      "required": false
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "ID of the element that labels this switch.",
+      "required": false
+    },
+    {
       "name": "checked",
       "type": "boolean",
       "description": "Whether the switch is currently active.\n\nTo render an uncontrolled switch, use the `defaultChecked` prop instead.",
@@ -1502,11 +1683,14 @@
     {
       "name": "className",
       "type": "string",
+      "description": "Additional CSS classes for the root element.",
       "required": false
     },
     {
       "name": "color",
       "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+      "defaultValue": "primary",
+      "description": "The color scheme of the switch.",
       "required": false
     },
     {
@@ -1758,6 +1942,81 @@
       "name": "variant",
       "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
       "defaultValue": "outlined",
+      "required": false
+    }
+  ],
+  "Tooltip": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "description": "The element that triggers the tooltip.",
+      "required": true
+    },
+    {
+      "name": "content",
+      "type": "React.ReactNode",
+      "description": "The tooltip content to display.",
+      "required": true
+    },
+    {
+      "name": "color",
+      "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+      "defaultValue": "neutral",
+      "description": "The color scheme of the tooltip.",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the tooltip is disabled.",
+      "required": false
+    },
+    {
+      "name": "popupClassName",
+      "type": "string",
+      "description": "Additional class name for the popup element.",
+      "required": false
+    },
+    {
+      "name": "showArrow",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "Whether to show an arrow pointing to the trigger.",
+      "required": false
+    },
+    {
+      "name": "side",
+      "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+      "defaultValue": "top",
+      "description": "The side of the trigger where the tooltip appears.",
+      "required": false
+    },
+    {
+      "name": "sideOffset",
+      "type": "number",
+      "defaultValue": "8",
+      "description": "The offset in pixels from the trigger.",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "TooltipSize",
+      "defaultValue": "sm",
+      "description": "The size of the tooltip.",
+      "required": false
+    },
+    {
+      "name": "triggerClassName",
+      "type": "string",
+      "description": "Additional class name for the trigger element.",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "TooltipVariant",
+      "defaultValue": "solid",
+      "description": "The visual style of the tooltip.",
       "required": false
     }
   ],

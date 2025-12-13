@@ -50,6 +50,7 @@ const COMPONENTS = [
   'Toast',
   'Toggle',
   'ToggleGroup',
+  'Tooltip',
   'Typography',
 ];
 
@@ -58,6 +59,8 @@ const TYPE_MAPPINGS: Record<string, string> = {
   Variant: '"solid" | "soft" | "outlined" | "plain"',
   Size: '"sm" | "md" | "lg"',
   ColorScale: '"primary" | "neutral" | "success" | "warning" | "danger"',
+  TooltipVariant: '"solid" | "soft"',
+  TooltipSize: '"sm" | "md" | "lg"',
 };
 
 // Props we want to include even if inherited

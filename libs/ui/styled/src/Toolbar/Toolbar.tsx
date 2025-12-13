@@ -349,6 +349,11 @@ export interface ToolbarGroupProps
    * The size of the group.
    */
   size?: Size;
+  /**
+   * The orientation of the group layout.
+   * @default 'horizontal'
+   */
+  orientation?: 'horizontal' | 'vertical';
   className?: string;
 }
 
@@ -385,7 +390,6 @@ const Group = React.forwardRef<HTMLDivElement, ToolbarGroupProps>(
       <ToolbarContext.Provider value={contextValue}>
         <BaseGroup
           ref={ref}
-          orientation={orientation}
           className={cn(toolbarGroupVariants({ orientation, size }), className)}
           {...props}
         >

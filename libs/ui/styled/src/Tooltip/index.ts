@@ -1,12 +1,8 @@
 export {
   Tooltip,
+  TooltipProvider,
   tooltipPopupVariants,
   tooltipArrowVariants,
-  type TooltipRootProps,
-  type TooltipTriggerProps,
-  type TooltipPortalProps,
-  type TooltipPositionerProps,
-  type TooltipPopupProps,
-  type TooltipArrowProps,
+  type TooltipProps,
   type TooltipProviderProps,
 } from './Tooltip';

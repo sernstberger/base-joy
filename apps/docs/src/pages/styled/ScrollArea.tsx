@@ -11,23 +11,25 @@ import type { ColorScale, Size } from '@base-joy/tokens';
 import type { PropMeta } from '../../components/PropsTable';
 
 const controls: PlaygroundControl[] = [
+  {
+    name: 'scrollbars',
+    type: 'select',
+    options: ['vertical', 'horizontal', 'both', 'none'],
+    defaultValue: 'vertical',
+  },
   { name: 'color', type: 'color', defaultValue: 'neutral' },
   { name: 'size', type: 'size', defaultValue: 'md' },
 ];
 
 const codeTemplate = (props: Record<string, string>) => {
-  return `<ScrollArea.Root color="${props.color}" size="${props.size}" className="h-96 w-full">
-  <ScrollArea.Viewport>
-    {/* Your scrollable content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-  <ScrollArea.Scrollbar orientation="horizontal">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-  <ScrollArea.Corner />
-</ScrollArea.Root>`;
+  return `<ScrollArea
+  scrollbars="${props.scrollbars}"
+  color="${props.color}"
+  size="${props.size}"
+  className="h-72"
+>
+  {/* Your scrollable content */}
+</ScrollArea>`;
 };
 
 const sections = [
@@ -41,75 +43,41 @@ const sections = [
   { id: 'api', title: 'API Reference' },
 ];
 
-// Manual props for ScrollArea components
-const scrollAreaRootProps: PropMeta[] = [
+const scrollAreaProps: PropMeta[] = [
+  {
+    name: 'scrollbars',
+    type: "'vertical' | 'horizontal' | 'both' | 'none'",
+    required: false,
+    defaultValue: "'vertical'",
+    description: 'Which scrollbars to display.',
+  },
   {
     name: 'color',
     type: "'primary' | 'neutral' | 'success' | 'warning' | 'danger'",
     required: false,
-    default: "'neutral'",
+    defaultValue: "'neutral'",
     description: 'The color scheme for scrollbar thumbs.',
   },
   {
     name: 'size',
     type: "'sm' | 'md' | 'lg'",
     required: false,
-    default: "'md'",
+    defaultValue: "'md'",
     description: 'The size of the scrollbars.',
   },
   {
     name: 'className',
     type: 'string',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'Additional CSS classes to apply to the root element.',
   },
-];
-
-const scrollAreaViewportProps: PropMeta[] = [
   {
-    name: 'className',
+    name: 'viewportClassName',
     type: 'string',
     required: false,
-    default: '-',
-    description: 'Additional CSS classes to apply to the viewport.',
-  },
-];
-
-const scrollAreaScrollbarProps: PropMeta[] = [
-  {
-    name: 'orientation',
-    type: "'horizontal' | 'vertical'",
-    required: false,
-    default: "'vertical'",
-    description: 'The orientation of the scrollbar.',
-  },
-  {
-    name: 'className',
-    type: 'string',
-    required: false,
-    default: '-',
-    description: 'Additional CSS classes to apply to the scrollbar.',
-  },
-];
-
-const scrollAreaThumbProps: PropMeta[] = [
-  {
-    name: 'className',
-    type: 'string',
-    required: false,
-    default: '-',
-    description: 'Additional CSS classes to apply to the thumb.',
-  },
-];
-
-const scrollAreaCornerProps: PropMeta[] = [
-  {
-    name: 'className',
-    type: 'string',
-    required: false,
-    default: '-',
-    description: 'Additional CSS classes to apply to the corner.',
+    defaultValue: '-',
+    description: 'Additional CSS classes to apply to the viewport element.',
   },
 ];
 
@@ -126,33 +94,26 @@ export function ScrollAreaPage() {
           <Section title="Playground" id="playground">
             <Playground controls={controls} codeTemplate={codeTemplate}>
               {(props) => (
-                <ScrollArea.Root
+                <ScrollArea
+                  scrollbars={props.scrollbars as 'vertical' | 'horizontal' | 'both' | 'none'}
                   color={props.color as ColorScale}
                   size={props.size as Size}
-                  className="h-96 w-full rounded-lg border border-neutral-200"
+                  className="h-72 max-w-md rounded-lg border border-neutral-200"
+                  viewportClassName="p-4"
                 >
-                  <ScrollArea.Viewport className="p-4">
-                    <div className="space-y-4">
-                      {Array.from({ length: 20 }, (_, i) => (
-                        <Sheet key={i} variant="soft" color="neutral" className="p-4">
-                          <Typography level="body-md" weight="medium">
-                            Item {i + 1}
-                          </Typography>
-                          <Typography level="body-sm" className="text-neutral-600">
-                            This is a sample item in the scrollable area. Scroll to see more items.
-                          </Typography>
-                        </Sheet>
-                      ))}
-                    </div>
-                  </ScrollArea.Viewport>
-                  <ScrollArea.Scrollbar orientation="vertical">
-                    <ScrollArea.Thumb />
-                  </ScrollArea.Scrollbar>
-                  <ScrollArea.Scrollbar orientation="horizontal">
-                    <ScrollArea.Thumb />
-                  </ScrollArea.Scrollbar>
-                  <ScrollArea.Corner />
-                </ScrollArea.Root>
+                  <div className="space-y-4">
+                    {Array.from({ length: 20 }, (_, i) => (
+                      <Sheet key={i} variant="soft" color="neutral" className="p-4">
+                        <Typography level="body-md" weight="medium">
+                          Item {i + 1}
+                        </Typography>
+                        <Typography level="body-sm" className="text-neutral-600">
+                          This is a sample item in the scrollable area. Scroll to see more items.
+                        </Typography>
+                      </Sheet>
+                    ))}
+                  </div>
+                </ScrollArea>
               )}
             </Playground>
           </Section>
@@ -163,173 +124,111 @@ export function ScrollAreaPage() {
                 title="Vertical Scroll"
                 titleLevel="h3"
                 id="vertical-scroll"
-                code={`<ScrollArea.Root className="h-80 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    <div className="space-y-4">
-      {Array.from({ length: 15 }, (_, i) => (
-        <Sheet key={i} variant="soft" color="neutral" className="p-4">
-          <Typography level="body-md" weight="medium">
-            Item {i + 1}
-          </Typography>
-          <Typography level="body-sm" className="text-neutral-600">
-            Scrollable content
-          </Typography>
-        </Sheet>
-      ))}
-    </div>
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>`}
+                code={`<ScrollArea scrollbars="vertical" className="h-80 w-full rounded-lg border border-neutral-200">
+  <div className="space-y-4 p-4">
+    {items.map((item) => (
+      <Sheet key={item.id} variant="soft" color="neutral" className="p-4">
+        {item.content}
+      </Sheet>
+    ))}
+  </div>
+</ScrollArea>`}
                 codeLanguage="tsx"
               >
-                <ScrollArea.Root className="h-80 w-full rounded-lg border border-neutral-200">
-                  <ScrollArea.Viewport className="p-4">
-                    <div className="space-y-4">
-                      {Array.from({ length: 15 }, (_, i) => (
-                        <Sheet key={i} variant="soft" color="neutral" className="p-4">
-                          <Typography level="body-md" weight="medium">
-                            Item {i + 1}
-                          </Typography>
-                          <Typography level="body-sm" className="text-neutral-600">
-                            Scrollable content
-                          </Typography>
-                        </Sheet>
-                      ))}
-                    </div>
-                  </ScrollArea.Viewport>
-                  <ScrollArea.Scrollbar orientation="vertical">
-                    <ScrollArea.Thumb />
-                  </ScrollArea.Scrollbar>
-                </ScrollArea.Root>
+                <ScrollArea scrollbars="vertical" className="h-80 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                  <div className="space-y-4">
+                    {Array.from({ length: 15 }, (_, i) => (
+                      <Sheet key={i} variant="soft" color="neutral" className="p-4">
+                        <Typography level="body-md" weight="medium">
+                          Item {i + 1}
+                        </Typography>
+                        <Typography level="body-sm" className="text-neutral-600">
+                          Scrollable content
+                        </Typography>
+                      </Sheet>
+                    ))}
+                  </div>
+                </ScrollArea>
               </Section>
 
               <Section
                 title="Horizontal Scroll"
                 titleLevel="h3"
                 id="horizontal-scroll"
-                code={`<ScrollArea.Root className="w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    <div className="flex gap-4" style={{ width: '2000px' }}>
-      {Array.from({ length: 10 }, (_, i) => (
-        <Sheet key={i} variant="soft" color="primary" className="p-4 shrink-0" style={{ width: '180px' }}>
-          <Typography level="body-md" weight="medium">
-            Card {i + 1}
-          </Typography>
-        </Sheet>
-      ))}
-    </div>
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="horizontal">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>`}
+                code={`<ScrollArea scrollbars="horizontal" className="w-full rounded-lg border border-neutral-200">
+  <div className="flex gap-4 p-4" style={{ width: '2000px' }}>
+    {items.map((item) => (
+      <Sheet key={item.id} variant="soft" color="primary" className="p-4 shrink-0 w-44">
+        {item.content}
+      </Sheet>
+    ))}
+  </div>
+</ScrollArea>`}
                 codeLanguage="tsx"
               >
-                <ScrollArea.Root className="w-full rounded-lg border border-neutral-200">
-                  <ScrollArea.Viewport className="p-4">
-                    <div className="flex gap-4" style={{ width: '2000px' }}>
-                      {Array.from({ length: 10 }, (_, i) => (
-                        <Sheet key={i} variant="soft" color="primary" className="p-4 shrink-0" style={{ width: '180px' }}>
-                          <Typography level="body-md" weight="medium">
-                            Card {i + 1}
-                          </Typography>
-                        </Sheet>
-                      ))}
-                    </div>
-                  </ScrollArea.Viewport>
-                  <ScrollArea.Scrollbar orientation="horizontal">
-                    <ScrollArea.Thumb />
-                  </ScrollArea.Scrollbar>
-                </ScrollArea.Root>
+                <ScrollArea scrollbars="horizontal" className="w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                  <div className="flex gap-4" style={{ width: '2000px' }}>
+                    {Array.from({ length: 10 }, (_, i) => (
+                      <Sheet key={i} variant="soft" color="primary" className="p-4 shrink-0" style={{ width: '180px' }}>
+                        <Typography level="body-md" weight="medium">
+                          Card {i + 1}
+                        </Typography>
+                      </Sheet>
+                    ))}
+                  </div>
+                </ScrollArea>
               </Section>
 
               <Section
                 title="Both Directions"
                 titleLevel="h3"
                 id="both-directions"
-                code={`<ScrollArea.Root className="h-96 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    <div style={{ width: '1200px', minHeight: '800px' }}>
-      <div className="grid grid-cols-4 gap-4">
-        {Array.from({ length: 24 }, (_, i) => (
-          <Sheet key={i} variant="soft" color="success" className="p-4">
-            <Typography level="body-md" weight="medium">
-              Card {i + 1}
-            </Typography>
-          </Sheet>
-        ))}
-      </div>
+                code={`<ScrollArea scrollbars="both" className="h-96 w-full rounded-lg border border-neutral-200">
+  <div style={{ width: '1200px', minHeight: '800px' }} className="p-4">
+    <div className="grid grid-cols-4 gap-4">
+      {items.map((item) => (
+        <Sheet key={item.id} variant="soft" color="success" className="p-4">
+          {item.content}
+        </Sheet>
+      ))}
     </div>
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-  <ScrollArea.Scrollbar orientation="horizontal">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-  <ScrollArea.Corner />
-</ScrollArea.Root>`}
+  </div>
+</ScrollArea>`}
                 codeLanguage="tsx"
               >
                 <Typography level="body-sm" className="mb-4">
-                  Use both vertical and horizontal scrollbars with a Corner component to fill the space between them.
+                  Use both vertical and horizontal scrollbars for content that overflows in both directions.
                 </Typography>
-                <ScrollArea.Root className="h-96 w-full rounded-lg border border-neutral-200">
-                  <ScrollArea.Viewport className="p-4">
-                    <div style={{ width: '1200px', minHeight: '800px' }}>
-                      <div className="grid grid-cols-4 gap-4">
-                        {Array.from({ length: 24 }, (_, i) => (
-                          <Sheet key={i} variant="soft" color="success" className="p-4">
-                            <Typography level="body-md" weight="medium">
-                              Card {i + 1}
-                            </Typography>
-                          </Sheet>
-                        ))}
-                      </div>
+                <ScrollArea scrollbars="both" className="h-96 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                  <div style={{ width: '1200px', minHeight: '800px' }}>
+                    <div className="grid grid-cols-4 gap-4">
+                      {Array.from({ length: 24 }, (_, i) => (
+                        <Sheet key={i} variant="soft" color="success" className="p-4">
+                          <Typography level="body-md" weight="medium">
+                            Card {i + 1}
+                          </Typography>
+                        </Sheet>
+                      ))}
                     </div>
-                  </ScrollArea.Viewport>
-                  <ScrollArea.Scrollbar orientation="vertical">
-                    <ScrollArea.Thumb />
-                  </ScrollArea.Scrollbar>
-                  <ScrollArea.Scrollbar orientation="horizontal">
-                    <ScrollArea.Thumb />
-                  </ScrollArea.Scrollbar>
-                  <ScrollArea.Corner />
-                </ScrollArea.Root>
+                  </div>
+                </ScrollArea>
               </Section>
 
               <Section
                 title="Colors"
                 titleLevel="h3"
                 id="colors"
-                code={`<ScrollArea.Root color="primary" className="h-64 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    {/* content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>
+                code={`<ScrollArea color="primary" className="h-64 w-full">
+  {/* content */}
+</ScrollArea>
 
-<ScrollArea.Root color="success" className="h-64 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    {/* content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>
+<ScrollArea color="success" className="h-64 w-full">
+  {/* content */}
+</ScrollArea>
 
-<ScrollArea.Root color="danger" className="h-64 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    {/* content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>`}
+<ScrollArea color="danger" className="h-64 w-full">
+  {/* content */}
+</ScrollArea>`}
                 codeLanguage="tsx"
               >
                 <Typography level="body-sm" className="mb-4">
@@ -340,60 +239,45 @@ export function ScrollAreaPage() {
                     <Typography level="body-sm" className="mb-2">
                       Primary
                     </Typography>
-                    <ScrollArea.Root color="primary" className="h-64 w-full rounded-lg border border-neutral-200">
-                      <ScrollArea.Viewport className="p-4">
-                        <div className="space-y-3">
-                          {Array.from({ length: 12 }, (_, i) => (
-                            <Sheet key={i} variant="soft" color="primary" className="p-3">
-                              <Typography level="body-sm">Item {i + 1}</Typography>
-                            </Sheet>
-                          ))}
-                        </div>
-                      </ScrollArea.Viewport>
-                      <ScrollArea.Scrollbar orientation="vertical">
-                        <ScrollArea.Thumb />
-                      </ScrollArea.Scrollbar>
-                    </ScrollArea.Root>
+                    <ScrollArea color="primary" className="h-64 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                      <div className="space-y-3">
+                        {Array.from({ length: 12 }, (_, i) => (
+                          <Sheet key={i} variant="soft" color="primary" className="p-3">
+                            <Typography level="body-sm">Item {i + 1}</Typography>
+                          </Sheet>
+                        ))}
+                      </div>
+                    </ScrollArea>
                   </div>
 
                   <div>
                     <Typography level="body-sm" className="mb-2">
                       Success
                     </Typography>
-                    <ScrollArea.Root color="success" className="h-64 w-full rounded-lg border border-neutral-200">
-                      <ScrollArea.Viewport className="p-4">
-                        <div className="space-y-3">
-                          {Array.from({ length: 12 }, (_, i) => (
-                            <Sheet key={i} variant="soft" color="success" className="p-3">
-                              <Typography level="body-sm">Item {i + 1}</Typography>
-                            </Sheet>
-                          ))}
-                        </div>
-                      </ScrollArea.Viewport>
-                      <ScrollArea.Scrollbar orientation="vertical">
-                        <ScrollArea.Thumb />
-                      </ScrollArea.Scrollbar>
-                    </ScrollArea.Root>
+                    <ScrollArea color="success" className="h-64 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                      <div className="space-y-3">
+                        {Array.from({ length: 12 }, (_, i) => (
+                          <Sheet key={i} variant="soft" color="success" className="p-3">
+                            <Typography level="body-sm">Item {i + 1}</Typography>
+                          </Sheet>
+                        ))}
+                      </div>
+                    </ScrollArea>
                   </div>
 
                   <div>
                     <Typography level="body-sm" className="mb-2">
                       Danger
                     </Typography>
-                    <ScrollArea.Root color="danger" className="h-64 w-full rounded-lg border border-neutral-200">
-                      <ScrollArea.Viewport className="p-4">
-                        <div className="space-y-3">
-                          {Array.from({ length: 12 }, (_, i) => (
-                            <Sheet key={i} variant="soft" color="danger" className="p-3">
-                              <Typography level="body-sm">Item {i + 1}</Typography>
-                            </Sheet>
-                          ))}
-                        </div>
-                      </ScrollArea.Viewport>
-                      <ScrollArea.Scrollbar orientation="vertical">
-                        <ScrollArea.Thumb />
-                      </ScrollArea.Scrollbar>
-                    </ScrollArea.Root>
+                    <ScrollArea color="danger" className="h-64 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                      <div className="space-y-3">
+                        {Array.from({ length: 12 }, (_, i) => (
+                          <Sheet key={i} variant="soft" color="danger" className="p-3">
+                            <Typography level="body-sm">Item {i + 1}</Typography>
+                          </Sheet>
+                        ))}
+                      </div>
+                    </ScrollArea>
                   </div>
                 </div>
               </Section>
@@ -402,32 +286,17 @@ export function ScrollAreaPage() {
                 title="Sizes"
                 titleLevel="h3"
                 id="sizes"
-                code={`<ScrollArea.Root size="sm" className="h-64 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    {/* content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>
+                code={`<ScrollArea size="sm" className="h-64 w-full">
+  {/* content */}
+</ScrollArea>
 
-<ScrollArea.Root size="md" className="h-64 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    {/* content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>
+<ScrollArea size="md" className="h-64 w-full">
+  {/* content */}
+</ScrollArea>
 
-<ScrollArea.Root size="lg" className="h-64 w-full rounded-lg border border-neutral-200">
-  <ScrollArea.Viewport className="p-4">
-    {/* content */}
-  </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar orientation="vertical">
-    <ScrollArea.Thumb />
-  </ScrollArea.Scrollbar>
-</ScrollArea.Root>`}
+<ScrollArea size="lg" className="h-64 w-full">
+  {/* content */}
+</ScrollArea>`}
                 codeLanguage="tsx"
               >
                 <Typography level="body-sm" className="mb-4">
@@ -438,60 +307,45 @@ export function ScrollAreaPage() {
                     <Typography level="body-sm" className="mb-2">
                       Small
                     </Typography>
-                    <ScrollArea.Root size="sm" className="h-64 w-full rounded-lg border border-neutral-200">
-                      <ScrollArea.Viewport className="p-4">
-                        <div className="space-y-3">
-                          {Array.from({ length: 12 }, (_, i) => (
-                            <Sheet key={i} variant="soft" color="neutral" className="p-3">
-                              <Typography level="body-sm">Item {i + 1}</Typography>
-                            </Sheet>
-                          ))}
-                        </div>
-                      </ScrollArea.Viewport>
-                      <ScrollArea.Scrollbar orientation="vertical">
-                        <ScrollArea.Thumb />
-                      </ScrollArea.Scrollbar>
-                    </ScrollArea.Root>
+                    <ScrollArea size="sm" className="h-64 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                      <div className="space-y-3">
+                        {Array.from({ length: 12 }, (_, i) => (
+                          <Sheet key={i} variant="soft" color="neutral" className="p-3">
+                            <Typography level="body-sm">Item {i + 1}</Typography>
+                          </Sheet>
+                        ))}
+                      </div>
+                    </ScrollArea>
                   </div>
 
                   <div>
                     <Typography level="body-sm" className="mb-2">
                       Medium
                     </Typography>
-                    <ScrollArea.Root size="md" className="h-64 w-full rounded-lg border border-neutral-200">
-                      <ScrollArea.Viewport className="p-4">
-                        <div className="space-y-3">
-                          {Array.from({ length: 12 }, (_, i) => (
-                            <Sheet key={i} variant="soft" color="neutral" className="p-3">
-                              <Typography level="body-sm">Item {i + 1}</Typography>
-                            </Sheet>
-                          ))}
-                        </div>
-                      </ScrollArea.Viewport>
-                      <ScrollArea.Scrollbar orientation="vertical">
-                        <ScrollArea.Thumb />
-                      </ScrollArea.Scrollbar>
-                    </ScrollArea.Root>
+                    <ScrollArea size="md" className="h-64 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                      <div className="space-y-3">
+                        {Array.from({ length: 12 }, (_, i) => (
+                          <Sheet key={i} variant="soft" color="neutral" className="p-3">
+                            <Typography level="body-sm">Item {i + 1}</Typography>
+                          </Sheet>
+                        ))}
+                      </div>
+                    </ScrollArea>
                   </div>
 
                   <div>
                     <Typography level="body-sm" className="mb-2">
                       Large
                     </Typography>
-                    <ScrollArea.Root size="lg" className="h-64 w-full rounded-lg border border-neutral-200">
-                      <ScrollArea.Viewport className="p-4">
-                        <div className="space-y-3">
-                          {Array.from({ length: 12 }, (_, i) => (
-                            <Sheet key={i} variant="soft" color="neutral" className="p-3">
-                              <Typography level="body-sm">Item {i + 1}</Typography>
-                            </Sheet>
-                          ))}
-                        </div>
-                      </ScrollArea.Viewport>
-                      <ScrollArea.Scrollbar orientation="vertical">
-                        <ScrollArea.Thumb />
-                      </ScrollArea.Scrollbar>
-                    </ScrollArea.Root>
+                    <ScrollArea size="lg" className="h-64 w-full rounded-lg border border-neutral-200" viewportClassName="p-4">
+                      <div className="space-y-3">
+                        {Array.from({ length: 12 }, (_, i) => (
+                          <Sheet key={i} variant="soft" color="neutral" className="p-3">
+                            <Typography level="body-sm">Item {i + 1}</Typography>
+                          </Sheet>
+                        ))}
+                      </div>
+                    </ScrollArea>
                   </div>
                 </div>
               </Section>
@@ -499,42 +353,7 @@ export function ScrollAreaPage() {
           </Section>
 
           <Section title="API Reference" id="api">
-            <div className="space-y-8">
-              <div>
-                <Typography level="h3" className="mb-4">
-                  ScrollArea.Root
-                </Typography>
-                <PropsTable props={scrollAreaRootProps} />
-              </div>
-
-              <div>
-                <Typography level="h3" className="mb-4">
-                  ScrollArea.Viewport
-                </Typography>
-                <PropsTable props={scrollAreaViewportProps} />
-              </div>
-
-              <div>
-                <Typography level="h3" className="mb-4">
-                  ScrollArea.Scrollbar
-                </Typography>
-                <PropsTable props={scrollAreaScrollbarProps} />
-              </div>
-
-              <div>
-                <Typography level="h3" className="mb-4">
-                  ScrollArea.Thumb
-                </Typography>
-                <PropsTable props={scrollAreaThumbProps} />
-              </div>
-
-              <div>
-                <Typography level="h3" className="mb-4">
-                  ScrollArea.Corner
-                </Typography>
-                <PropsTable props={scrollAreaCornerProps} />
-              </div>
-            </div>
+            <PropsTable props={scrollAreaProps} />
           </Section>
         </div>
         <TableOfContents sections={sections} />

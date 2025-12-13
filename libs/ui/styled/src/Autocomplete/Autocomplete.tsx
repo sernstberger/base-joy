@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
+import { useResolvedColorProps } from '../ColorContext';
 import { useResolvedSizeProps } from '../SizeContext';
 
 const autocompleteInputVariants = cva(
@@ -65,277 +66,235 @@ const autocompleteItemVariants = cva(
   }
 );
 
-interface AutocompleteContextValue {
-  size: Size;
-  color: ColorScale;
-  variant: Variant;
+const autocompleteGroupLabelVariants = cva(
+  'px-2 py-1.5 font-semibold text-neutral-500',
+  {
+    variants: {
+      size: {
+        sm: 'text-xs',
+        md: 'text-sm',
+        lg: 'text-base',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+    },
+  }
+);
+
+export interface AutocompleteOptionItem {
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
-const AutocompleteContext = React.createContext<AutocompleteContextValue>({
-  size: 'md',
-  color: 'neutral',
-  variant: 'outlined',
-});
+export interface AutocompleteOptionGroup {
+  group: string;
+  options: AutocompleteOptionItem[];
+}
 
-const useAutocompleteContext = () => React.useContext(AutocompleteContext);
+export type AutocompleteOption = AutocompleteOptionItem | AutocompleteOptionGroup;
 
-export interface AutocompleteRootProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Root>, 'className'> {
+function isOptionGroup(option: AutocompleteOption): option is AutocompleteOptionGroup {
+  return 'group' in option;
+}
+
+export interface AutocompleteProps
+  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Root>, 'className' | 'children'> {
+  /**
+   * The options to display in the autocomplete.
+   */
+  options: AutocompleteOption[];
+  /**
+   * Placeholder text when no value is entered.
+   */
+  placeholder?: string;
+  /**
+   * The visual style of the autocomplete input.
+   * @default 'outlined'
+   */
   variant?: Variant;
+  /**
+   * The color scheme of the autocomplete.
+   * @default 'neutral'
+   */
   color?: ColorScale;
   /**
    * The size of the autocomplete.
    * @default 'md'
    */
   size?: Size;
-}
-
-const Root = ({
-  variant = 'outlined',
-  color = 'neutral',
-  size: sizeProp,
-  ...props
-}: AutocompleteRootProps) => {
-  // Resolve size from context (inherits from parent Sheet)
-  const size = useResolvedSizeProps(sizeProp, 'md');
-
-  return (
-    <AutocompleteContext.Provider value={{ size, color, variant }}>
-      <BaseAutocomplete.Root {...props} />
-    </AutocompleteContext.Provider>
-  );
-};
-
-Root.displayName = 'Autocomplete.Root';
-
-export interface AutocompleteInputProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Input>, 'className'> {
+  /**
+   * Whether the autocomplete is disabled.
+   */
+  disabled?: boolean;
+  /**
+   * Additional class name for the input element.
+   */
   className?: string;
+  /**
+   * Custom render function for option items.
+   */
+  renderOption?: (option: AutocompleteOptionItem) => React.ReactNode;
+  /**
+   * Accessible label for the autocomplete input.
+   */
+  'aria-label'?: string;
+  /**
+   * ID of the element that labels this autocomplete.
+   */
+  'aria-labelledby'?: string;
+  /**
+   * Message to display when no options match the input.
+   * @default 'No results found'
+   */
+  emptyMessage?: string;
 }
 
-const Input = React.forwardRef<HTMLInputElement, AutocompleteInputProps>(
-  ({ className, disabled, ...props }, ref) => {
-    const { size, variant, color } = useAutocompleteContext();
-
-    return (
-      <div
-        className={cn(
-          'inline-flex items-center rounded-lg',
-          variant === 'outlined' && 'border',
-          variant === 'plain' && 'border-0',
-          sheetVariants({ variant, color, interactive: true, focusWithin: true })
-        )}
-      >
-        <BaseAutocomplete.Input
-          ref={ref}
-          disabled={disabled}
-          className={cn(autocompleteInputVariants({ size, disabled, variant }), className)}
-          {...props}
-        />
-      </div>
+export const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
+  (
+    {
+      options,
+      placeholder,
+      variant: variantProp,
+      color: colorProp,
+      size: sizeProp,
+      disabled,
+      className,
+      renderOption,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledby,
+      emptyMessage = 'No results found',
+      ...props
+    },
+    ref
+  ) => {
+    const { color, variant } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'neutral',
+      'outlined'
     );
-  }
-);
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
-Input.displayName = 'Autocomplete.Input';
+    const renderOptionContent = (option: AutocompleteOptionItem) => {
+      if (renderOption) {
+        return renderOption(option);
+      }
+      return option.label;
+    };
 
-export interface AutocompletePortalProps
-  extends React.ComponentProps<typeof BaseAutocomplete.Portal> {}
+    const renderOptions = (opts: AutocompleteOption[]) => {
+      return opts.map((option, index) => {
+        if (isOptionGroup(option)) {
+          return (
+            <BaseAutocomplete.Group key={`group-${option.group}-${index}`}>
+              <BaseAutocomplete.GroupLabel
+                className={autocompleteGroupLabelVariants({ size })}
+              >
+                {option.group}
+              </BaseAutocomplete.GroupLabel>
+              {option.options.map((item) => (
+                <BaseAutocomplete.Item
+                  key={item.value}
+                  value={item.value}
+                  disabled={item.disabled}
+                  className={autocompleteItemVariants({ size })}
+                >
+                  {renderOptionContent(item)}
+                  <span className="absolute right-2 h-4 w-4 data-[selected]:inline hidden">
+                    <svg
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-full w-full"
+                    >
+                      <path
+                        d="M10 3L4.5 8.5L2 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </BaseAutocomplete.Item>
+              ))}
+            </BaseAutocomplete.Group>
+          );
+        }
 
-const Portal = BaseAutocomplete.Portal;
-Portal.displayName = 'Autocomplete.Portal';
-
-export interface AutocompletePositionerProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Positioner>, 'className'> {
-  className?: string;
-}
-
-const Positioner = React.forwardRef<HTMLDivElement, AutocompletePositionerProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <BaseAutocomplete.Positioner
-        ref={ref}
-        className={cn('outline-none', className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Positioner.displayName = 'Autocomplete.Positioner';
-
-export interface AutocompletePopupProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Popup>, 'className'> {
-  className?: string;
-}
-
-const Popup = React.forwardRef<HTMLDivElement, AutocompletePopupProps>(
-  ({ className, ...props }, ref) => {
-    const { size } = useAutocompleteContext();
-
-    return (
-      <BaseAutocomplete.Popup
-        ref={ref}
-        className={cn(autocompletePopupVariants({ size }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Popup.displayName = 'Autocomplete.Popup';
-
-export interface AutocompleteListProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.List>, 'className'> {
-  className?: string;
-}
-
-const List = React.forwardRef<HTMLDivElement, AutocompleteListProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <BaseAutocomplete.List
-        ref={ref}
-        className={cn('max-h-[300px] overflow-auto', className)}
-        {...props}
-      />
-    );
-  }
-);
-
-List.displayName = 'Autocomplete.List';
-
-export interface AutocompleteItemProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Item>, 'className'> {
-  className?: string;
-}
-
-const Item = React.forwardRef<HTMLDivElement, AutocompleteItemProps>(
-  ({ className, ...props }, ref) => {
-    const { size } = useAutocompleteContext();
-
-    return (
-      <BaseAutocomplete.Item
-        ref={ref}
-        className={cn(autocompleteItemVariants({ size }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Item.displayName = 'Autocomplete.Item';
-
-export interface AutocompleteItemIndicatorProps {
-  children?: React.ReactNode;
-  className?: string;
-}
-
-const ItemIndicator = React.forwardRef<HTMLSpanElement, AutocompleteItemIndicatorProps>(
-  ({ className, children }, ref) => {
-    return (
-      <span ref={ref} className={cn('absolute right-2 h-4 w-4', className)}>
-        {children ?? (
-          <svg
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-full w-full"
+        return (
+          <BaseAutocomplete.Item
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+            className={autocompleteItemVariants({ size })}
           >
-            <path
-              d="M10 3L4.5 8.5L2 6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-      </span>
-    );
-  }
-);
+            {renderOptionContent(option)}
+            <span className="absolute right-2 h-4 w-4 data-[selected]:inline hidden">
+              <svg
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-full w-full"
+              >
+                <path
+                  d="M10 3L4.5 8.5L2 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          </BaseAutocomplete.Item>
+        );
+      });
+    };
 
-ItemIndicator.displayName = 'Autocomplete.ItemIndicator';
-
-export interface AutocompleteItemTextProps {
-  children?: React.ReactNode;
-  className?: string;
-}
-
-const ItemText = ({ className, children }: AutocompleteItemTextProps) => {
-  return <span className={cn(className)}>{children}</span>;
-};
-
-ItemText.displayName = 'Autocomplete.ItemText';
-
-export interface AutocompleteEmptyProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Empty>, 'className'> {
-  className?: string;
-}
-
-const Empty = React.forwardRef<HTMLDivElement, AutocompleteEmptyProps>(
-  ({ className, ...props }, ref) => {
     return (
-      <BaseAutocomplete.Empty
-        ref={ref}
-        className={cn('py-6 text-center text-sm text-neutral-500', className)}
-        {...props}
-      />
+      <BaseAutocomplete.Root disabled={disabled} {...props}>
+        <div
+          className={cn(
+            'inline-flex items-center rounded-lg',
+            variant === 'outlined' && 'border',
+            variant === 'plain' && 'border-0',
+            sheetVariants({ variant, color, interactive: true, focusWithin: true })
+          )}
+        >
+          <BaseAutocomplete.Input
+            ref={ref}
+            disabled={disabled}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledby}
+            placeholder={placeholder}
+            className={cn(autocompleteInputVariants({ size, disabled, variant }), className)}
+          />
+        </div>
+
+        <BaseAutocomplete.Portal>
+          <BaseAutocomplete.Positioner className="outline-none">
+            <BaseAutocomplete.Popup className={autocompletePopupVariants({ size })}>
+              <BaseAutocomplete.List className="max-h-[300px] overflow-auto">
+                {renderOptions(options)}
+              </BaseAutocomplete.List>
+              <BaseAutocomplete.Empty className="py-6 text-center text-sm text-neutral-500">
+                {emptyMessage}
+              </BaseAutocomplete.Empty>
+            </BaseAutocomplete.Popup>
+          </BaseAutocomplete.Positioner>
+        </BaseAutocomplete.Portal>
+      </BaseAutocomplete.Root>
     );
   }
 );
 
-Empty.displayName = 'Autocomplete.Empty';
-
-export interface AutocompleteGroupProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.Group>, 'className'> {
-  className?: string;
-}
-
-const Group = React.forwardRef<HTMLDivElement, AutocompleteGroupProps>(
-  ({ className, ...props }, ref) => {
-    return <BaseAutocomplete.Group ref={ref} className={cn(className)} {...props} />;
-  }
-);
-
-Group.displayName = 'Autocomplete.Group';
-
-export interface AutocompleteGroupLabelProps
-  extends Omit<React.ComponentProps<typeof BaseAutocomplete.GroupLabel>, 'className'> {
-  className?: string;
-}
-
-const GroupLabel = React.forwardRef<HTMLDivElement, AutocompleteGroupLabelProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <BaseAutocomplete.GroupLabel
-        ref={ref}
-        className={cn('px-2 py-1.5 text-sm font-semibold text-neutral-500', className)}
-        {...props}
-      />
-    );
-  }
-);
-
-GroupLabel.displayName = 'Autocomplete.GroupLabel';
-
-export const Autocomplete = {
-  Root,
-  Input,
-  Portal,
-  Positioner,
-  Popup,
-  List,
-  Item,
-  ItemIndicator,
-  ItemText,
-  Empty,
-  Group,
-  GroupLabel,
-};
+Autocomplete.displayName = 'Autocomplete';
 
 export {
   autocompleteInputVariants,
   autocompletePopupVariants,
   autocompleteItemVariants,
+  autocompleteGroupLabelVariants,
 };

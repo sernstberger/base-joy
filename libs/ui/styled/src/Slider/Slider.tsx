@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Slider as BaseSlider } from '@base-ui/react/slider';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
-import type { Size, ColorScale } from '@base-joy/tokens';
+import type { Size, ColorScale, Variant } from '@base-joy/tokens';
 import { useResolvedSizeProps } from '../SizeContext';
+import { useResolvedColorProps } from '../ColorContext';
 
 const sliderRootVariants = cva('relative flex touch-none select-none', {
   variants: {
@@ -95,171 +96,101 @@ const sliderThumbVariants = cva(
   }
 );
 
-interface SliderContextValue {
-  size: Size;
-  color: ColorScale;
-  orientation: 'horizontal' | 'vertical';
-}
-
-const SliderContext = React.createContext<SliderContextValue>({
-  size: 'md',
-  color: 'primary',
-  orientation: 'horizontal',
-});
-
-const useSliderContext = () => React.useContext(SliderContext);
-
-export interface SliderRootProps
-  extends Omit<React.ComponentProps<typeof BaseSlider.Root>, 'className'> {
+export interface SliderProps
+  extends Omit<
+    React.ComponentProps<typeof BaseSlider.Root>,
+    'className' | 'children'
+  > {
+  /**
+   * The color scheme of the slider.
+   * @default 'primary'
+   */
   color?: ColorScale;
+  /**
+   * The variant style of the slider.
+   * Note: Currently only affects color inheritance from ColorContext.
+   * @default 'solid'
+   */
+  variant?: Variant;
   /**
    * The size of the slider.
    * @default 'md'
    */
   size?: Size;
+  /**
+   * Additional class name for the root element.
+   */
   className?: string;
+  /**
+   * Accessible label for the slider.
+   */
+  'aria-label'?: string;
+  /**
+   * ID of element that labels the slider.
+   */
+  'aria-labelledby'?: string;
 }
 
-const Root = React.forwardRef<HTMLDivElement, SliderRootProps>(
+export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
   (
     {
       className,
-      color = 'primary',
+      color: colorProp,
+      variant: variantProp,
       size: sizeProp,
       orientation = 'horizontal',
+      disabled,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
       ...props
     },
     ref
   ) => {
-    // Resolve size from context (inherits from parent Sheet)
     const size = useResolvedSizeProps(sizeProp, 'md');
-
-    return (
-      <SliderContext.Provider value={{ size, color, orientation }}>
-        <BaseSlider.Root
-          ref={ref}
-          orientation={orientation}
-          className={cn(sliderRootVariants({ orientation }), className)}
-          {...props}
-        />
-      </SliderContext.Provider>
+    const { color } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'primary',
+      'solid'
     );
-  }
-);
 
-Root.displayName = 'Slider.Root';
-
-export interface SliderControlProps
-  extends Omit<React.ComponentProps<typeof BaseSlider.Control>, 'className'> {
-  className?: string;
-}
-
-const Control = React.forwardRef<HTMLDivElement, SliderControlProps>(
-  ({ className, ...props }, ref) => {
-    const { orientation } = useSliderContext();
+    // Determine number of thumbs from defaultValue or value
+    const value = props.value ?? props.defaultValue;
+    const thumbCount = Array.isArray(value) ? value.length : 1;
 
     return (
-      <BaseSlider.Control
+      <BaseSlider.Root
         ref={ref}
-        className={cn(sliderControlVariants({ orientation }), className)}
+        orientation={orientation}
+        disabled={disabled}
+        className={cn(sliderRootVariants({ orientation }), className)}
         {...props}
-      />
+      >
+        <BaseSlider.Control
+          className={sliderControlVariants({ orientation })}
+        >
+          <BaseSlider.Track
+            className={sliderTrackVariants({ size, orientation })}
+          >
+            <BaseSlider.Indicator
+              className={sliderIndicatorVariants({ color, orientation })}
+            />
+          </BaseSlider.Track>
+          {Array.from({ length: thumbCount }).map((_, index) => (
+            <BaseSlider.Thumb
+              key={index}
+              className={sliderThumbVariants({ size, color, disabled })}
+              aria-label={ariaLabel}
+              aria-labelledby={ariaLabelledBy}
+            />
+          ))}
+        </BaseSlider.Control>
+      </BaseSlider.Root>
     );
   }
 );
 
-Control.displayName = 'Slider.Control';
-
-export interface SliderTrackProps
-  extends Omit<React.ComponentProps<typeof BaseSlider.Track>, 'className'> {
-  className?: string;
-}
-
-const Track = React.forwardRef<HTMLSpanElement, SliderTrackProps>(
-  ({ className, ...props }, ref) => {
-    const { size, orientation } = useSliderContext();
-
-    return (
-      <BaseSlider.Track
-        ref={ref}
-        className={cn(sliderTrackVariants({ size, orientation }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Track.displayName = 'Slider.Track';
-
-export interface SliderIndicatorProps
-  extends Omit<React.ComponentProps<typeof BaseSlider.Indicator>, 'className'> {
-  className?: string;
-}
-
-const Indicator = React.forwardRef<HTMLDivElement, SliderIndicatorProps>(
-  ({ className, ...props }, ref) => {
-    const { color, orientation } = useSliderContext();
-
-    return (
-      <BaseSlider.Indicator
-        ref={ref}
-        className={cn(sliderIndicatorVariants({ color, orientation }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Indicator.displayName = 'Slider.Indicator';
-
-export interface SliderThumbProps
-  extends Omit<React.ComponentProps<typeof BaseSlider.Thumb>, 'className'> {
-  className?: string;
-}
-
-const Thumb = React.forwardRef<HTMLDivElement, SliderThumbProps>(
-  ({ className, ...props }, ref) => {
-    const { size, color } = useSliderContext();
-
-    return (
-      <BaseSlider.Thumb
-        ref={ref}
-        className={cn(sliderThumbVariants({ size, color }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Thumb.displayName = 'Slider.Thumb';
-
-export interface SliderValueProps
-  extends Omit<React.ComponentProps<typeof BaseSlider.Value>, 'className'> {
-  className?: string;
-}
-
-const Value = React.forwardRef<HTMLOutputElement, SliderValueProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <BaseSlider.Value
-        ref={ref}
-        className={cn('text-sm text-neutral-600', className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Value.displayName = 'Slider.Value';
-
-export const Slider = {
-  Root,
-  Control,
-  Track,
-  Indicator,
-  Thumb,
-  Value,
-};
+Slider.displayName = 'Slider';
 
 export {
   sliderRootVariants,

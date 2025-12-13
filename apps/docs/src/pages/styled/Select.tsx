@@ -1,4 +1,5 @@
-import { Select } from '@base-joy/ui-styled';
+import { Select, Typography } from '@base-joy/ui-styled';
+import type { SelectOption } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
@@ -7,8 +8,31 @@ import {
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { TableOfContents } from '../../components/TableOfContents';
-import { componentProps } from '../../props';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
+import type { PropMeta } from '../../components/PropsTable';
+
+const fruitOptions: SelectOption[] = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'cherry', label: 'Cherry' },
+];
+
+const groupedOptions: SelectOption[] = [
+  {
+    group: 'Fruits',
+    options: [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ],
+  },
+  {
+    group: 'Vegetables',
+    options: [
+      { value: 'carrot', label: 'Carrot' },
+      { value: 'broccoli', label: 'Broccoli' },
+    ],
+  },
+];
 
 const selectControls: PlaygroundControl[] = [
   { name: 'variant', type: 'variant', defaultValue: 'outlined' },
@@ -17,30 +41,17 @@ const selectControls: PlaygroundControl[] = [
 ];
 
 const selectCodeTemplate = (props: Record<string, string>) =>
-  `<Select.Root variant="${props.variant}" color="${props.color}" size="${props.size}">
-  <Select.Trigger>
-    <Select.Value placeholder="Select a fruit..." />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="apple">
-          <Select.ItemText>Apple</Select.ItemText>
-          <Select.ItemIndicator />
-        </Select.Item>
-        <Select.Item value="banana">
-          <Select.ItemText>Banana</Select.ItemText>
-          <Select.ItemIndicator />
-        </Select.Item>
-        <Select.Item value="cherry">
-          <Select.ItemText>Cherry</Select.ItemText>
-          <Select.ItemIndicator />
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>`;
+  `<Select
+  variant="${props.variant}"
+  color="${props.color}"
+  size="${props.size}"
+  placeholder="Select a fruit..."
+  options={[
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'cherry', label: 'Cherry' },
+  ]}
+/>`;
 
 const sections = [
   { id: 'playground', title: 'Playground' },
@@ -50,7 +61,88 @@ const sections = [
   { id: 'sizes', title: 'Sizes', level: 3 },
   { id: 'groups', title: 'With Groups', level: 3 },
   { id: 'disabled-items', title: 'Disabled Items', level: 3 },
+  { id: 'custom-rendering', title: 'Custom Rendering', level: 3 },
   { id: 'api', title: 'API Reference' },
+];
+
+const selectProps: PropMeta[] = [
+  {
+    name: 'options',
+    type: 'SelectOption[]',
+    required: true,
+    defaultValue: '-',
+    description: 'The options to display. Each option has value and label, or can be a group with nested options.',
+  },
+  {
+    name: 'placeholder',
+    type: 'string',
+    required: false,
+    defaultValue: "'Select...'",
+    description: 'Placeholder text when no value is selected.',
+  },
+  {
+    name: 'value',
+    type: 'string',
+    required: false,
+    defaultValue: '-',
+    description: 'The controlled value of the select.',
+  },
+  {
+    name: 'defaultValue',
+    type: 'string',
+    required: false,
+    defaultValue: '-',
+    description: 'The default value for uncontrolled usage.',
+  },
+  {
+    name: 'onValueChange',
+    type: '(value: string) => void',
+    required: false,
+    defaultValue: '-',
+    description: 'Callback fired when the value changes.',
+  },
+  {
+    name: 'variant',
+    type: "'solid' | 'soft' | 'outlined' | 'plain'",
+    required: false,
+    defaultValue: "'outlined'",
+    description: 'The visual style of the select trigger.',
+  },
+  {
+    name: 'color',
+    type: "'primary' | 'neutral' | 'success' | 'warning' | 'danger'",
+    required: false,
+    defaultValue: "'neutral'",
+    description: 'The color scheme of the select.',
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    required: false,
+    defaultValue: "'md'",
+    description: 'The size of the select.',
+  },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    required: false,
+    defaultValue: 'false',
+    description: 'Whether the select is disabled.',
+  },
+  {
+    name: 'renderOption',
+    type: '(option: SelectOptionItem) => ReactNode',
+    required: false,
+    defaultValue: '-',
+    description: 'Custom render function for option items.',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    required: false,
+    defaultValue: '-',
+    description: 'Additional CSS classes for the trigger element.',
+  },
 ];
 
 export function SelectPage() {
@@ -69,34 +161,13 @@ export function SelectPage() {
               codeTemplate={selectCodeTemplate}
             >
               {(props) => (
-                <Select.Root
+                <Select
                   variant={props.variant as Variant}
                   color={props.color as ColorScale}
                   size={props.size as Size}
-                >
-                  <Select.Trigger>
-                    <Select.Value placeholder="Select a fruit..." />
-                    <Select.Icon />
-                  </Select.Trigger>
-                  <Select.Portal>
-                    <Select.Positioner>
-                      <Select.Popup>
-                        <Select.Item value="apple">
-                          <Select.ItemText>Apple</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
-                        <Select.Item value="banana">
-                          <Select.ItemText>Banana</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
-                        <Select.Item value="cherry">
-                          <Select.ItemText>Cherry</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
-                      </Select.Popup>
-                    </Select.Positioner>
-                  </Select.Portal>
-                </Select.Root>
+                  placeholder="Select a fruit..."
+                  options={fruitOptions}
+                />
               )}
             </Playground>
           </Section>
@@ -107,135 +178,17 @@ export function SelectPage() {
                 title="Variants"
                 titleLevel="h3"
                 id="variants"
-                code={`<Select.Root variant="solid" color="primary">
-  <Select.Trigger>
-    <Select.Value placeholder="Solid" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root variant="soft" color="primary">
-  <Select.Trigger>
-    <Select.Value placeholder="Soft" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root variant="outlined" color="primary">
-  <Select.Trigger>
-    <Select.Value placeholder="Outlined" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root variant="plain" color="primary">
-  <Select.Trigger>
-    <Select.Value placeholder="Plain" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>`}
+                code={`<Select variant="solid" color="primary" options={options} placeholder="Solid" />
+<Select variant="soft" color="primary" options={options} placeholder="Soft" />
+<Select variant="outlined" color="primary" options={options} placeholder="Outlined" />
+<Select variant="plain" color="primary" options={options} placeholder="Plain" />`}
                 codeLanguage="tsx"
               >
                 <div className="space-y-4">
-                  <Select.Root variant="solid" color="primary">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Solid" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root variant="soft" color="primary">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Soft" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root variant="outlined" color="primary">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Outlined" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root variant="plain" color="primary">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Plain" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
+                  <Select variant="solid" color="primary" options={fruitOptions} placeholder="Solid" />
+                  <Select variant="soft" color="primary" options={fruitOptions} placeholder="Soft" />
+                  <Select variant="outlined" color="primary" options={fruitOptions} placeholder="Outlined" />
+                  <Select variant="plain" color="primary" options={fruitOptions} placeholder="Plain" />
                 </div>
               </Section>
 
@@ -243,167 +196,19 @@ export function SelectPage() {
                 title="Colors"
                 titleLevel="h3"
                 id="colors"
-                code={`<Select.Root variant="soft" color="primary">
-  <Select.Trigger>
-    <Select.Value placeholder="Primary" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root variant="soft" color="neutral">
-  <Select.Trigger>
-    <Select.Value placeholder="Neutral" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root variant="soft" color="success">
-  <Select.Trigger>
-    <Select.Value placeholder="Success" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root variant="soft" color="warning">
-  <Select.Trigger>
-    <Select.Value placeholder="Warning" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root variant="soft" color="danger">
-  <Select.Trigger>
-    <Select.Value placeholder="Danger" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>`}
+                code={`<Select variant="soft" color="primary" options={options} placeholder="Primary" />
+<Select variant="soft" color="neutral" options={options} placeholder="Neutral" />
+<Select variant="soft" color="success" options={options} placeholder="Success" />
+<Select variant="soft" color="warning" options={options} placeholder="Warning" />
+<Select variant="soft" color="danger" options={options} placeholder="Danger" />`}
                 codeLanguage="tsx"
               >
                 <div className="space-y-4">
-                  <Select.Root variant="soft" color="primary">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Primary" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root variant="soft" color="neutral">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Neutral" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root variant="soft" color="success">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Success" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root variant="soft" color="warning">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Warning" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root variant="soft" color="danger">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Danger" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
+                  <Select variant="soft" color="primary" options={fruitOptions} placeholder="Primary" />
+                  <Select variant="soft" color="neutral" options={fruitOptions} placeholder="Neutral" />
+                  <Select variant="soft" color="success" options={fruitOptions} placeholder="Success" />
+                  <Select variant="soft" color="warning" options={fruitOptions} placeholder="Warning" />
+                  <Select variant="soft" color="danger" options={fruitOptions} placeholder="Danger" />
                 </div>
               </Section>
 
@@ -411,121 +216,15 @@ export function SelectPage() {
                 title="Sizes"
                 titleLevel="h3"
                 id="sizes"
-                code={`<Select.Root size="sm">
-  <Select.Trigger>
-    <Select.Value placeholder="Small select" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-        <Select.Item value="b">
-          <Select.ItemText>Option B</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root size="md">
-  <Select.Trigger>
-    <Select.Value placeholder="Medium select" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-        <Select.Item value="b">
-          <Select.ItemText>Option B</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>
-
-<Select.Root size="lg">
-  <Select.Trigger>
-    <Select.Value placeholder="Large select" />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="a">
-          <Select.ItemText>Option A</Select.ItemText>
-        </Select.Item>
-        <Select.Item value="b">
-          <Select.ItemText>Option B</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>`}
+                code={`<Select size="sm" options={options} placeholder="Small select" />
+<Select size="md" options={options} placeholder="Medium select" />
+<Select size="lg" options={options} placeholder="Large select" />`}
                 codeLanguage="tsx"
               >
                 <div className="space-y-4">
-                  <Select.Root size="sm">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Small select" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                          <Select.Item value="b">
-                            <Select.ItemText>Option B</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root size="md">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Medium select" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                          <Select.Item value="b">
-                            <Select.ItemText>Option B</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
-
-                  <Select.Root size="lg">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Large select" />
-                      <Select.Icon />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner>
-                        <Select.Popup>
-                          <Select.Item value="a">
-                            <Select.ItemText>Option A</Select.ItemText>
-                          </Select.Item>
-                          <Select.Item value="b">
-                            <Select.ItemText>Option B</Select.ItemText>
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
+                  <Select size="sm" options={fruitOptions} placeholder="Small select" />
+                  <Select size="md" options={fruitOptions} placeholder="Medium select" />
+                  <Select size="lg" options={fruitOptions} placeholder="Large select" />
                 </div>
               </Section>
 
@@ -533,124 +232,109 @@ export function SelectPage() {
                 title="With Groups"
                 titleLevel="h3"
                 id="groups"
-                code={`<Select.Root>
-  <Select.Trigger>
-    <Select.Value placeholder="Select a food..." />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Group>
-          <Select.GroupLabel>Fruits</Select.GroupLabel>
-          <Select.Item value="apple">
-            <Select.ItemText>Apple</Select.ItemText>
-          </Select.Item>
-          <Select.Item value="banana">
-            <Select.ItemText>Banana</Select.ItemText>
-          </Select.Item>
-        </Select.Group>
-        <Select.Group>
-          <Select.GroupLabel>Vegetables</Select.GroupLabel>
-          <Select.Item value="carrot">
-            <Select.ItemText>Carrot</Select.ItemText>
-          </Select.Item>
-          <Select.Item value="broccoli">
-            <Select.ItemText>Broccoli</Select.ItemText>
-          </Select.Item>
-        </Select.Group>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>`}
+                code={`<Select
+  placeholder="Select a food..."
+  options={[
+    {
+      group: 'Fruits',
+      options: [
+        { value: 'apple', label: 'Apple' },
+        { value: 'banana', label: 'Banana' },
+      ],
+    },
+    {
+      group: 'Vegetables',
+      options: [
+        { value: 'carrot', label: 'Carrot' },
+        { value: 'broccoli', label: 'Broccoli' },
+      ],
+    },
+  ]}
+/>`}
                 codeLanguage="tsx"
               >
-                <Select.Root>
-                  <Select.Trigger>
-                    <Select.Value placeholder="Select a food..." />
-                    <Select.Icon />
-                  </Select.Trigger>
-                  <Select.Portal>
-                    <Select.Positioner>
-                      <Select.Popup>
-                        <Select.Group>
-                          <Select.GroupLabel>Fruits</Select.GroupLabel>
-                          <Select.Item value="apple">
-                            <Select.ItemText>Apple</Select.ItemText>
-                          </Select.Item>
-                          <Select.Item value="banana">
-                            <Select.ItemText>Banana</Select.ItemText>
-                          </Select.Item>
-                        </Select.Group>
-                        <Select.Group>
-                          <Select.GroupLabel>Vegetables</Select.GroupLabel>
-                          <Select.Item value="carrot">
-                            <Select.ItemText>Carrot</Select.ItemText>
-                          </Select.Item>
-                          <Select.Item value="broccoli">
-                            <Select.ItemText>Broccoli</Select.ItemText>
-                          </Select.Item>
-                        </Select.Group>
-                      </Select.Popup>
-                    </Select.Positioner>
-                  </Select.Portal>
-                </Select.Root>
+                <Typography level="body-sm" className="mb-4">
+                  Use objects with a <code className="font-mono text-sm">group</code> property to create option groups.
+                </Typography>
+                <Select placeholder="Select a food..." options={groupedOptions} />
               </Section>
 
               <Section
                 title="Disabled Items"
                 titleLevel="h3"
                 id="disabled-items"
-                code={`<Select.Root>
-  <Select.Trigger>
-    <Select.Value placeholder="Select an option..." />
-    <Select.Icon />
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Positioner>
-      <Select.Popup>
-        <Select.Item value="available">
-          <Select.ItemText>Available</Select.ItemText>
-        </Select.Item>
-        <Select.Item value="unavailable" disabled>
-          <Select.ItemText>Unavailable</Select.ItemText>
-        </Select.Item>
-        <Select.Item value="coming-soon" disabled>
-          <Select.ItemText>Coming Soon</Select.ItemText>
-        </Select.Item>
-      </Select.Popup>
-    </Select.Positioner>
-  </Select.Portal>
-</Select.Root>`}
+                code={`<Select
+  placeholder="Select an option..."
+  options={[
+    { value: 'available', label: 'Available' },
+    { value: 'unavailable', label: 'Unavailable', disabled: true },
+    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
+  ]}
+/>`}
                 codeLanguage="tsx"
               >
-                <Select.Root>
-                  <Select.Trigger>
-                    <Select.Value placeholder="Select an option..." />
-                    <Select.Icon />
-                  </Select.Trigger>
-                  <Select.Portal>
-                    <Select.Positioner>
-                      <Select.Popup>
-                        <Select.Item value="available">
-                          <Select.ItemText>Available</Select.ItemText>
-                        </Select.Item>
-                        <Select.Item value="unavailable" disabled>
-                          <Select.ItemText>Unavailable</Select.ItemText>
-                        </Select.Item>
-                        <Select.Item value="coming-soon" disabled>
-                          <Select.ItemText>Coming Soon</Select.ItemText>
-                        </Select.Item>
-                      </Select.Popup>
-                    </Select.Positioner>
-                  </Select.Portal>
-                </Select.Root>
+                <Typography level="body-sm" className="mb-4">
+                  Add <code className="font-mono text-sm">disabled: true</code> to individual options.
+                </Typography>
+                <Select
+                  placeholder="Select an option..."
+                  options={[
+                    { value: 'available', label: 'Available' },
+                    { value: 'unavailable', label: 'Unavailable', disabled: true },
+                    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
+                  ]}
+                />
+              </Section>
+
+              <Section
+                title="Custom Rendering"
+                titleLevel="h3"
+                id="custom-rendering"
+                code={`<Select
+  placeholder="Select a status..."
+  options={[
+    { value: 'active', label: 'Active' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'inactive', label: 'Inactive' },
+  ]}
+  renderOption={(option) => (
+    <div className="flex items-center gap-2">
+      <span className={\`h-2 w-2 rounded-full \${
+        option.value === 'active' ? 'bg-success-500' :
+        option.value === 'pending' ? 'bg-warning-500' : 'bg-danger-500'
+      }\`} />
+      {option.label}
+    </div>
+  )}
+/>`}
+                codeLanguage="tsx"
+              >
+                <Typography level="body-sm" className="mb-4">
+                  Use the <code className="font-mono text-sm">renderOption</code> prop for custom item rendering.
+                </Typography>
+                <Select
+                  placeholder="Select a status..."
+                  options={[
+                    { value: 'active', label: 'Active' },
+                    { value: 'pending', label: 'Pending' },
+                    { value: 'inactive', label: 'Inactive' },
+                  ]}
+                  renderOption={(option) => (
+                    <div className="flex items-center gap-2">
+                      <span className={`h-2 w-2 rounded-full ${
+                        option.value === 'active' ? 'bg-success-500' :
+                        option.value === 'pending' ? 'bg-warning-500' : 'bg-danger-500'
+                      }`} />
+                      {option.label}
+                    </div>
+                  )}
+                />
               </Section>
             </div>
           </Section>
 
           <Section title="API Reference" id="api">
-            <PropsTable props={componentProps.Select} />
+            <PropsTable props={selectProps} />
           </Section>
         </div>
         <TableOfContents sections={sections} />

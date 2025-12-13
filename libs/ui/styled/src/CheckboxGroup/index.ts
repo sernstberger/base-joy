@@ -1,5 +1,8 @@
 export {
   CheckboxGroup,
   checkboxGroupVariants,
-  type CheckboxGroupProps,
+  checkboxVariants,
+  checkboxIndicatorVariants,
+  labelVariants as checkboxLabelVariants,
 } from './CheckboxGroup';
+export type { CheckboxGroupProps, CheckboxOption } from './CheckboxGroup';

@@ -75,22 +75,33 @@ const selectGroupLabelVariants = cva(
   }
 );
 
-interface SelectContextValue {
-  size: Size;
-  color: ColorScale;
-  variant: Variant;
+export interface SelectOptionItem {
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
-const SelectContext = React.createContext<SelectContextValue>({
-  size: 'md',
-  color: 'neutral',
-  variant: 'outlined',
-});
+export interface SelectOptionGroup {
+  group: string;
+  options: SelectOptionItem[];
+}
 
-const useSelectContext = () => React.useContext(SelectContext);
+export type SelectOption = SelectOptionItem | SelectOptionGroup;
 
-export interface SelectRootProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Root>, 'className'> {
+function isOptionGroup(option: SelectOption): option is SelectOptionGroup {
+  return 'group' in option;
+}
+
+export interface SelectProps
+  extends Omit<React.ComponentProps<typeof BaseSelect.Root>, 'className' | 'children'> {
+  /**
+   * The options to display in the select.
+   */
+  options: SelectOption[];
+  /**
+   * Placeholder text when no value is selected.
+   */
+  placeholder?: string;
   /**
    * The visual style of the select trigger.
    * @default 'outlined'
@@ -106,278 +117,187 @@ export interface SelectRootProps
    * @default 'md'
    */
   size?: Size;
-}
-
-const Root = ({ variant: variantProp, color: colorProp, size: sizeProp, ...props }: SelectRootProps) => {
-  // Resolve color and variant from context (inherits from parent Sheet)
-  const { color, variant } = useResolvedColorProps(
-    colorProp,
-    variantProp,
-    'neutral', // defaultColor
-    'outlined' // defaultVariant
-  );
-
-  // Resolve size from context (inherits from parent Sheet)
-  const size = useResolvedSizeProps(sizeProp, 'md');
-
-  return (
-    <SelectContext.Provider value={{ size, color, variant }}>
-      <BaseSelect.Root {...props} />
-    </SelectContext.Provider>
-  );
-};
-
-Root.displayName = 'Select.Root';
-
-export interface SelectTriggerProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Trigger>, 'className'> {
+  /**
+   * Whether the select is disabled.
+   */
+  disabled?: boolean;
+  /**
+   * Additional class name for the trigger element.
+   */
   className?: string;
+  /**
+   * Custom render function for option items.
+   */
+  renderOption?: (option: SelectOptionItem) => React.ReactNode;
+  /**
+   * Accessible label for the select trigger.
+   */
+  'aria-label'?: string;
+  /**
+   * ID of the element that labels this select.
+   */
+  'aria-labelledby'?: string;
 }
 
-const Trigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
-  ({ className, disabled, ...props }, ref) => {
-    const { size, variant, color } = useSelectContext();
-
-    return (
-      <BaseSelect.Trigger
-        ref={ref}
-        disabled={disabled}
-        className={cn(
-          'rounded-lg',
-          variant === 'outlined' && 'border',
-          sheetVariants({ variant, color, interactive: true }),
-          selectTriggerVariants({ size, disabled }),
-          className
-        )}
-        {...props}
-      />
+export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
+  (
+    {
+      options,
+      placeholder = 'Select...',
+      variant: variantProp,
+      color: colorProp,
+      size: sizeProp,
+      disabled,
+      className,
+      renderOption,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledby,
+      ...props
+    },
+    ref
+  ) => {
+    const { color, variant } = useResolvedColorProps(
+      colorProp,
+      variantProp,
+      'neutral',
+      'outlined'
     );
-  }
-);
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
-Trigger.displayName = 'Select.Trigger';
+    const renderOptionContent = (option: SelectOptionItem) => {
+      if (renderOption) {
+        return renderOption(option);
+      }
+      return option.label;
+    };
 
-export interface SelectValueProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Value>, 'className' | 'children'> {
-  className?: string;
-  placeholder?: string;
-  children?: React.ReactNode | ((value: unknown) => React.ReactNode);
-}
+    const renderOptions = (opts: SelectOption[]) => {
+      return opts.map((option, index) => {
+        if (isOptionGroup(option)) {
+          return (
+            <BaseSelect.Group key={`group-${option.group}-${index}`}>
+              <BaseSelect.GroupLabel
+                className={selectGroupLabelVariants({ size })}
+              >
+                {option.group}
+              </BaseSelect.GroupLabel>
+              {option.options.map((item) => (
+                <BaseSelect.Item
+                  key={item.value}
+                  value={item.value}
+                  disabled={item.disabled}
+                  className={selectItemVariants({ size })}
+                >
+                  <BaseSelect.ItemText>
+                    {renderOptionContent(item)}
+                  </BaseSelect.ItemText>
+                  <BaseSelect.ItemIndicator className="absolute right-2 h-4 w-4">
+                    <svg
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-full w-full"
+                    >
+                      <path
+                        d="M10 3L4.5 8.5L2 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </BaseSelect.ItemIndicator>
+                </BaseSelect.Item>
+              ))}
+            </BaseSelect.Group>
+          );
+        }
 
-const Value = React.forwardRef<HTMLSpanElement, SelectValueProps>(
-  ({ className, placeholder, children, ...props }, ref) => {
-    return (
-      <BaseSelect.Value
-        ref={ref}
-        className={cn('flex-1 text-left', className)}
-        {...props}
-      >
-        {children ?? ((value: unknown) => (value != null ? String(value) : <span className="text-neutral-400">{placeholder}</span>))}
-      </BaseSelect.Value>
-    );
-  }
-);
-
-Value.displayName = 'Select.Value';
-
-export interface SelectIconProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Icon>, 'className'> {
-  className?: string;
-}
-
-const Icon = React.forwardRef<HTMLSpanElement, SelectIconProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <BaseSelect.Icon
-        ref={ref}
-        className={cn('h-4 w-4 opacity-50', className)}
-        {...props}
-      >
-        {children ?? (
-          <svg
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-full w-full"
+        return (
+          <BaseSelect.Item
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+            className={selectItemVariants({ size })}
           >
-            <path
-              d="M3 4.5L6 7.5L9 4.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-      </BaseSelect.Icon>
-    );
-  }
-);
-
-Icon.displayName = 'Select.Icon';
-
-export interface SelectPortalProps
-  extends React.ComponentProps<typeof BaseSelect.Portal> {}
-
-const Portal = BaseSelect.Portal;
-Portal.displayName = 'Select.Portal';
-
-export interface SelectPositionerProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Positioner>, 'className'> {
-  className?: string;
-}
-
-const Positioner = React.forwardRef<HTMLDivElement, SelectPositionerProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <BaseSelect.Positioner
-        ref={ref}
-        className={cn('outline-none', className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Positioner.displayName = 'Select.Positioner';
-
-export interface SelectPopupProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Popup>, 'className'> {
-  className?: string;
-}
-
-const Popup = React.forwardRef<HTMLDivElement, SelectPopupProps>(
-  ({ className, ...props }, ref) => {
-    const { size } = useSelectContext();
+            <BaseSelect.ItemText>
+              {renderOptionContent(option)}
+            </BaseSelect.ItemText>
+            <BaseSelect.ItemIndicator className="absolute right-2 h-4 w-4">
+              <svg
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-full w-full"
+              >
+                <path
+                  d="M10 3L4.5 8.5L2 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </BaseSelect.ItemIndicator>
+          </BaseSelect.Item>
+        );
+      });
+    };
 
     return (
-      <BaseSelect.Popup
-        ref={ref}
-        className={cn(selectPopupVariants({ size }), className)}
-        {...props}
-      />
+      <BaseSelect.Root disabled={disabled} {...props}>
+        <BaseSelect.Trigger
+          ref={ref}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
+          className={cn(
+            'rounded-lg',
+            variant === 'outlined' && 'border',
+            sheetVariants({ variant, color, interactive: true }),
+            selectTriggerVariants({ size, disabled }),
+            className
+          )}
+        >
+          <BaseSelect.Value className="flex-1 text-left">
+            {(value: unknown) =>
+              value != null ? (
+                String(value)
+              ) : (
+                <span className="text-neutral-400">{placeholder}</span>
+              )
+            }
+          </BaseSelect.Value>
+          <BaseSelect.Icon className="h-4 w-4 opacity-50">
+            <svg
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-full w-full"
+            >
+              <path
+                d="M3 4.5L6 7.5L9 4.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </BaseSelect.Icon>
+        </BaseSelect.Trigger>
+
+        <BaseSelect.Portal>
+          <BaseSelect.Positioner className="outline-none">
+            <BaseSelect.Popup className={selectPopupVariants({ size })}>
+              {renderOptions(options)}
+            </BaseSelect.Popup>
+          </BaseSelect.Positioner>
+        </BaseSelect.Portal>
+      </BaseSelect.Root>
     );
   }
 );
 
-Popup.displayName = 'Select.Popup';
-
-export interface SelectItemProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Item>, 'className'> {
-  className?: string;
-}
-
-const Item = React.forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ className, ...props }, ref) => {
-    const { size } = useSelectContext();
-
-    return (
-      <BaseSelect.Item
-        ref={ref}
-        className={cn(selectItemVariants({ size }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Item.displayName = 'Select.Item';
-
-export interface SelectItemIndicatorProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.ItemIndicator>, 'className'> {
-  className?: string;
-}
-
-const ItemIndicator = React.forwardRef<HTMLSpanElement, SelectItemIndicatorProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <BaseSelect.ItemIndicator
-        ref={ref}
-        className={cn('absolute right-2 h-4 w-4', className)}
-        {...props}
-      >
-        {children ?? (
-          <svg
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-full w-full"
-          >
-            <path
-              d="M10 3L4.5 8.5L2 6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-      </BaseSelect.ItemIndicator>
-    );
-  }
-);
-
-ItemIndicator.displayName = 'Select.ItemIndicator';
-
-export interface SelectItemTextProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.ItemText>, 'className'> {
-  className?: string;
-}
-
-const ItemText = ({ className, ...props }: SelectItemTextProps) => {
-  return <BaseSelect.ItemText className={cn(className)} {...props} />;
-};
-
-ItemText.displayName = 'Select.ItemText';
-
-export interface SelectGroupProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.Group>, 'className'> {
-  className?: string;
-}
-
-const Group = React.forwardRef<HTMLDivElement, SelectGroupProps>(
-  ({ className, ...props }, ref) => {
-    return <BaseSelect.Group ref={ref} className={cn(className)} {...props} />;
-  }
-);
-
-Group.displayName = 'Select.Group';
-
-export interface SelectGroupLabelProps
-  extends Omit<React.ComponentProps<typeof BaseSelect.GroupLabel>, 'className'> {
-  className?: string;
-}
-
-const GroupLabel = React.forwardRef<HTMLDivElement, SelectGroupLabelProps>(
-  ({ className, ...props }, ref) => {
-    const { size } = useSelectContext();
-
-    return (
-      <BaseSelect.GroupLabel
-        ref={ref}
-        className={cn(selectGroupLabelVariants({ size }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-GroupLabel.displayName = 'Select.GroupLabel';
-
-export const Select = {
-  Root,
-  Trigger,
-  Value,
-  Icon,
-  Portal,
-  Positioner,
-  Popup,
-  Item,
-  ItemIndicator,
-  ItemText,
-  Group,
-  GroupLabel,
-};
+Select.displayName = 'Select';
 
 export {
   selectTriggerVariants,

@@ -1,4 +1,4 @@
-import { NavigationMenu, Typography, Badge } from '@base-joy/ui-styled';
+import { NavigationMenu, Typography } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
@@ -18,10 +18,7 @@ const navigationMenuControls: PlaygroundControl[] = [
     name: 'orientation',
     type: 'select',
     defaultValue: 'horizontal',
-    options: [
-      { label: 'Horizontal', value: 'horizontal' },
-      { label: 'Vertical', value: 'vertical' },
-    ],
+    options: ['horizontal', 'vertical'],
   },
 ];
 
@@ -67,146 +64,146 @@ const sections = [
 
 const rootProps: PropMeta[] = [
   {
-    prop: 'variant',
+    name: 'variant',
     type: "'solid' | 'soft' | 'outlined' | 'plain'",
     required: false,
-    default: "'plain'",
+    defaultValue: "'plain'",
     description: 'The visual style of the navigation menu items.',
   },
   {
-    prop: 'color',
+    name: 'color',
     type: "'primary' | 'neutral' | 'success' | 'warning' | 'danger'",
     required: false,
-    default: "'neutral'",
+    defaultValue: "'neutral'",
     description: 'The color scheme of the navigation menu items.',
   },
   {
-    prop: 'size',
+    name: 'size',
     type: "'sm' | 'md' | 'lg'",
     required: false,
-    default: "'md'",
+    defaultValue: "'md'",
     description: 'The size of the navigation menu.',
   },
   {
-    prop: 'orientation',
+    name: 'orientation',
     type: "'horizontal' | 'vertical'",
     required: false,
-    default: "'horizontal'",
+    defaultValue: "'horizontal'",
     description: 'The orientation of the navigation menu.',
   },
   {
-    prop: 'value',
+    name: 'value',
     type: 'any',
     required: false,
-    default: 'null',
+    defaultValue: 'null',
     description:
       'The controlled value of the navigation menu item that should be currently open.',
   },
   {
-    prop: 'defaultValue',
+    name: 'defaultValue',
     type: 'any',
     required: false,
-    default: 'null',
+    defaultValue: 'null',
     description: 'The uncontrolled value of the item that should be initially selected.',
   },
   {
-    prop: 'onValueChange',
+    name: 'onValueChange',
     type: '(value: any, eventDetails: ChangeEventDetails) => void',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'Callback fired when the value changes.',
   },
   {
-    prop: 'delay',
+    name: 'delay',
     type: 'number',
     required: false,
-    default: '50',
+    defaultValue: '50',
     description: 'How long to wait before opening the navigation menu (ms).',
   },
   {
-    prop: 'closeDelay',
+    name: 'closeDelay',
     type: 'number',
     required: false,
-    default: '50',
+    defaultValue: '50',
     description: 'How long to wait before closing the navigation menu (ms).',
   },
 ];
 
 const listProps: PropMeta[] = [
   {
-    prop: 'className',
+    name: 'className',
     type: 'string',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'Additional CSS classes.',
   },
 ];
 
 const itemProps: PropMeta[] = [
   {
-    prop: 'value',
+    name: 'value',
     type: 'any',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description:
       'A unique value that identifies this navigation menu item. If no value is provided, a unique ID will be generated automatically.',
   },
   {
-    prop: 'className',
+    name: 'className',
     type: 'string',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'Additional CSS classes.',
   },
 ];
 
 const triggerProps: PropMeta[] = [
   {
-    prop: 'className',
+    name: 'className',
     type: 'string',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'Additional CSS classes.',
   },
 ];
 
 const linkProps: PropMeta[] = [
   {
-    prop: 'href',
+    name: 'href',
     type: 'string',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'The URL to navigate to.',
   },
   {
-    prop: 'active',
+    name: 'active',
     type: 'boolean',
     required: false,
-    default: 'false',
+    defaultValue: 'false',
     description: 'Whether the link is the currently active page.',
   },
   {
-    prop: 'closeOnClick',
+    name: 'closeOnClick',
     type: 'boolean',
     required: false,
-    default: 'false',
+    defaultValue: 'false',
     description: 'Whether to close the navigation menu when the link is clicked.',
   },
   {
-    prop: 'className',
+    name: 'className',
     type: 'string',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'Additional CSS classes.',
   },
 ];
 
 const contentProps: PropMeta[] = [
   {
-    prop: 'className',
+    name: 'className',
     type: 'string',
     required: false,
-    default: '-',
+    defaultValue: '-',
     description: 'Additional CSS classes.',
   },
 ];

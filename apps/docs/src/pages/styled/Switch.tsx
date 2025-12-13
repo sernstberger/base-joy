@@ -24,9 +24,7 @@ const switchCodeTemplate = (props: Record<string, string | boolean>) => {
   const booleanPropsStr =
     booleanProps.length > 0 ? ' ' + booleanProps.join(' ') : '';
 
-  return `<Switch.Root color="${props.color}" size="${props.size}"${booleanPropsStr}>
-  <Switch.Thumb />
-</Switch.Root>`;
+  return `<Switch color="${props.color}" size="${props.size}"${booleanPropsStr} />`;
 };
 
 const sections = [
@@ -55,14 +53,13 @@ export function SwitchPage() {
               codeTemplate={switchCodeTemplate}
             >
               {(props) => (
-                <Switch.Root
+                <Switch
                   color={props.color as ColorScale}
                   size={props.size as Size}
                   disabled={props.disabled === 'true'}
                   defaultChecked={props.defaultChecked === 'true'}
-                >
-                  <Switch.Thumb />
-                </Switch.Root>
+                  aria-label="Toggle switch"
+                />
               )}
             </Playground>
           </Section>
@@ -74,74 +71,54 @@ export function SwitchPage() {
                 titleLevel="h3"
                 id="colors"
                 code={`<label className="flex items-center gap-3">
-  <Switch.Root color="primary" defaultChecked>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch color="primary" defaultChecked />
   <span>Primary</span>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root color="neutral" defaultChecked>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch color="neutral" defaultChecked />
   <span>Neutral</span>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root color="success" defaultChecked>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch color="success" defaultChecked />
   <span>Success</span>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root color="warning" defaultChecked>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch color="warning" defaultChecked />
   <span>Warning</span>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root color="danger" defaultChecked>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch color="danger" defaultChecked />
   <span>Danger</span>
 </label>`}
                 codeLanguage="tsx"
               >
                 <div className="space-y-4">
                   <label className="flex items-center gap-3">
-                    <Switch.Root color="primary" defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch color="primary" defaultChecked />
                     <span>Primary</span>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root color="neutral" defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch color="neutral" defaultChecked />
                     <span>Neutral</span>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root color="success" defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch color="success" defaultChecked />
                     <span>Success</span>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root color="warning" defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch color="warning" defaultChecked />
                     <span>Warning</span>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root color="danger" defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch color="danger" defaultChecked />
                     <span>Danger</span>
                   </label>
                 </div>
@@ -152,46 +129,34 @@ export function SwitchPage() {
                 titleLevel="h3"
                 id="sizes"
                 code={`<label className="flex items-center gap-3">
-  <Switch.Root size="sm">
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch size="sm" />
   <Typography level="body-sm">Small switch</Typography>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root size="md">
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch size="md" />
   <span>Medium switch</span>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root size="lg">
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch size="lg" />
   <Typography level="body-lg">Large switch</Typography>
 </label>`}
                 codeLanguage="tsx"
               >
                 <div className="space-y-4">
                   <label className="flex items-center gap-3">
-                    <Switch.Root size="sm">
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch size="sm" />
                     <Typography level="body-sm">Small switch</Typography>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root size="md">
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch size="md" />
                     <span>Medium switch</span>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root size="lg">
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch size="lg" />
                     <Typography level="body-lg">Large switch</Typography>
                   </label>
                 </div>
@@ -202,32 +167,24 @@ export function SwitchPage() {
                 titleLevel="h3"
                 id="states"
                 code={`<label className="flex items-center gap-3">
-  <Switch.Root>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch />
   <span>Unchecked</span>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root defaultChecked>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch defaultChecked />
   <span>Checked</span>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root disabled>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch disabled />
   <Typography level="body-md" className="opacity-50">
     Disabled
   </Typography>
 </label>
 
 <label className="flex items-center gap-3">
-  <Switch.Root disabled defaultChecked>
-    <Switch.Thumb />
-  </Switch.Root>
+  <Switch disabled defaultChecked />
   <Typography level="body-md" className="opacity-50">
     Disabled checked
   </Typography>
@@ -236,32 +193,24 @@ export function SwitchPage() {
               >
                 <div className="space-y-4">
                   <label className="flex items-center gap-3">
-                    <Switch.Root>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch />
                     <span>Unchecked</span>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch defaultChecked />
                     <span>Checked</span>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root disabled>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch disabled />
                     <Typography level="body-md" className="opacity-50">
                       Disabled
                     </Typography>
                   </label>
 
                   <label className="flex items-center gap-3">
-                    <Switch.Root disabled defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch disabled defaultChecked />
                     <Typography level="body-md" className="opacity-50">
                       Disabled checked
                     </Typography>
@@ -283,9 +232,7 @@ export function SwitchPage() {
         Receive push notifications
       </Typography>
     </div>
-    <Switch.Root defaultChecked>
-      <Switch.Thumb />
-    </Switch.Root>
+    <Switch defaultChecked aria-label="Push notifications" />
   </div>
 
   <div className="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
@@ -297,9 +244,7 @@ export function SwitchPage() {
         Weekly email summary
       </Typography>
     </div>
-    <Switch.Root>
-      <Switch.Thumb />
-    </Switch.Root>
+    <Switch aria-label="Email digest" />
   </div>
 
   <div className="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
@@ -311,9 +256,7 @@ export function SwitchPage() {
         Use dark color theme
       </Typography>
     </div>
-    <Switch.Root color="neutral">
-      <Switch.Thumb />
-    </Switch.Root>
+    <Switch color="neutral" aria-label="Dark mode" />
   </div>
 </div>`}
                 codeLanguage="tsx"
@@ -328,9 +271,7 @@ export function SwitchPage() {
                         Receive push notifications
                       </Typography>
                     </div>
-                    <Switch.Root defaultChecked>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch defaultChecked aria-label="Push notifications" />
                   </div>
 
                   <div className="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
@@ -342,9 +283,7 @@ export function SwitchPage() {
                         Weekly email summary
                       </Typography>
                     </div>
-                    <Switch.Root>
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch aria-label="Email digest" />
                   </div>
 
                   <div className="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
@@ -356,9 +295,7 @@ export function SwitchPage() {
                         Use dark color theme
                       </Typography>
                     </div>
-                    <Switch.Root color="neutral">
-                      <Switch.Thumb />
-                    </Switch.Root>
+                    <Switch color="neutral" aria-label="Dark mode" />
                   </div>
                 </div>
               </Section>

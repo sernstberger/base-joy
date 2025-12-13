@@ -100,13 +100,12 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
 
           {control.type === 'boolean' && (
             <div className="flex items-center gap-2">
-              <Switch.Root
+              <Switch
                 checked={Boolean(values[control.name])}
                 onCheckedChange={(checked) => onChange(control.name, checked)}
                 size="sm"
-              >
-                <Switch.Thumb />
-              </Switch.Root>
+                aria-label={control.name}
+              />
               <Typography level="body-xs" className="capitalize text-neutral-600">
                 {values[control.name] ? 'On' : 'Off'}
               </Typography>

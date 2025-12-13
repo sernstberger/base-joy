@@ -163,30 +163,18 @@ export default function CustomizeTheme() {
                   <Radio.Root aria-label="Primary radio" color="primary" value="primary">
                     <Radio.Indicator />
                   </Radio.Root>
-                  <Switch.Root aria-label="Primary switch" color="primary">
-                    <Switch.Thumb />
-                  </Switch.Root>
+                  <Switch aria-label="Primary switch" color="primary" />
                 </div>
                 <div>
-                  <Select.Root defaultValue="1" color="primary">
-                    <Select.Trigger>
-                      <Select.Value placeholder="Select option" />
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Positioner sideOffset={4}>
-                        <Select.Popup>
-                          <Select.Item value="1">
-                            <Select.ItemText>Option 1</Select.ItemText>
-                            <Select.ItemIndicator />
-                          </Select.Item>
-                          <Select.Item value="2">
-                            <Select.ItemText>Option 2</Select.ItemText>
-                            <Select.ItemIndicator />
-                          </Select.Item>
-                        </Select.Popup>
-                      </Select.Positioner>
-                    </Select.Portal>
-                  </Select.Root>
+                  <Select
+                    defaultValue="1"
+                    color="primary"
+                    placeholder="Select option"
+                    options={[
+                      { value: '1', label: 'Option 1' },
+                      { value: '2', label: 'Option 2' },
+                    ]}
+                  />
                 </div>
               </div>
             </div>

@@ -186,7 +186,7 @@ export interface NavigationMenuListProps
   className?: string;
 }
 
-const List = React.forwardRef<HTMLUListElement, NavigationMenuListProps>(
+const List = React.forwardRef<HTMLDivElement, NavigationMenuListProps>(
   ({ className, ...props }, ref) => {
     const { orientation } = useNavigationMenuContext();
 
@@ -210,7 +210,7 @@ export interface NavigationMenuItemProps
   className?: string;
 }
 
-const Item = React.forwardRef<HTMLLIElement, NavigationMenuItemProps>(
+const Item = React.forwardRef<HTMLDivElement, NavigationMenuItemProps>(
   ({ className, ...props }, ref) => {
     const { size } = useNavigationMenuContext();
 
@@ -445,7 +445,7 @@ export interface NavigationMenuIconProps
   className?: string;
 }
 
-const Icon = React.forwardRef<HTMLSpanElement, NavigationMenuIconProps>(
+const Icon = React.forwardRef<HTMLDivElement, NavigationMenuIconProps>(
   ({ className, ...props }, ref) => {
     return (
       <BaseNavigationMenu.Icon

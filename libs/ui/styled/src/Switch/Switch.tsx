@@ -3,11 +3,11 @@ import { Switch as BaseSwitch } from '@base-ui/react/switch';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size, ColorScale } from '@base-joy/tokens';
-import { useColorContext } from '../ColorContext';
+import { useResolvedColorProps } from '../ColorContext';
 import { useResolvedSizeProps } from '../SizeContext';
 
 const switchRootVariants = cva(
-  'relative inline-flex items-center shrink-0 cursor-pointer rounded-full transition-colors bg-neutral-300 data-[checked]:bg-primary-500',
+  'relative inline-flex items-center shrink-0 cursor-pointer rounded-full transition-colors bg-neutral-300',
   {
     variants: {
       size: {
@@ -45,35 +45,46 @@ const switchThumbVariants = cva(
   }
 );
 
-interface SwitchContextValue {
-  size: Size;
-}
-
-const SwitchContext = React.createContext<SwitchContextValue>({
-  size: 'md',
-});
-
-const useSwitchContext = () => React.useContext(SwitchContext);
-
-export interface SwitchRootProps
+export interface SwitchProps
   extends Omit<React.ComponentProps<typeof BaseSwitch.Root>, 'className'> {
+  /**
+   * The color scheme of the switch.
+   * @default 'primary'
+   */
   color?: ColorScale;
   /**
    * The size of the switch.
    * @default 'md'
    */
   size?: Size;
+  /**
+   * Additional CSS classes for the root element.
+   */
   className?: string;
+  /**
+   * Accessible label for the switch.
+   */
+  'aria-label'?: string;
+  /**
+   * ID of the element that labels this switch.
+   */
+  'aria-labelledby'?: string;
 }
 
-const Root = React.forwardRef<HTMLButtonElement, SwitchRootProps>(
-  ({ className, color: colorProp, size: sizeProp, disabled, ...props }, ref) => {
-    const colorContext = useColorContext();
-
-    // Resolve color: explicit prop > context > default
-    const color = colorProp ?? colorContext?.color ?? 'primary';
-
-    // Resolve size from context (inherits from parent Sheet)
+export const Switch = React.forwardRef<HTMLElement, SwitchProps>(
+  (
+    {
+      className,
+      color: colorProp,
+      size: sizeProp,
+      disabled,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledby,
+      ...props
+    },
+    ref
+  ) => {
+    const { color } = useResolvedColorProps(colorProp, undefined, 'primary', 'solid');
     const size = useResolvedSizeProps(sizeProp, 'md');
 
     const colorClass =
@@ -88,48 +99,24 @@ const Root = React.forwardRef<HTMLButtonElement, SwitchRootProps>(
               : 'data-[checked]:bg-neutral-500';
 
     return (
-      <SwitchContext.Provider value={{ size }}>
-        <BaseSwitch.Root
-          ref={ref}
-          disabled={disabled}
-          className={cn(
-            switchRootVariants({ size, disabled }),
-            colorClass,
-            className
-          )}
-          {...props}
-        />
-      </SwitchContext.Provider>
-    );
-  }
-);
-
-Root.displayName = 'Switch.Root';
-
-export interface SwitchThumbProps
-  extends Omit<React.ComponentProps<typeof BaseSwitch.Thumb>, 'className'> {
-  className?: string;
-}
-
-const Thumb = React.forwardRef<HTMLSpanElement, SwitchThumbProps>(
-  ({ className, ...props }, ref) => {
-    const { size } = useSwitchContext();
-
-    return (
-      <BaseSwitch.Thumb
+      <BaseSwitch.Root
         ref={ref}
-        className={cn(switchThumbVariants({ size }), className)}
+        disabled={disabled}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
+        className={cn(
+          switchRootVariants({ size, disabled }),
+          colorClass,
+          className
+        )}
         {...props}
-      />
+      >
+        <BaseSwitch.Thumb className={switchThumbVariants({ size })} />
+      </BaseSwitch.Root>
     );
   }
 );
 
-Thumb.displayName = 'Switch.Thumb';
-
-export const Switch = {
-  Root,
-  Thumb,
-};
+Switch.displayName = 'Switch';
 
 export { switchRootVariants, switchThumbVariants };

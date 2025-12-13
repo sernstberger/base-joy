@@ -1,5 +1,17 @@
 [
   {
+    "name": "aria-label",
+    "type": "string",
+    "description": "Accessible label for the switch.",
+    "required": false
+  },
+  {
+    "name": "aria-labelledby",
+    "type": "string",
+    "description": "ID of the element that labels this switch.",
+    "required": false
+  },
+  {
     "name": "checked",
     "type": "boolean",
     "description": "Whether the switch is currently active.\n\nTo render an uncontrolled switch, use the `defaultChecked` prop instead.",
@@ -8,11 +20,14 @@
   {
     "name": "className",
     "type": "string",
+    "description": "Additional CSS classes for the root element.",
     "required": false
   },
   {
     "name": "color",
     "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
+    "defaultValue": "primary",
+    "description": "The color scheme of the switch.",
     "required": false
   },
   {

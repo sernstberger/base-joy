@@ -274,6 +274,130 @@ export interface ButtonProps {
 
 Reference implementation: `libs/ui/styled/src/Button/Button.tsx`
 
+### Compound vs Single Component Patterns
+
+This library uses two component API patterns. Choose based on whether the DOM structure is predictable or requires compositional flexibility.
+
+**Single Component Pattern (options prop)**
+
+Use for components with predictable DOM structure. Provide data via props; component handles rendering internally.
+
+```tsx
+// Simple, declarative API
+<Select
+  placeholder="Select fruit..."
+  options={[
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+  ]}
+/>
+
+<RadioGroup
+  options={[
+    { value: 'sm', label: 'Small' },
+    { value: 'md', label: 'Medium' },
+  ]}
+/>
+
+<CheckboxGroup
+  options={[
+    { value: 'email', label: 'Email' },
+    { value: 'sms', label: 'SMS' },
+  ]}
+/>
+
+<Tooltip content="Helpful tip">
+  <Button>Hover me</Button>
+</Tooltip>
+
+<ScrollArea scrollbars="vertical">{content}</ScrollArea>
+```
+
+Components using single pattern:
+| Component | Key Props |
+|-----------|-----------|
+| **Select** | `options: SelectOption[]`, `renderOption?` |
+| **RadioGroup** | `options: RadioOption[]` |
+| **CheckboxGroup** | `options: CheckboxOption[]` |
+| **Tooltip** | `content: ReactNode` |
+| **ScrollArea** | `scrollbars: 'vertical' | 'horizontal' | 'both'` |
+| **Switch** | Single element with `checked`, `onCheckedChange` |
+| **Slider** | Single element with `value`, `onValueChange` |
+| **Autocomplete** | `options: AutocompleteOption[]` |
+
+**Option types:**
+```tsx
+type SelectOption = { value: string; label: string; disabled?: boolean }
+                  | { group: string; options: SelectOptionItem[] };
+type RadioOption = { value: string; label: string; disabled?: boolean };
+type CheckboxOption = { value: string; label: string; disabled?: boolean };
+```
+
+**Compound Component Pattern**
+
+Use when users need compositional flexibility: custom triggers, variable content, nested structure, or slots.
+
+```tsx
+// Flexible, compositional API
+<Dialog.Root>
+  <Dialog.Trigger>
+    <Button>Open</Button>
+  </Dialog.Trigger>
+  <Dialog.Portal>
+    <Dialog.Backdrop />
+    <Dialog.Popup>
+      <Dialog.Title>Confirm</Dialog.Title>
+      <Dialog.Description>Are you sure?</Dialog.Description>
+      <Dialog.Close />
+    </Dialog.Popup>
+  </Dialog.Portal>
+</Dialog.Root>
+
+<Menu.Root>
+  <Menu.Trigger>
+    <Button>Actions</Button>
+  </Menu.Trigger>
+  <Menu.Portal>
+    <Menu.Positioner>
+      <Menu.Popup>
+        <Menu.Item>Edit</Menu.Item>
+        <Menu.Item>Delete</Menu.Item>
+      </Menu.Popup>
+    </Menu.Positioner>
+  </Menu.Portal>
+</Menu.Root>
+```
+
+Components using compound pattern:
+| Component | Reason |
+|-----------|--------|
+| **Dialog** | Custom triggers, backdrop options, complex content |
+| **AlertDialog** | Same as Dialog |
+| **Menu** | Variable items, groups, submenus, checkbox/radio items |
+| **Popover** | Custom triggers, arrow placement, complex content |
+| **Tabs** | Variable tabs/panels, custom tab content |
+| **Accordion** | Variable items, custom triggers/content |
+| **NavigationMenu** | Complex nested navigation |
+| **NumberField** | Customizable increment/decrement buttons |
+| **Field** | Flexible label, description, error composition |
+| **Collapsible** | Custom trigger elements |
+| **Checkbox** | Standalone use with custom indicator |
+| **Radio** | Standalone use with custom indicator |
+
+**Decision Guide:**
+
+Choose **single component** when:
+- DOM structure is always the same (Select dropdown, RadioGroup list)
+- Options are data-driven (array of items)
+- No need for custom rendering per-item (or `renderOption` prop suffices)
+- Simpler API is preferred for common use cases
+
+Choose **compound component** when:
+- Users need custom triggers (Dialog, Menu, Popover)
+- Content varies significantly (Accordion items, Tab panels)
+- Nested/hierarchical structure (NavigationMenu)
+- Multiple slots with custom content (Field with label/description/error)
+
 ## Tech Stack
 
 - React 19

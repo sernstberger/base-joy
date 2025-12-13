@@ -1,54 +1,49 @@
+import * as React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'vitest-axe';
 import { Select } from './Select';
+import type { SelectOption } from './Select';
+
+const basicOptions: SelectOption[] = [
+  { value: 'a', label: 'Option A' },
+  { value: 'b', label: 'Option B' },
+  { value: 'c', label: 'Option C' },
+];
+
+const groupedOptions: SelectOption[] = [
+  {
+    group: 'Fruits',
+    options: [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ],
+  },
+  {
+    group: 'Vegetables',
+    options: [
+      { value: 'carrot', label: 'Carrot' },
+    ],
+  },
+];
 
 describe('Select', () => {
   describe('rendering', () => {
     it('renders correctly', () => {
-      render(
-        <Select.Root>
-          <Select.Trigger>
-            <Select.Value placeholder="Select..." />
-            <Select.Icon />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.Item value="a">
-                  <Select.ItemText>Option A</Select.ItemText>
-                </Select.Item>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select.Root>
-      );
-
+      render(<Select options={basicOptions} />);
       expect(screen.getByRole('combobox')).toBeInTheDocument();
+    });
+
+    it('renders with placeholder', () => {
+      render(<Select options={basicOptions} placeholder="Choose one..." />);
+      expect(screen.getByText('Choose one...')).toBeInTheDocument();
     });
   });
 
   describe('sizes', () => {
     it.each(['sm', 'md', 'lg'] as const)('renders %s size', (size) => {
-      render(
-        <Select.Root size={size}>
-          <Select.Trigger data-testid="trigger">
-            <Select.Value placeholder="Select..." />
-            <Select.Icon />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.Item value="a">
-                  <Select.ItemText>Option A</Select.ItemText>
-                </Select.Item>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select.Root>
-      );
-
-      expect(screen.getByTestId('trigger')).toBeInTheDocument();
+      render(<Select options={basicOptions} size={size} />);
+      expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
   });
 
@@ -56,25 +51,8 @@ describe('Select', () => {
     it.each(['solid', 'soft', 'outlined', 'plain'] as const)(
       'renders %s variant',
       (variant) => {
-        render(
-          <Select.Root variant={variant}>
-            <Select.Trigger data-testid="trigger">
-              <Select.Value placeholder="Select..." />
-              <Select.Icon />
-            </Select.Trigger>
-            <Select.Portal>
-              <Select.Positioner>
-                <Select.Popup>
-                  <Select.Item value="a">
-                    <Select.ItemText>Option A</Select.ItemText>
-                  </Select.Item>
-                </Select.Popup>
-              </Select.Positioner>
-            </Select.Portal>
-          </Select.Root>
-        );
-
-        expect(screen.getByTestId('trigger')).toBeInTheDocument();
+        render(<Select options={basicOptions} variant={variant} />);
+        expect(screen.getByRole('combobox')).toBeInTheDocument();
       }
     );
   });
@@ -82,23 +60,7 @@ describe('Select', () => {
   describe('interaction', () => {
     it('opens popup on trigger click', async () => {
       const user = userEvent.setup();
-      render(
-        <Select.Root>
-          <Select.Trigger>
-            <Select.Value placeholder="Select..." />
-            <Select.Icon />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.Item value="a">
-                  <Select.ItemText>Option A</Select.ItemText>
-                </Select.Item>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select.Root>
-      );
+      render(<Select options={basicOptions} />);
 
       await user.click(screen.getByRole('combobox'));
       expect(screen.getByText('Option A')).toBeInTheDocument();
@@ -107,26 +69,7 @@ describe('Select', () => {
     it('selects item on click', async () => {
       const onChange = vi.fn();
       const user = userEvent.setup();
-      render(
-        <Select.Root onValueChange={onChange}>
-          <Select.Trigger>
-            <Select.Value placeholder="Select..." />
-            <Select.Icon />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.Item value="a">
-                  <Select.ItemText>Option A</Select.ItemText>
-                </Select.Item>
-                <Select.Item value="b">
-                  <Select.ItemText>Option B</Select.ItemText>
-                </Select.Item>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select.Root>
-      );
+      render(<Select options={basicOptions} onValueChange={onChange} />);
 
       await user.click(screen.getByRole('combobox'));
       await waitFor(() => {
@@ -141,74 +84,67 @@ describe('Select', () => {
   describe('groups', () => {
     it('renders groups with labels', async () => {
       const user = userEvent.setup();
-      render(
-        <Select.Root>
-          <Select.Trigger>
-            <Select.Value placeholder="Select..." />
-            <Select.Icon />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.Group>
-                  <Select.GroupLabel>Fruits</Select.GroupLabel>
-                  <Select.Item value="apple">
-                    <Select.ItemText>Apple</Select.ItemText>
-                  </Select.Item>
-                </Select.Group>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select.Root>
-      );
+      render(<Select options={groupedOptions} />);
 
       await user.click(screen.getByRole('combobox'));
       expect(screen.getByText('Fruits')).toBeInTheDocument();
+      expect(screen.getByText('Vegetables')).toBeInTheDocument();
+      expect(screen.getByText('Apple')).toBeInTheDocument();
+      expect(screen.getByText('Carrot')).toBeInTheDocument();
+    });
+  });
+
+  describe('disabled options', () => {
+    it('renders disabled options', async () => {
+      const user = userEvent.setup();
+      const optionsWithDisabled: SelectOption[] = [
+        { value: 'a', label: 'Option A' },
+        { value: 'b', label: 'Option B', disabled: true },
+      ];
+      render(<Select options={optionsWithDisabled} />);
+
+      await user.click(screen.getByRole('combobox'));
+      expect(screen.getByText('Option B')).toBeInTheDocument();
+    });
+  });
+
+  describe('custom rendering', () => {
+    it('supports renderOption prop', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          options={basicOptions}
+          renderOption={(option) => (
+            <span data-testid={`custom-${option.value}`}>{option.label} (custom)</span>
+          )}
+        />
+      );
+
+      await user.click(screen.getByRole('combobox'));
+      expect(screen.getByTestId('custom-a')).toBeInTheDocument();
+      expect(screen.getByText('Option A (custom)')).toBeInTheDocument();
     });
   });
 
   describe('className merging', () => {
     it('merges custom className on trigger', () => {
-      render(
-        <Select.Root>
-          <Select.Trigger className="custom-class" data-testid="trigger">
-            <Select.Value placeholder="Select..." />
-            <Select.Icon />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.Item value="a">
-                  <Select.ItemText>Option A</Select.ItemText>
-                </Select.Item>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select.Root>
-      );
+      render(<Select options={basicOptions} className="custom-class" />);
+      expect(screen.getByRole('combobox')).toHaveClass('custom-class');
+    });
+  });
 
-      expect(screen.getByTestId('trigger')).toHaveClass('custom-class');
+  describe('ref forwarding', () => {
+    it('forwards ref to trigger element', () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      render(<Select ref={ref} options={basicOptions} />);
+      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
   });
 
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
-        <Select.Root>
-          <Select.Trigger aria-label="Select option">
-            <Select.Value placeholder="Select..." />
-            <Select.Icon />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.Item value="a">
-                  <Select.ItemText>Option A</Select.ItemText>
-                </Select.Item>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select.Root>
+        <Select options={basicOptions} aria-label="Select option" />
       );
 
       const results = await axe(container);

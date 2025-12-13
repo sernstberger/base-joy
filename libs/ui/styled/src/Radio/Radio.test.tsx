@@ -1,51 +1,41 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'vitest-axe';
-import { Radio } from './Radio';
 import { RadioGroup } from '../RadioGroup';
 
 describe('Radio', () => {
+  const basicOptions = [
+    { value: 'a', label: 'Option A' },
+    { value: 'b', label: 'Option B' },
+  ];
+
   describe('rendering', () => {
     it('renders correctly within RadioGroup', () => {
-      render(
-        <RadioGroup>
-          <Radio.Root value="a">
-            <Radio.Indicator />
-          </Radio.Root>
-        </RadioGroup>
-      );
+      render(<RadioGroup options={basicOptions} />);
 
-      expect(screen.getByRole('radio')).toBeInTheDocument();
+      expect(screen.getAllByRole('radio')).toHaveLength(2);
+    });
+
+    it('renders labels for each option', () => {
+      render(<RadioGroup options={basicOptions} />);
+
+      expect(screen.getByText('Option A')).toBeInTheDocument();
+      expect(screen.getByText('Option B')).toBeInTheDocument();
     });
   });
 
   describe('sizes', () => {
     it.each(['sm', 'md', 'lg'] as const)('renders %s size', (size) => {
-      render(
-        <RadioGroup>
-          <Radio.Root value="a" size={size} data-testid="radio">
-            <Radio.Indicator />
-          </Radio.Root>
-        </RadioGroup>
-      );
+      render(<RadioGroup options={basicOptions} size={size} />);
 
-      expect(screen.getByTestId('radio')).toBeInTheDocument();
+      expect(screen.getAllByRole('radio')).toHaveLength(2);
     });
   });
 
   describe('states', () => {
     it('can be selected', async () => {
       const user = userEvent.setup();
-      render(
-        <RadioGroup>
-          <Radio.Root value="a">
-            <Radio.Indicator />
-          </Radio.Root>
-          <Radio.Root value="b">
-            <Radio.Indicator />
-          </Radio.Root>
-        </RadioGroup>
-      );
+      render(<RadioGroup options={basicOptions} />);
 
       const radios = screen.getAllByRole('radio');
       await user.click(radios[0]);
@@ -53,48 +43,97 @@ describe('Radio', () => {
       expect(radios[0]).toBeChecked();
     });
 
-    it('can be disabled', () => {
+    it('supports default value', () => {
+      render(<RadioGroup options={basicOptions} defaultValue="b" />);
+
+      const radios = screen.getAllByRole('radio');
+      expect(radios[1]).toBeChecked();
+    });
+
+    it('can disable entire group', () => {
+      render(<RadioGroup options={basicOptions} disabled />);
+
+      const radios = screen.getAllByRole('radio');
+      expect(radios[0]).toHaveAttribute('aria-disabled', 'true');
+      expect(radios[1]).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('can disable individual option', () => {
       render(
-        <RadioGroup>
-          <Radio.Root value="a" disabled>
-            <Radio.Indicator />
-          </Radio.Root>
-        </RadioGroup>
+        <RadioGroup
+          options={[
+            { value: 'a', label: 'Option A' },
+            { value: 'b', label: 'Option B', disabled: true },
+          ]}
+        />
       );
 
-      expect(screen.getByRole('radio')).toHaveAttribute('aria-disabled', 'true');
+      const radios = screen.getAllByRole('radio');
+      expect(radios[0]).not.toHaveAttribute('aria-disabled', 'true');
+      expect(radios[1]).toHaveAttribute('aria-disabled', 'true');
     });
   });
 
   describe('className merging', () => {
-    it('merges custom className', () => {
+    it('merges custom className on group', () => {
       render(
-        <RadioGroup>
-          <Radio.Root value="a" className="custom-class" data-testid="radio">
-            <Radio.Indicator />
-          </Radio.Root>
-        </RadioGroup>
+        <RadioGroup
+          options={basicOptions}
+          className="custom-class"
+          data-testid="radio-group"
+        />
       );
 
-      expect(screen.getByTestId('radio')).toHaveClass('custom-class');
+      expect(screen.getByTestId('radio-group')).toHaveClass('custom-class');
+    });
+  });
+
+  describe('orientation', () => {
+    it('renders horizontal orientation', () => {
+      render(
+        <RadioGroup
+          options={basicOptions}
+          orientation="horizontal"
+          data-testid="radio-group"
+        />
+      );
+
+      expect(screen.getByTestId('radio-group')).toHaveClass('flex-row');
+    });
+
+    it('renders vertical orientation by default', () => {
+      render(<RadioGroup options={basicOptions} data-testid="radio-group" />);
+
+      expect(screen.getByTestId('radio-group')).toHaveClass('flex-col');
     });
   });
 
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
-        <RadioGroup aria-label="Options">
-          <Radio.Root value="a" aria-label="Option A">
-            <Radio.Indicator />
-          </Radio.Root>
-          <Radio.Root value="b" aria-label="Option B">
-            <Radio.Indicator />
-          </Radio.Root>
-        </RadioGroup>
+        <RadioGroup aria-label="Options" options={basicOptions} />
       );
 
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+
+    it('supports aria-labelledby', () => {
+      render(
+        <>
+          <span id="group-label">Choose an option</span>
+          <RadioGroup
+            aria-labelledby="group-label"
+            options={basicOptions}
+            data-testid="radio-group"
+          />
+        </>
+      );
+
+      expect(screen.getByTestId('radio-group')).toHaveAttribute(
+        'aria-labelledby',
+        'group-label'
+      );
     });
   });
 });

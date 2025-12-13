@@ -1,4 +1,5 @@
-import { Radio, RadioGroup } from '@base-joy/ui-styled';
+import { RadioGroup, Typography } from '@base-joy/ui-styled';
+import type { RadioOption } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
@@ -7,56 +8,128 @@ import {
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { TableOfContents } from '../../components/TableOfContents';
-import { componentProps } from '../../props';
-import type { Size } from '@base-joy/tokens';
+import type { Variant, ColorScale, Size } from '@base-joy/tokens';
+import type { PropMeta } from '../../components/PropsTable';
 
-const radioGroupControls: PlaygroundControl[] = [
-  { name: 'size', type: 'size', defaultValue: 'md' },
-  { name: 'orientation', type: 'select', defaultValue: 'vertical', options: ['vertical', 'horizontal'] },
-  { name: 'disabled', type: 'boolean', defaultValue: false },
+const basicOptions: RadioOption[] = [
+  { value: 'option1', label: 'Option 1' },
+  { value: 'option2', label: 'Option 2' },
+  { value: 'option3', label: 'Option 3' },
 ];
 
-const radioGroupCodeTemplate = (props: Record<string, string>) => {
-  const booleanProps = [];
-  if (props.disabled === 'true') booleanProps.push('disabled');
-  const booleanPropsStr =
-    booleanProps.length > 0 ? ' ' + booleanProps.join(' ') : '';
+const billingOptions: RadioOption[] = [
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'quarterly', label: 'Quarterly' },
+  { value: 'yearly', label: 'Yearly' },
+];
 
-  return `<RadioGroup defaultValue="option1" size="${props.size}" orientation="${props.orientation}"${booleanPropsStr}>
-  <div className="space-y-2">
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option1">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 1</span>
-    </label>
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option2">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 2</span>
-    </label>
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option3">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 3</span>
-    </label>
-  </div>
-</RadioGroup>`;
-};
+const controls: PlaygroundControl[] = [
+  { name: 'variant', type: 'variant', defaultValue: 'outlined' },
+  { name: 'color', type: 'color', defaultValue: 'primary' },
+  { name: 'size', type: 'size', defaultValue: 'md' },
+  {
+    name: 'orientation',
+    type: 'select',
+    options: ['vertical', 'horizontal'],
+    defaultValue: 'vertical',
+  },
+];
+
+const codeTemplate = (props: Record<string, string>) =>
+  `<RadioGroup
+  variant="${props.variant}"
+  color="${props.color}"
+  size="${props.size}"
+  orientation="${props.orientation}"
+  options={[
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ]}
+/>`;
 
 const sections = [
   { id: 'playground', title: 'Playground' },
   { id: 'examples', title: 'Examples' },
-  { id: 'basic-usage', title: 'Basic Usage', level: 3 },
-  { id: 'horizontal', title: 'Horizontal Layout', level: 3 },
+  { id: 'variants', title: 'Variants', level: 3 },
+  { id: 'colors', title: 'Colors', level: 3 },
   { id: 'sizes', title: 'Sizes', level: 3 },
-  { id: 'with-descriptions', title: 'With Descriptions', level: 3 },
-  { id: 'disabled', title: 'Disabled', level: 3 },
-  { id: 'card-style', title: 'Card Style', level: 3 },
-  { id: 'survey-example', title: 'Survey Example', level: 3 },
+  { id: 'horizontal', title: 'Horizontal Layout', level: 3 },
+  { id: 'disabled-items', title: 'Disabled Items', level: 3 },
   { id: 'api', title: 'API Reference' },
+];
+
+const radioGroupProps: PropMeta[] = [
+  {
+    name: 'options',
+    type: 'RadioOption[]',
+    required: true,
+    defaultValue: '-',
+    description: 'The options to display. Each option has value, label, and optional disabled.',
+  },
+  {
+    name: 'value',
+    type: 'string',
+    required: false,
+    defaultValue: '-',
+    description: 'The controlled value of the radio group.',
+  },
+  {
+    name: 'defaultValue',
+    type: 'string',
+    required: false,
+    defaultValue: '-',
+    description: 'The default value for uncontrolled usage.',
+  },
+  {
+    name: 'onValueChange',
+    type: '(value: string) => void',
+    required: false,
+    defaultValue: '-',
+    description: 'Callback fired when the value changes.',
+  },
+  {
+    name: 'orientation',
+    type: "'horizontal' | 'vertical'",
+    required: false,
+    defaultValue: "'vertical'",
+    description: 'The layout orientation of the radio group.',
+  },
+  {
+    name: 'variant',
+    type: "'solid' | 'soft' | 'outlined' | 'plain'",
+    required: false,
+    defaultValue: "'outlined'",
+    description: 'The visual style of the radio buttons.',
+  },
+  {
+    name: 'color',
+    type: "'primary' | 'neutral' | 'success' | 'warning' | 'danger'",
+    required: false,
+    defaultValue: "'primary'",
+    description: 'The color scheme of the radio buttons.',
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    required: false,
+    defaultValue: "'md'",
+    description: 'The size of the radio buttons.',
+  },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    required: false,
+    defaultValue: 'false',
+    description: 'Whether the entire radio group is disabled.',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    required: false,
+    defaultValue: '-',
+    description: 'Additional CSS classes for the root element.',
+  },
 ];
 
 export function RadioGroupPage() {
@@ -64,527 +137,224 @@ export function RadioGroupPage() {
     <div>
       <ComponentHeader
         title="RadioGroup"
-        description="A container for grouping radio buttons for single-selection."
+        description="A group of radio buttons for single-selection from a list of options."
         baseUiUrl="https://base-ui.com/react/components/radio-group"
       />
       <div className="flex gap-8">
         <div className="flex-1">
           <Section title="Playground" id="playground">
-            <Playground
-              controls={radioGroupControls}
-              codeTemplate={radioGroupCodeTemplate}
-            >
-              {(props) => {
-                const disabled = props.disabled === 'true';
-
-                return (
-                  <RadioGroup
-                    defaultValue="option1"
-                    size={props.size as Size}
-                    orientation={props.orientation as 'vertical' | 'horizontal'}
-                    disabled={disabled}
-                  >
-                    <div className={props.orientation === 'horizontal' ? 'flex gap-6' : 'space-y-2'}>
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="option1">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Option 1</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="option2">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Option 2</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="option3">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Option 3</span>
-                      </label>
-                    </div>
-                  </RadioGroup>
-                );
-              }}
+            <Playground controls={controls} codeTemplate={codeTemplate}>
+              {(props) => (
+                <RadioGroup
+                  variant={props.variant as Variant}
+                  color={props.color as ColorScale}
+                  size={props.size as Size}
+                  orientation={props.orientation as 'horizontal' | 'vertical'}
+                  defaultValue="option1"
+                  options={basicOptions}
+                />
+              )}
             </Playground>
           </Section>
 
           <Section title="Examples" id="examples">
             <div className="space-y-8">
-
               <Section
-                title="Basic Usage"
+                title="Variants"
                 titleLevel="h3"
-                id="basic-usage"
-                code={`<RadioGroup defaultValue="option1">
-  <div className="space-y-2">
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option1">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 1</span>
-    </label>
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option2">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 2</span>
-    </label>
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option3">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 3</span>
-    </label>
-  </div>
-</RadioGroup>`}
+                id="variants"
+                code={`<RadioGroup variant="solid" color="primary" options={options} />
+<RadioGroup variant="soft" color="primary" options={options} />
+<RadioGroup variant="outlined" color="primary" options={options} />
+<RadioGroup variant="plain" color="primary" options={options} />`}
                 codeLanguage="tsx"
               >
-                <RadioGroup defaultValue="option1">
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-3">
-                      <Radio.Root value="option1">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <span>Option 1</span>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Radio.Root value="option2">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <span>Option 2</span>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Radio.Root value="option3">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <span>Option 3</span>
-                    </label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Solid</Typography>
+                    <RadioGroup
+                      variant="solid"
+                      color="primary"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
                   </div>
-                </RadioGroup>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Soft</Typography>
+                    <RadioGroup
+                      variant="soft"
+                      color="primary"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Outlined</Typography>
+                    <RadioGroup
+                      variant="outlined"
+                      color="primary"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Plain</Typography>
+                    <RadioGroup
+                      variant="plain"
+                      color="primary"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                </div>
               </Section>
 
               <Section
-                title="Horizontal Layout"
+                title="Colors"
                 titleLevel="h3"
-                id="horizontal"
-                code={`<RadioGroup defaultValue="monthly" orientation="horizontal">
-  <label className="flex items-center gap-2">
-    <Radio.Root value="monthly">
-      <Radio.Indicator />
-    </Radio.Root>
-    <span>Monthly</span>
-  </label>
-  <label className="flex items-center gap-2">
-    <Radio.Root value="quarterly">
-      <Radio.Indicator />
-    </Radio.Root>
-    <span>Quarterly</span>
-  </label>
-  <label className="flex items-center gap-2">
-    <Radio.Root value="yearly">
-      <Radio.Indicator />
-    </Radio.Root>
-    <span>Yearly</span>
-  </label>
-</RadioGroup>`}
+                id="colors"
+                code={`<RadioGroup color="primary" options={options} />
+<RadioGroup color="neutral" options={options} />
+<RadioGroup color="success" options={options} />
+<RadioGroup color="warning" options={options} />
+<RadioGroup color="danger" options={options} />`}
                 codeLanguage="tsx"
               >
-                <RadioGroup defaultValue="monthly" orientation="horizontal">
-                  <label className="flex items-center gap-2">
-                    <Radio.Root value="monthly">
-                      <Radio.Indicator />
-                    </Radio.Root>
-                    <span>Monthly</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <Radio.Root value="quarterly">
-                      <Radio.Indicator />
-                    </Radio.Root>
-                    <span>Quarterly</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <Radio.Root value="yearly">
-                      <Radio.Indicator />
-                    </Radio.Root>
-                    <span>Yearly</span>
-                  </label>
-                </RadioGroup>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Primary</Typography>
+                    <RadioGroup
+                      color="primary"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Neutral</Typography>
+                    <RadioGroup
+                      color="neutral"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Success</Typography>
+                    <RadioGroup
+                      color="success"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Warning</Typography>
+                    <RadioGroup
+                      color="warning"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Danger</Typography>
+                    <RadioGroup
+                      color="danger"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                </div>
               </Section>
 
               <Section
                 title="Sizes"
                 titleLevel="h3"
                 id="sizes"
-                code={`<RadioGroup defaultValue="option1" size="sm">
-  <div className="space-y-2">
-    <label className="flex items-center gap-2">
-      <Radio.Root value="option1" size="sm">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span className="text-sm">Small (sm)</span>
-    </label>
-  </div>
-</RadioGroup>
-
-<RadioGroup defaultValue="option2" size="md">
-  <div className="space-y-3">
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option2" size="md">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Medium (md)</span>
-    </label>
-  </div>
-</RadioGroup>
-
-<RadioGroup defaultValue="option3" size="lg">
-  <div className="space-y-4">
-    <label className="flex items-center gap-3">
-      <Radio.Root value="option3" size="lg">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span className="text-lg">Large (lg)</span>
-    </label>
-  </div>
-</RadioGroup>`}
+                code={`<RadioGroup size="sm" options={options} />
+<RadioGroup size="md" options={options} />
+<RadioGroup size="lg" options={options} />`}
                 codeLanguage="tsx"
               >
-                <div className="space-y-4">
-                  <RadioGroup defaultValue="option1" size="sm">
-                    <div className="space-y-2">
-                      <label className="flex items-center gap-2">
-                        <Radio.Root value="option1" size="sm">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span className="text-sm">Small (sm)</span>
-                      </label>
-                    </div>
-                  </RadioGroup>
-
-                  <RadioGroup defaultValue="option2" size="md">
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="option2" size="md">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Medium (md)</span>
-                      </label>
-                    </div>
-                  </RadioGroup>
-
-                  <RadioGroup defaultValue="option3" size="lg">
-                    <div className="space-y-4">
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="option3" size="lg">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span className="text-lg">Large (lg)</span>
-                      </label>
-                    </div>
-                  </RadioGroup>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Small</Typography>
+                    <RadioGroup
+                      size="sm"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Medium</Typography>
+                    <RadioGroup
+                      size="md"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Large</Typography>
+                    <RadioGroup
+                      size="lg"
+                      defaultValue="option1"
+                      options={basicOptions}
+                    />
+                  </div>
                 </div>
               </Section>
 
               <Section
-                title="With Descriptions"
+                title="Horizontal Layout"
                 titleLevel="h3"
-                id="with-descriptions"
-                code={`<RadioGroup defaultValue="standard">
-  <div className="space-y-4">
-    <label className="flex items-start gap-3">
-      <Radio.Root value="standard" className="mt-0.5">
-        <Radio.Indicator />
-      </Radio.Root>
-      <div>
-        <div className="font-medium">Standard Shipping</div>
-        <div className="text-sm text-neutral-500">
-          5-7 business days - Free
-        </div>
-      </div>
-    </label>
-    <label className="flex items-start gap-3">
-      <Radio.Root value="express" className="mt-0.5">
-        <Radio.Indicator />
-      </Radio.Root>
-      <div>
-        <div className="font-medium">Express Shipping</div>
-        <div className="text-sm text-neutral-500">
-          2-3 business days - $9.99
-        </div>
-      </div>
-    </label>
-    <label className="flex items-start gap-3">
-      <Radio.Root value="overnight" className="mt-0.5">
-        <Radio.Indicator />
-      </Radio.Root>
-      <div>
-        <div className="font-medium">Overnight Shipping</div>
-        <div className="text-sm text-neutral-500">
-          Next business day - $24.99
-        </div>
-      </div>
-    </label>
-  </div>
-</RadioGroup>`}
+                id="horizontal"
+                code={`<RadioGroup
+  orientation="horizontal"
+  options={[
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'quarterly', label: 'Quarterly' },
+    { value: 'yearly', label: 'Yearly' },
+  ]}
+/>`}
                 codeLanguage="tsx"
               >
-                <RadioGroup defaultValue="standard">
-                  <div className="space-y-4">
-                    <label className="flex items-start gap-3">
-                      <Radio.Root value="standard" className="mt-0.5">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div>
-                        <div className="font-medium">Standard Shipping</div>
-                        <div className="text-sm text-neutral-500">
-                          5-7 business days - Free
-                        </div>
-                      </div>
-                    </label>
-                    <label className="flex items-start gap-3">
-                      <Radio.Root value="express" className="mt-0.5">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div>
-                        <div className="font-medium">Express Shipping</div>
-                        <div className="text-sm text-neutral-500">
-                          2-3 business days - $9.99
-                        </div>
-                      </div>
-                    </label>
-                    <label className="flex items-start gap-3">
-                      <Radio.Root value="overnight" className="mt-0.5">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div>
-                        <div className="font-medium">Overnight Shipping</div>
-                        <div className="text-sm text-neutral-500">
-                          Next business day - $24.99
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                </RadioGroup>
+                <Typography level="body-sm" className="mb-4">
+                  Use <code className="font-mono text-sm">orientation="horizontal"</code> for inline layouts.
+                </Typography>
+                <RadioGroup
+                  orientation="horizontal"
+                  defaultValue="monthly"
+                  options={billingOptions}
+                />
               </Section>
 
               <Section
-                title="Disabled"
+                title="Disabled Items"
                 titleLevel="h3"
-                id="disabled"
-                code={`<RadioGroup disabled defaultValue="option1">
-  <div className="space-y-2">
-    <label className="flex items-center gap-3 opacity-50">
-      <Radio.Root value="option1">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 1 (selected)</span>
-    </label>
-    <label className="flex items-center gap-3 opacity-50">
-      <Radio.Root value="option2">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 2</span>
-    </label>
-    <label className="flex items-center gap-3 opacity-50">
-      <Radio.Root value="option3">
-        <Radio.Indicator />
-      </Radio.Root>
-      <span>Option 3</span>
-    </label>
-  </div>
-</RadioGroup>`}
+                id="disabled-items"
+                code={`<RadioGroup
+  options={[
+    { value: 'available', label: 'Available' },
+    { value: 'unavailable', label: 'Unavailable', disabled: true },
+    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
+  ]}
+/>`}
                 codeLanguage="tsx"
               >
-                <RadioGroup disabled defaultValue="option1">
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-3 opacity-50">
-                      <Radio.Root value="option1">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <span>Option 1 (selected)</span>
-                    </label>
-                    <label className="flex items-center gap-3 opacity-50">
-                      <Radio.Root value="option2">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <span>Option 2</span>
-                    </label>
-                    <label className="flex items-center gap-3 opacity-50">
-                      <Radio.Root value="option3">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <span>Option 3</span>
-                    </label>
-                  </div>
-                </RadioGroup>
-              </Section>
-
-              <Section
-                title="Card Style"
-                titleLevel="h3"
-                id="card-style"
-                code={`<RadioGroup defaultValue="pro">
-  <div className="grid grid-cols-3 gap-4 max-w-2xl">
-    <label className="relative cursor-pointer">
-      <Radio.Root value="free" className="sr-only peer">
-        <Radio.Indicator />
-      </Radio.Root>
-      <div className="p-4 border-2 border-neutral-200 rounded-lg peer-data-[checked]:border-primary-500 peer-data-[checked]:bg-primary-50 transition-colors">
-        <div className="font-medium">Free</div>
-        <div className="text-2xl font-bold mt-1">$0</div>
-        <div className="text-sm text-neutral-500 mt-2">Basic features</div>
-      </div>
-    </label>
-    <label className="relative cursor-pointer">
-      <Radio.Root value="pro" className="sr-only peer">
-        <Radio.Indicator />
-      </Radio.Root>
-      <div className="p-4 border-2 border-neutral-200 rounded-lg peer-data-[checked]:border-primary-500 peer-data-[checked]:bg-primary-50 transition-colors">
-        <div className="font-medium">Pro</div>
-        <div className="text-2xl font-bold mt-1">$19</div>
-        <div className="text-sm text-neutral-500 mt-2">All features</div>
-      </div>
-    </label>
-    <label className="relative cursor-pointer">
-      <Radio.Root value="enterprise" className="sr-only peer">
-        <Radio.Indicator />
-      </Radio.Root>
-      <div className="p-4 border-2 border-neutral-200 rounded-lg peer-data-[checked]:border-primary-500 peer-data-[checked]:bg-primary-50 transition-colors">
-        <div className="font-medium">Enterprise</div>
-        <div className="text-2xl font-bold mt-1">Custom</div>
-        <div className="text-sm text-neutral-500 mt-2">Contact sales</div>
-      </div>
-    </label>
-  </div>
-</RadioGroup>`}
-                codeLanguage="tsx"
-              >
-                <RadioGroup defaultValue="pro">
-                  <div className="grid grid-cols-3 gap-4 max-w-2xl">
-                    <label className="relative cursor-pointer">
-                      <Radio.Root value="free" className="sr-only peer">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div className="p-4 border-2 border-neutral-200 rounded-lg peer-data-[checked]:border-primary-500 peer-data-[checked]:bg-primary-50 transition-colors">
-                        <div className="font-medium">Free</div>
-                        <div className="text-2xl font-bold mt-1">$0</div>
-                        <div className="text-sm text-neutral-500 mt-2">Basic features</div>
-                      </div>
-                    </label>
-                    <label className="relative cursor-pointer">
-                      <Radio.Root value="pro" className="sr-only peer">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div className="p-4 border-2 border-neutral-200 rounded-lg peer-data-[checked]:border-primary-500 peer-data-[checked]:bg-primary-50 transition-colors">
-                        <div className="font-medium">Pro</div>
-                        <div className="text-2xl font-bold mt-1">$19</div>
-                        <div className="text-sm text-neutral-500 mt-2">All features</div>
-                      </div>
-                    </label>
-                    <label className="relative cursor-pointer">
-                      <Radio.Root value="enterprise" className="sr-only peer">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div className="p-4 border-2 border-neutral-200 rounded-lg peer-data-[checked]:border-primary-500 peer-data-[checked]:bg-primary-50 transition-colors">
-                        <div className="font-medium">Enterprise</div>
-                        <div className="text-2xl font-bold mt-1">Custom</div>
-                        <div className="text-sm text-neutral-500 mt-2">Contact sales</div>
-                      </div>
-                    </label>
-                  </div>
-                </RadioGroup>
-              </Section>
-
-              <Section
-                title="Survey Example"
-                titleLevel="h3"
-                id="survey-example"
-                code={`<div className="max-w-md p-6 bg-neutral-50 rounded-lg">
-  <div className="font-medium mb-1">How satisfied are you with our service?</div>
-  <div className="text-sm text-neutral-500 mb-4">Please select one option</div>
-  <RadioGroup>
-    <div className="space-y-2">
-      <label className="flex items-center gap-3">
-        <Radio.Root value="very-satisfied">
-          <Radio.Indicator />
-        </Radio.Root>
-        <span>Very Satisfied</span>
-      </label>
-      <label className="flex items-center gap-3">
-        <Radio.Root value="satisfied">
-          <Radio.Indicator />
-        </Radio.Root>
-        <span>Satisfied</span>
-      </label>
-      <label className="flex items-center gap-3">
-        <Radio.Root value="neutral">
-          <Radio.Indicator />
-        </Radio.Root>
-        <span>Neutral</span>
-      </label>
-      <label className="flex items-center gap-3">
-        <Radio.Root value="dissatisfied">
-          <Radio.Indicator />
-        </Radio.Root>
-        <span>Dissatisfied</span>
-      </label>
-      <label className="flex items-center gap-3">
-        <Radio.Root value="very-dissatisfied">
-          <Radio.Indicator />
-        </Radio.Root>
-        <span>Very Dissatisfied</span>
-      </label>
-    </div>
-  </RadioGroup>
-</div>`}
-                codeLanguage="tsx"
-              >
-                <div className="max-w-md p-6 bg-neutral-50 rounded-lg">
-                  <div className="font-medium mb-1">How satisfied are you with our service?</div>
-                  <div className="text-sm text-neutral-500 mb-4">Please select one option</div>
-                  <RadioGroup>
-                    <div className="space-y-2">
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="very-satisfied">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Very Satisfied</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="satisfied">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Satisfied</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="neutral">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Neutral</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="dissatisfied">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Dissatisfied</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Radio.Root value="very-dissatisfied">
-                          <Radio.Indicator />
-                        </Radio.Root>
-                        <span>Very Dissatisfied</span>
-                      </label>
-                    </div>
-                  </RadioGroup>
-                </div>
+                <Typography level="body-sm" className="mb-4">
+                  Add <code className="font-mono text-sm">disabled: true</code> to individual options.
+                </Typography>
+                <RadioGroup
+                  defaultValue="available"
+                  options={[
+                    { value: 'available', label: 'Available' },
+                    { value: 'unavailable', label: 'Unavailable', disabled: true },
+                    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
+                  ]}
+                />
               </Section>
             </div>
           </Section>
 
           <Section title="API Reference" id="api">
-            <PropsTable props={componentProps.RadioGroup} />
+            <PropsTable props={radioGroupProps} />
           </Section>
         </div>
         <TableOfContents sections={sections} />

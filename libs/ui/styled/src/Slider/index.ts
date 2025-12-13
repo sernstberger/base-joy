@@ -5,10 +5,5 @@ export {
   sliderTrackVariants,
   sliderIndicatorVariants,
   sliderThumbVariants,
-  type SliderRootProps,
-  type SliderControlProps,
-  type SliderTrackProps,
-  type SliderIndicatorProps,
-  type SliderThumbProps,
-  type SliderValueProps,
+  type SliderProps,
 } from './Slider';

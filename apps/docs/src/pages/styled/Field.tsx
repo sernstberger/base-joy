@@ -355,26 +355,14 @@ export function FieldPage() {
 
                   <Field.Root name="country">
                     <Field.Label>Country</Field.Label>
-                    <Select.Root>
-                      <Select.Trigger>
-                        <Select.Value placeholder="Select a country" />
-                      </Select.Trigger>
-                      <Select.Portal>
-                        <Select.Positioner>
-                          <Select.Popup>
-                            <Select.Item value="us">
-                              <Select.ItemText>United States</Select.ItemText>
-                            </Select.Item>
-                            <Select.Item value="ca">
-                              <Select.ItemText>Canada</Select.ItemText>
-                            </Select.Item>
-                            <Select.Item value="uk">
-                              <Select.ItemText>United Kingdom</Select.ItemText>
-                            </Select.Item>
-                          </Select.Popup>
-                        </Select.Positioner>
-                      </Select.Portal>
-                    </Select.Root>
+                    <Select
+                      placeholder="Select a country"
+                      options={[
+                        { value: 'us', label: 'United States' },
+                        { value: 'ca', label: 'Canada' },
+                        { value: 'uk', label: 'United Kingdom' },
+                      ]}
+                    />
                     <Field.Description>Choose your country</Field.Description>
                   </Field.Root>
                 </div>

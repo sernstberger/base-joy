@@ -1,5 +1,29 @@
 [
   {
+    "name": "options",
+    "type": "SelectOption[]",
+    "description": "The options to display in the select.",
+    "required": true
+  },
+  {
+    "name": "aria-label",
+    "type": "string",
+    "description": "Accessible label for the select trigger.",
+    "required": false
+  },
+  {
+    "name": "aria-labelledby",
+    "type": "string",
+    "description": "ID of the element that labels this select.",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "description": "Additional class name for the trigger element.",
+    "required": false
+  },
+  {
     "name": "color",
     "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
     "defaultValue": "neutral",
@@ -15,8 +39,7 @@
   {
     "name": "disabled",
     "type": "boolean",
-    "defaultValue": "false",
-    "description": "Whether the component should ignore user interaction.",
+    "description": "Whether the select is disabled.",
     "required": false
   },
   {
@@ -29,6 +52,19 @@
     "name": "name",
     "type": "string",
     "description": "Identifies the field when a form is submitted.",
+    "required": false
+  },
+  {
+    "name": "placeholder",
+    "type": "string",
+    "defaultValue": "Select...",
+    "description": "Placeholder text when no value is selected.",
+    "required": false
+  },
+  {
+    "name": "renderOption",
+    "type": "((option: SelectOptionItem) => ReactNode)",
+    "description": "Custom render function for option items.",
     "required": false
   },
   {

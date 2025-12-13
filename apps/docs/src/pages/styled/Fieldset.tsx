@@ -1,9 +1,7 @@
 import {
   Fieldset,
   Input,
-  Radio,
   RadioGroup,
-  Checkbox,
   CheckboxGroup,
   Field,
   Typography,
@@ -385,47 +383,14 @@ export function FieldsetPage() {
                 </Typography>
                 <Fieldset.Root variant="outlined">
                   <Fieldset.Legend>Subscription Plan</Fieldset.Legend>
-                  <RadioGroup defaultValue="pro" className="space-y-2">
-                    <label className="flex items-center gap-3">
-                      <Radio.Root value="free">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div>
-                        <Typography level="body-md" weight="medium">
-                          Free
-                        </Typography>
-                        <Typography level="body-sm" className="text-neutral-500">
-                          Basic features, limited usage
-                        </Typography>
-                      </div>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Radio.Root value="pro">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div>
-                        <Typography level="body-md" weight="medium">
-                          Pro
-                        </Typography>
-                        <Typography level="body-sm" className="text-neutral-500">
-                          All features, unlimited usage
-                        </Typography>
-                      </div>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Radio.Root value="enterprise">
-                        <Radio.Indicator />
-                      </Radio.Root>
-                      <div>
-                        <Typography level="body-md" weight="medium">
-                          Enterprise
-                        </Typography>
-                        <Typography level="body-sm" className="text-neutral-500">
-                          Custom solutions, priority support
-                        </Typography>
-                      </div>
-                    </label>
-                  </RadioGroup>
+                  <RadioGroup
+                    defaultValue="pro"
+                    options={[
+                      { value: 'free', label: 'Free' },
+                      { value: 'pro', label: 'Pro' },
+                      { value: 'enterprise', label: 'Enterprise' },
+                    ]}
+                  />
                 </Fieldset.Root>
               </Section>
 
@@ -464,30 +429,14 @@ export function FieldsetPage() {
                 </Typography>
                 <Fieldset.Root variant="outlined">
                   <Fieldset.Legend>Notification Preferences</Fieldset.Legend>
-                  <CheckboxGroup className="space-y-2">
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="email" defaultChecked>
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <Typography level="body-md">
-                        Email notifications
-                      </Typography>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="push">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <Typography level="body-md">
-                        Push notifications
-                      </Typography>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="sms">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <Typography level="body-md">SMS notifications</Typography>
-                    </label>
-                  </CheckboxGroup>
+                  <CheckboxGroup
+                    defaultValue={['email']}
+                    options={[
+                      { value: 'email', label: 'Email notifications' },
+                      { value: 'push', label: 'Push notifications' },
+                      { value: 'sms', label: 'SMS notifications' },
+                    ]}
+                  />
                 </Fieldset.Root>
               </Section>
 
@@ -592,32 +541,14 @@ export function FieldsetPage() {
 
                     <Fieldset.Root>
                       <Fieldset.Legend>Delivery Options</Fieldset.Legend>
-                      <RadioGroup defaultValue="standard" className="space-y-2">
-                        <label className="flex items-center gap-3">
-                          <Radio.Root value="standard">
-                            <Radio.Indicator />
-                          </Radio.Root>
-                          <Typography level="body-md">
-                            Standard (5-7 business days)
-                          </Typography>
-                        </label>
-                        <label className="flex items-center gap-3">
-                          <Radio.Root value="express">
-                            <Radio.Indicator />
-                          </Radio.Root>
-                          <Typography level="body-md">
-                            Express (2-3 business days)
-                          </Typography>
-                        </label>
-                        <label className="flex items-center gap-3">
-                          <Radio.Root value="overnight">
-                            <Radio.Indicator />
-                          </Radio.Root>
-                          <Typography level="body-md">
-                            Overnight (1 business day)
-                          </Typography>
-                        </label>
-                      </RadioGroup>
+                      <RadioGroup
+                        defaultValue="standard"
+                        options={[
+                          { value: 'standard', label: 'Standard (5-7 business days)' },
+                          { value: 'express', label: 'Express (2-3 business days)' },
+                          { value: 'overnight', label: 'Overnight (1 business day)' },
+                        ]}
+                      />
                     </Fieldset.Root>
                   </div>
                 </Fieldset.Root>

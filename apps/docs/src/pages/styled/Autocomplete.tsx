@@ -1,4 +1,4 @@
-import { Autocomplete } from '@base-joy/ui-styled';
+import { Autocomplete, type AutocompleteOption } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
@@ -10,7 +10,7 @@ import { TableOfContents } from '../../components/TableOfContents';
 import { componentProps } from '../../props';
 import type { Variant, ColorScale, Size } from '@base-joy/tokens';
 
-const countries = [
+const countries: AutocompleteOption[] = [
   { value: 'us', label: 'United States' },
   { value: 'uk', label: 'United Kingdom' },
   { value: 'ca', label: 'Canada' },
@@ -33,23 +33,14 @@ const autocompleteCodeTemplate = (props: Record<string, string | boolean>) => {
   if (props.disabled === 'true' || props.disabled === true) booleanProps.push('disabled');
   const booleanPropsStr = booleanProps.length > 0 ? ' ' + booleanProps.join(' ') : '';
 
-  return `<Autocomplete.Root variant="${props.variant}" color="${props.color}" size="${props.size}"${booleanPropsStr}>
-  <Autocomplete.Input placeholder="Search countries..." />
-  <Autocomplete.Portal>
-    <Autocomplete.Positioner>
-      <Autocomplete.Popup>
-        <Autocomplete.List>
-          {countries.map((country) => (
-            <Autocomplete.Item key={country.value} value={country.value}>
-              <Autocomplete.ItemText>{country.label}</Autocomplete.ItemText>
-            </Autocomplete.Item>
-          ))}
-        </Autocomplete.List>
-        <Autocomplete.Empty>No countries found</Autocomplete.Empty>
-      </Autocomplete.Popup>
-    </Autocomplete.Positioner>
-  </Autocomplete.Portal>
-</Autocomplete.Root>`;
+  return `<Autocomplete
+  options={countries}
+  variant="${props.variant}"
+  color="${props.color}"
+  size="${props.size}"
+  placeholder="Search countries..."
+  aria-label="Search countries"${booleanPropsStr}
+/>`;
 };
 
 const sections = [
@@ -80,34 +71,15 @@ export function AutocompletePage() {
             >
               {(props) => (
                 <div className="max-w-xs">
-                  <Autocomplete.Root
+                  <Autocomplete
+                    options={countries}
                     variant={props.variant as Variant}
                     color={props.color as ColorScale}
                     size={props.size as Size}
                     disabled={props.disabled === 'true'}
-                  >
-                    <Autocomplete.Input placeholder="Search countries..." />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                                <Autocomplete.ItemIndicator />
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                          <Autocomplete.Empty>No countries found</Autocomplete.Empty>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
+                    placeholder="Search countries..."
+                    aria-label="Search countries"
+                  />
                 </div>
               )}
             </Playground>
@@ -119,122 +91,67 @@ export function AutocompletePage() {
                 title="Variants"
                 titleLevel="h3"
                 id="variants"
-                code={`<Autocomplete.Root variant="solid" color="neutral">
-  <Autocomplete.Input placeholder="Solid variant" />
-  <Autocomplete.Portal>
-    <Autocomplete.Positioner>
-      <Autocomplete.Popup>
-        <Autocomplete.List>
-          {/* items */}
-        </Autocomplete.List>
-      </Autocomplete.Popup>
-    </Autocomplete.Positioner>
-  </Autocomplete.Portal>
-</Autocomplete.Root>
+                code={`<Autocomplete
+  options={countries}
+  variant="solid"
+  color="neutral"
+  placeholder="Solid variant"
+  aria-label="Solid variant"
+/>
 
-<Autocomplete.Root variant="soft" color="neutral">
-  <Autocomplete.Input placeholder="Soft variant" />
-  {/* ... */}
-</Autocomplete.Root>
+<Autocomplete
+  options={countries}
+  variant="soft"
+  color="neutral"
+  placeholder="Soft variant"
+  aria-label="Soft variant"
+/>
 
-<Autocomplete.Root variant="outlined" color="neutral">
-  <Autocomplete.Input placeholder="Outlined variant" />
-  {/* ... */}
-</Autocomplete.Root>
+<Autocomplete
+  options={countries}
+  variant="outlined"
+  color="neutral"
+  placeholder="Outlined variant"
+  aria-label="Outlined variant"
+/>
 
-<Autocomplete.Root variant="plain" color="neutral">
-  <Autocomplete.Input placeholder="Plain variant" />
-  {/* ... */}
-</Autocomplete.Root>`}
+<Autocomplete
+  options={countries}
+  variant="plain"
+  color="neutral"
+  placeholder="Plain variant"
+  aria-label="Plain variant"
+/>`}
               >
                 <div className="space-y-4 max-w-xs">
-                  <Autocomplete.Root variant="solid" color="neutral">
-                    <Autocomplete.Input placeholder="Solid variant" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root variant="soft" color="neutral">
-                    <Autocomplete.Input placeholder="Soft variant" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root variant="outlined" color="neutral">
-                    <Autocomplete.Input placeholder="Outlined variant" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root variant="plain" color="neutral">
-                    <Autocomplete.Input placeholder="Plain variant" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
+                  <Autocomplete
+                    options={countries}
+                    variant="solid"
+                    color="neutral"
+                    placeholder="Solid variant"
+                    aria-label="Solid variant"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    variant="soft"
+                    color="neutral"
+                    placeholder="Soft variant"
+                    aria-label="Soft variant"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    variant="outlined"
+                    color="neutral"
+                    placeholder="Outlined variant"
+                    aria-label="Outlined variant"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    variant="plain"
+                    color="neutral"
+                    placeholder="Plain variant"
+                    aria-label="Plain variant"
+                  />
                 </div>
               </Section>
 
@@ -242,141 +159,82 @@ export function AutocompletePage() {
                 title="Colors"
                 titleLevel="h3"
                 id="colors"
-                code={`<Autocomplete.Root variant="soft" color="primary">
-  <Autocomplete.Input placeholder="Primary" />
-  {/* ... */}
-</Autocomplete.Root>
+                code={`<Autocomplete
+  options={countries}
+  variant="soft"
+  color="primary"
+  placeholder="Primary"
+  aria-label="Primary"
+/>
 
-<Autocomplete.Root variant="soft" color="neutral">
-  <Autocomplete.Input placeholder="Neutral" />
-  {/* ... */}
-</Autocomplete.Root>
+<Autocomplete
+  options={countries}
+  variant="soft"
+  color="neutral"
+  placeholder="Neutral"
+  aria-label="Neutral"
+/>
 
-<Autocomplete.Root variant="soft" color="success">
-  <Autocomplete.Input placeholder="Success" />
-  {/* ... */}
-</Autocomplete.Root>
+<Autocomplete
+  options={countries}
+  variant="soft"
+  color="success"
+  placeholder="Success"
+  aria-label="Success"
+/>
 
-<Autocomplete.Root variant="soft" color="warning">
-  <Autocomplete.Input placeholder="Warning" />
-  {/* ... */}
-</Autocomplete.Root>
+<Autocomplete
+  options={countries}
+  variant="soft"
+  color="warning"
+  placeholder="Warning"
+  aria-label="Warning"
+/>
 
-<Autocomplete.Root variant="soft" color="danger">
-  <Autocomplete.Input placeholder="Danger" />
-  {/* ... */}
-</Autocomplete.Root>`}
+<Autocomplete
+  options={countries}
+  variant="soft"
+  color="danger"
+  placeholder="Danger"
+  aria-label="Danger"
+/>`}
               >
                 <div className="space-y-4 max-w-xs">
-                  <Autocomplete.Root variant="soft" color="primary">
-                    <Autocomplete.Input placeholder="Primary" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root variant="soft" color="neutral">
-                    <Autocomplete.Input placeholder="Neutral" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root variant="soft" color="success">
-                    <Autocomplete.Input placeholder="Success" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root variant="soft" color="warning">
-                    <Autocomplete.Input placeholder="Warning" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root variant="soft" color="danger">
-                    <Autocomplete.Input placeholder="Danger" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
+                  <Autocomplete
+                    options={countries}
+                    variant="soft"
+                    color="primary"
+                    placeholder="Primary"
+                    aria-label="Primary"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    variant="soft"
+                    color="neutral"
+                    placeholder="Neutral"
+                    aria-label="Neutral"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    variant="soft"
+                    color="success"
+                    placeholder="Success"
+                    aria-label="Success"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    variant="soft"
+                    color="warning"
+                    placeholder="Warning"
+                    aria-label="Warning"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    variant="soft"
+                    color="danger"
+                    placeholder="Danger"
+                    aria-label="Danger"
+                  />
                 </div>
               </Section>
 
@@ -384,87 +242,46 @@ export function AutocompletePage() {
                 title="Sizes"
                 titleLevel="h3"
                 id="sizes"
-                code={`<Autocomplete.Root size="sm">
-  <Autocomplete.Input placeholder="Small" />
-  {/* ... */}
-</Autocomplete.Root>
+                code={`<Autocomplete
+  options={countries}
+  size="sm"
+  placeholder="Small"
+  aria-label="Small"
+/>
 
-<Autocomplete.Root size="md">
-  <Autocomplete.Input placeholder="Medium" />
-  {/* ... */}
-</Autocomplete.Root>
+<Autocomplete
+  options={countries}
+  size="md"
+  placeholder="Medium"
+  aria-label="Medium"
+/>
 
-<Autocomplete.Root size="lg">
-  <Autocomplete.Input placeholder="Large" />
-  {/* ... */}
-</Autocomplete.Root>`}
+<Autocomplete
+  options={countries}
+  size="lg"
+  placeholder="Large"
+  aria-label="Large"
+/>`}
               >
                 <div className="space-y-4 max-w-xs">
-                  <Autocomplete.Root size="sm">
-                    <Autocomplete.Input placeholder="Small" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root size="md">
-                    <Autocomplete.Input placeholder="Medium" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
-
-                  <Autocomplete.Root size="lg">
-                    <Autocomplete.Input placeholder="Large" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
+                  <Autocomplete
+                    options={countries}
+                    size="sm"
+                    placeholder="Small"
+                    aria-label="Small"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    size="md"
+                    placeholder="Medium"
+                    aria-label="Medium"
+                  />
+                  <Autocomplete
+                    options={countries}
+                    size="lg"
+                    placeholder="Large"
+                    aria-label="Large"
+                  />
                 </div>
               </Section>
 
@@ -472,86 +289,66 @@ export function AutocompletePage() {
                 title="With Groups"
                 titleLevel="h3"
                 id="with-groups"
-                code={`<Autocomplete.Root>
-  <Autocomplete.Input placeholder="Search regions..." />
-  <Autocomplete.Portal>
-    <Autocomplete.Positioner>
-      <Autocomplete.Popup>
-        <Autocomplete.List>
-          <Autocomplete.Group>
-            <Autocomplete.GroupLabel>North America</Autocomplete.GroupLabel>
-            <Autocomplete.Item value="us">
-              <Autocomplete.ItemText>United States</Autocomplete.ItemText>
-            </Autocomplete.Item>
-            <Autocomplete.Item value="ca">
-              <Autocomplete.ItemText>Canada</Autocomplete.ItemText>
-            </Autocomplete.Item>
-          </Autocomplete.Group>
-          <Autocomplete.Group>
-            <Autocomplete.GroupLabel>Europe</Autocomplete.GroupLabel>
-            <Autocomplete.Item value="uk">
-              <Autocomplete.ItemText>United Kingdom</Autocomplete.ItemText>
-            </Autocomplete.Item>
-            <Autocomplete.Item value="de">
-              <Autocomplete.ItemText>Germany</Autocomplete.ItemText>
-            </Autocomplete.Item>
-          </Autocomplete.Group>
-        </Autocomplete.List>
-      </Autocomplete.Popup>
-    </Autocomplete.Positioner>
-  </Autocomplete.Portal>
-</Autocomplete.Root>`}
+                code={`const groupedCountries: AutocompleteOption[] = [
+  {
+    group: 'North America',
+    options: [
+      { value: 'us', label: 'United States' },
+      { value: 'ca', label: 'Canada' },
+    ],
+  },
+  {
+    group: 'Europe',
+    options: [
+      { value: 'uk', label: 'United Kingdom' },
+      { value: 'de', label: 'Germany' },
+      { value: 'fr', label: 'France' },
+    ],
+  },
+  {
+    group: 'Asia Pacific',
+    options: [
+      { value: 'au', label: 'Australia' },
+      { value: 'jp', label: 'Japan' },
+    ],
+  },
+];
+
+<Autocomplete
+  options={groupedCountries}
+  placeholder="Search regions..."
+  aria-label="Search regions"
+/>`}
               >
                 <div className="max-w-xs">
-                  <Autocomplete.Root>
-                    <Autocomplete.Input placeholder="Search regions..." />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            <Autocomplete.Group>
-                              <Autocomplete.GroupLabel>
-                                North America
-                              </Autocomplete.GroupLabel>
-                              <Autocomplete.Item value="us">
-                                <Autocomplete.ItemText>
-                                  United States
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                              <Autocomplete.Item value="ca">
-                                <Autocomplete.ItemText>Canada</Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            </Autocomplete.Group>
-                            <Autocomplete.Group>
-                              <Autocomplete.GroupLabel>Europe</Autocomplete.GroupLabel>
-                              <Autocomplete.Item value="uk">
-                                <Autocomplete.ItemText>
-                                  United Kingdom
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                              <Autocomplete.Item value="de">
-                                <Autocomplete.ItemText>Germany</Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                              <Autocomplete.Item value="fr">
-                                <Autocomplete.ItemText>France</Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            </Autocomplete.Group>
-                            <Autocomplete.Group>
-                              <Autocomplete.GroupLabel>
-                                Asia Pacific
-                              </Autocomplete.GroupLabel>
-                              <Autocomplete.Item value="au">
-                                <Autocomplete.ItemText>Australia</Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                              <Autocomplete.Item value="jp">
-                                <Autocomplete.ItemText>Japan</Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            </Autocomplete.Group>
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
+                  <Autocomplete
+                    options={[
+                      {
+                        group: 'North America',
+                        options: [
+                          { value: 'us', label: 'United States' },
+                          { value: 'ca', label: 'Canada' },
+                        ],
+                      },
+                      {
+                        group: 'Europe',
+                        options: [
+                          { value: 'uk', label: 'United Kingdom' },
+                          { value: 'de', label: 'Germany' },
+                          { value: 'fr', label: 'France' },
+                        ],
+                      },
+                      {
+                        group: 'Asia Pacific',
+                        options: [
+                          { value: 'au', label: 'Australia' },
+                          { value: 'jp', label: 'Japan' },
+                        ],
+                      },
+                    ]}
+                    placeholder="Search regions..."
+                    aria-label="Search regions"
+                  />
                 </div>
               </Section>
 
@@ -559,41 +356,20 @@ export function AutocompletePage() {
                 title="Disabled State"
                 titleLevel="h3"
                 id="disabled"
-                code={`<Autocomplete.Root disabled>
-  <Autocomplete.Input placeholder="Disabled autocomplete" />
-  <Autocomplete.Portal>
-    <Autocomplete.Positioner>
-      <Autocomplete.Popup>
-        <Autocomplete.List>
-          {/* items */}
-        </Autocomplete.List>
-      </Autocomplete.Popup>
-    </Autocomplete.Positioner>
-  </Autocomplete.Portal>
-</Autocomplete.Root>`}
+                code={`<Autocomplete
+  options={countries}
+  disabled
+  placeholder="Disabled autocomplete"
+  aria-label="Disabled autocomplete"
+/>`}
               >
                 <div className="max-w-xs">
-                  <Autocomplete.Root disabled>
-                    <Autocomplete.Input placeholder="Disabled autocomplete" />
-                    <Autocomplete.Portal>
-                      <Autocomplete.Positioner>
-                        <Autocomplete.Popup>
-                          <Autocomplete.List>
-                            {countries.slice(0, 3).map((country) => (
-                              <Autocomplete.Item
-                                key={country.value}
-                                value={country.value}
-                              >
-                                <Autocomplete.ItemText>
-                                  {country.label}
-                                </Autocomplete.ItemText>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.List>
-                        </Autocomplete.Popup>
-                      </Autocomplete.Positioner>
-                    </Autocomplete.Portal>
-                  </Autocomplete.Root>
+                  <Autocomplete
+                    options={countries}
+                    disabled
+                    placeholder="Disabled autocomplete"
+                    aria-label="Disabled autocomplete"
+                  />
                 </div>
               </Section>
             </div>

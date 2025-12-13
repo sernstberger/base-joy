@@ -1,4 +1,5 @@
-import { Checkbox, CheckboxGroup, Typography } from '@base-joy/ui-styled';
+import { CheckboxGroup, Typography } from '@base-joy/ui-styled';
+import type { CheckboxOption } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import {
   Playground,
@@ -7,48 +8,122 @@ import {
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { TableOfContents } from '../../components/TableOfContents';
-import { componentProps } from '../../props';
-import type { Size } from '@base-joy/tokens';
+import type { Variant, ColorScale, Size } from '@base-joy/tokens';
+import type { PropMeta } from '../../components/PropsTable';
 
-const checkboxGroupControls: PlaygroundControl[] = [
-  { name: 'orientation', type: 'select', options: ['vertical', 'horizontal'], defaultValue: 'vertical' },
-  { name: 'size', type: 'size', defaultValue: 'md' },
-  { name: 'disabled', type: 'boolean', defaultValue: false },
+const basicOptions: CheckboxOption[] = [
+  { value: 'email', label: 'Email' },
+  { value: 'sms', label: 'SMS' },
+  { value: 'push', label: 'Push Notifications' },
 ];
 
-const checkboxGroupCodeTemplate = (props: Record<string, string | boolean>) => {
-  const booleanProps = [];
-  if (props.disabled === 'true' || props.disabled === true) booleanProps.push('disabled');
-  const booleanPropsStr =
-    booleanProps.length > 0 ? ' ' + booleanProps.join(' ') : '';
+const controls: PlaygroundControl[] = [
+  { name: 'variant', type: 'variant', defaultValue: 'outlined' },
+  { name: 'color', type: 'color', defaultValue: 'primary' },
+  { name: 'size', type: 'size', defaultValue: 'md' },
+  {
+    name: 'orientation',
+    type: 'select',
+    options: ['vertical', 'horizontal'],
+    defaultValue: 'vertical',
+  },
+];
 
-  return `<CheckboxGroup orientation="${props.orientation}" size="${props.size}"${booleanPropsStr}>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="email">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Email</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="sms">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>SMS</span>
-  </label>
-</CheckboxGroup>`;
-};
+const codeTemplate = (props: Record<string, string>) =>
+  `<CheckboxGroup
+  variant="${props.variant}"
+  color="${props.color}"
+  size="${props.size}"
+  orientation="${props.orientation}"
+  options={[
+    { value: 'email', label: 'Email' },
+    { value: 'sms', label: 'SMS' },
+    { value: 'push', label: 'Push Notifications' },
+  ]}
+/>`;
 
 const sections = [
   { id: 'playground', title: 'Playground' },
   { id: 'examples', title: 'Examples' },
-  { id: 'basic-usage', title: 'Basic Usage', level: 3 },
-  { id: 'orientation', title: 'Orientation', level: 3 },
+  { id: 'variants', title: 'Variants', level: 3 },
+  { id: 'colors', title: 'Colors', level: 3 },
   { id: 'sizes', title: 'Sizes', level: 3 },
-  { id: 'disabled', title: 'Disabled', level: 3 },
-  { id: 'select-all', title: 'Select All', level: 3 },
-  { id: 'with-descriptions', title: 'With Descriptions', level: 3 },
-  { id: 'filter-example', title: 'Filter Example', level: 3 },
+  { id: 'horizontal', title: 'Horizontal Layout', level: 3 },
+  { id: 'disabled-items', title: 'Disabled Items', level: 3 },
   { id: 'api', title: 'API Reference' },
+];
+
+const checkboxGroupProps: PropMeta[] = [
+  {
+    name: 'options',
+    type: 'CheckboxOption[]',
+    required: true,
+    defaultValue: '-',
+    description: 'The options to display. Each option has value, label, and optional disabled.',
+  },
+  {
+    name: 'value',
+    type: 'string[]',
+    required: false,
+    defaultValue: '-',
+    description: 'The controlled values of the checkbox group.',
+  },
+  {
+    name: 'defaultValue',
+    type: 'string[]',
+    required: false,
+    defaultValue: '-',
+    description: 'The default values for uncontrolled usage.',
+  },
+  {
+    name: 'onValueChange',
+    type: '(values: string[]) => void',
+    required: false,
+    defaultValue: '-',
+    description: 'Callback fired when the values change.',
+  },
+  {
+    name: 'orientation',
+    type: "'horizontal' | 'vertical'",
+    required: false,
+    defaultValue: "'vertical'",
+    description: 'The layout orientation of the checkbox group.',
+  },
+  {
+    name: 'variant',
+    type: "'solid' | 'soft' | 'outlined' | 'plain'",
+    required: false,
+    defaultValue: "'outlined'",
+    description: 'The visual style of the checkboxes.',
+  },
+  {
+    name: 'color',
+    type: "'primary' | 'neutral' | 'success' | 'warning' | 'danger'",
+    required: false,
+    defaultValue: "'primary'",
+    description: 'The color scheme of the checkboxes.',
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    required: false,
+    defaultValue: "'md'",
+    description: 'The size of the checkboxes.',
+  },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    required: false,
+    defaultValue: 'false',
+    description: 'Whether the entire checkbox group is disabled.',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    required: false,
+    defaultValue: '-',
+    description: 'Additional CSS classes for the root element.',
+  },
 ];
 
 export function CheckboxGroupPage() {
@@ -56,41 +131,22 @@ export function CheckboxGroupPage() {
     <div>
       <ComponentHeader
         title="CheckboxGroup"
-        description="A container for grouping multiple checkbox options together with consistent spacing and layout."
+        description="A group of checkboxes for multi-selection from a list of options."
         baseUiUrl="https://base-ui.com/react/components/checkbox-group"
       />
       <div className="flex gap-8">
         <div className="flex-1">
           <Section title="Playground" id="playground">
-            <Playground
-              controls={checkboxGroupControls}
-              codeTemplate={checkboxGroupCodeTemplate}
-            >
+            <Playground controls={controls} codeTemplate={codeTemplate}>
               {(props) => (
                 <CheckboxGroup
-                  orientation={props.orientation as 'vertical' | 'horizontal'}
+                  variant={props.variant as Variant}
+                  color={props.color as ColorScale}
                   size={props.size as Size}
-                  disabled={props.disabled === 'true'}
-                >
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="email">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Email</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="sms">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>SMS</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="push">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Push Notifications</span>
-                  </label>
-                </CheckboxGroup>
+                  orientation={props.orientation as 'horizontal' | 'vertical'}
+                  defaultValue={['email']}
+                  options={basicOptions}
+                />
               )}
             </Playground>
           </Section>
@@ -98,150 +154,106 @@ export function CheckboxGroupPage() {
           <Section title="Examples" id="examples">
             <div className="space-y-8">
               <Section
-                title="Basic Usage"
+                title="Variants"
                 titleLevel="h3"
-                id="basic-usage"
-                code={`<CheckboxGroup defaultValue={['email']}>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="email">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Email</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="sms">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>SMS</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="push">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Push Notifications</span>
-  </label>
-</CheckboxGroup>`}
+                id="variants"
+                code={`<CheckboxGroup variant="solid" color="primary" options={options} />
+<CheckboxGroup variant="soft" color="primary" options={options} />
+<CheckboxGroup variant="outlined" color="primary" options={options} />
+<CheckboxGroup variant="plain" color="primary" options={options} />`}
+                codeLanguage="tsx"
               >
-                <CheckboxGroup defaultValue={['email']}>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="email">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Email</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="sms">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>SMS</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="push">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Push Notifications</span>
-                  </label>
-                </CheckboxGroup>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Solid</Typography>
+                    <CheckboxGroup
+                      variant="solid"
+                      color="primary"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Soft</Typography>
+                    <CheckboxGroup
+                      variant="soft"
+                      color="primary"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Outlined</Typography>
+                    <CheckboxGroup
+                      variant="outlined"
+                      color="primary"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Plain</Typography>
+                    <CheckboxGroup
+                      variant="plain"
+                      color="primary"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
+                  </div>
+                </div>
               </Section>
 
               <Section
-                title="Orientation"
+                title="Colors"
                 titleLevel="h3"
-                id="orientation"
-                code={`{/* Vertical (default) */}
-<CheckboxGroup orientation="vertical">
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="small">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Small</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="medium">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Medium</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="large">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Large</span>
-  </label>
-</CheckboxGroup>
-
-{/* Horizontal */}
-<CheckboxGroup orientation="horizontal">
-  <label className="flex items-center gap-2">
-    <Checkbox.Root value="small">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Small</span>
-  </label>
-  <label className="flex items-center gap-2">
-    <Checkbox.Root value="medium">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Medium</span>
-  </label>
-  <label className="flex items-center gap-2">
-    <Checkbox.Root value="large">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Large</span>
-  </label>
-</CheckboxGroup>`}
+                id="colors"
+                code={`<CheckboxGroup color="primary" options={options} />
+<CheckboxGroup color="neutral" options={options} />
+<CheckboxGroup color="success" options={options} />
+<CheckboxGroup color="warning" options={options} />
+<CheckboxGroup color="danger" options={options} />`}
+                codeLanguage="tsx"
               >
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <Typography level="body-sm" className="mb-2 text-neutral-600">
-                      Vertical (default)
-                    </Typography>
-                    <CheckboxGroup orientation="vertical">
-                      <label className="flex items-center gap-3">
-                        <Checkbox.Root value="small">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Small</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Checkbox.Root value="medium">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Medium</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Checkbox.Root value="large">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Large</span>
-                      </label>
-                    </CheckboxGroup>
+                    <Typography level="body-sm" className="mb-2">Primary</Typography>
+                    <CheckboxGroup
+                      color="primary"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
                   </div>
                   <div>
-                    <Typography level="body-sm" className="mb-2 text-neutral-600">
-                      Horizontal
-                    </Typography>
-                    <CheckboxGroup orientation="horizontal">
-                      <label className="flex items-center gap-2">
-                        <Checkbox.Root value="small">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Small</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <Checkbox.Root value="medium">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Medium</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <Checkbox.Root value="large">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Large</span>
-                      </label>
-                    </CheckboxGroup>
+                    <Typography level="body-sm" className="mb-2">Neutral</Typography>
+                    <CheckboxGroup
+                      color="neutral"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Success</Typography>
+                    <CheckboxGroup
+                      color="success"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Warning</Typography>
+                    <CheckboxGroup
+                      color="warning"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
+                  </div>
+                  <div>
+                    <Typography level="body-sm" className="mb-2">Danger</Typography>
+                    <CheckboxGroup
+                      color="danger"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
                   </div>
                 </div>
               </Section>
@@ -250,396 +262,101 @@ export function CheckboxGroupPage() {
                 title="Sizes"
                 titleLevel="h3"
                 id="sizes"
-                code={`<CheckboxGroup size="sm">
-  <label className="flex items-center gap-2">
-    <Checkbox.Root value="option1">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Small spacing</span>
-  </label>
-  <label className="flex items-center gap-2">
-    <Checkbox.Root value="option2">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Between items</span>
-  </label>
-</CheckboxGroup>
-
-<CheckboxGroup size="md">
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="option1">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Medium spacing</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="option2">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Between items</span>
-  </label>
-</CheckboxGroup>
-
-<CheckboxGroup size="lg">
-  <label className="flex items-center gap-4">
-    <Checkbox.Root value="option1">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Large spacing</span>
-  </label>
-  <label className="flex items-center gap-4">
-    <Checkbox.Root value="option2">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Between items</span>
-  </label>
-</CheckboxGroup>`}
+                code={`<CheckboxGroup size="sm" options={options} />
+<CheckboxGroup size="md" options={options} />
+<CheckboxGroup size="lg" options={options} />`}
+                codeLanguage="tsx"
               >
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <Typography level="body-sm" className="mb-2 text-neutral-600">
-                      Small (sm)
-                    </Typography>
-                    <CheckboxGroup size="sm">
-                      <label className="flex items-center gap-2">
-                        <Checkbox.Root value="option1">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Small spacing</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <Checkbox.Root value="option2">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Between items</span>
-                      </label>
-                    </CheckboxGroup>
+                    <Typography level="body-sm" className="mb-2">Small</Typography>
+                    <CheckboxGroup
+                      size="sm"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
                   </div>
                   <div>
-                    <Typography level="body-sm" className="mb-2 text-neutral-600">
-                      Medium (md)
-                    </Typography>
-                    <CheckboxGroup size="md">
-                      <label className="flex items-center gap-3">
-                        <Checkbox.Root value="option1">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Medium spacing</span>
-                      </label>
-                      <label className="flex items-center gap-3">
-                        <Checkbox.Root value="option2">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Between items</span>
-                      </label>
-                    </CheckboxGroup>
+                    <Typography level="body-sm" className="mb-2">Medium</Typography>
+                    <CheckboxGroup
+                      size="md"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
                   </div>
                   <div>
-                    <Typography level="body-sm" className="mb-2 text-neutral-600">
-                      Large (lg)
-                    </Typography>
-                    <CheckboxGroup size="lg">
-                      <label className="flex items-center gap-4">
-                        <Checkbox.Root value="option1">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Large spacing</span>
-                      </label>
-                      <label className="flex items-center gap-4">
-                        <Checkbox.Root value="option2">
-                          <Checkbox.Indicator />
-                        </Checkbox.Root>
-                        <span>Between items</span>
-                      </label>
-                    </CheckboxGroup>
+                    <Typography level="body-sm" className="mb-2">Large</Typography>
+                    <CheckboxGroup
+                      size="lg"
+                      defaultValue={['email']}
+                      options={basicOptions}
+                    />
                   </div>
                 </div>
               </Section>
 
               <Section
-                title="Disabled"
+                title="Horizontal Layout"
                 titleLevel="h3"
-                id="disabled"
-                code={`<CheckboxGroup disabled defaultValue={['option1']}>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="option1">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Option 1 (checked)</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="option2">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Option 2</span>
-  </label>
-  <label className="flex items-center gap-3">
-    <Checkbox.Root value="option3">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Option 3</span>
-  </label>
-</CheckboxGroup>`}
+                id="horizontal"
+                code={`<CheckboxGroup
+  orientation="horizontal"
+  options={[
+    { value: 'mon', label: 'Mon' },
+    { value: 'tue', label: 'Tue' },
+    { value: 'wed', label: 'Wed' },
+    { value: 'thu', label: 'Thu' },
+    { value: 'fri', label: 'Fri' },
+  ]}
+/>`}
+                codeLanguage="tsx"
               >
-                <CheckboxGroup disabled defaultValue={['option1']}>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="option1">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Option 1 (checked)</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="option2">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Option 2</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <Checkbox.Root value="option3">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Option 3</span>
-                  </label>
-                </CheckboxGroup>
+                <Typography level="body-sm" className="mb-4">
+                  Use <code className="font-mono text-sm">orientation="horizontal"</code> for inline layouts.
+                </Typography>
+                <CheckboxGroup
+                  orientation="horizontal"
+                  defaultValue={['mon', 'wed', 'fri']}
+                  options={[
+                    { value: 'mon', label: 'Mon' },
+                    { value: 'tue', label: 'Tue' },
+                    { value: 'wed', label: 'Wed' },
+                    { value: 'thu', label: 'Thu' },
+                    { value: 'fri', label: 'Fri' },
+                  ]}
+                />
               </Section>
 
               <Section
-                title="Select All"
+                title="Disabled Items"
                 titleLevel="h3"
-                id="select-all"
-                code={`<CheckboxGroup allValues={['option1', 'option2', 'option3']}>
-  <label className="flex items-center gap-3 font-medium">
-    <Checkbox.Root parent>
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <span>Select All</span>
-  </label>
-  <div className="ml-6 space-y-2">
-    <label className="flex items-center gap-3">
-      <Checkbox.Root value="option1">
-        <Checkbox.Indicator />
-      </Checkbox.Root>
-      <span>Option 1</span>
-    </label>
-    <label className="flex items-center gap-3">
-      <Checkbox.Root value="option2">
-        <Checkbox.Indicator />
-      </Checkbox.Root>
-      <span>Option 2</span>
-    </label>
-    <label className="flex items-center gap-3">
-      <Checkbox.Root value="option3">
-        <Checkbox.Indicator />
-      </Checkbox.Root>
-      <span>Option 3</span>
-    </label>
-  </div>
-</CheckboxGroup>`}
+                id="disabled-items"
+                code={`<CheckboxGroup
+  options={[
+    { value: 'available', label: 'Available' },
+    { value: 'unavailable', label: 'Unavailable', disabled: true },
+    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
+  ]}
+/>`}
+                codeLanguage="tsx"
               >
-                <CheckboxGroup allValues={['option1', 'option2', 'option3']}>
-                  <label className="flex items-center gap-3 font-medium">
-                    <Checkbox.Root parent>
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <span>Select All</span>
-                  </label>
-                  <div className="ml-6 space-y-2">
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="option1">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <span>Option 1</span>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="option2">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <span>Option 2</span>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="option3">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <span>Option 3</span>
-                    </label>
-                  </div>
-                </CheckboxGroup>
-              </Section>
-
-              <Section
-                title="With Descriptions"
-                titleLevel="h3"
-                id="with-descriptions"
-                code={`<CheckboxGroup>
-  <label className="flex items-start gap-3">
-    <Checkbox.Root value="analytics" className="mt-0.5">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <div>
-      <div className="font-medium">Analytics</div>
-      <Typography level="body-sm" className="text-neutral-500">
-        Allow us to collect anonymous usage data to improve the product
-      </Typography>
-    </div>
-  </label>
-  <label className="flex items-start gap-3">
-    <Checkbox.Root value="marketing" className="mt-0.5">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <div>
-      <div className="font-medium">Marketing</div>
-      <Typography level="body-sm" className="text-neutral-500">
-        Receive marketing emails about new features and offers
-      </Typography>
-    </div>
-  </label>
-  <label className="flex items-start gap-3">
-    <Checkbox.Root value="updates" className="mt-0.5">
-      <Checkbox.Indicator />
-    </Checkbox.Root>
-    <div>
-      <div className="font-medium">Product Updates</div>
-      <Typography level="body-sm" className="text-neutral-500">
-        Get notified about new features and product updates
-      </Typography>
-    </div>
-  </label>
-</CheckboxGroup>`}
-              >
-                <CheckboxGroup>
-                  <label className="flex items-start gap-3">
-                    <Checkbox.Root value="analytics" className="mt-0.5">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <div>
-                      <div className="font-medium">Analytics</div>
-                      <Typography level="body-sm" className="text-neutral-500">
-                        Allow us to collect anonymous usage data to improve the product
-                      </Typography>
-                    </div>
-                  </label>
-                  <label className="flex items-start gap-3">
-                    <Checkbox.Root value="marketing" className="mt-0.5">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <div>
-                      <div className="font-medium">Marketing</div>
-                      <Typography level="body-sm" className="text-neutral-500">
-                        Receive marketing emails about new features and offers
-                      </Typography>
-                    </div>
-                  </label>
-                  <label className="flex items-start gap-3">
-                    <Checkbox.Root value="updates" className="mt-0.5">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <div>
-                      <div className="font-medium">Product Updates</div>
-                      <Typography level="body-sm" className="text-neutral-500">
-                        Get notified about new features and product updates
-                      </Typography>
-                    </div>
-                  </label>
-                </CheckboxGroup>
-              </Section>
-
-              <Section
-                title="Filter Example"
-                titleLevel="h3"
-                id="filter-example"
-                code={`<div className="max-w-xs p-4 bg-neutral-50 rounded-lg">
-  <Typography level="body-md" weight="medium" className="mb-3">
-    Filter by Category
-  </Typography>
-  <CheckboxGroup defaultValue={['electronics', 'books']}>
-    <label className="flex items-center gap-3">
-      <Checkbox.Root value="electronics">
-        <Checkbox.Indicator />
-      </Checkbox.Root>
-      <span>Electronics</span>
-      <Typography level="body-sm" className="ml-auto text-neutral-400">
-        42
-      </Typography>
-    </label>
-    <label className="flex items-center gap-3">
-      <Checkbox.Root value="clothing">
-        <Checkbox.Indicator />
-      </Checkbox.Root>
-      <span>Clothing</span>
-      <Typography level="body-sm" className="ml-auto text-neutral-400">
-        18
-      </Typography>
-    </label>
-    <label className="flex items-center gap-3">
-      <Checkbox.Root value="books">
-        <Checkbox.Indicator />
-      </Checkbox.Root>
-      <span>Books</span>
-      <Typography level="body-sm" className="ml-auto text-neutral-400">
-        156
-      </Typography>
-    </label>
-    <label className="flex items-center gap-3">
-      <Checkbox.Root value="home">
-        <Checkbox.Indicator />
-      </Checkbox.Root>
-      <span>Home & Garden</span>
-      <Typography level="body-sm" className="ml-auto text-neutral-400">
-        73
-      </Typography>
-    </label>
-  </CheckboxGroup>
-</div>`}
-              >
-                <div className="max-w-xs p-4 bg-neutral-50 rounded-lg">
-                  <Typography level="body-md" weight="medium" className="mb-3">
-                    Filter by Category
-                  </Typography>
-                  <CheckboxGroup defaultValue={['electronics', 'books']}>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="electronics">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <span>Electronics</span>
-                      <Typography level="body-sm" className="ml-auto text-neutral-400">
-                        42
-                      </Typography>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="clothing">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <span>Clothing</span>
-                      <Typography level="body-sm" className="ml-auto text-neutral-400">
-                        18
-                      </Typography>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="books">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <span>Books</span>
-                      <Typography level="body-sm" className="ml-auto text-neutral-400">
-                        156
-                      </Typography>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <Checkbox.Root value="home">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <span>Home & Garden</span>
-                      <Typography level="body-sm" className="ml-auto text-neutral-400">
-                        73
-                      </Typography>
-                    </label>
-                  </CheckboxGroup>
-                </div>
+                <Typography level="body-sm" className="mb-4">
+                  Add <code className="font-mono text-sm">disabled: true</code> to individual options.
+                </Typography>
+                <CheckboxGroup
+                  defaultValue={['available']}
+                  options={[
+                    { value: 'available', label: 'Available' },
+                    { value: 'unavailable', label: 'Unavailable', disabled: true },
+                    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
+                  ]}
+                />
               </Section>
             </div>
           </Section>
 
           <Section title="API Reference" id="api">
-            <PropsTable props={componentProps.CheckboxGroup} />
+            <PropsTable props={checkboxGroupProps} />
           </Section>
         </div>
         <TableOfContents sections={sections} />

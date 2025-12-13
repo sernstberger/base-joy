@@ -1,8 +1,33 @@
 [
   {
+    "name": "options",
+    "type": "AutocompleteOption[]",
+    "description": "The options to display in the autocomplete.",
+    "required": true
+  },
+  {
+    "name": "aria-label",
+    "type": "string",
+    "description": "Accessible label for the autocomplete input.",
+    "required": false
+  },
+  {
+    "name": "aria-labelledby",
+    "type": "string",
+    "description": "ID of the element that labels this autocomplete.",
+    "required": false
+  },
+  {
+    "name": "className",
+    "type": "string",
+    "description": "Additional class name for the input element.",
+    "required": false
+  },
+  {
     "name": "color",
     "type": "\"primary\" | \"neutral\" | \"success\" | \"warning\" | \"danger\"",
     "defaultValue": "neutral",
+    "description": "The color scheme of the autocomplete.",
     "required": false
   },
   {
@@ -14,8 +39,14 @@
   {
     "name": "disabled",
     "type": "boolean",
-    "defaultValue": "false",
-    "description": "Whether the component should ignore user interaction.",
+    "description": "Whether the autocomplete is disabled.",
+    "required": false
+  },
+  {
+    "name": "emptyMessage",
+    "type": "string",
+    "defaultValue": "No results found",
+    "description": "Message to display when no options match the input.",
     "required": false
   },
   {
@@ -28,6 +59,18 @@
     "name": "name",
     "type": "string",
     "description": "Identifies the field when a form is submitted.",
+    "required": false
+  },
+  {
+    "name": "placeholder",
+    "type": "string",
+    "description": "Placeholder text when no value is entered.",
+    "required": false
+  },
+  {
+    "name": "renderOption",
+    "type": "((option: AutocompleteOptionItem) => ReactNode)",
+    "description": "Custom render function for option items.",
     "required": false
   },
   {
@@ -47,6 +90,7 @@
     "name": "variant",
     "type": "\"solid\" | \"soft\" | \"outlined\" | \"plain\"",
     "defaultValue": "outlined",
+    "description": "The visual style of the autocomplete input.",
     "required": false
   }
 ]

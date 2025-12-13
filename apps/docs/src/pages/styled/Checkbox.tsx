@@ -294,28 +294,14 @@ export function CheckboxPage() {
                 <Typography level="body-sm" className="mb-4">
                   Use CheckboxGroup to manage multiple related checkboxes with shared state.
                 </Typography>
-                <CheckboxGroup defaultValue={['newsletter']}>
-                  <div className="space-y-3">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <Checkbox.Root value="newsletter">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <Typography level="body-md">Subscribe to newsletter</Typography>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <Checkbox.Root value="updates">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <Typography level="body-md">Receive product updates</Typography>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <Checkbox.Root value="marketing">
-                        <Checkbox.Indicator />
-                      </Checkbox.Root>
-                      <Typography level="body-md">Marketing communications</Typography>
-                    </label>
-                  </div>
-                </CheckboxGroup>
+                <CheckboxGroup
+                  defaultValue={['newsletter']}
+                  options={[
+                    { value: 'newsletter', label: 'Subscribe to newsletter' },
+                    { value: 'updates', label: 'Receive product updates' },
+                    { value: 'marketing', label: 'Marketing communications' },
+                  ]}
+                />
               </Section>
 
               <Section
@@ -347,26 +333,14 @@ export function CheckboxPage() {
                 <Typography level="body-sm" className="mb-4">
                   Set <code className="font-mono text-sm">orientation="horizontal"</code> to display checkboxes in a row.
                 </Typography>
-                <CheckboxGroup orientation="horizontal">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <Checkbox.Root value="a">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <Typography level="body-md">Option A</Typography>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <Checkbox.Root value="b">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <Typography level="body-md">Option B</Typography>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <Checkbox.Root value="c">
-                      <Checkbox.Indicator />
-                    </Checkbox.Root>
-                    <Typography level="body-md">Option C</Typography>
-                  </label>
-                </CheckboxGroup>
+                <CheckboxGroup
+                  orientation="horizontal"
+                  options={[
+                    { value: 'a', label: 'Option A' },
+                    { value: 'b', label: 'Option B' },
+                    { value: 'c', label: 'Option C' },
+                  ]}
+                />
               </Section>
             </div>
           </Section>
