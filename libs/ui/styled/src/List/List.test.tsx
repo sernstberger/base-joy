@@ -324,6 +324,82 @@ describe('ListItem', () => {
     });
   });
 
+  describe('nested prop', () => {
+    it('renders as simple li container when nested', () => {
+      render(
+        <List>
+          <ListItem nested>
+            <div data-testid="child">Child content</div>
+          </ListItem>
+        </List>
+      );
+      const child = screen.getByTestId('child');
+      const li = child.closest('li');
+      expect(li).not.toBeNull();
+      expect(li).toHaveClass('list-none');
+      expect(screen.getByText('Child content')).toBeInTheDocument();
+    });
+
+    it('allows nested List inside', () => {
+      render(
+        <List>
+          <ListItem nested>
+            <List data-testid="nested-list">
+              <ListItem>Nested item</ListItem>
+            </List>
+          </ListItem>
+        </List>
+      );
+      const nestedList = screen.getByTestId('nested-list');
+      expect(nestedList.tagName).toBe('UL');
+      expect(screen.getByText('Nested item')).toBeInTheDocument();
+    });
+
+    it('ListSubheader renders as div when inside nested ListItem', () => {
+      render(
+        <List>
+          <ListItem nested>
+            <ListSubheader data-testid="subheader">Section</ListSubheader>
+            <List>
+              <ListItem>Item</ListItem>
+            </List>
+          </ListItem>
+        </List>
+      );
+      const subheader = screen.getByTestId('subheader');
+      expect(subheader.tagName).toBe('DIV');
+    });
+
+    it('applies custom className when nested', () => {
+      render(
+        <List>
+          <ListItem nested className="custom-nested">
+            <span data-testid="child">Content</span>
+          </ListItem>
+        </List>
+      );
+      const child = screen.getByTestId('child');
+      const li = child.closest('li');
+      expect(li).toHaveClass('custom-nested');
+    });
+
+    it('has no accessibility violations with nested structure', async () => {
+      const { container } = render(
+        <List aria-label="Main list">
+          <ListItem nested>
+            <ListSubheader>Category</ListSubheader>
+            <List aria-label="Nested list">
+              <ListItem>Nested item 1</ListItem>
+              <ListItem>Nested item 2</ListItem>
+            </List>
+          </ListItem>
+        </List>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(

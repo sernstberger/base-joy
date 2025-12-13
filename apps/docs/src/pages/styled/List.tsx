@@ -13,7 +13,10 @@ import {
   type Marker,
 } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
-import { Playground, type PlaygroundControl } from '../../components/Playground';
+import {
+  Playground,
+  type PlaygroundControl,
+} from '../../components/Playground';
 import { PropsTable, type PropMeta } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import type { Size, Variant, ColorScale } from '@base-joy/tokens';
@@ -114,6 +117,14 @@ const listItemProps: PropMeta[] = [
     type: 'boolean',
     defaultValue: 'false',
     description: 'Whether the item is disabled.',
+    required: false,
+  },
+  {
+    name: 'nested',
+    type: 'boolean',
+    defaultValue: 'false',
+    description:
+      'If true, the item acts as a container for nested Lists and ListSubheaders.',
     required: false,
   },
   {
@@ -374,8 +385,8 @@ export function ListPage() {
             title="Nested List"
             titleLevel="h3"
             id="nested"
-            code={`<List variant="outlined" spacing="sm">
-  <li className="list-none">
+            code={`<List spacing="sm">
+  <ListItem nested>
     <ListSubheader>Category 1</ListSubheader>
     <List spacing="sm" className="pl-4">
       <ListItem interactive>
@@ -385,26 +396,25 @@ export function ListPage() {
         <ItemContent>Subitem 2</ItemContent>
       </ListItem>
     </List>
-  </li>
-  <li className="list-none">
+  </ListItem>
+  <ListItem nested>
     <ListSubheader>Category 2</ListSubheader>
     <List spacing="sm" className="pl-4">
       <ListItem interactive>
         <ItemContent>Subitem 1</ItemContent>
       </ListItem>
     </List>
-  </li>
+  </ListItem>
 </List>`}
           >
             <Typography level="body-sm" className="mb-4">
-              Nest lists by wrapping a subheader and child List in a{' '}
-              <code className="font-mono text-sm">&lt;li&gt;</code>. Add{' '}
-              <code className="font-mono text-sm">pl-4</code> for indentation.
+              Use the <code className="font-mono text-sm">nested</code> prop on
+              ListItem to create groups with subheaders and nested lists.
             </Typography>
             <div className="max-w-md">
               <Sheet variant="outlined" className="rounded-md">
                 <List spacing="sm">
-                  <li className="list-none">
+                  <ListItem nested>
                     <ListSubheader>Category 1</ListSubheader>
                     <List spacing="sm" className="pl-4">
                       <ListItem interactive>
@@ -414,8 +424,8 @@ export function ListPage() {
                         <ItemContent>Subitem 2</ItemContent>
                       </ListItem>
                     </List>
-                  </li>
-                  <li className="list-none">
+                  </ListItem>
+                  <ListItem nested>
                     <ListSubheader>Category 2</ListSubheader>
                     <List spacing="sm" className="pl-4">
                       <ListItem interactive>
@@ -425,7 +435,7 @@ export function ListPage() {
                         <ItemContent>Subitem 2</ItemContent>
                       </ListItem>
                     </List>
-                  </li>
+                  </ListItem>
                 </List>
               </Sheet>
             </div>
@@ -514,7 +524,7 @@ export function ListPage() {
             id="sticky"
             code={`<Sheet variant="outlined" className="max-h-64 overflow-auto rounded-md">
   <List>
-    <li className="list-none">
+    <ListItem nested>
       <ListSubheader sticky>Category 1</ListSubheader>
       <List spacing="sm">
         {items.map((item, i) => (
@@ -523,7 +533,7 @@ export function ListPage() {
           </ListItem>
         ))}
       </List>
-    </li>
+    </ListItem>
     {/* More categories... */}
   </List>
 </Sheet>`}
@@ -540,7 +550,7 @@ export function ListPage() {
               >
                 <List>
                   {[1, 2, 3, 4, 5].map((category) => (
-                    <li key={category} className="list-none">
+                    <ListItem key={category} nested>
                       <ListSubheader sticky>Category {category}</ListSubheader>
                       <List spacing="sm">
                         {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -549,7 +559,7 @@ export function ListPage() {
                           </ListItem>
                         ))}
                       </List>
-                    </li>
+                    </ListItem>
                   ))}
                 </List>
               </Sheet>
@@ -655,13 +665,13 @@ export function ListPage() {
 {/* Nested markers */}
 <List marker="disc" spacing="sm">
   <ListItem>The Shawshank Redemption</ListItem>
-  <li className="list-none">
-    <Typography level="body-md" className="py-1 ml-5">Star Wars</Typography>
-    <List marker="circle" spacing="sm" className="ml-5">
+  <ListItem nested className="ml-5">
+    <Typography level="body-md" className="py-1">Star Wars</Typography>
+    <List marker="circle" spacing="sm">
       <ListItem>Episode I – The Phantom Menace</ListItem>
       <ListItem>Episode II – Attack of the Clones</ListItem>
     </List>
-  </li>
+  </ListItem>
   <ListItem>The Lord of the Rings</ListItem>
 </List>
 
@@ -675,8 +685,9 @@ export function ListPage() {
               Use the <code className="font-mono text-sm">marker</code> prop to
               display list markers. When set to{' '}
               <code className="font-mono text-sm">decimal</code>, the List
-              renders as an ordered list (<code className="font-mono text-sm">&lt;ol&gt;</code>).
-              Supports any valid{' '}
+              renders as an ordered list (
+              <code className="font-mono text-sm">&lt;ol&gt;</code>). Supports
+              any valid{' '}
               <code className="font-mono text-sm">list-style-type</code> value.
             </Typography>
             <div className="flex flex-wrap gap-8">
@@ -717,16 +728,16 @@ export function ListPage() {
               </Typography>
               <List marker="disc" spacing="sm">
                 <ListItem>The Shawshank Redemption</ListItem>
-                <li className="list-none">
-                  <Typography level="body-md" className="py-1 ml-5">
+                <ListItem nested className="ml-5">
+                  <Typography level="body-md" className="py-1">
                     Star Wars
                   </Typography>
-                  <List marker="circle" spacing="sm" className="ml-5">
+                  <List marker="circle" spacing="sm">
                     <ListItem>Episode I – The Phantom Menace</ListItem>
                     <ListItem>Episode II – Attack of the Clones</ListItem>
                     <ListItem>Episode III – Revenge of the Sith</ListItem>
                   </List>
-                </li>
+                </ListItem>
                 <ListItem>The Lord of the Rings: The Two Towers</ListItem>
               </List>
             </div>

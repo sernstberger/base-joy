@@ -21,6 +21,11 @@ export const ListContext = React.createContext<ListContextValue | null>(null);
 
 export const useListContext = () => React.useContext(ListContext);
 
+// Nested List Context - indicates we're inside a nested ListItem
+const NestedListContext = React.createContext(false);
+
+const useNestedListContext = () => React.useContext(NestedListContext);
+
 // List variants
 export const listVariants = cva('flex flex-col m-0 p-0', {
   variants: {
@@ -111,7 +116,14 @@ export const List = React.forwardRef<
 List.displayName = 'List';
 
 // ListItem - wraps Item component with li element
-export interface ListItemProps extends Omit<ItemProps, 'as'> {}
+export interface ListItemProps extends Omit<ItemProps, 'as'> {
+  /**
+   * If true, the ListItem acts as a container for nested Lists and ListSubheaders.
+   * Children are rendered directly without the Item wrapper.
+   * @default false
+   */
+  nested?: boolean;
+}
 
 export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
   (
@@ -123,6 +135,7 @@ export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
       interactive = false,
       selected = false,
       disabled = false,
+      nested = false,
       render,
       children,
       ...props
@@ -136,6 +149,17 @@ export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
     const color = colorProp ?? listContext?.color ?? 'neutral';
     const size = sizeProp ?? listContext?.size ?? 'md';
     const marker = listContext?.marker ?? 'none';
+
+    // Nested ListItem - renders children directly as a container for nested Lists
+    if (nested) {
+      return (
+        <NestedListContext.Provider value={true}>
+          <li ref={ref} className={cn('list-none', className)}>
+            {children}
+          </li>
+        </NestedListContext.Provider>
+      );
+    }
 
     // When markers are shown, render children directly for proper alignment
     // (Item is a flex container which breaks list-inside marker positioning)
@@ -186,21 +210,37 @@ export const listSubheaderVariants = cva(
 );
 
 export interface ListSubheaderProps
-  extends React.HTMLAttributes<HTMLLIElement>,
+  extends React.HTMLAttributes<HTMLLIElement | HTMLDivElement>,
     VariantProps<typeof listSubheaderVariants> {}
 
-export const ListSubheader = React.forwardRef<HTMLLIElement, ListSubheaderProps>(
-  ({ className, sticky = false, children, ...props }, ref) => {
+export const ListSubheader = React.forwardRef<
+  HTMLLIElement | HTMLDivElement,
+  ListSubheaderProps
+>(({ className, sticky = false, children, ...props }, ref) => {
+  const isNested = useNestedListContext();
+
+  // Inside a nested ListItem, render as div to avoid li > li nesting
+  if (isNested) {
     return (
-      <li
-        ref={ref}
+      <div
+        ref={ref as React.Ref<HTMLDivElement>}
         className={cn(listSubheaderVariants({ sticky }), className)}
         {...props}
       >
         {children}
-      </li>
+      </div>
     );
   }
-);
+
+  return (
+    <li
+      ref={ref as React.Ref<HTMLLIElement>}
+      className={cn(listSubheaderVariants({ sticky }), className)}
+      {...props}
+    >
+      {children}
+    </li>
+  );
+});
 
 ListSubheader.displayName = 'ListSubheader';
