@@ -26,7 +26,6 @@ import { FieldsetPage } from './pages/styled/Fieldset';
 import { CheckboxPage } from './pages/styled/Checkbox';
 import { CheckboxGroupPage } from './pages/styled/CheckboxGroup';
 import { RadioPage } from './pages/styled/Radio';
-import { RadioGroupPage } from './pages/styled/RadioGroup';
 import { SwitchPage } from './pages/styled/Switch';
 import { SelectPage } from './pages/styled/Select';
 import { ComboboxPage } from './pages/styled/Combobox';
@@ -196,10 +195,6 @@ export const router = createBrowserRouter([
       {
         path: 'styled/radio',
         element: <RadioPage />,
-      },
-      {
-        path: 'styled/radio-group',
-        element: <RadioGroupPage />,
       },
       {
         path: 'styled/switch',

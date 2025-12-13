@@ -17,26 +17,36 @@ const basicOptions: RadioOption[] = [
   { value: 'option3', label: 'Option 3' },
 ];
 
-const radioControls: PlaygroundControl[] = [
-  { name: 'variant', type: 'variant', defaultValue: 'soft' },
-  { name: 'color', type: 'color', defaultValue: 'primary' },
-  { name: 'size', type: 'size', defaultValue: 'md' },
-  { name: 'disabled', type: 'boolean', defaultValue: false },
+const billingOptions: RadioOption[] = [
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'quarterly', label: 'Quarterly' },
+  { value: 'yearly', label: 'Yearly' },
 ];
 
-const radioCodeTemplate = (props: Record<string, string | boolean>) => {
-  const disabledProp = (props.disabled === 'true' || props.disabled === true) ? '\n  disabled' : '';
-  return `<RadioGroup
+const controls: PlaygroundControl[] = [
+  { name: 'variant', type: 'variant', defaultValue: 'outlined' },
+  { name: 'color', type: 'color', defaultValue: 'primary' },
+  { name: 'size', type: 'size', defaultValue: 'md' },
+  {
+    name: 'orientation',
+    type: 'select',
+    options: ['vertical', 'horizontal'],
+    defaultValue: 'vertical',
+  },
+];
+
+const codeTemplate = (props: Record<string, string>) =>
+  `<RadioGroup
   variant="${props.variant}"
   color="${props.color}"
-  size="${props.size}"${disabledProp}
+  size="${props.size}"
+  orientation="${props.orientation}"
   options={[
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
   ]}
-  defaultValue="option1"
 />`;
-};
 
 const sections = [
   { id: 'playground', title: 'Playground' },
@@ -44,8 +54,8 @@ const sections = [
   { id: 'variants', title: 'Variants', level: 3 },
   { id: 'colors', title: 'Colors', level: 3 },
   { id: 'sizes', title: 'Sizes', level: 3 },
-  { id: 'disabled-state', title: 'Disabled State', level: 3 },
-  { id: 'horizontal-orientation', title: 'Horizontal Orientation', level: 3 },
+  { id: 'horizontal', title: 'Horizontal Layout', level: 3 },
+  { id: 'disabled-items', title: 'Disabled Items', level: 3 },
   { id: 'api', title: 'API Reference' },
 ];
 
@@ -54,24 +64,21 @@ export function RadioPage() {
     <div>
       <ComponentHeader
         title="Radio"
-        description="A radio button component for selecting one option from a set. Use RadioGroup with the options prop for grouped radio buttons."
-        baseUiUrl="https://base-ui.com/react/components/radio"
+        description="Radio buttons for single-selection from a list of options. Use the RadioGroup component with an options array."
+        baseUiUrl="https://base-ui.com/react/components/radio-group"
       />
       <div className="flex gap-8">
         <div className="flex-1">
           <Section title="Playground" id="playground">
-            <Playground controls={radioControls} codeTemplate={radioCodeTemplate}>
+            <Playground controls={controls} codeTemplate={codeTemplate}>
               {(props) => (
                 <RadioGroup
                   variant={props.variant as Variant}
                   color={props.color as ColorScale}
                   size={props.size as Size}
-                  disabled={String(props.disabled) === 'true'}
-                  options={[
-                    { value: 'option1', label: 'Option 1' },
-                    { value: 'option2', label: 'Option 2' },
-                  ]}
+                  orientation={props.orientation as 'horizontal' | 'vertical'}
                   defaultValue="option1"
+                  options={basicOptions}
                 />
               )}
             </Playground>
@@ -83,10 +90,10 @@ export function RadioPage() {
                 title="Variants"
                 titleLevel="h3"
                 id="variants"
-                code={`<RadioGroup variant="solid" options={options} />
-<RadioGroup variant="soft" options={options} />
-<RadioGroup variant="outlined" options={options} />
-<RadioGroup variant="plain" options={options} />`}
+                code={`<RadioGroup variant="solid" color="primary" options={options} />
+<RadioGroup variant="soft" color="primary" options={options} />
+<RadioGroup variant="outlined" color="primary" options={options} />
+<RadioGroup variant="plain" color="primary" options={options} />`}
                 codeLanguage="tsx"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -94,6 +101,7 @@ export function RadioPage() {
                     <Typography level="body-sm" className="mb-2">Solid</Typography>
                     <RadioGroup
                       variant="solid"
+                      color="primary"
                       defaultValue="option1"
                       options={basicOptions}
                     />
@@ -102,6 +110,7 @@ export function RadioPage() {
                     <Typography level="body-sm" className="mb-2">Soft</Typography>
                     <RadioGroup
                       variant="soft"
+                      color="primary"
                       defaultValue="option1"
                       options={basicOptions}
                     />
@@ -110,6 +119,7 @@ export function RadioPage() {
                     <Typography level="body-sm" className="mb-2">Outlined</Typography>
                     <RadioGroup
                       variant="outlined"
+                      color="primary"
                       defaultValue="option1"
                       options={basicOptions}
                     />
@@ -118,6 +128,7 @@ export function RadioPage() {
                     <Typography level="body-sm" className="mb-2">Plain</Typography>
                     <RadioGroup
                       variant="plain"
+                      color="primary"
                       defaultValue="option1"
                       options={basicOptions}
                     />
@@ -218,40 +229,15 @@ export function RadioPage() {
               </Section>
 
               <Section
-                title="Disabled State"
+                title="Horizontal Layout"
                 titleLevel="h3"
-                id="disabled-state"
-                code={`<RadioGroup
-  options={[
-    { value: 'enabled', label: 'Enabled option' },
-    { value: 'disabled', label: 'Disabled option', disabled: true },
-  ]}
-/>`}
-                codeLanguage="tsx"
-              >
-                <Typography level="body-sm" className="mb-4">
-                  Individual options can be disabled with the <code className="font-mono text-sm">disabled</code> property.
-                </Typography>
-                <RadioGroup
-                  defaultValue="enabled"
-                  options={[
-                    { value: 'enabled', label: 'Enabled option' },
-                    { value: 'disabled', label: 'Disabled option', disabled: true },
-                    { value: 'another', label: 'Another enabled option' },
-                  ]}
-                />
-              </Section>
-
-              <Section
-                title="Horizontal Orientation"
-                titleLevel="h3"
-                id="horizontal-orientation"
+                id="horizontal"
                 code={`<RadioGroup
   orientation="horizontal"
   options={[
-    { value: 'left', label: 'Left' },
-    { value: 'center', label: 'Center' },
-    { value: 'right', label: 'Right' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'quarterly', label: 'Quarterly' },
+    { value: 'yearly', label: 'Yearly' },
   ]}
 />`}
                 codeLanguage="tsx"
@@ -261,11 +247,33 @@ export function RadioPage() {
                 </Typography>
                 <RadioGroup
                   orientation="horizontal"
-                  defaultValue="center"
+                  defaultValue="monthly"
+                  options={billingOptions}
+                />
+              </Section>
+
+              <Section
+                title="Disabled Items"
+                titleLevel="h3"
+                id="disabled-items"
+                code={`<RadioGroup
+  options={[
+    { value: 'available', label: 'Available' },
+    { value: 'unavailable', label: 'Unavailable', disabled: true },
+    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
+  ]}
+/>`}
+                codeLanguage="tsx"
+              >
+                <Typography level="body-sm" className="mb-4">
+                  Add <code className="font-mono text-sm">disabled: true</code> to individual options.
+                </Typography>
+                <RadioGroup
+                  defaultValue="available"
                   options={[
-                    { value: 'left', label: 'Left' },
-                    { value: 'center', label: 'Center' },
-                    { value: 'right', label: 'Right' },
+                    { value: 'available', label: 'Available' },
+                    { value: 'unavailable', label: 'Unavailable', disabled: true },
+                    { value: 'coming-soon', label: 'Coming Soon', disabled: true },
                   ]}
                 />
               </Section>
@@ -273,10 +281,6 @@ export function RadioPage() {
           </Section>
 
           <Section title="API Reference" id="api">
-            <Typography level="body-sm" className="mb-4">
-              For radio button groups, use the <code className="font-mono text-sm">RadioGroup</code> component with the <code className="font-mono text-sm">options</code> prop.
-              See the <a href="/styled/RadioGroup" className="text-primary-500 hover:underline">RadioGroup documentation</a> for full API reference.
-            </Typography>
             <PropsTable props={componentProps.RadioGroup ?? []} />
           </Section>
         </div>
