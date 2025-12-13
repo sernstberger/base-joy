@@ -185,7 +185,7 @@ For this base-joy component library:
 4. **Polymorphic as prop** - Components should support `as` prop for element type
 5. **Type Imports** - Import types from `@base-joy/tokens`
 6. **Test Coverage** - New components need tests following Kent C. Dodds methodology
-7. **Accessibility** - Use jest-axe tests, include proper ARIA attributes
+7. **Accessibility** - Use vitest-axe tests, include proper ARIA attributes
 
 ## Example: No Issues Found
 

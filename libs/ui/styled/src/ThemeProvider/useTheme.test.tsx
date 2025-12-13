@@ -12,15 +12,15 @@ describe('useTheme', () => {
     document.documentElement.removeAttribute('data-color-scheme');
 
     // Mock matchMedia for ColorSchemeProvider
-    global.matchMedia = jest.fn((query) => ({
+    global.matchMedia = vi.fn((query) => ({
       matches: false,
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
     }));
   });
 
@@ -28,11 +28,11 @@ describe('useTheme', () => {
     localStorage.clear();
     document.documentElement.style.cssText = '';
     document.documentElement.removeAttribute('data-color-scheme');
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('throws error when used outside ThemeProvider', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     expect(() => {
       renderHook(() => useTheme());

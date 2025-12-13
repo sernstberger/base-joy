@@ -122,7 +122,7 @@ export { {ComponentName}, {componentName}Variants, type {ComponentName}Props } f
 ### 3. Test File
 **Path:** `libs/ui/components/src/{ComponentName}/{ComponentName}.test.tsx`
 
-Use the `/testing` command to generate tests following Kent C. Dodds methodology with jest-axe.
+Use the `/testing` command to generate tests following Kent C. Dodds methodology with vitest-axe.
 
 ### 4. Update Main Index
 **Path:** `libs/ui/components/src/index.ts`

@@ -1,7 +1,8 @@
-import '@testing-library/jest-dom';
-import { toHaveNoViolations } from 'jest-axe';
+import '@testing-library/jest-dom/vitest';
+import * as matchers from 'vitest-axe/matchers';
+import { expect } from 'vitest';
 
-expect.extend(toHaveNoViolations);
+expect.extend(matchers);
 
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}

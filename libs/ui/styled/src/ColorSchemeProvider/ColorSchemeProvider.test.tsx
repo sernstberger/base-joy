@@ -27,32 +27,32 @@ describe('ColorSchemeProvider', () => {
     // Mock localStorage
     localStorageMock = {};
     global.localStorage = {
-      getItem: jest.fn((key) => localStorageMock[key] || null),
-      setItem: jest.fn((key, value) => {
+      getItem: vi.fn((key) => localStorageMock[key] || null),
+      setItem: vi.fn((key, value) => {
         localStorageMock[key] = value;
       }),
-      removeItem: jest.fn((key) => {
+      removeItem: vi.fn((key) => {
         delete localStorageMock[key];
       }),
-      clear: jest.fn(() => {
+      clear: vi.fn(() => {
         localStorageMock = {};
       }),
       get length() {
         return Object.keys(localStorageMock).length;
       },
-      key: jest.fn((index) => Object.keys(localStorageMock)[index] || null),
+      key: vi.fn((index) => Object.keys(localStorageMock)[index] || null),
     };
 
     // Mock matchMedia
-    matchMediaMock = jest.fn((query: string) => ({
+    matchMediaMock = vi.fn((query: string) => ({
       matches: false,
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
     }));
     global.matchMedia = matchMediaMock;
 
@@ -61,7 +61,7 @@ describe('ColorSchemeProvider', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('renders children without crashing', () => {
@@ -98,8 +98,8 @@ describe('ColorSchemeProvider', () => {
   it('resolves system scheme to light when no dark preference', () => {
     matchMediaMock.mockReturnValue({
       matches: false,
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     });
 
     render(
@@ -115,8 +115,8 @@ describe('ColorSchemeProvider', () => {
   it('resolves system scheme to dark when dark preference is set', () => {
     matchMediaMock.mockReturnValue({
       matches: true,
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     });
 
     render(
@@ -146,7 +146,7 @@ describe('ColorSchemeProvider', () => {
   });
 
   it('persists color scheme to localStorage', async () => {
-    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem');
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
     const user = userEvent.setup();
 
     render(
@@ -205,12 +205,12 @@ describe('ColorSchemeProvider', () => {
   });
 
   it('does not listen for system changes when not using system scheme', () => {
-    let addEventListenerMock = jest.fn();
+    let addEventListenerMock = vi.fn();
 
     matchMediaMock.mockReturnValue({
       matches: false,
       addEventListener: addEventListenerMock,
-      removeEventListener: jest.fn(),
+      removeEventListener: vi.fn(),
     });
 
     render(
@@ -228,7 +228,7 @@ describe('ColorSchemeProvider', () => {
 
     // Make setItem throw an error
     const originalSetItem = global.localStorage.setItem;
-    global.localStorage.setItem = jest.fn(() => {
+    global.localStorage.setItem = vi.fn(() => {
       throw new Error('QuotaExceededError');
     });
 
@@ -250,7 +250,7 @@ describe('ColorSchemeProvider', () => {
   });
 
   it('uses default when localStorage has invalid value', () => {
-    const getItemSpy = jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('invalid-value');
+    const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('invalid-value');
 
     render(
       <ColorSchemeProvider defaultColorScheme="light">

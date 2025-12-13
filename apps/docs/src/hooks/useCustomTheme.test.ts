@@ -1,46 +1,47 @@
 import * as React from 'react';
 import { renderHook, act } from '@testing-library/react';
+import { vi } from 'vitest';
 import { useCustomTheme } from './useCustomTheme';
 import { useTheme, ThemeProvider } from '@base-joy/ui-styled';
 import { defaultTheme } from '@base-joy/tokens';
 
-jest.mock('@base-joy/ui-styled', () => {
-  const actual = jest.requireActual('@base-joy/ui-styled');
+vi.mock('@base-joy/ui-styled', async () => {
+  const actual = await vi.importActual('@base-joy/ui-styled');
   return {
     ...actual,
-    useTheme: jest.fn(),
+    useTheme: vi.fn(),
   };
 });
 
 describe('useCustomTheme', () => {
-  let mockSetTheme: jest.Mock;
+  let mockSetTheme: ReturnType<typeof vi.fn>;
   let localStorageMock: { [key: string]: string };
   let originalCreateElement: typeof document.createElement;
 
   beforeEach(() => {
-    mockSetTheme = jest.fn();
-    (useTheme as jest.Mock).mockReturnValue({
+    mockSetTheme = vi.fn();
+    vi.mocked(useTheme).mockReturnValue({
       theme: defaultTheme,
       setTheme: mockSetTheme,
     });
 
     localStorageMock = {};
-    global.Storage.prototype.getItem = jest.fn((key: string) => localStorageMock[key] || null);
-    global.Storage.prototype.setItem = jest.fn((key: string, value: string) => {
+    global.Storage.prototype.getItem = vi.fn((key: string) => localStorageMock[key] || null);
+    global.Storage.prototype.setItem = vi.fn((key: string, value: string) => {
       localStorageMock[key] = value;
     });
-    global.Storage.prototype.removeItem = jest.fn((key: string) => {
+    global.Storage.prototype.removeItem = vi.fn((key: string) => {
       delete localStorageMock[key];
     });
 
-    global.URL.createObjectURL = jest.fn(() => 'blob:mock-url');
-    global.URL.revokeObjectURL = jest.fn();
+    global.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+    global.URL.revokeObjectURL = vi.fn();
 
     originalCreateElement = document.createElement.bind(document);
-    document.createElement = jest.fn((tagName: string, options?: ElementCreationOptions) => {
+    document.createElement = vi.fn((tagName: string, options?: ElementCreationOptions) => {
       if (tagName === 'a') {
         return {
-          click: jest.fn(),
+          click: vi.fn(),
           href: '',
           download: '',
         } as any;
@@ -201,8 +202,8 @@ describe('useCustomTheme', () => {
 
     it('triggers file download', () => {
       const { result } = renderHook(() => useCustomTheme());
-      const mockAnchor = { click: jest.fn(), href: '', download: '' };
-      (document.createElement as jest.Mock).mockReturnValue(mockAnchor);
+      const mockAnchor = { click: vi.fn(), href: '', download: '' };
+      vi.mocked(document.createElement).mockReturnValue(mockAnchor);
 
       act(() => {
         result.current.exportTheme();

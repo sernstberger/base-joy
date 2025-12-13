@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { CodeBlock } from './CodeBlock';
 
-jest.mock('shiki', () => ({
-  createHighlighter: jest.fn(() =>
+vi.mock('shiki', () => ({
+  createHighlighter: vi.fn(() =>
     Promise.resolve({
-      codeToHtml: jest.fn(
+      codeToHtml: vi.fn(
         (code: string) =>
           `<pre class="shiki github-dark"><code>${code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`
       ),
@@ -60,7 +60,7 @@ describe('CodeBlock', () => {
 
     it('copies code to clipboard on click', async () => {
       const user = userEvent.setup();
-      const mockWriteText = jest.fn().mockResolvedValue(undefined);
+      const mockWriteText = vi.fn().mockResolvedValue(undefined);
       Object.defineProperty(navigator, 'clipboard', {
         value: { writeText: mockWriteText },
         writable: true,
@@ -79,7 +79,7 @@ describe('CodeBlock', () => {
     it('shows "Copied!" after clicking copy', async () => {
       const user = userEvent.setup();
       Object.defineProperty(navigator, 'clipboard', {
-        value: { writeText: jest.fn().mockResolvedValue(undefined) },
+        value: { writeText: vi.fn().mockResolvedValue(undefined) },
         writable: true,
         configurable: true,
       });

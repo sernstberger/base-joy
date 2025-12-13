@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Checkbox } from './Checkbox';
 
 describe('Checkbox', () => {
@@ -64,7 +64,7 @@ describe('Checkbox', () => {
     });
 
     it('can be controlled', async () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       render(
         <Checkbox.Root checked={false} onCheckedChange={onChange}>
           <Checkbox.Indicator />

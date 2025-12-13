@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Avatar, AvatarGroup } from './Avatar';
 
 describe('Avatar', () => {

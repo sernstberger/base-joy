@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals", "vitest-axe"],
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,

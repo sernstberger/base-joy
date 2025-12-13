@@ -1,9 +1,11 @@
-export const createHighlighter = jest.fn().mockResolvedValue({
-  codeToHtml: jest.fn().mockReturnValue('<pre><code>mock code</code></pre>'),
+import { vi } from 'vitest';
+
+export const createHighlighter = vi.fn().mockResolvedValue({
+  codeToHtml: vi.fn().mockReturnValue('<pre><code>mock code</code></pre>'),
 });
 
-export const getSingletonHighlighter = jest.fn().mockResolvedValue({
-  codeToHtml: jest.fn().mockReturnValue('<pre><code>mock code</code></pre>'),
+export const getSingletonHighlighter = vi.fn().mockResolvedValue({
+  codeToHtml: vi.fn().mockReturnValue('<pre><code>mock code</code></pre>'),
 });
 
 export type Highlighter = {

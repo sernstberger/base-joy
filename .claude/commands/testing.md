@@ -1,6 +1,6 @@
 # Generate Tests: $ARGUMENTS
 
-Create comprehensive tests for a base-joy component following Kent C. Dodds' Testing Library methodology and jest-axe for accessibility testing.
+Create comprehensive tests for a base-joy component following Kent C. Dodds' Testing Library methodology and vitest-axe for accessibility testing.
 
 ## Component Name
 Parse the component name from the arguments. It should be PascalCase (e.g., Sheet, Button, Card).
@@ -30,7 +30,7 @@ Parse the component name from the arguments. It should be PascalCase (e.g., Shee
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { {ComponentName} } from './{ComponentName}';
 
 describe('{ComponentName}', () => {
@@ -256,7 +256,7 @@ describe('{ComponentName}', () => {
   });
 
   // ===========================================
-  // ACCESSIBILITY TESTS (jest-axe)
+  // ACCESSIBILITY TESTS (vitest-axe)
   // ===========================================
   describe('accessibility', () => {
     it('has no accessibility violations with default props', async () => {
@@ -335,7 +335,7 @@ yarn test:watch
 ### DO:
 - Use `screen` queries (they're automatically bound to document.body)
 - Use `userEvent` for user interactions (more realistic than `fireEvent`)
-- Test accessibility with jest-axe
+- Test accessibility with vitest-axe
 - Test edge cases and error states
 - Use `it.each` for parameterized tests
 
@@ -355,6 +355,6 @@ yarn test:watch
 - [ ] Ref forwarding tests pass
 - [ ] className merging tests pass
 - [ ] HTML attributes pass-through tests pass
-- [ ] All jest-axe accessibility tests pass
+- [ ] All vitest-axe accessibility tests pass
 - [ ] Add component-specific tests if needed
 - [ ] Run `yarn test` to verify all tests pass

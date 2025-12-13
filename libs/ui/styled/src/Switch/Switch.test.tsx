@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Switch } from './Switch';
 
 describe('Switch', () => {
@@ -70,7 +70,7 @@ describe('Switch', () => {
     });
 
     it('can be controlled', async () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       render(
         <Switch.Root checked={false} onCheckedChange={onChange}>
           <Switch.Thumb />

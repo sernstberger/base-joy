@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { RadioGroup } from './RadioGroup';
 import { Radio } from '../Radio';
 
@@ -65,7 +65,7 @@ describe('RadioGroup', () => {
 
   describe('controlled value', () => {
     it('handles value changes', async () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       render(
         <RadioGroup value="a" onValueChange={onChange}>
           <label>

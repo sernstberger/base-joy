@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { CheckboxGroup } from './CheckboxGroup';
 import { Checkbox } from '../Checkbox';
 
@@ -65,7 +65,7 @@ describe('CheckboxGroup', () => {
 
   describe('controlled value', () => {
     it('handles value changes', async () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       render(
         <CheckboxGroup value={['a']} onValueChange={onChange}>
           <label>

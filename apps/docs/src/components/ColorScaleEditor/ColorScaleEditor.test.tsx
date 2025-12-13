@@ -4,7 +4,7 @@ import { ColorScaleEditor } from './ColorScaleEditor';
 import { defaultTheme } from '@base-joy/tokens';
 
 describe('ColorScaleEditor', () => {
-  const mockOnChange = jest.fn();
+  const mockOnChange = vi.fn();
   const defaultProps = {
     label: 'Primary Color',
     scale: defaultTheme.colors.primary,

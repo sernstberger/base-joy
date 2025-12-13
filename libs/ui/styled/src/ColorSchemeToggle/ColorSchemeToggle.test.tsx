@@ -9,22 +9,22 @@ describe('ColorSchemeToggle', () => {
     localStorage.clear();
     document.documentElement.removeAttribute('data-color-scheme');
 
-    global.matchMedia = jest.fn((query) => ({
+    global.matchMedia = vi.fn((query) => ({
       matches: false,
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
     }));
   });
 
   afterEach(() => {
     localStorage.clear();
     document.documentElement.removeAttribute('data-color-scheme');
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('renders without crashing', () => {
@@ -40,7 +40,7 @@ describe('ColorSchemeToggle', () => {
   });
 
   it('throws error when used outside ColorSchemeProvider', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     expect(() => {
       render(<ColorSchemeToggle />);

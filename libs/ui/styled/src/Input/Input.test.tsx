@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Input } from './Input';
 
 describe('Input', () => {
@@ -243,7 +243,7 @@ describe('Input', () => {
 
   describe('controlled mode', () => {
     it('works as controlled component', () => {
-      const handleChange = jest.fn();
+      const handleChange = vi.fn();
 
       render(<Input value="test" onChange={handleChange} />);
       const input = screen.getByRole('textbox') as HTMLInputElement;

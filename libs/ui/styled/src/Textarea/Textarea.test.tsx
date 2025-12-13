@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Textarea } from './Textarea';
 
 describe('Textarea', () => {
@@ -206,7 +206,7 @@ describe('Textarea', () => {
   describe('controlled mode', () => {
     it('works as controlled component', async () => {
       const user = userEvent.setup();
-      const handleChange = jest.fn();
+      const handleChange = vi.fn();
 
       const { rerender } = render(
         <Textarea value="" onChange={handleChange} />

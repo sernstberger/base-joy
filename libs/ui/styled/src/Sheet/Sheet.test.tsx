@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Sheet } from './Sheet';
 import { useColorContext } from '../ColorContext';
 
@@ -281,7 +281,7 @@ describe('Sheet', () => {
 
   describe('warnings', () => {
     it('warns when focusWithin is used without interactive', () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
 
       render(
         <Sheet focusWithin interactive={false}>
@@ -297,7 +297,7 @@ describe('Sheet', () => {
     });
 
     it('does not warn when focusWithin is used with interactive', () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
 
       render(
         <Sheet focusWithin interactive>
@@ -311,7 +311,7 @@ describe('Sheet', () => {
     });
 
     it('does not warn when focusWithin is false', () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
 
       render(
         <Sheet focusWithin={false} interactive={false}>

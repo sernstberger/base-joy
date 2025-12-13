@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { TableOfContents, type Section } from './TableOfContents';
 
 const mockSections: Section[] = [
@@ -65,7 +65,7 @@ describe('TableOfContents', () => {
     render(<TableOfContents sections={mockSections} />);
 
     const playgroundElement = document.getElementById('playground')!;
-    const scrollIntoViewMock = jest.fn();
+    const scrollIntoViewMock = vi.fn();
     playgroundElement.scrollIntoView = scrollIntoViewMock;
 
     await user.click(screen.getByText('Playground'));

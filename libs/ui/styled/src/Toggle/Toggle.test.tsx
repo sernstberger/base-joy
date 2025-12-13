@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Toggle, ToggleGroupContext, type ToggleGroupContextValue } from './Toggle';
 
 describe('Toggle', () => {
@@ -81,7 +81,7 @@ describe('Toggle', () => {
     });
 
     it('supports controlled mode', async () => {
-      const onPressedChange = jest.fn();
+      const onPressedChange = vi.fn();
       render(
         <Toggle pressed={false} onPressedChange={onPressedChange} aria-label="Toggle">
           Toggle
@@ -119,7 +119,7 @@ describe('Toggle', () => {
 
   describe('ref forwarding', () => {
     it('forwards ref', () => {
-      const ref = jest.fn();
+      const ref = vi.fn();
       render(
         <Toggle ref={ref} aria-label="Toggle">
           Toggle

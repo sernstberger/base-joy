@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { ToggleGroup } from './ToggleGroup';
 import { Toggle } from '../Toggle';
 
@@ -71,7 +71,7 @@ describe('ToggleGroup', () => {
 
   describe('selection', () => {
     it('selects single value by default', async () => {
-      const onValueChange = jest.fn();
+      const onValueChange = vi.fn();
       render(
         <ToggleGroup.Root onValueChange={onValueChange} aria-label="Options">
           <Toggle value="a" aria-label="Option A">
@@ -124,7 +124,7 @@ describe('ToggleGroup', () => {
     });
 
     it('allows multiple selection when multiple is true', async () => {
-      const onValueChange = jest.fn();
+      const onValueChange = vi.fn();
       render(
         <ToggleGroup.Root
           multiple

@@ -289,8 +289,8 @@ Reference implementation: `libs/ui/styled/src/Button/Button.tsx`
 
 **All tests must pass. No failing tests are acceptable.**
 
-- Jest + Testing Library
-- jest-axe for accessibility testing
+- Vitest + Testing Library
+- vitest-axe for accessibility testing
 - Tests live next to components: `Component.test.tsx`
 - TypeScript strict mode is enabled
 
@@ -308,7 +308,7 @@ Every component must have tests covering:
 - Basic rendering
 - Variants, colors, and sizes
 - States (disabled, error, etc.)
-- Accessibility (using jest-axe)
+- Accessibility (using vitest-axe)
 - Ref forwarding
 - className merging
 

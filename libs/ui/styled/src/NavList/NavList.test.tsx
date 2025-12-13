@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import {
   NavList,
   NavListItem,

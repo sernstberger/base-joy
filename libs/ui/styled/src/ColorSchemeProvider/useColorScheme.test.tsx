@@ -7,32 +7,32 @@ describe('useColorScheme', () => {
   beforeEach(() => {
     // Mock localStorage
     global.localStorage = {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
-      removeItem: jest.fn(),
-      clear: jest.fn(),
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+      clear: vi.fn(),
       get length() {
         return 0;
       },
-      key: jest.fn(),
+      key: vi.fn(),
     };
 
     // Mock matchMedia
-    global.matchMedia = jest.fn((query) => ({
+    global.matchMedia = vi.fn((query) => ({
       matches: false,
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
     }));
   });
 
   it('throws error when used outside ColorSchemeProvider', () => {
     // Suppress console.error for this test
-    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     expect(() => {
       renderHook(() => useColorScheme());
