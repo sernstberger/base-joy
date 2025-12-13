@@ -6,6 +6,7 @@ import { sheetVariants } from '../Sheet';
 import { ItemContext, ItemIcon } from '@base-joy/ui-unstyled';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center font-medium cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50',
@@ -74,12 +75,12 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
   (
     {
       className,
-      // NOTE: Do NOT add destructuring defaults for variant/color (e.g., variant: variantProp = 'solid')
-      // This breaks ColorContext inheritance - the hook needs undefined to detect "not explicitly set"
+      // NOTE: Do NOT add destructuring defaults for variant/color/size (e.g., variant: variantProp = 'solid')
+      // This breaks context inheritance - the hooks need undefined to detect "not explicitly set"
       // Defaults are documented via JSDoc @default tags on the interface for props generation
       variant: variantProp,
       color: colorProp,
-      size = 'md',
+      size: sizeProp,
       fullWidth,
       loading,
       startDecorator,
@@ -99,6 +100,9 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
       'primary', // defaultColor
       'solid' // defaultVariant
     );
+
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
     const isDisabled = disabled || loading;
 

@@ -5,6 +5,7 @@ import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { useColorContext, getSolidContainerStyles } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const toggleVariants = cva(
   'inline-flex items-center justify-center font-medium cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50',
@@ -84,14 +85,15 @@ export interface ToggleProps
 }
 
 export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
-  ({ className, variant, color, size, ...props }, ref) => {
+  ({ className, variant, color, size: sizeProp, ...props }, ref) => {
     const groupContext = useToggleGroupContext();
     const colorContext = useColorContext();
 
     // Resolution order: explicit prop > ToggleGroupContext > ColorContext > default
     const resolvedVariant = variant ?? groupContext?.variant ?? 'outlined';
     const resolvedColor = color ?? groupContext?.color ?? colorContext?.color ?? 'primary';
-    const resolvedSize = size ?? groupContext?.size ?? 'md';
+    // Resolve size: explicit prop > ToggleGroupContext > SizeContext > default
+    const resolvedSize = useResolvedSizeProps(sizeProp ?? groupContext?.size, 'md');
 
     // Check if we're inside a solid container (for styling purposes)
     const isInsideSolid = colorContext?.isInsideSolid ?? false;

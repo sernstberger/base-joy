@@ -22,6 +22,14 @@ export {
   type ResolvedColorProps,
 } from './ColorContext';
 
+// Size context (automatic size inheritance)
+export {
+  SizeContext,
+  useSizeContext,
+  useResolvedSizeProps,
+  type SizeContextValue,
+} from './SizeContext';
+
 // Core styled components
 export { Sheet, sheetVariants, type SheetProps } from './Sheet';
 export {

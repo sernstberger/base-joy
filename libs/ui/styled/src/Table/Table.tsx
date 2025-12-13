@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 import {
   TableContext,
   useTableContext,
@@ -117,7 +118,10 @@ export interface TableHeaderProps extends BaseTableHeaderProps {}
 export interface TableCellProps extends BaseTableCellProps {}
 
 export const Table = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ className, variant = 'default', size = 'md', children, ...props }, ref) => {
+  ({ className, variant = 'default', size: sizeProp, children, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <StyledTableContext.Provider value={{ variant }}>
         <TableContext.Provider value={{ size }}>

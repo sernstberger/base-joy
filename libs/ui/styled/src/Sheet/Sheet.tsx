@@ -3,6 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { ColorContext, type ColorContextValue } from '../ColorContext';
+import { SizeContext, type SizeContextValue } from '../SizeContext';
 
 /**
  * Sheet component - A styled container with CVA variants.
@@ -269,15 +270,33 @@ export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
       [color, variant]
     );
 
+    // Memoize size context value - only provide when size is explicitly set
+    const sizeContextValue = React.useMemo<SizeContextValue | null>(
+      () => (size ? { size } : null),
+      [size]
+    );
+
     return (
       <ColorContext.Provider value={colorContextValue}>
-        <Component
-          ref={ref}
-          className={cn(sheetVariants({ variant, color, size, interactive, focusWithin }), className)}
-          {...props}
-        >
-          {children}
-        </Component>
+        {sizeContextValue ? (
+          <SizeContext.Provider value={sizeContextValue}>
+            <Component
+              ref={ref}
+              className={cn(sheetVariants({ variant, color, size, interactive, focusWithin }), className)}
+              {...props}
+            >
+              {children}
+            </Component>
+          </SizeContext.Provider>
+        ) : (
+          <Component
+            ref={ref}
+            className={cn(sheetVariants({ variant, color, size, interactive, focusWithin }), className)}
+            {...props}
+          >
+            {children}
+          </Component>
+        )}
       </ColorContext.Provider>
     );
   }

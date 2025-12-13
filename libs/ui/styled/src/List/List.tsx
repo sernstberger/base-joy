@@ -4,6 +4,7 @@ import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { Item, type ItemProps } from '../Item';
 import { separatorVariants } from '../Separator';
+import { useResolvedSizeProps } from '../SizeContext';
 
 /**
  * The marker style for list items.
@@ -84,7 +85,7 @@ export const List = React.forwardRef<
       className,
       variant = 'plain',
       color = 'neutral',
-      size = 'md',
+      size: sizeProp,
       spacing = 'none',
       marker = 'none',
       children,
@@ -92,6 +93,9 @@ export const List = React.forwardRef<
     },
     ref
   ) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     const contextValue = React.useMemo<ListContextValue>(
       () => ({ variant, color, size, marker }),
       [variant, color, size, marker]

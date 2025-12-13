@@ -3,6 +3,7 @@ import { ToggleGroup } from '../ToggleGroup';
 import { Toggle } from '../Toggle';
 import { useColorScheme } from '../ColorSchemeProvider';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 export interface ColorSchemeToggleProps {
   /**
@@ -134,12 +135,14 @@ export const ColorSchemeToggle = React.forwardRef<
     {
       variant = 'soft',
       color = 'neutral',
-      size = 'md',
+      size: sizeProp,
       showSystemOption = true,
       className,
     },
     ref
   ) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
     const { colorScheme, setColorScheme } = useColorScheme();
 
     return (

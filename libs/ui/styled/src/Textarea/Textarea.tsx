@@ -4,6 +4,7 @@ import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { Sheet } from '../Sheet/Sheet';
 import { useResolvedColorProps } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const textareaSizeVariants = cva('', {
   variants: {
@@ -47,7 +48,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
       variant: variantProp,
       color: colorProp,
-      size = 'md',
+      size: sizeProp,
       error,
       fullWidth = true,
       rows,
@@ -68,6 +69,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       'neutral', // defaultColor
       'outlined' // defaultVariant
     );
+
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
     const effectiveColor = error ? 'danger' : color;
 

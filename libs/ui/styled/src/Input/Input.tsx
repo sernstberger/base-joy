@@ -5,6 +5,7 @@ import { cn } from '@base-joy/utils';
 import { Sheet } from '../Sheet';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { useResolvedColorProps } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const inputVariants = cva(
   'flex items-center w-full p-0 focus-visible:outline-none',
@@ -61,7 +62,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className,
       variant: variantProp,
       color: colorProp,
-      size = 'md',
+      size: sizeProp,
       fullWidth,
       error,
       disabled,
@@ -79,6 +80,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       'neutral', // defaultColor
       'outlined' // defaultVariant
     );
+
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
     const effectiveColor = error ? 'danger' : color;
 

@@ -1,21 +1,31 @@
-import { Typography, Button } from '@base-joy/ui-styled';
+import {
+  Typography,
+  Button,
+  Sheet,
+  Input,
+  Badge,
+  Checkbox,
+  Switch,
+  Select,
+  CodeBlock,
+} from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Section } from '../../components/Section';
-import { CodeBlock } from '@base-joy/ui-styled';
 
 export function AutomaticAdjustmentPage() {
   return (
     <div className="max-w-4xl">
       <ComponentHeader
         title="Automatic Adjustment"
-        description="Components automatically adapt their size and styling based on parent context, reducing the need for manual prop configuration."
+        description="Components automatically inherit size from parent context, reducing the need for manual prop configuration."
       />
 
       <div className="space-y-12">
         <Section title="Overview" id="overview">
           <Typography level="body-sm" className="mb-4">
-            Automatic adjustment allows components to inherit properties like
-            size from their parent containers, creating a more cohesive design
+            Automatic size adjustment allows components to inherit the{' '}
+            <code className="font-mono text-sm">size</code> prop from their
+            parent containers (like Sheet), creating a more cohesive design
             system with less manual configuration.
           </Typography>
 
@@ -50,284 +60,281 @@ export function AutomaticAdjustmentPage() {
           </ul>
         </Section>
 
-        <Section title="Current Implementation" id="current-implementation">
+        <Section
+          title="Size Inheritance"
+          id="size-inheritance"
+          code={`<Sheet size="sm">
+  {/* All components inherit size="sm" */}
+  <Button>Small button</Button>
+  <Input placeholder="Small input" />
+  <Badge>Small badge</Badge>
+</Sheet>
+
+<Sheet size="lg">
+  {/* All components inherit size="lg" */}
+  <Button>Large button</Button>
+  <Input placeholder="Large input" />
+  <Badge>Large badge</Badge>
+</Sheet>`}
+        >
           <Typography level="body-sm" className="mb-4">
-            Base Joy currently implements size props on individual components
-            but does not yet support automatic propagation through context.
+            When a Sheet has a <code className="font-mono text-sm">size</code>{' '}
+            prop, all child components automatically inherit that size.
           </Typography>
 
           <div className="space-y-4">
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Size Props Available
+            <Sheet size="sm" variant="soft" color="neutral" className="p-4">
+              <Typography level="body-sm" weight="semibold" className="mb-3">
+                size="sm"
               </Typography>
-              <Typography level="body-sm" className="mb-3">
-                Most components support <code className="font-mono text-sm">sm</code>,{' '}
-                <code className="font-mono text-sm">md</code>, and{' '}
-                <code className="font-mono text-sm">lg</code> sizes:
-              </Typography>
-              <div className="flex items-center gap-3">
-                <Button size="sm">Small</Button>
-                <Button size="md">Medium</Button>
-                <Button size="lg">Large</Button>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button>Button</Button>
+                <Input placeholder="Input" className="w-40" />
+                <Badge>Badge</Badge>
               </div>
-            </div>
+            </Sheet>
 
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Manual Size Configuration (Current)
+            <Sheet size="md" variant="soft" color="neutral" className="p-4">
+              <Typography level="body-sm" weight="semibold" className="mb-3">
+                size="md" (default)
               </Typography>
-              <CodeBlock language="tsx" code={`<Sheet variant="soft" color="neutral" size="lg">
-  <Typography level="body-lg">Large container</Typography>
-  <Button size="lg">Button must specify size="lg"</Button>
-  <Input size="lg" placeholder="Input must specify size='lg'" />
-</Sheet>`} />
-            </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button>Button</Button>
+                <Input placeholder="Input" className="w-40" />
+                <Badge>Badge</Badge>
+              </div>
+            </Sheet>
+
+            <Sheet size="lg" variant="soft" color="neutral" className="p-4">
+              <Typography level="body-sm" weight="semibold" className="mb-3">
+                size="lg"
+              </Typography>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button>Button</Button>
+                <Input placeholder="Input" className="w-40" />
+                <Badge>Badge</Badge>
+              </div>
+            </Sheet>
           </div>
         </Section>
 
-        <Section title="Planned: Automatic Size Inheritance" id="planned">
-          <Typography level="body-sm" className="mb-4">
-            In a future update, components will automatically inherit size from
-            parent context, similar to Joy UI's implementation.
-          </Typography>
-
-          <div className="space-y-4">
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Future API (Planned)
-              </Typography>
-              <CodeBlock language="tsx" code={`// Parent sets size context
-<Sheet variant="soft" color="neutral" size="lg">
-  <Typography level="body-lg">Large container</Typography>
-  {/* These components automatically inherit size="lg" */}
-  <Button>Auto-sized button</Button>
-  <Input placeholder="Auto-sized input" />
-</Sheet>
-
-// Or use a SizeProvider for complex layouts
-<SizeProvider size="sm">
-  <div className="form-section">
-    <Input placeholder="Small input" />
-    <Button>Small button</Button>
-    <Select>
-      <option>Small select</option>
-    </Select>
-  </div>
-</SizeProvider>`} />
-            </div>
-
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Override When Needed
-              </Typography>
-              <CodeBlock language="tsx" code={`<Sheet size="lg">
+        <Section
+          title="Override When Needed"
+          id="override"
+          code={`<Sheet size="lg">
   {/* Inherits lg */}
   <Button>Large button</Button>
 
-  {/* Override to md */}
-  <Button size="md">Medium button</Button>
-</Sheet>`} />
+  {/* Explicit size overrides context */}
+  <Button size="sm">Small button</Button>
+</Sheet>`}
+        >
+          <Typography level="body-sm" className="mb-4">
+            You can always override the inherited size by setting an explicit{' '}
+            <code className="font-mono text-sm">size</code> prop on any
+            component. Explicit props take precedence over context.
+          </Typography>
+
+          <Sheet size="lg" variant="soft" color="neutral" className="p-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <Button>Large (inherited)</Button>
+              <Button size="sm">Small (explicit)</Button>
+              <Button size="md">Medium (explicit)</Button>
             </div>
+          </Sheet>
+        </Section>
+
+        <Section
+          title="Form Layouts"
+          id="form-layouts"
+          code={`<Sheet size="sm" className="space-y-3 p-4">
+  <Input placeholder="Email" />
+  <Input placeholder="Password" type="password" />
+  <Checkbox.Root>
+    <Checkbox.Indicator />
+    Remember me
+  </Checkbox.Root>
+  <Button className="w-full">Sign in</Button>
+</Sheet>`}
+        >
+          <Typography level="body-sm" className="mb-4">
+            Set size once on the form container, and all inputs inherit:
+          </Typography>
+
+          <div className="flex gap-6">
+            <Sheet size="sm" variant="outlined" color="neutral" className="p-4 space-y-3 flex-1">
+              <Typography level="body-sm" weight="semibold" className="mb-1">
+                Compact Form (sm)
+              </Typography>
+              <Input placeholder="Email" />
+              <Input placeholder="Password" type="password" />
+              <div className="flex items-center gap-2">
+                <Checkbox.Root>
+                  <Checkbox.Indicator />
+                </Checkbox.Root>
+                <Typography level="body-sm">Remember me</Typography>
+              </div>
+              <Button className="w-full">Sign in</Button>
+            </Sheet>
+
+            <Sheet size="lg" variant="outlined" color="neutral" className="p-4 space-y-3 flex-1">
+              <Typography level="body-sm" weight="semibold" className="mb-1">
+                Spacious Form (lg)
+              </Typography>
+              <Input placeholder="Email" />
+              <Input placeholder="Password" type="password" />
+              <div className="flex items-center gap-2">
+                <Checkbox.Root>
+                  <Checkbox.Indicator />
+                </Checkbox.Root>
+                <Typography level="body-sm">Remember me</Typography>
+              </div>
+              <Button className="w-full">Sign in</Button>
+            </Sheet>
           </div>
         </Section>
 
-        <Section title="How It Will Work" id="how-it-works">
+        <Section title="How It Works" id="how-it-works">
           <Typography level="body-sm" className="mb-4">
-            The automatic size adjustment will be implemented using React
-            Context, similar to how Typography already inherits color.
+            Size inheritance is implemented using React Context, following the
+            same pattern as ColorContext for automatic color adjustment.
           </Typography>
 
           <div className="space-y-4">
             <div>
               <Typography level="body-sm" weight="semibold" className="mb-2">
-                Implementation Approach
+                Resolution Order
               </Typography>
-              <ul className="space-y-2 ml-6 list-disc">
+              <Typography level="body-sm" className="mb-3">
+                Size is resolved in this order of priority:
+              </Typography>
+              <ol className="space-y-2 ml-6 list-decimal">
                 <li>
                   <Typography level="body-sm">
-                    <strong>SizeContext:</strong> React context provides size to
-                    descendant components
+                    <strong>Explicit prop:</strong> If a component has a size
+                    prop set directly, that value is used
                   </Typography>
                 </li>
                 <li>
                   <Typography level="body-sm">
-                    <strong>SizeProvider:</strong> Component that sets size
-                    context for its children
+                    <strong>Context:</strong> If no explicit prop, check
+                    SizeContext from parent Sheet
                   </Typography>
                 </li>
                 <li>
                   <Typography level="body-sm">
-                    <strong>useSize hook:</strong> Components read from context
-                    as fallback when size prop not provided
+                    <strong>Default:</strong> If no context, use the
+                    component's default (usually "md")
                   </Typography>
                 </li>
-                <li>
-                  <Typography level="body-sm">
-                    <strong>Container components:</strong> Sheet, Card, and
-                    other containers provide size context automatically
-                  </Typography>
-                </li>
-              </ul>
+              </ol>
             </div>
 
             <div>
               <Typography level="body-sm" weight="semibold" className="mb-2">
-                Planned Implementation (Pseudocode)
+                Implementation
               </Typography>
-              <CodeBlock language="tsx" code={`// SizeContext.tsx
-const SizeContext = createContext<Size | undefined>(undefined);
+              <CodeBlock
+                language="tsx"
+                code={`// SizeContext provides size to descendant components
+const SizeContext = React.createContext<{ size: Size } | null>(null);
 
-export function SizeProvider({ size, children }) {
+// Hook resolves size: explicit > context > default
+function useResolvedSizeProps(explicitSize?: Size, defaultSize: Size = 'md'): Size {
+  const ctx = useSizeContext();
+  return explicitSize ?? ctx?.size ?? defaultSize;
+}
+
+// Sheet provides SizeContext when size is set
+function Sheet({ size, children, ...props }) {
   return (
-    <SizeContext.Provider value={size}>
-      {children}
+    <SizeContext.Provider value={size ? { size } : null}>
+      <div {...props}>{children}</div>
     </SizeContext.Provider>
   );
 }
 
-export function useSize(explicitSize?: Size): Size {
-  const contextSize = useContext(SizeContext);
-  // Explicit prop takes precedence over context
-  return explicitSize ?? contextSize ?? 'md'; // 'md' is default
-}
-
-// Button.tsx
-export function Button({ size, ...props }: ButtonProps) {
-  const resolvedSize = useSize(size);
-  return (
-    <BaseButton
-      className={buttonVariants({ size: resolvedSize })}
-      {...props}
-    />
-  );
-}
-
-// Sheet.tsx
-export function Sheet({ size = 'md', children, ...props }: SheetProps) {
-  return (
-    <SizeProvider size={size}>
-      <div className={sheetVariants({ size })} {...props}>
-        {children}
-      </div>
-    </SizeProvider>
-  );
-}`} />
+// Components use the hook to resolve their size
+function Button({ size: sizeProp, ...props }) {
+  const size = useResolvedSizeProps(sizeProp, 'md');
+  return <BaseButton className={buttonVariants({ size })} {...props} />;
+}`}
+              />
             </div>
           </div>
         </Section>
 
-        <Section title="Use Cases" id="use-cases">
-          <div className="space-y-6">
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Form Layouts
-              </Typography>
-              <Typography level="body-sm" className="mb-3">
-                Set size once on the form container, all inputs inherit:
-              </Typography>
-              <CodeBlock language="tsx" code={`<Sheet size="sm" className="space-y-3">
-  <Input placeholder="Email" />
-  <Input placeholder="Password" type="password" />
-  <Button>Submit</Button>
-  {/* All components automatically use size="sm" */}
-</Sheet>`} />
-            </div>
-
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Card Density
-              </Typography>
-              <Typography level="body-sm" className="mb-3">
-                Create compact or spacious cards by changing one prop:
-              </Typography>
-              <CodeBlock language="tsx" code={`<Card size="sm">
-  <Typography level="body-sm">Compact card</Typography>
-  <Button>Action</Button>
-  <Badge>Status</Badge>
-</Card>
-
-<Card size="lg">
-  <Typography level="body-lg">Spacious card</Typography>
-  <Button>Action</Button>
-  <Badge>Status</Badge>
-</Card>`} />
-            </div>
-
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Responsive Design
-              </Typography>
-              <Typography level="body-sm" className="mb-3">
-                Change size based on viewport with a single prop:
-              </Typography>
-              <CodeBlock language="tsx" code={`const size = useMediaQuery('(min-width: 768px)') ? 'lg' : 'sm';
-
-<Sheet size={size}>
-  {/* All children adapt to viewport size */}
-  <Input />
-  <Button />
-  <Select />
-</Sheet>`} />
-            </div>
-          </div>
-        </Section>
-
-        <Section title="Migration Path" id="migration">
+        <Section title="Supported Components" id="supported-components">
           <Typography level="body-sm" className="mb-4">
-            When automatic size adjustment is implemented, it will be
-            backward-compatible. Existing code will continue to work, but you'll
-            be able to remove redundant size props.
+            The following components support automatic size inheritance from
+            parent Sheet:
           </Typography>
 
-          <div className="space-y-4">
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                Before (Current)
-              </Typography>
-              <CodeBlock language="tsx" code={`<Sheet size="lg">
-  <Input size="lg" />
-  <Button size="lg">Submit</Button>
-  <Select size="lg">...</Select>
-</Sheet>`} />
-            </div>
-
-            <div>
-              <Typography level="body-sm" weight="semibold" className="mb-2">
-                After (Future)
-              </Typography>
-              <CodeBlock language="tsx" code={`<Sheet size="lg">
-  {/* Size props can be removed - inherited from Sheet */}
-  <Input />
-  <Button>Submit</Button>
-  <Select>...</Select>
-</Sheet>`} />
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {[
+              'Avatar',
+              'Badge',
+              'Button',
+              'Card',
+              'Checkbox',
+              'CheckboxGroup',
+              'Combobox',
+              'ColorSchemeToggle',
+              'Field',
+              'Fieldset',
+              'Input',
+              'Item',
+              'List',
+              'NavList',
+              'NumberField',
+              'Radio',
+              'RadioGroup',
+              'Select',
+              'Slider',
+              'Switch',
+              'Table',
+              'Textarea',
+              'Toast',
+              'Toggle',
+              'ToggleGroup',
+              'Accordion',
+              'Autocomplete',
+            ].map((component) => (
+              <div
+                key={component}
+                className="px-3 py-1.5 bg-neutral-50 rounded text-sm"
+              >
+                {component}
+              </div>
+            ))}
           </div>
         </Section>
 
-        <Section title="Tracking" id="tracking">
-          <Typography level="body-sm" className="mb-3">
-            This feature is planned for implementation. Track progress in:
+        <Section title="Using SizeContext Directly" id="size-context">
+          <Typography level="body-sm" className="mb-4">
+            For custom components, you can use the{' '}
+            <code className="font-mono text-sm">useSizeContext</code> hook or{' '}
+            <code className="font-mono text-sm">useResolvedSizeProps</code> hook
+            to participate in size inheritance.
           </Typography>
-          <ul className="space-y-2 ml-6 list-disc">
-            <li>
-              <Typography level="body-sm">
-                GitHub Issue:{' '}
-                <a
-                  href="https://github.com/sernstberger/base-joy/issues/29"
-                  className="text-primary-700 hover:underline"
-                >
-                  #29 - Complete Automatic Size Adjustment
-                </a>
-              </Typography>
-            </li>
-            <li>
-              <Typography level="body-sm">
-                Roadmap: Phase 1 (Q1 2025) in MISSING_FEATURES.md
-              </Typography>
-            </li>
-          </ul>
+
+          <CodeBlock
+            language="tsx"
+            code={`import { useSizeContext, useResolvedSizeProps } from '@base-joy/ui-styled';
+
+// Option 1: Get context directly
+function MyComponent({ size: sizeProp }) {
+  const ctx = useSizeContext();
+  const size = sizeProp ?? ctx?.size ?? 'md';
+  // ... use size
+}
+
+// Option 2: Use the convenience hook (recommended)
+function MyComponent({ size: sizeProp }) {
+  const size = useResolvedSizeProps(sizeProp, 'md');
+  // ... use size
+}`}
+          />
         </Section>
       </div>
     </div>

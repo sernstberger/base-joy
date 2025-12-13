@@ -5,6 +5,7 @@ import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
 import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const checkboxRootVariants = cva(
   'inline-flex items-center justify-center rounded cursor-pointer transition-colors',
@@ -78,7 +79,7 @@ const Root = React.forwardRef<HTMLButtonElement, CheckboxRootProps>(
       className,
       variant: variantProp,
       color: colorProp,
-      size = 'md',
+      size: sizeProp,
       disabled,
       ...props
     },
@@ -91,6 +92,9 @@ const Root = React.forwardRef<HTMLButtonElement, CheckboxRootProps>(
       'primary', // defaultColor
       'outlined' // defaultVariant
     );
+
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
     return (
       <CheckboxContext.Provider value={{ size }}>

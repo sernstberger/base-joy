@@ -5,6 +5,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
 import { useResolvedColorProps } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 // Context for passing props to children
 interface AccordionContextValue {
@@ -127,7 +128,7 @@ const Root = React.forwardRef<HTMLDivElement, AccordionRootProps>(
       className,
       variant: variantProp,
       color: colorProp,
-      size = 'md',
+      size: sizeProp,
       spacing = 'none',
       ...props
     },
@@ -139,6 +140,9 @@ const Root = React.forwardRef<HTMLDivElement, AccordionRootProps>(
       'neutral',
       'plain'
     );
+
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
     return (
       <AccordionContext.Provider value={{ size, color, variant }}>

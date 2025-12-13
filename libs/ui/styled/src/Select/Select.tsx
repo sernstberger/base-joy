@@ -5,6 +5,7 @@ import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
 import { useResolvedColorProps } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const selectTriggerVariants = cva(
   'inline-flex items-center justify-between gap-2 cursor-pointer transition-colors',
@@ -107,7 +108,7 @@ export interface SelectRootProps
   size?: Size;
 }
 
-const Root = ({ variant: variantProp, color: colorProp, size = 'md', ...props }: SelectRootProps) => {
+const Root = ({ variant: variantProp, color: colorProp, size: sizeProp, ...props }: SelectRootProps) => {
   // Resolve color and variant from context (inherits from parent Sheet)
   const { color, variant } = useResolvedColorProps(
     colorProp,
@@ -115,6 +116,9 @@ const Root = ({ variant: variantProp, color: colorProp, size = 'md', ...props }:
     'neutral', // defaultColor
     'outlined' // defaultVariant
   );
+
+  // Resolve size from context (inherits from parent Sheet)
+  const size = useResolvedSizeProps(sizeProp, 'md');
 
   return (
     <SelectContext.Provider value={{ size, color, variant }}>

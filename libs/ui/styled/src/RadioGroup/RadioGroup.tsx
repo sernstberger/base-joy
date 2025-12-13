@@ -3,6 +3,7 @@ import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const radioGroupVariants = cva('flex', {
   variants: {
@@ -30,7 +31,10 @@ export interface RadioGroupProps
 }
 
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
-  ({ className, orientation = 'vertical', size = 'md', ...props }, ref) => {
+  ({ className, orientation = 'vertical', size: sizeProp, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <BaseRadioGroup
         ref={ref}

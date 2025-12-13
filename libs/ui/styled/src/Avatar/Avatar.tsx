@@ -4,6 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size, ColorScale } from '@base-joy/tokens';
 import { sheetVariants } from '../Sheet';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const avatarVariants = cva('', {
   variants: {
@@ -57,11 +58,13 @@ export interface AvatarProps
 
 export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
   (
-    { className, variant = 'soft', color = 'neutral', size, src, alt, children, ...props },
+    { className, variant = 'soft', color = 'neutral', size: sizeProp, src, alt, children, ...props },
     ref
   ) => {
-    const { size: contextSize } = useAvatarGroupContext();
-    const effectiveSize = size ?? contextSize;
+    // Get size from AvatarGroup context (takes priority over SizeContext)
+    const avatarGroupContext = useAvatarGroupContext();
+    // Resolve size: explicit prop > AvatarGroup context > SizeContext > default
+    const size = useResolvedSizeProps(sizeProp ?? avatarGroupContext?.size, 'md');
 
     return (
       <BaseAvatar.Root
@@ -70,7 +73,7 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
           sheetVariants({ variant, color }),
           'inline-flex items-center justify-center rounded-full overflow-hidden font-medium shrink-0 p-0',
           variant === 'outlined' && 'border-2',
-          avatarVariants({ size: effectiveSize }),
+          avatarVariants({ size }),
           className
         )}
         {...props}
@@ -127,14 +130,14 @@ interface AvatarGroupContextValue {
   size: Size;
 }
 
-const AvatarGroupContext = React.createContext<AvatarGroupContextValue>({
-  size: 'md',
-});
+const AvatarGroupContext = React.createContext<AvatarGroupContextValue | null>(null);
 
 const useAvatarGroupContext = () => React.useContext(AvatarGroupContext);
 
 export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
-  ({ className, max, size = 'md', children, ...props }, ref) => {
+  ({ className, max, size: sizeProp, children, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
     const childArray = React.Children.toArray(children);
     const displayChildren = max ? childArray.slice(0, max) : childArray;
     const extraCount = max && childArray.length > max ? childArray.length - max : 0;

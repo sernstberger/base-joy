@@ -3,6 +3,7 @@ import { Fieldset as BaseFieldset } from '@base-ui/react/fieldset';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const fieldsetRootVariants = cva('', {
   variants: {
@@ -56,7 +57,10 @@ export interface FieldsetRootProps
 }
 
 const Root = React.forwardRef<HTMLFieldSetElement, FieldsetRootProps>(
-  ({ className, variant = 'plain', size = 'md', ...props }, ref) => {
+  ({ className, variant = 'plain', size: sizeProp, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <FieldsetContext.Provider value={{ size }}>
         <BaseFieldset.Root

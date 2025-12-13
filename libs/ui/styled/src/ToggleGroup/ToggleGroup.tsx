@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { ToggleGroupContext, type ToggleGroupContextValue } from '../Toggle';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const toggleGroupVariants = cva('inline-flex', {
   variants: {
@@ -38,13 +39,16 @@ const Root = React.forwardRef<HTMLDivElement, ToggleGroupRootProps>(
       className,
       variant = 'outlined',
       color = 'primary',
-      size = 'md',
+      size: sizeProp,
       orientation = 'horizontal',
       children,
       ...props
     },
     ref
   ) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     const contextValue: ToggleGroupContextValue = React.useMemo(
       () => ({ variant, color, size }),
       [variant, color, size]

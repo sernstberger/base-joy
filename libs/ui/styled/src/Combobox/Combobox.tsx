@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const comboboxInputVariants = cva(
   'flex-1 bg-transparent outline-none placeholder:text-neutral-400',
@@ -97,9 +98,12 @@ export interface ComboboxRootProps
 const Root = ({
   variant = 'outlined',
   color = 'neutral',
-  size = 'md',
+  size: sizeProp,
   ...props
 }: ComboboxRootProps) => {
+  // Resolve size from context (inherits from parent Sheet)
+  const size = useResolvedSizeProps(sizeProp, 'md');
+
   return (
     <ComboboxContext.Provider value={{ size, color, variant }}>
       <BaseCombobox.Root {...props} />

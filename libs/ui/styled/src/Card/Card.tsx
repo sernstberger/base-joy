@@ -4,6 +4,7 @@ import { cn } from '@base-joy/utils';
 import { Sheet } from '../Sheet';
 import { Typography } from '../Typography';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 import {
   CardContext,
   useCardContext,
@@ -100,7 +101,9 @@ const StyledCardContext = React.createContext<StyledCardContextValue>({
 export const useStyledCardContext = () => React.useContext(StyledCardContext);
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = 'outlined', color = 'neutral', size = 'md', children, ...props }, ref) => {
+  ({ className, variant = 'outlined', color = 'neutral', size: sizeProp, children, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
     return (
       <StyledCardContext.Provider value={{ variant, color }}>
         <CardContext.Provider value={{ size }}>

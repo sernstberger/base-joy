@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import { sheetVariants } from '../Sheet';
 import type { Size, ColorScale, Variant } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const toastViewportVariants = cva(
   'fixed z-50 flex flex-col gap-2 p-4 max-h-screen overflow-hidden',
@@ -126,11 +127,14 @@ const Root = React.forwardRef<HTMLDivElement, ToastRootProps>(
       className,
       variant = 'solid',
       color = 'neutral',
-      size = 'md',
+      size: sizeProp,
       ...props
     },
     ref
   ) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <ToastContext.Provider value={{ size, color, variant }}>
         <BaseToast.Root

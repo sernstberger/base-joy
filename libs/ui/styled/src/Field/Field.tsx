@@ -3,6 +3,7 @@ import { Field as BaseField } from '@base-ui/react/field';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const fieldRootVariants = cva('flex flex-col', {
   variants: {
@@ -77,7 +78,10 @@ export interface FieldRootProps
 }
 
 const Root = React.forwardRef<HTMLDivElement, FieldRootProps>(
-  ({ className, size = 'md', ...props }, ref) => {
+  ({ className, size: sizeProp, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <FieldContext.Provider value={{ size }}>
         <BaseField.Root

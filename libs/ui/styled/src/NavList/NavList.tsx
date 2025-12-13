@@ -6,6 +6,7 @@ import type { Size } from '@base-joy/tokens';
 import { List, ListItem, type ListProps } from '../List';
 import { ItemStart, ItemContent, ItemEnd } from '../Item';
 import { Accordion } from '../Accordion';
+import { useResolvedSizeProps } from '../SizeContext';
 
 // Context for NavList
 interface NavListContextValue {
@@ -28,7 +29,10 @@ export interface NavListProps extends Omit<ListProps, 'variant' | 'color'> {
 }
 
 export const NavList = React.forwardRef<HTMLUListElement, NavListProps>(
-  ({ className, size = 'md', spacing = 'sm', children, ...props }, ref) => {
+  ({ className, size: sizeProp, spacing = 'sm', children, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <NavListContext.Provider value={{ size }}>
         <List

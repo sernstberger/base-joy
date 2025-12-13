@@ -13,6 +13,7 @@ import {
 } from '@base-joy/ui-unstyled';
 import { sheetVariants } from '../Sheet';
 import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 interface StyledItemContextValue {
   variant: Variant;
@@ -240,7 +241,7 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
       className,
       variant: variantProp,
       color: colorProp,
-      size = 'md',
+      size: sizeProp,
       interactive = false,
       selected = false,
       disabled = false,
@@ -257,6 +258,8 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
       'neutral', // defaultColor
       'soft' // defaultVariant
     );
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
     const itemClassName = cn(
       'flex items-center gap-3 w-full rounded-lg',

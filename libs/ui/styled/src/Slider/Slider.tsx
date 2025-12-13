@@ -3,6 +3,7 @@ import { Slider as BaseSlider } from '@base-ui/react/slider';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size, ColorScale } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const sliderRootVariants = cva('relative flex touch-none select-none', {
   variants: {
@@ -120,12 +121,15 @@ const Root = React.forwardRef<HTMLDivElement, SliderRootProps>(
     {
       className,
       color = 'primary',
-      size = 'md',
+      size: sizeProp,
       orientation = 'horizontal',
       ...props
     },
     ref
   ) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <SliderContext.Provider value={{ size, color, orientation }}>
         <BaseSlider.Root

@@ -4,6 +4,7 @@ import { cn } from '@base-joy/utils';
 import { Sheet } from '../Sheet';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { useResolvedColorProps, getSolidContainerStyles } from '../ColorContext';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const badgeVariants = cva(
   'inline-flex items-center font-medium rounded-full',
@@ -59,7 +60,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       className,
       variant: variantProp,
       color: colorProp,
-      size = 'md',
+      size: sizeProp,
       startDecorator,
       endDecorator,
       children,
@@ -74,6 +75,9 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       'primary', // defaultColor
       'soft' // defaultVariant
     );
+
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
 
     return (
       <Sheet

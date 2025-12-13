@@ -3,6 +3,7 @@ import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-grou
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Size } from '@base-joy/tokens';
+import { useResolvedSizeProps } from '../SizeContext';
 
 const checkboxGroupVariants = cva('flex', {
   variants: {
@@ -30,7 +31,10 @@ export interface CheckboxGroupProps
 }
 
 export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
-  ({ className, orientation = 'vertical', size = 'md', ...props }, ref) => {
+  ({ className, orientation = 'vertical', size: sizeProp, ...props }, ref) => {
+    // Resolve size from context (inherits from parent Sheet)
+    const size = useResolvedSizeProps(sizeProp, 'md');
+
     return (
       <BaseCheckboxGroup
         ref={ref}
