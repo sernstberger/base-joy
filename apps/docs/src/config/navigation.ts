@@ -25,7 +25,7 @@ export const navigation: NavSection[] = [
       { label: 'Color Inversion', path: '/features/color-inversion' },
       { label: 'Global Variants', path: '/features/global-variants' },
       { label: 'Automatic Adjustment', path: '/features/automatic-adjustment' },
-      { label: 'Dark Mode Optimization', path: '/features/dark-mode-optimization' },
+      { label: 'Dark Mode', path: '/styled/dark-mode' },
     ],
   },
   {
@@ -38,7 +38,7 @@ export const navigation: NavSection[] = [
   {
     title: 'Styled',
     items: sortByLabel([
-      { label: 'Accordion', path: '/styled/accordion', baseUiUrl: 'https://base-ui.com/react/components/accordion', comingSoon: true },
+      { label: 'Accordion', path: '/styled/accordion', baseUiUrl: 'https://base-ui.com/react/components/accordion' },
       { label: 'AlertDialog', path: '/styled/alert-dialog', baseUiUrl: 'https://base-ui.com/react/components/alert-dialog', comingSoon: true },
       { label: 'Autocomplete', path: '/styled/autocomplete' },
       { label: 'Avatar', path: '/styled/avatar', baseUiUrl: 'https://base-ui.com/react/components/avatar' },
@@ -49,6 +49,7 @@ export const navigation: NavSection[] = [
       { label: 'CheckboxGroup', path: '/styled/checkbox-group', baseUiUrl: 'https://base-ui.com/react/components/checkbox-group' },
       { label: 'CodeBlock', path: '/styled/code-block' },
       { label: 'Collapsible', path: '/styled/collapsible', baseUiUrl: 'https://base-ui.com/react/components/collapsible', comingSoon: true },
+      { label: 'ColorSchemeToggle', path: '/styled/color-scheme-toggle' },
       { label: 'Combobox', path: '/styled/combobox' },
       { label: 'Container', path: '/styled/container' },
       { label: 'Dialog', path: '/styled/dialog', baseUiUrl: 'https://base-ui.com/react/components/dialog', comingSoon: true },
@@ -60,9 +61,11 @@ export const navigation: NavSection[] = [
       { label: 'Input', path: '/styled/input', baseUiUrl: 'https://base-ui.com/react/components/input' },
       { label: 'Item', path: '/styled/item' },
       { label: 'Link', path: '/styled/link' },
+      { label: 'List', path: '/styled/list' },
       { label: 'Menu', path: '/styled/menu', baseUiUrl: 'https://base-ui.com/react/components/menu', comingSoon: true },
       { label: 'Meter', path: '/styled/meter', baseUiUrl: 'https://base-ui.com/react/components/meter', comingSoon: true },
       { label: 'NavigationMenu', path: '/styled/navigation-menu', baseUiUrl: 'https://base-ui.com/react/components/navigation-menu', comingSoon: true },
+      { label: 'NavList', path: '/styled/navlist' },
       { label: 'NumberField', path: '/styled/number-field', baseUiUrl: 'https://base-ui.com/react/components/number-field' },
       { label: 'Popover', path: '/styled/popover', baseUiUrl: 'https://base-ui.com/react/components/popover', comingSoon: true },
       { label: 'PreviewCard', path: '/styled/preview-card', baseUiUrl: 'https://base-ui.com/react/components/preview-card', comingSoon: true },

@@ -1,6 +1,13 @@
 // Theme system
-export { ThemeProvider, useTheme, type ThemeProviderProps } from './ThemeProvider';
+export { ThemeProvider, useTheme, useColorScheme, type ThemeProviderProps } from './ThemeProvider';
 export { type Theme, defaultTheme } from '@base-joy/tokens';
+export {
+  ColorSchemeProvider,
+  type ColorSchemeProviderProps,
+  type ColorSchemeContextValue,
+} from './ColorSchemeProvider';
+export { ColorSchemeToggle, type ColorSchemeToggleProps } from './ColorSchemeToggle';
+export { type ColorScheme, type ResolvedColorScheme } from '@base-joy/tokens';
 
 // Color context (automatic color adjustment)
 export {
@@ -288,6 +295,55 @@ export {
   type ItemMediaProps,
   type ItemIconProps,
 } from './Item';
+
+// List components
+export {
+  List,
+  ListItem,
+  ListSubheader,
+  listVariants,
+  listSubheaderVariants,
+  ListContext,
+  useListContext,
+  type ListProps,
+  type ListItemProps,
+  type ListSubheaderProps,
+  type ListContextValue,
+} from './List';
+
+// Accordion components
+export {
+  Accordion,
+  AccordionContext,
+  useAccordionContext,
+  accordionRootVariants,
+  accordionItemVariants,
+  accordionHeaderVariants,
+  accordionTriggerVariants,
+  accordionPanelVariants,
+  type AccordionRootProps,
+  type AccordionItemProps,
+  type AccordionHeaderProps,
+  type AccordionTriggerProps,
+  type AccordionPanelProps,
+} from './Accordion';
+
+// NavList components
+export {
+  NavList,
+  NavListItem,
+  NavListGroup,
+  NavListGroupTrigger,
+  NavListGroupContent,
+  NavListContext,
+  useNavListContext,
+  navListGroupTriggerVariants,
+  type NavListProps,
+  type NavListItemProps,
+  type NavListGroupProps,
+  type NavListGroupTriggerProps,
+  type NavListGroupContentProps,
+} from './NavList';
 
 // Code display components
 export { CodeBlock, codeBlockVariants, type CodeBlockProps } from './CodeBlock';

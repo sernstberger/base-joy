@@ -37,11 +37,15 @@ import { ToastPage } from './pages/styled/Toast';
 import { CodeBlockPage } from './pages/styled/CodeBlock';
 import { TogglePage } from './pages/styled/Toggle';
 import { ToggleGroupPage } from './pages/styled/ToggleGroup';
+import { ListPage } from './pages/styled/List';
+import { AccordionPage } from './pages/styled/Accordion';
+import { NavListPage } from './pages/styled/NavList';
 import { ColorInversionPage } from './pages/features/ColorInversion';
 import { ColorContextPage } from './pages/features/ColorContext';
 import { GlobalVariantsPage } from './pages/features/GlobalVariants';
 import { AutomaticAdjustmentPage } from './pages/features/AutomaticAdjustment';
 import { DarkModeOptimizationPage } from './pages/features/DarkModeOptimization';
+import { DarkModePage } from './pages/styled/DarkMode';
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +87,14 @@ export const router = createBrowserRouter([
       {
         path: 'features/dark-mode-optimization',
         element: <DarkModeOptimizationPage />,
+      },
+      {
+        path: 'styled/dark-mode',
+        element: <DarkModePage />,
+      },
+      {
+        path: 'styled/color-scheme-toggle',
+        element: <DarkModePage />,
       },
       {
         path: 'unstyled/item',
@@ -215,6 +227,18 @@ export const router = createBrowserRouter([
       {
         path: 'styled/toggle-group',
         element: <ToggleGroupPage />,
+      },
+      {
+        path: 'styled/list',
+        element: <ListPage />,
+      },
+      {
+        path: 'styled/accordion',
+        element: <AccordionPage />,
+      },
+      {
+        path: 'styled/navlist',
+        element: <NavListPage />,
       },
     ],
   },
