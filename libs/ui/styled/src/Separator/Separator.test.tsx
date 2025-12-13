@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { axe } from 'vitest-axe';
 import { Separator } from './Separator';
+import { Sheet } from '../Sheet';
 
 describe('Separator', () => {
   describe('rendering', () => {
@@ -118,11 +119,23 @@ describe('Separator', () => {
   });
 
   describe('children content', () => {
-    it('renders text content in center', () => {
+    it('renders text content in center with default neutral color', () => {
       render(<Separator>Or</Separator>);
       const text = screen.getByText('Or');
       expect(text).toHaveClass('text-sm');
       expect(text).toHaveClass('text-neutral-600');
+    });
+
+    it.each([
+      ['primary', 'text-primary-600'],
+      ['neutral', 'text-neutral-600'],
+      ['success', 'text-success-600'],
+      ['warning', 'text-warning-600'],
+      ['danger', 'text-danger-600'],
+    ] as const)('renders text with %s color', (color, expectedClass) => {
+      render(<Separator color={color}>Text</Separator>);
+      const text = screen.getByText('Text');
+      expect(text).toHaveClass(expectedClass);
     });
 
     it('renders with separator lines on both sides', () => {
@@ -242,6 +255,66 @@ describe('Separator', () => {
       );
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('ColorContext inheritance', () => {
+    it('inherits color from parent Sheet', () => {
+      const { container } = render(
+        <Sheet color="primary">
+          <Separator />
+        </Sheet>
+      );
+      const separator = container.querySelector('hr');
+      expect(separator).toHaveClass('bg-primary-300');
+    });
+
+    it.each([
+      ['primary', 'bg-primary-300'],
+      ['success', 'bg-success-300'],
+      ['warning', 'bg-warning-300'],
+      ['danger', 'bg-danger-300'],
+    ] as const)('inherits %s color from parent Sheet', (color, expectedClass) => {
+      const { container } = render(
+        <Sheet color={color}>
+          <Separator />
+        </Sheet>
+      );
+      const separator = container.querySelector('hr');
+      expect(separator).toHaveClass(expectedClass);
+    });
+
+    it('explicit color prop overrides inherited color', () => {
+      const { container } = render(
+        <Sheet color="primary">
+          <Separator color="danger" />
+        </Sheet>
+      );
+      const separator = container.querySelector('hr');
+      expect(separator).toHaveClass('bg-danger-300');
+      expect(separator).not.toHaveClass('bg-primary-300');
+    });
+
+    it('inherits color for text when children present', () => {
+      render(
+        <Sheet color="success">
+          <Separator>Text</Separator>
+        </Sheet>
+      );
+      const text = screen.getByText('Text');
+      expect(text).toHaveClass('text-success-600');
+    });
+
+    it('inherits color for separator lines when children present', () => {
+      const { container } = render(
+        <Sheet color="warning">
+          <Separator>Text</Separator>
+        </Sheet>
+      );
+      const separators = container.querySelectorAll('hr');
+      separators.forEach((separator) => {
+        expect(separator).toHaveClass('bg-warning-300');
+      });
     });
   });
 });

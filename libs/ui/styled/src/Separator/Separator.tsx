@@ -3,8 +3,9 @@ import { Separator as BaseSeparator } from '@base-ui/react/separator';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { ColorScale } from '@base-joy/tokens';
+import { useResolvedColorProps } from '../ColorContext';
 
-const separatorVariants = cva('shrink-0', {
+const separatorVariants = cva('shrink-0 border-0', {
   variants: {
     orientation: {
       horizontal: 'h-px w-full',
@@ -32,6 +33,14 @@ const separatorVariants = cva('shrink-0', {
     inset: false,
   },
 });
+
+const textColorClasses: Record<ColorScale, string> = {
+  primary: 'text-primary-600',
+  neutral: 'text-neutral-600',
+  success: 'text-success-600',
+  warning: 'text-warning-600',
+  danger: 'text-danger-600',
+};
 
 export interface SeparatorProps
   extends Omit<React.ComponentPropsWithoutRef<typeof BaseSeparator>, 'children'>,
@@ -61,7 +70,25 @@ export interface SeparatorProps
 }
 
 export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
-  ({ className, orientation = 'horizontal', color, inset, children, ...props }, ref) => {
+  (
+    {
+      className,
+      orientation = 'horizontal',
+      color: colorProp,
+      inset,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    // Resolve color from context (inherits from parent Sheet)
+    const { color } = useResolvedColorProps(
+      colorProp,
+      undefined,
+      'neutral',
+      undefined
+    );
+
     if (children) {
       return (
         <div
@@ -83,7 +110,9 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
             aria-hidden="true"
             render={<hr />}
           />
-          <span className="text-sm text-neutral-600 shrink-0">{children}</span>
+          <span className={cn('text-sm shrink-0', textColorClasses[color])}>
+            {children}
+          </span>
           <BaseSeparator
             orientation={orientation}
             className={cn(
