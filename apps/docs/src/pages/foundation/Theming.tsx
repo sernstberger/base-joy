@@ -9,6 +9,8 @@ import {
   CodeBlock,
   useTheme,
   defaultTheme,
+  List,
+  ListItem,
 } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Section } from '../../components/Section';
@@ -145,28 +147,20 @@ export default function Theming() {
           The base-joy theme system enables runtime customization of colors and typography
           throughout your application. Using the <code className="font-mono text-sm">ThemeProvider</code>, you can:
         </Typography>
-        <ul className="list-disc list-inside space-y-2 mb-4">
-          <li>
-            <Typography level="body-md">
-              Customize color scales (primary, neutral, success, warning, danger)
-            </Typography>
-          </li>
-          <li>
-            <Typography level="body-md">
-              Adjust typography tokens (font sizes, line heights, font families)
-            </Typography>
-          </li>
-          <li>
-            <Typography level="body-md">
-              Switch themes at runtime without reloading the page
-            </Typography>
-          </li>
-          <li>
-            <Typography level="body-md">
-              Persist theme preferences across page reloads
-            </Typography>
-          </li>
-        </ul>
+        <List marker="disc" spacing="sm" className="mb-4">
+          <ListItem>
+            Customize color scales (primary, neutral, success, warning, danger)
+          </ListItem>
+          <ListItem>
+            Adjust typography tokens (font sizes, line heights, font families)
+          </ListItem>
+          <ListItem>
+            Switch themes at runtime without reloading the page
+          </ListItem>
+          <ListItem>
+            Persist theme preferences across page reloads
+          </ListItem>
+        </List>
         <Typography level="body-md" className="mb-4">
           The theme system works by updating CSS custom properties on the document root element,
           which are automatically referenced by all Tailwind utility classes used in components.
@@ -452,19 +446,15 @@ function App() {
             <Typography level="body-sm" className="mb-2">
               <strong>Returns:</strong>
             </Typography>
-            <ul className="list-disc list-inside space-y-1 ml-4">
-              <li>
-                <Typography level="body-sm">
-                  <code className="font-mono text-sm">theme</code> - Current theme object
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  <code className="font-mono text-sm">setTheme</code> - Function to update theme
-                  (accepts partial theme)
-                </Typography>
-              </li>
-            </ul>
+            <List marker="disc" spacing="sm" className="ml-4">
+              <ListItem>
+                <code className="font-mono text-sm">theme</code> - Current theme object
+              </ListItem>
+              <ListItem>
+                <code className="font-mono text-sm">setTheme</code> - Function to update theme
+                (accepts partial theme)
+              </ListItem>
+            </List>
           </div>
         </div>
       </Section>
@@ -478,23 +468,17 @@ function App() {
             <Typography level="body-md" className="mb-2">
               When customizing colors, ensure sufficient contrast ratios for accessibility:
             </Typography>
-            <ul className="list-disc list-inside space-y-1 ml-4">
-              <li>
-                <Typography level="body-sm">
-                  Normal text: minimum 4.5:1 contrast ratio (WCAG AA)
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  Large text: minimum 3:1 contrast ratio (WCAG AA)
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  UI components: minimum 3:1 contrast ratio
-                </Typography>
-              </li>
-            </ul>
+            <List marker="disc" spacing="sm" className="ml-4">
+              <ListItem>
+                Normal text: minimum 4.5:1 contrast ratio (WCAG AA)
+              </ListItem>
+              <ListItem>
+                Large text: minimum 3:1 contrast ratio (WCAG AA)
+              </ListItem>
+              <ListItem>
+                UI components: minimum 3:1 contrast ratio
+              </ListItem>
+            </List>
           </div>
 
           <div>
@@ -504,23 +488,17 @@ function App() {
             <Typography level="body-md" className="mb-2">
               Theme updates are optimized for performance:
             </Typography>
-            <ul className="list-disc list-inside space-y-1 ml-4">
-              <li>
-                <Typography level="body-sm">
-                  CSS variables update instantly without re-rendering components
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  Only components using <code className="font-mono text-sm">useTheme</code> re-render
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  Avoid calling <code className="font-mono text-sm">setTheme</code> in tight loops
-                </Typography>
-              </li>
-            </ul>
+            <List marker="disc" spacing="sm" className="ml-4">
+              <ListItem>
+                CSS variables update instantly without re-rendering components
+              </ListItem>
+              <ListItem>
+                Only components using <code className="font-mono text-sm">useTheme</code> re-render
+              </ListItem>
+              <ListItem>
+                Avoid calling <code className="font-mono text-sm">setTheme</code> in tight loops
+              </ListItem>
+            </List>
           </div>
 
           <div>
@@ -530,23 +508,17 @@ function App() {
             <Typography level="body-md" className="mb-2">
               Themes are automatically saved to localStorage:
             </Typography>
-            <ul className="list-disc list-inside space-y-1 ml-4">
-              <li>
-                <Typography level="body-sm">
-                  Theme preferences persist across page reloads
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  Works across browser tabs on the same origin
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  Handles localStorage errors gracefully (e.g., private browsing mode)
-                </Typography>
-              </li>
-            </ul>
+            <List marker="disc" spacing="sm" className="ml-4">
+              <ListItem>
+                Theme preferences persist across page reloads
+              </ListItem>
+              <ListItem>
+                Works across browser tabs on the same origin
+              </ListItem>
+              <ListItem>
+                Handles localStorage errors gracefully (e.g., private browsing mode)
+              </ListItem>
+            </List>
           </div>
 
           <div>
@@ -556,23 +528,17 @@ function App() {
             <Typography level="body-md" className="mb-2">
               The theme system is SSR-safe:
             </Typography>
-            <ul className="list-disc list-inside space-y-1 ml-4">
-              <li>
-                <Typography level="body-sm">
-                  Server renders with the default theme from CSS
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  Client hydrates and applies custom theme immediately
-                </Typography>
-              </li>
-              <li>
-                <Typography level="body-sm">
-                  No flash of unstyled content (FOUC)
-                </Typography>
-              </li>
-            </ul>
+            <List marker="disc" spacing="sm" className="ml-4">
+              <ListItem>
+                Server renders with the default theme from CSS
+              </ListItem>
+              <ListItem>
+                Client hydrates and applies custom theme immediately
+              </ListItem>
+              <ListItem>
+                No flash of unstyled content (FOUC)
+              </ListItem>
+            </List>
           </div>
         </div>
       </Section>

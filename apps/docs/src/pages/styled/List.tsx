@@ -7,6 +7,7 @@ import {
   ItemStart,
   ItemEnd,
   Badge,
+  type Marker,
 } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
@@ -18,10 +19,16 @@ const listControls: PlaygroundControl[] = [
   { name: 'variant', type: 'variant', defaultValue: 'plain' },
   { name: 'color', type: 'color', defaultValue: 'neutral' },
   { name: 'size', type: 'size', defaultValue: 'md' },
+  {
+    name: 'marker',
+    type: 'select',
+    options: ['none', 'disc', 'circle', 'decimal'],
+    defaultValue: 'none',
+  },
 ];
 
 const listCodeTemplate = (props: Record<string, string>) =>
-  `<List variant="${props.variant}" color="${props.color}" size="${props.size}" spacing="sm">
+  `<List variant="${props.variant}" color="${props.color}" size="${props.size}" marker="${props.marker}" spacing="sm">
   <ListItem>First item</ListItem>
   <ListItem>Second item</ListItem>
   <ListItem>Third item</ListItem>
@@ -54,6 +61,14 @@ const listProps: PropMeta[] = [
     type: "'none' | 'sm' | 'md' | 'lg'",
     defaultValue: "'none'",
     description: 'The spacing between list items.',
+    required: false,
+  },
+  {
+    name: 'marker',
+    type: "'none' | 'disc' | 'circle' | 'decimal'",
+    defaultValue: "'none'",
+    description:
+      "The marker style for list items. When set to 'decimal', renders as an ordered list (<ol>).",
     required: false,
   },
 ];
@@ -126,26 +141,41 @@ export function ListPage() {
 
       <Section title="Playground" id="playground">
         <Playground controls={listControls} codeTemplate={listCodeTemplate}>
-          {(props) => (
-            <div className="w-full max-w-md">
-              <List
-                variant={props.variant as Variant}
-                color={props.color as ColorScale}
-                size={props.size as Size}
-                spacing="sm"
-              >
-                <ListItem interactive>
-                  <ItemContent>First item</ItemContent>
-                </ListItem>
-                <ListItem interactive>
-                  <ItemContent>Second item</ItemContent>
-                </ListItem>
-                <ListItem interactive>
-                  <ItemContent>Third item</ItemContent>
-                </ListItem>
-              </List>
-            </div>
-          )}
+          {(props) => {
+            const marker = props.marker as Marker;
+            const hasMarker = marker !== 'none';
+            return (
+              <div className="w-full max-w-md">
+                <List
+                  variant={props.variant as Variant}
+                  color={props.color as ColorScale}
+                  size={props.size as Size}
+                  marker={marker}
+                  spacing="sm"
+                >
+                  {hasMarker ? (
+                    <>
+                      <ListItem>First item</ListItem>
+                      <ListItem>Second item</ListItem>
+                      <ListItem>Third item</ListItem>
+                    </>
+                  ) : (
+                    <>
+                      <ListItem interactive>
+                        <ItemContent>First item</ItemContent>
+                      </ListItem>
+                      <ListItem interactive>
+                        <ItemContent>Second item</ItemContent>
+                      </ListItem>
+                      <ListItem interactive>
+                        <ItemContent>Third item</ItemContent>
+                      </ListItem>
+                    </>
+                  )}
+                </List>
+              </div>
+            );
+          }}
         </Playground>
       </Section>
 
@@ -298,6 +328,68 @@ export function ListPage() {
                   <ListItem>
                     <ItemContent>Large item</ItemContent>
                   </ListItem>
+                </List>
+              </div>
+            </div>
+          </Section>
+
+          <Section
+            title="Markers"
+            titleLevel="h3"
+            id="markers"
+            code={`{/* Bullet list (disc) */}
+<List marker="disc" spacing="sm">
+  <ListItem>First item</ListItem>
+  <ListItem>Second item</ListItem>
+</List>
+
+{/* Circle markers */}
+<List marker="circle" spacing="sm">
+  <ListItem>First item</ListItem>
+  <ListItem>Second item</ListItem>
+</List>
+
+{/* Numbered list (renders as <ol>) */}
+<List marker="decimal" spacing="sm">
+  <ListItem>First step</ListItem>
+  <ListItem>Second step</ListItem>
+</List>`}
+          >
+            <Typography level="body-sm" className="mb-4">
+              Use the <code className="font-mono text-sm">marker</code> prop to
+              display list markers. When set to{' '}
+              <code className="font-mono text-sm">decimal</code>, the List
+              renders as an ordered list (<code className="font-mono text-sm">&lt;ol&gt;</code>).
+              Marker lists render children directly (without Item wrapper) for proper alignment.
+            </Typography>
+            <div className="space-y-6">
+              <div className="max-w-md">
+                <Typography level="body-sm" weight="medium" className="mb-2">
+                  Disc (bullet points)
+                </Typography>
+                <List marker="disc" spacing="sm">
+                  <ListItem>Customize color scales</ListItem>
+                  <ListItem>Adjust typography tokens</ListItem>
+                  <ListItem>Switch themes at runtime</ListItem>
+                </List>
+              </div>
+              <div className="max-w-md">
+                <Typography level="body-sm" weight="medium" className="mb-2">
+                  Circle
+                </Typography>
+                <List marker="circle" spacing="sm">
+                  <ListItem>First option</ListItem>
+                  <ListItem>Second option</ListItem>
+                </List>
+              </div>
+              <div className="max-w-md">
+                <Typography level="body-sm" weight="medium" className="mb-2">
+                  Decimal (ordered list)
+                </Typography>
+                <List marker="decimal" spacing="sm">
+                  <ListItem>Set up the ThemeProvider</ListItem>
+                  <ListItem>Customize your color palette</ListItem>
+                  <ListItem>Apply the theme to your app</ListItem>
                 </List>
               </div>
             </div>

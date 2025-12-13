@@ -99,6 +99,71 @@ describe('List', () => {
       );
       expect(screen.getByTestId('context')).toHaveTextContent('lg');
     });
+
+    it('provides marker to children via context', () => {
+      const ContextConsumer = () => {
+        const context = useListContext();
+        return <div data-testid="context">{context?.marker}</div>;
+      };
+
+      render(
+        <List marker="disc">
+          <ContextConsumer />
+        </List>
+      );
+      expect(screen.getByTestId('context')).toHaveTextContent('disc');
+    });
+  });
+
+  describe('marker variants', () => {
+    it('applies list-none by default', () => {
+      render(<List data-testid="list">Content</List>);
+      expect(screen.getByTestId('list')).toHaveClass('list-none');
+    });
+
+    it('applies disc marker classes', () => {
+      render(
+        <List marker="disc" data-testid="list">
+          Content
+        </List>
+      );
+      const list = screen.getByTestId('list');
+      expect(list).toHaveClass('list-disc', 'list-inside');
+      expect(list).not.toHaveClass('list-none');
+    });
+
+    it('applies circle marker classes', () => {
+      render(
+        <List marker="circle" data-testid="list">
+          Content
+        </List>
+      );
+      const list = screen.getByTestId('list');
+      expect(list).toHaveClass('list-inside');
+      expect(list).not.toHaveClass('list-none');
+    });
+
+    it('renders as ol with decimal marker', () => {
+      render(
+        <List marker="decimal" data-testid="list">
+          Content
+        </List>
+      );
+      const list = screen.getByTestId('list');
+      expect(list.tagName).toBe('OL');
+      expect(list).toHaveClass('list-decimal', 'list-inside');
+    });
+
+    it('has no accessibility violations with decimal marker', async () => {
+      const { container } = render(
+        <List marker="decimal" aria-label="Ordered list">
+          <ListItem>First item</ListItem>
+          <ListItem>Second item</ListItem>
+        </List>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
   });
 
   describe('accessibility', () => {
@@ -216,6 +281,49 @@ describe('ListItem', () => {
     });
   });
 
+  describe('marker behavior', () => {
+    it('renders with Item wrapper when no markers (no List context)', () => {
+      render(<ListItem data-testid="item">Content</ListItem>);
+      const li = screen.getByTestId('item').closest('li');
+      expect(li).toHaveClass('list-none');
+      // Item component should be rendered
+      expect(screen.getByText('Content').closest('[class*="flex"]')).toBeInTheDocument();
+    });
+
+    it('renders with Item wrapper when marker="none"', () => {
+      render(
+        <List marker="none">
+          <ListItem data-testid="item">Content</ListItem>
+        </List>
+      );
+      const li = screen.getByTestId('item').closest('li');
+      expect(li).toHaveClass('list-none');
+    });
+
+    it('renders children directly when marker="disc"', () => {
+      render(
+        <List marker="disc">
+          <ListItem>Content</ListItem>
+        </List>
+      );
+      // Children rendered directly in li, not wrapped in Item
+      const li = screen.getByText('Content').closest('li');
+      expect(li).not.toHaveClass('list-none');
+      expect(li).toHaveClass('py-1');
+    });
+
+    it('renders children directly when marker="decimal"', () => {
+      render(
+        <List marker="decimal">
+          <ListItem>Content</ListItem>
+        </List>
+      );
+      const li = screen.getByText('Content').closest('li');
+      expect(li).not.toHaveClass('list-none');
+      expect(li).toHaveClass('py-1');
+    });
+  });
+
   describe('accessibility', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(
@@ -273,6 +381,15 @@ describe('ListSubheader', () => {
         </ListSubheader>
       );
       expect(screen.getByTestId('subheader')).toHaveClass('sticky', 'top-0');
+    });
+
+    it('always hides markers regardless of List marker prop', () => {
+      render(
+        <List marker="disc">
+          <ListSubheader data-testid="subheader">Section</ListSubheader>
+        </List>
+      );
+      expect(screen.getByTestId('subheader')).toHaveClass('list-none');
     });
   });
 

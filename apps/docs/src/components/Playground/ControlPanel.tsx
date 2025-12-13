@@ -4,8 +4,9 @@ import { cn } from '@base-joy/utils';
 
 export interface PlaygroundControl {
   name: string;
-  type: 'variant' | 'color' | 'size' | 'boolean';
+  type: 'variant' | 'color' | 'size' | 'boolean' | 'select';
   defaultValue: string | boolean;
+  options?: string[]; // For 'select' type
 }
 
 interface ControlPanelProps {
@@ -110,6 +111,24 @@ export function ControlPanel({ controls, values, onChange }: ControlPanelProps) 
                 {values[control.name] ? 'On' : 'Off'}
               </Typography>
             </div>
+          )}
+
+          {control.type === 'select' && control.options && (
+            <ToggleGroup.Root
+              value={[values[control.name] as string]}
+              onValueChange={(newValue) => {
+                if (newValue.length > 0) {
+                  onChange(control.name, newValue[0]);
+                }
+              }}
+              size="sm"
+            >
+              {control.options.map((option) => (
+                <Toggle key={option} value={option}>
+                  {option}
+                </Toggle>
+              ))}
+            </ToggleGroup.Root>
           )}
         </div>
       ))}

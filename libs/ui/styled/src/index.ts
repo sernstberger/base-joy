@@ -309,6 +309,7 @@ export {
   type ListItemProps,
   type ListSubheaderProps,
   type ListContextValue,
+  type Marker,
 } from './List';
 
 // Accordion components
