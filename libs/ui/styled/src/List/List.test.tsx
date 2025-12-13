@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { axe } from 'vitest-axe';
-import { List, ListItem, ListSubheader, useListContext } from './index';
+import { List, ListItem, ListSubheader, ListSeparator, useListContext } from './index';
 import { ItemContent } from '../Item';
 
 describe('List', () => {
@@ -475,6 +475,178 @@ describe('ListSubheader', () => {
         <List aria-label="Test list">
           <ListSubheader>Section</ListSubheader>
           <ListItem>Item 1</ListItem>
+        </List>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+});
+
+describe('ListSeparator', () => {
+  describe('rendering', () => {
+    it('renders as li element', () => {
+      render(
+        <List>
+          <ListSeparator data-testid="separator" />
+        </List>
+      );
+      const separator = screen.getByTestId('separator');
+      expect(separator.tagName).toBe('LI');
+    });
+
+    it('forwards ref correctly', () => {
+      const ref = React.createRef<HTMLElement>();
+      render(
+        <List>
+          <ListSeparator ref={ref} />
+        </List>
+      );
+      expect(ref.current).toBeInstanceOf(HTMLLIElement);
+    });
+
+    it('renders hr element inside li', () => {
+      render(
+        <List>
+          <ListSeparator data-testid="separator" />
+        </List>
+      );
+      const separator = screen.getByTestId('separator');
+      const hr = separator.querySelector('hr');
+      expect(hr).toBeInTheDocument();
+    });
+  });
+
+  describe('inset variants', () => {
+    it('applies context inset by default (no margins)', () => {
+      render(
+        <List>
+          <ListSeparator data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).not.toHaveClass('ml-2');
+      expect(hr).not.toHaveClass('ml-3');
+    });
+
+    it('applies gutter inset for md size', () => {
+      render(
+        <List size="md">
+          <ListSeparator inset="gutter" data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveClass('ml-3', 'mr-3');
+    });
+
+    it('applies startDecorator inset for md size', () => {
+      render(
+        <List size="md">
+          <ListSeparator inset="startDecorator" data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveClass('ml-3');
+    });
+
+    it('applies startContent inset for md size', () => {
+      render(
+        <List size="md">
+          <ListSeparator inset="startContent" data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveClass('ml-11');
+    });
+
+    it('applies custom string inset as style', () => {
+      render(
+        <List>
+          <ListSeparator inset="20px" data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveStyle({ marginLeft: '20px' });
+    });
+  });
+
+  describe('color', () => {
+    it('inherits color from List context', () => {
+      render(
+        <List color="primary">
+          <ListSeparator data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveClass('bg-primary-300');
+    });
+
+    it('explicit color overrides context', () => {
+      render(
+        <List color="neutral">
+          <ListSeparator color="danger" data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveClass('bg-danger-300');
+    });
+
+    it('applies neutral color by default', () => {
+      render(
+        <List>
+          <ListSeparator data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveClass('bg-neutral-300');
+    });
+  });
+
+  describe('nested context', () => {
+    it('renders as div when inside nested ListItem', () => {
+      render(
+        <List>
+          <ListItem nested>
+            <ListSeparator data-testid="separator" />
+          </ListItem>
+        </List>
+      );
+      const separator = screen.getByTestId('separator');
+      expect(separator.tagName).toBe('DIV');
+    });
+  });
+
+  describe('accessibility', () => {
+    it('has hr marked as aria-hidden', () => {
+      render(
+        <List>
+          <ListSeparator data-testid="separator" />
+        </List>
+      );
+      const hr = screen.getByTestId('separator').querySelector('hr');
+      expect(hr).toHaveAttribute('aria-hidden', 'true');
+    });
+
+    it('has no accessibility violations', async () => {
+      const { container } = render(
+        <List aria-label="Test list">
+          <ListItem>Item 1</ListItem>
+          <ListSeparator />
+          <ListItem>Item 2</ListItem>
+        </List>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('has no accessibility violations with different insets', async () => {
+      const { container } = render(
+        <List aria-label="Test list" size="md">
+          <ListItem>Item 1</ListItem>
+          <ListSeparator inset="gutter" />
+          <ListItem>Item 2</ListItem>
+          <ListSeparator inset="startContent" />
+          <ListItem>Item 3</ListItem>
         </List>
       );
       const results = await axe(container);

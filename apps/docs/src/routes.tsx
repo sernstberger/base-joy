@@ -10,7 +10,7 @@ import { ItemPage } from './pages/styled/Item';
 import { TablePage } from './pages/styled/Table';
 import { TypographyPage } from './pages/styled/Typography';
 import { BadgePage } from './pages/styled/Badge';
-import { DividerPage } from './pages/styled/Divider';
+import { SeparatorPage } from './pages/styled/Separator';
 import { AvatarPage } from './pages/styled/Avatar';
 import { ButtonPage } from './pages/styled/Button';
 import { LinkPage } from './pages/styled/Link';
@@ -121,8 +121,8 @@ export const router = createBrowserRouter([
         element: <BadgePage />,
       },
       {
-        path: 'styled/divider',
-        element: <DividerPage />,
+        path: 'styled/separator',
+        element: <SeparatorPage />,
       },
       {
         path: 'styled/avatar',

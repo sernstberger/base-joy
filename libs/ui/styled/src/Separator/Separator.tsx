@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Separator } from '@base-ui/react/separator';
+import { Separator as BaseSeparator } from '@base-ui/react/separator';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { ColorScale } from '@base-joy/tokens';
 
-const dividerVariants = cva('shrink-0', {
+const separatorVariants = cva('shrink-0', {
   variants: {
     orientation: {
       horizontal: 'h-px w-full',
@@ -33,34 +33,34 @@ const dividerVariants = cva('shrink-0', {
   },
 });
 
-export interface DividerProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof Separator>, 'children'>,
-    VariantProps<typeof dividerVariants> {
+export interface SeparatorProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof BaseSeparator>, 'children'>,
+    VariantProps<typeof separatorVariants> {
   /**
-   * The orientation of the divider.
+   * The orientation of the separator.
    * @default 'horizontal'
    */
   orientation?: 'horizontal' | 'vertical';
 
   /**
-   * The color scheme of the divider.
+   * The color scheme of the separator.
    * @default 'neutral'
    */
   color?: ColorScale;
 
   /**
-   * Adds margin on the ends of the divider.
+   * Adds margin on the ends of the separator.
    * @default false
    */
   inset?: boolean;
 
   /**
-   * Optional text content to display in the center of the divider.
+   * Optional text content to display in the center of the separator.
    */
   children?: React.ReactNode;
 }
 
-export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
+export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
   ({ className, orientation = 'horizontal', color, inset, children, ...props }, ref) => {
     if (children) {
       return (
@@ -74,20 +74,20 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
             className
           )}
         >
-          <Separator
+          <BaseSeparator
             orientation={orientation}
             className={cn(
-              dividerVariants({ orientation, color }),
+              separatorVariants({ orientation, color }),
               orientation === 'horizontal' ? 'flex-1' : 'flex-1'
             )}
             aria-hidden="true"
             render={<hr />}
           />
           <span className="text-sm text-neutral-600 shrink-0">{children}</span>
-          <Separator
+          <BaseSeparator
             orientation={orientation}
             className={cn(
-              dividerVariants({ orientation, color }),
+              separatorVariants({ orientation, color }),
               orientation === 'horizontal' ? 'flex-1' : 'flex-1'
             )}
             aria-hidden="true"
@@ -98,10 +98,10 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     }
 
     return (
-      <Separator
+      <BaseSeparator
         ref={ref}
         orientation={orientation}
-        className={cn(dividerVariants({ orientation, color, inset }), className)}
+        className={cn(separatorVariants({ orientation, color, inset }), className)}
         render={<hr />}
         {...props}
       />
@@ -109,6 +109,6 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
   }
 );
 
-Divider.displayName = 'Divider';
+Separator.displayName = 'Separator';
 
-export { dividerVariants };
+export { separatorVariants };

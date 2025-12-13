@@ -2,6 +2,7 @@ export {
   List,
   ListItem,
   ListSubheader,
+  ListSeparator,
   listVariants,
   listSubheaderVariants,
   ListContext,
@@ -9,6 +10,8 @@ export {
   type ListProps,
   type ListItemProps,
   type ListSubheaderProps,
+  type ListSeparatorProps,
+  type ListSeparatorInset,
   type ListContextValue,
   type Marker,
 } from './List';

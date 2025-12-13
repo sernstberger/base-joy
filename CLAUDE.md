@@ -108,7 +108,7 @@ import { sheetVariants } from '../Sheet';
 
 **When NOT to use Sheet:**
 - Layout components (Grid, Stack, Container, Field) - pure layout utilities
-- Text/link components (Typography, Link, Divider) - specialized text styling
+- Text/link components (Typography, Link, Separator) - specialized text styling
 - Components with specialized styling (CodeBlock, Table, Switch, Slider)
 
 **Pattern A: Sheet Component (preferred for simple wrappers)**

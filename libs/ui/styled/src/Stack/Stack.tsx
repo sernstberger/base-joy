@@ -94,9 +94,9 @@ export interface StackProps
   as?: React.ElementType;
 
   /**
-   * Optional divider element to insert between children.
+   * Optional separator element to insert between children.
    */
-  divider?: React.ReactNode;
+  separator?: React.ReactNode;
 
   /**
    * Children elements.
@@ -114,7 +114,7 @@ export const Stack = React.forwardRef<HTMLElement, StackProps>(
       justify,
       wrap,
       as: Component = 'div',
-      divider,
+      separator,
       children,
       ...props
     },
@@ -123,11 +123,11 @@ export const Stack = React.forwardRef<HTMLElement, StackProps>(
     const childrenArray = React.Children.toArray(children);
     const hasChildren = childrenArray.length > 0;
 
-    const content = divider && hasChildren
+    const content = separator && hasChildren
       ? childrenArray.reduce<React.ReactNode[]>((acc, child, index) => {
           if (index > 0) {
             acc.push(
-              <React.Fragment key={`divider-${index}`}>{divider}</React.Fragment>
+              <React.Fragment key={`separator-${index}`}>{separator}</React.Fragment>
             );
           }
           acc.push(child);

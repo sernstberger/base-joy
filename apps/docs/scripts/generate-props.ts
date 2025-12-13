@@ -26,7 +26,7 @@ const COMPONENTS = [
   'ColorSchemeToggle',
   'Combobox',
   'Container',
-  'Divider',
+  'Separator',
   'Field',
   'Fieldset',
   'Form',

@@ -3,6 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
 import type { Variant, Size, ColorScale } from '@base-joy/tokens';
 import { Item, type ItemProps } from '../Item';
+import { separatorVariants } from '../Separator';
 
 /**
  * The marker style for list items.
@@ -244,3 +245,128 @@ export const ListSubheader = React.forwardRef<
 });
 
 ListSubheader.displayName = 'ListSubheader';
+
+/**
+ * The inset option for ListSeparator.
+ * - 'context': No horizontal inset (full width within the list).
+ * - 'gutter': Inset matches the Item's horizontal padding.
+ * - 'startDecorator': Inset aligns with where the startDecorator slot begins.
+ * - 'startContent': Inset aligns with where the main content begins (after startDecorator).
+ * - string: Custom CSS margin-left value (e.g., '20px', '2rem').
+ */
+export type ListSeparatorInset = 'context' | 'gutter' | 'startDecorator' | 'startContent' | string;
+
+const listSeparatorInsetVariants = cva('', {
+  variants: {
+    inset: {
+      context: '',
+      gutter: '',
+      startDecorator: '',
+      startContent: '',
+    },
+    size: {
+      sm: '',
+      md: '',
+      lg: '',
+    },
+  },
+  compoundVariants: [
+    // Gutter insets (match Item padding)
+    { inset: 'gutter', size: 'sm', className: 'ml-2 mr-2' },
+    { inset: 'gutter', size: 'md', className: 'ml-3 mr-3' },
+    { inset: 'gutter', size: 'lg', className: 'ml-4 mr-4' },
+
+    // StartDecorator insets (match Item padding - same as gutter)
+    { inset: 'startDecorator', size: 'sm', className: 'ml-2' },
+    { inset: 'startDecorator', size: 'md', className: 'ml-3' },
+    { inset: 'startDecorator', size: 'lg', className: 'ml-4' },
+
+    // StartContent insets (padding + ItemStart width + gap)
+    // sm: px-2 (8px) + w-4 (16px) + gap-3 (12px) = 36px → ml-9
+    // md: px-3 (12px) + w-5 (20px) + gap-3 (12px) = 44px → ml-11
+    // lg: px-4 (16px) + w-6 (24px) + gap-3 (12px) = 52px → ml-13
+    { inset: 'startContent', size: 'sm', className: 'ml-9' },
+    { inset: 'startContent', size: 'md', className: 'ml-11' },
+    { inset: 'startContent', size: 'lg', className: 'ml-13' },
+  ],
+  defaultVariants: {
+    inset: 'context',
+    size: 'md',
+  },
+});
+
+export interface ListSeparatorProps
+  extends Omit<React.HTMLAttributes<HTMLElement>, 'children'> {
+  /**
+   * The inset of the separator.
+   * - 'context': No horizontal inset.
+   * - 'gutter': Inset matches the Item's horizontal padding.
+   * - 'startDecorator': Inset aligns with where the startDecorator slot begins.
+   * - 'startContent': Inset aligns with where the main content begins.
+   * - Custom string value for specific margin (e.g., '20px').
+   * @default 'context'
+   */
+  inset?: ListSeparatorInset;
+
+  /**
+   * The color scheme of the separator.
+   * @default 'neutral'
+   */
+  color?: ColorScale;
+}
+
+export const ListSeparator = React.forwardRef<HTMLElement, ListSeparatorProps>(
+  ({ className, inset = 'context', color, ...props }, ref) => {
+    const listContext = useListContext();
+    const isNested = useNestedListContext();
+
+    const size = listContext?.size ?? 'md';
+    const resolvedColor = color ?? listContext?.color ?? 'neutral';
+
+    // Check if inset is a predefined value or custom string
+    const isPredefinedInset =
+      inset === 'context' ||
+      inset === 'gutter' ||
+      inset === 'startDecorator' ||
+      inset === 'startContent';
+
+    const separatorElement = (
+      <hr
+        className={cn(
+          separatorVariants({ orientation: 'horizontal', color: resolvedColor }),
+          isPredefinedInset
+            ? listSeparatorInsetVariants({ inset: inset as 'context' | 'gutter' | 'startDecorator' | 'startContent', size })
+            : undefined,
+          className
+        )}
+        style={!isPredefinedInset ? { marginLeft: inset } : undefined}
+        aria-hidden="true"
+      />
+    );
+
+    // Inside a nested ListItem, render without li wrapper
+    if (isNested) {
+      return (
+        <div
+          ref={ref as React.Ref<HTMLDivElement>}
+          className="list-none my-1"
+          {...(props as React.HTMLAttributes<HTMLDivElement>)}
+        >
+          {separatorElement}
+        </div>
+      );
+    }
+
+    return (
+      <li
+        ref={ref as React.Ref<HTMLLIElement>}
+        className="list-none my-1"
+        {...(props as React.HTMLAttributes<HTMLLIElement>)}
+      >
+        {separatorElement}
+      </li>
+    );
+  }
+);
+
+ListSeparator.displayName = 'ListSeparator';

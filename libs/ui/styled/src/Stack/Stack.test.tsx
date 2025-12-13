@@ -173,22 +173,22 @@ describe('Stack', () => {
     });
   });
 
-  describe('divider prop', () => {
-    it('renders dividers between children', () => {
+  describe('separator prop', () => {
+    it('renders separators between children', () => {
       render(
-        <Stack divider={<hr data-testid="divider" />}>
+        <Stack separator={<hr data-testid="separator" />}>
           <div>Item 1</div>
           <div>Item 2</div>
           <div>Item 3</div>
         </Stack>
       );
-      const dividers = screen.getAllByTestId('divider');
-      expect(dividers).toHaveLength(2);
+      const separators = screen.getAllByTestId('separator');
+      expect(separators).toHaveLength(2);
     });
 
-    it('does not render divider before first child', () => {
+    it('does not render separator before first child', () => {
       const { container } = render(
-        <Stack divider={<hr className="divider" />}>
+        <Stack separator={<hr className="separator" />}>
           <div>Item 1</div>
           <div>Item 2</div>
         </Stack>
@@ -200,16 +200,16 @@ describe('Stack', () => {
 
     it('renders correctly with single child', () => {
       render(
-        <Stack divider={<hr data-testid="divider" />}>
+        <Stack separator={<hr data-testid="separator" />}>
           <div>Only Item</div>
         </Stack>
       );
-      expect(screen.queryByTestId('divider')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('separator')).not.toBeInTheDocument();
     });
 
-    it('does not render dividers when no children', () => {
-      const { container } = render(<Stack divider={<hr className="divider" />} />);
-      expect(container.querySelector('.divider')).not.toBeInTheDocument();
+    it('does not render separators when no children', () => {
+      const { container } = render(<Stack separator={<hr className="separator" />} />);
+      expect(container.querySelector('.separator')).not.toBeInTheDocument();
     });
   });
 
@@ -359,9 +359,9 @@ describe('Stack', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('has no accessibility violations with dividers', async () => {
+    it('has no accessibility violations with separators', async () => {
       const { container } = render(
-        <Stack divider={<hr />}>
+        <Stack separator={<hr />}>
           <p>Section 1</p>
           <p>Section 2</p>
         </Stack>

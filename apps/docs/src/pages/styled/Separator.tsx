@@ -1,10 +1,10 @@
-import { Divider, Sheet, Typography } from '@base-joy/ui-styled';
+import { Separator, Sheet, Typography } from '@base-joy/ui-styled';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
 import { componentProps } from '../../props';
 
-const dividerControls: PlaygroundControl[] = [
+const separatorControls: PlaygroundControl[] = [
   {
     name: 'color',
     type: 'color',
@@ -12,27 +12,27 @@ const dividerControls: PlaygroundControl[] = [
   },
 ];
 
-const dividerCodeTemplate = (props: Record<string, string>) => {
+const separatorCodeTemplate = (props: Record<string, string>) => {
   const color = props.color !== 'neutral' ? ` color="${props.color}"` : '';
-  return `<Divider${color} />`;
+  return `<Separator${color} />`;
 };
 
-export function DividerPage() {
+export function SeparatorPage() {
   return (
     <div className="max-w-4xl">
       <header className="mb-8">
-        <Typography level="h1">Divider</Typography>
+        <Typography level="h1">Separator</Typography>
         <Typography level="body-lg">
           A visual separator for content sections, available in horizontal and vertical orientations with optional centered text.
         </Typography>
       </header>
 
       <Section title="Playground">
-        <Playground controls={dividerControls} codeTemplate={dividerCodeTemplate}>
+        <Playground controls={separatorControls} codeTemplate={separatorCodeTemplate}>
           {(props) => (
             <Sheet variant="outlined" color="neutral">
               <Typography>Above</Typography>
-              <Divider color={props.color as any} />
+              <Separator color={props.color as any} />
               <Typography>Below</Typography>
             </Sheet>
           )}
@@ -45,9 +45,9 @@ export function DividerPage() {
             <Typography level="h3">Horizontal (default)</Typography>
             <Sheet variant="outlined" color="neutral">
               <Typography>Section 1</Typography>
-              <Divider />
+              <Separator />
               <Typography>Section 2</Typography>
-              <Divider />
+              <Separator />
               <Typography>Section 3</Typography>
             </Sheet>
           </div>
@@ -59,11 +59,11 @@ export function DividerPage() {
                 <div className="flex-1 flex items-center justify-center">
                   <Typography>Column 1</Typography>
                 </div>
-                <Divider orientation="vertical" />
+                <Separator orientation="vertical" />
                 <div className="flex-1 flex items-center justify-center">
                   <Typography>Column 2</Typography>
                 </div>
-                <Divider orientation="vertical" />
+                <Separator orientation="vertical" />
                 <div className="flex-1 flex items-center justify-center">
                   <Typography>Column 3</Typography>
                 </div>
@@ -75,7 +75,7 @@ export function DividerPage() {
             <Typography level="h3">With Text</Typography>
             <Sheet variant="outlined" color="neutral">
               <Typography>Sign in with your account</Typography>
-              <Divider>Or</Divider>
+              <Separator>Or</Separator>
               <Typography>Create a new account</Typography>
             </Sheet>
           </div>
@@ -85,23 +85,23 @@ export function DividerPage() {
             <div className="space-y-4">
               <Sheet variant="outlined" color="neutral">
                 <Typography level="body-sm" className="mb-2">Primary</Typography>
-                <Divider color="primary" />
+                <Separator color="primary" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
                 <Typography level="body-sm" className="mb-2">Neutral (default)</Typography>
-                <Divider color="neutral" />
+                <Separator color="neutral" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
                 <Typography level="body-sm" className="mb-2">Success</Typography>
-                <Divider color="success" />
+                <Separator color="success" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
                 <Typography level="body-sm" className="mb-2">Warning</Typography>
-                <Divider color="warning" />
+                <Separator color="warning" />
               </Sheet>
               <Sheet variant="outlined" color="neutral">
                 <Typography level="body-sm" className="mb-2">Danger</Typography>
-                <Divider color="danger" />
+                <Separator color="danger" />
               </Sheet>
             </div>
           </div>
@@ -109,17 +109,17 @@ export function DividerPage() {
           <div>
             <Typography level="h3">Inset</Typography>
             <Typography level="body-sm" className="mb-3">
-              Add margin on the ends of the divider.
+              Add margin on the ends of the separator.
             </Typography>
             <div className="space-y-4">
               <Sheet variant="outlined" color="neutral">
                 <Typography>Without inset</Typography>
-                <Divider />
+                <Separator />
                 <Typography>Content touches edges</Typography>
               </Sheet>
               <Sheet variant="outlined" color="neutral">
                 <Typography>With inset</Typography>
-                <Divider inset />
+                <Separator inset />
                 <Typography>Content has margin</Typography>
               </Sheet>
             </div>
@@ -134,11 +134,11 @@ export function DividerPage() {
                   <div className="p-4">
                     <Typography>First item</Typography>
                   </div>
-                  <Divider inset />
+                  <Separator inset />
                   <div className="p-4">
                     <Typography>Second item</Typography>
                   </div>
-                  <Divider inset />
+                  <Separator inset />
                   <div className="p-4">
                     <Typography>Third item</Typography>
                   </div>
@@ -154,14 +154,14 @@ export function DividerPage() {
                     <button className="px-3 py-1 hover:bg-neutral-100 rounded">
                       Save
                     </button>
-                    <Divider orientation="vertical" />
+                    <Separator orientation="vertical" />
                     <button className="px-3 py-1 hover:bg-neutral-100 rounded">
                       Share
                     </button>
                     <button className="px-3 py-1 hover:bg-neutral-100 rounded">
                       Export
                     </button>
-                    <Divider orientation="vertical" />
+                    <Separator orientation="vertical" />
                     <button className="px-3 py-1 hover:bg-neutral-100 rounded">
                       Settings
                     </button>
@@ -183,7 +183,7 @@ export function DividerPage() {
                       className="w-full px-3 py-2 border rounded"
                     />
                   </div>
-                  <Divider className="my-4">Or continue with</Divider>
+                  <Separator className="my-4">Or continue with</Separator>
                   <div className="space-y-2">
                     <button className="w-full px-3 py-2 border rounded hover:bg-neutral-50">
                       Sign in with Google
@@ -201,8 +201,8 @@ export function DividerPage() {
 
       <Section title="API Reference">
         <div>
-          <Typography level="h3">Divider</Typography>
-          <PropsTable props={componentProps.Divider} />
+          <Typography level="h3">Separator</Typography>
+          <PropsTable props={componentProps.Separator} />
         </div>
       </Section>
     </div>

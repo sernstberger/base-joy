@@ -50,7 +50,7 @@ export {
   type TableCellProps,
   type TableVariant,
 } from './Table';
-export { Divider, dividerVariants, type DividerProps } from './Divider';
+export { Separator, separatorVariants, type SeparatorProps } from './Separator';
 export { Badge, badgeVariants, type BadgeProps } from './Badge';
 export {
   Avatar,
@@ -301,6 +301,7 @@ export {
   List,
   ListItem,
   ListSubheader,
+  ListSeparator,
   listVariants,
   listSubheaderVariants,
   ListContext,
@@ -308,6 +309,8 @@ export {
   type ListProps,
   type ListItemProps,
   type ListSubheaderProps,
+  type ListSeparatorProps,
+  type ListSeparatorInset,
   type ListContextValue,
   type Marker,
 } from './List';

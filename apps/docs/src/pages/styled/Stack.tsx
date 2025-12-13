@@ -1,4 +1,4 @@
-import { Stack, Sheet, Button, Badge, Divider, Typography } from '@base-joy/ui-styled';
+import { Stack, Sheet, Button, Badge, Separator, Typography } from '@base-joy/ui-styled';
 import { Playground, type PlaygroundControl } from '../../components/Playground';
 import { PropsTable } from '../../components/PropsTable';
 import { Section } from '../../components/Section';
@@ -195,12 +195,12 @@ export function StackPage() {
           </div>
 
           <div>
-            <Typography level="h3">With Dividers</Typography>
+            <Typography level="h3">With Separators</Typography>
             <Typography level="body-sm" className="mb-3">
-              Insert dividers between children for visual separation.
+              Insert separators between children for visual separation.
             </Typography>
             <Sheet variant="outlined" color="neutral">
-              <Stack spacing={3} divider={<Divider />}>
+              <Stack spacing={3} separator={<Separator />}>
                 <div>Section 1</div>
                 <div>Section 2</div>
                 <div>Section 3</div>

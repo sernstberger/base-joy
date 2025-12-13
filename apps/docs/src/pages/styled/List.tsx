@@ -4,11 +4,11 @@ import {
   List,
   ListItem,
   ListSubheader,
+  ListSeparator,
   ItemContent,
   ItemStart,
   ItemEnd,
   Badge,
-  Divider,
   Sheet,
   type Marker,
 } from '@base-joy/ui-styled';
@@ -202,7 +202,7 @@ function SidebarExample() {
               </Badge>
             </ItemEnd>
           </ListItem>
-          <Divider className="my-2" />
+          <ListSeparator />
           <ListItem
             interactive
             selected={selected === 4}
@@ -442,20 +442,20 @@ export function ListPage() {
           </Section>
 
           <Section
-            title="With Dividers"
+            title="With ListSeparator"
             titleLevel="h3"
-            id="dividers"
+            id="separators"
             code={`<List spacing="none">
   <ListItem>
     <ItemStart>👤</ItemStart>
     <ItemContent>Mabel Boyle</ItemContent>
   </ListItem>
-  <Divider />
+  <ListSeparator />
   <ListItem>
     <ItemStart>👤</ItemStart>
     <ItemContent>Boyd Burt</ItemContent>
   </ListItem>
-  <Divider />
+  <ListSeparator />
   <ListItem>
     <ItemStart>👤</ItemStart>
     <ItemContent>Sara Chen</ItemContent>
@@ -463,15 +463,18 @@ export function ListPage() {
 </List>`}
           >
             <Typography level="body-sm" className="mb-4">
-              Use the <code className="font-mono text-sm">Divider</code>{' '}
-              component to separate list items. Use{' '}
-              <code className="font-mono text-sm">inset</code> for indented
-              dividers.
+              Use the{' '}
+              <code className="font-mono text-sm">ListSeparator</code>{' '}
+              component to separate list items. Use the{' '}
+              <code className="font-mono text-sm">inset</code> prop to control
+              indentation: <code className="font-mono text-sm">gutter</code>,{' '}
+              <code className="font-mono text-sm">startDecorator</code>, or{' '}
+              <code className="font-mono text-sm">startContent</code>.
             </Typography>
             <div className="flex flex-wrap gap-8">
               <div className="max-w-xs">
                 <Typography level="body-sm" weight="medium" className="mb-2">
-                  Default
+                  Default (context)
                 </Typography>
                 <Sheet variant="outlined" className="rounded-md">
                   <List spacing="none">
@@ -479,12 +482,12 @@ export function ListPage() {
                       <ItemStart>👤</ItemStart>
                       <ItemContent>Mabel Boyle</ItemContent>
                     </ListItem>
-                    <Divider />
+                    <ListSeparator />
                     <ListItem>
                       <ItemStart>👤</ItemStart>
                       <ItemContent>Boyd Burt</ItemContent>
                     </ListItem>
-                    <Divider />
+                    <ListSeparator />
                     <ListItem>
                       <ItemStart>👤</ItemStart>
                       <ItemContent>Sara Chen</ItemContent>
@@ -494,7 +497,7 @@ export function ListPage() {
               </div>
               <div className="max-w-xs">
                 <Typography level="body-sm" weight="medium" className="mb-2">
-                  Inset
+                  inset="gutter"
                 </Typography>
                 <Sheet variant="outlined" className="rounded-md">
                   <List spacing="none">
@@ -502,12 +505,35 @@ export function ListPage() {
                       <ItemStart>👤</ItemStart>
                       <ItemContent>Mabel Boyle</ItemContent>
                     </ListItem>
-                    <Divider inset />
+                    <ListSeparator inset="gutter" />
                     <ListItem>
                       <ItemStart>👤</ItemStart>
                       <ItemContent>Boyd Burt</ItemContent>
                     </ListItem>
-                    <Divider inset />
+                    <ListSeparator inset="gutter" />
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Sara Chen</ItemContent>
+                    </ListItem>
+                  </List>
+                </Sheet>
+              </div>
+              <div className="max-w-xs">
+                <Typography level="body-sm" weight="medium" className="mb-2">
+                  inset="startContent"
+                </Typography>
+                <Sheet variant="outlined" className="rounded-md">
+                  <List spacing="none">
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Mabel Boyle</ItemContent>
+                    </ListItem>
+                    <ListSeparator inset="startContent" />
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Boyd Burt</ItemContent>
+                    </ListItem>
+                    <ListSeparator inset="startContent" />
                     <ListItem>
                       <ItemStart>👤</ItemStart>
                       <ItemContent>Sara Chen</ItemContent>

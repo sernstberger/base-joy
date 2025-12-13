@@ -12,7 +12,7 @@ import CodeBlockProps from './CodeBlock.json';
 import ColorSchemeToggleProps from './ColorSchemeToggle.json';
 import ComboboxProps from './Combobox.json';
 import ContainerProps from './Container.json';
-import DividerProps from './Divider.json';
+import SeparatorProps from './Separator.json';
 import FieldProps from './Field.json';
 import FieldsetProps from './Fieldset.json';
 import FormProps from './Form.json';
@@ -45,7 +45,7 @@ export const componentProps = {
   ColorSchemeToggle: ColorSchemeToggleProps,
   Combobox: ComboboxProps,
   Container: ContainerProps,
-  Divider: DividerProps,
+  Separator: SeparatorProps,
   Field: FieldProps,
   Fieldset: FieldsetProps,
   Form: FormProps,

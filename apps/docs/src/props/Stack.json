@@ -47,12 +47,6 @@
     "required": false
   },
   {
-    "name": "divider",
-    "type": "React.ReactNode",
-    "description": "Optional divider element to insert between children.",
-    "required": false
-  },
-  {
     "name": "id",
     "type": "string",
     "required": false
@@ -67,6 +61,12 @@
   {
     "name": "onChange",
     "type": "FormEventHandler<HTMLElement>",
+    "required": false
+  },
+  {
+    "name": "separator",
+    "type": "React.ReactNode",
+    "description": "Optional separator element to insert between children.",
     "required": false
   },
   {
