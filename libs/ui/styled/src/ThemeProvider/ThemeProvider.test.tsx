@@ -51,11 +51,26 @@ describe('ThemeProvider', () => {
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.style.cssText = '';
+    document.documentElement.removeAttribute('data-color-scheme');
+
+    // Mock matchMedia for ColorSchemeProvider
+    global.matchMedia = jest.fn((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
   });
 
   afterEach(() => {
     localStorage.clear();
     document.documentElement.style.cssText = '';
+    document.documentElement.removeAttribute('data-color-scheme');
+    jest.restoreAllMocks();
   });
 
   it('renders children without crashing', () => {
@@ -83,7 +98,7 @@ describe('ThemeProvider', () => {
     );
   });
 
-  it('applies default theme CSS variables on mount', async () => {
+  it('applies typography CSS variables on mount', async () => {
     render(
       <ThemeProvider>
         <TestComponent />
@@ -92,14 +107,14 @@ describe('ThemeProvider', () => {
 
     await waitFor(() => {
       const root = document.documentElement;
-      expect(root.style.getPropertyValue('--color-primary-500')).toBe(
-        defaultTheme.colors.primary[500]
-      );
-      expect(root.style.getPropertyValue('--color-neutral-900')).toBe(
-        defaultTheme.colors.neutral[900]
-      );
+      // Color variables are NOT set by ThemeProvider - they're controlled by CSS [data-color-scheme]
+      expect(root.style.getPropertyValue('--color-primary-500')).toBe('');
+      // Typography variables ARE set by ThemeProvider
       expect(root.style.getPropertyValue('--font-size-base')).toBe(
         defaultTheme.typography.fontSizes.base
+      );
+      expect(root.style.getPropertyValue('--line-height-base')).toBe(
+        defaultTheme.typography.lineHeights.base
       );
     });
   });
@@ -135,7 +150,7 @@ describe('ThemeProvider', () => {
     );
   });
 
-  it('updates CSS variables when theme changes', async () => {
+  it('updates theme context when theme changes', async () => {
     const user = userEvent.setup();
     render(
       <ThemeProvider>
@@ -147,13 +162,13 @@ describe('ThemeProvider', () => {
     await user.click(screen.getByRole('button', { name: /update theme/i }));
 
     await waitFor(() => {
+      // Theme context is updated
       expect(screen.getByTestId('primary-500')).toHaveTextContent('#custom-primary');
     });
 
-    await waitFor(() => {
-      const root = document.documentElement;
-      expect(root.style.getPropertyValue('--color-primary-500')).toBe('#custom-primary');
-    });
+    // But color CSS variables are NOT set as inline styles (controlled by CSS instead)
+    const root = document.documentElement;
+    expect(root.style.getPropertyValue('--color-primary-500')).toBe('');
   });
 
   it('persists theme to localStorage', async () => {
@@ -250,7 +265,7 @@ describe('ThemeProvider', () => {
     });
   });
 
-  it('applies all color scale CSS variables', async () => {
+  it('does not set color CSS variables as inline styles', async () => {
     render(
       <ThemeProvider>
         <TestComponent />
@@ -260,11 +275,13 @@ describe('ThemeProvider', () => {
     await waitFor(() => {
       const root = document.documentElement;
 
+      // Color variables should NOT be set as inline styles
+      // They are controlled by CSS [data-color-scheme] selectors instead
       ['primary', 'neutral', 'success', 'warning', 'danger'].forEach((scale) => {
         ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'].forEach(
           (shade) => {
             const value = root.style.getPropertyValue(`--color-${scale}-${shade}`);
-            expect(value).toBeTruthy();
+            expect(value).toBe('');
           }
         );
       });
@@ -290,6 +307,34 @@ describe('ThemeProvider', () => {
       expect(root.style.getPropertyValue('--font-family-sans')).toBe(
         defaultTheme.typography.fontFamilies.sans
       );
+    });
+  });
+
+  it('integrates ColorSchemeProvider with default system scheme', async () => {
+    render(
+      <ThemeProvider>
+        <div>Test</div>
+      </ThemeProvider>
+    );
+
+    await waitFor(() => {
+      expect(document.documentElement.getAttribute('data-color-scheme')).toBeTruthy();
+    });
+  });
+
+  it('applies custom color scheme from theme', async () => {
+    const customTheme = {
+      colorScheme: 'dark' as const,
+    };
+
+    render(
+      <ThemeProvider theme={customTheme}>
+        <div>Test</div>
+      </ThemeProvider>
+    );
+
+    await waitFor(() => {
+      expect(document.documentElement.getAttribute('data-color-scheme')).toBe('dark');
     });
   });
 });

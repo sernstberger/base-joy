@@ -1,5 +1,6 @@
 import { colors } from './colors';
 import { fontSizes, lineHeights, fontFamilies } from './typography';
+import type { ColorScheme } from './colorScheme';
 
 /**
  * Color scale with 11 shades (50-950)
@@ -78,6 +79,14 @@ export interface TypographyTokens {
  *   <App />
  * </ThemeProvider>
  * ```
+ *
+ * @example
+ * With default color scheme
+ * ```tsx
+ * <ThemeProvider theme={{ colorScheme: 'dark' }}>
+ *   <App />
+ * </ThemeProvider>
+ * ```
  */
 export interface Theme {
   colors: {
@@ -88,6 +97,11 @@ export interface Theme {
     danger: ColorScaleShades;
   };
   typography: TypographyTokens;
+  /**
+   * Default color scheme to use.
+   * @default 'system'
+   */
+  colorScheme?: ColorScheme;
 }
 
 /**

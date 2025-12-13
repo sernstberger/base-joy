@@ -576,6 +576,30 @@ function App() {
           </div>
         </div>
       </Section>
+
+      <Section title="Related Features" id="related">
+        <Typography level="body-md" className="mb-4">
+          Explore additional theming capabilities:
+        </Typography>
+        <div className="space-y-3">
+          <div>
+            <Link to="/styled/dark-mode" className="text-primary-600 hover:text-primary-700 font-semibold">
+              Dark Mode
+            </Link>
+            <Typography level="body-sm" className="text-neutral-600 mt-1">
+              Automatic color scheme switching with system preference detection and persistent storage.
+            </Typography>
+          </div>
+          <div>
+            <Link to="/foundation/customize-theme" className="text-primary-600 hover:text-primary-700 font-semibold">
+              Theme Customizer
+            </Link>
+            <Typography level="body-sm" className="text-neutral-600 mt-1">
+              Interactive tool for customizing all theme tokens with WCAG compliance checking.
+            </Typography>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 }

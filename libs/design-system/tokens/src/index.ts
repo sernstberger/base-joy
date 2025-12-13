@@ -1,4 +1,10 @@
 export { colors, type ColorScale, type ColorShade } from './colors';
+export {
+  darkColors,
+  type DarkColorScale,
+  type DarkColorShade,
+} from './darkColors';
+export { type ColorScheme, type ResolvedColorScheme } from './colorScheme';
 export { variants, type Variant } from './variants';
 export { sizes, type Size } from './sizes';
 export {

@@ -9,11 +9,26 @@ describe('useTheme', () => {
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.style.cssText = '';
+    document.documentElement.removeAttribute('data-color-scheme');
+
+    // Mock matchMedia for ColorSchemeProvider
+    global.matchMedia = jest.fn((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
   });
 
   afterEach(() => {
     localStorage.clear();
     document.documentElement.style.cssText = '';
+    document.documentElement.removeAttribute('data-color-scheme');
+    jest.restoreAllMocks();
   });
 
   it('throws error when used outside ThemeProvider', () => {

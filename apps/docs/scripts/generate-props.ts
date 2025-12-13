@@ -23,6 +23,7 @@ const COMPONENTS = [
   'Checkbox',
   'CheckboxGroup',
   'CodeBlock',
+  'ColorSchemeToggle',
   'Combobox',
   'Container',
   'Divider',

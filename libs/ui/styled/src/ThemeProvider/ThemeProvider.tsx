@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { defaultTheme, type Theme } from '@base-joy/tokens';
+import { ColorSchemeProvider } from '../ColorSchemeProvider';
 
 const THEME_STORAGE_KEY = 'base-joy-theme';
 
@@ -149,11 +150,10 @@ export function ThemeProvider({ theme: customTheme, children }: ThemeProviderPro
 
     const root = document.documentElement;
 
-    Object.entries(theme.colors).forEach(([scale, shades]) => {
-      Object.entries(shades).forEach(([shade, value]) => {
-        root.style.setProperty(`--color-${scale}-${shade}`, value);
-      });
-    });
+    // NOTE: Color variables are NOT set here because they are controlled by
+    // the [data-color-scheme] attribute in base.css. Setting them as inline
+    // styles would override the CSS cascade and break dark mode.
+    // Only typography variables are set here for theme customization.
 
     Object.entries(theme.typography.fontSizes).forEach(([name, value]) => {
       root.style.setProperty(`--font-size-${name}`, value);
@@ -179,7 +179,9 @@ export function ThemeProvider({ theme: customTheme, children }: ThemeProviderPro
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      {children}
+      <ColorSchemeProvider defaultColorScheme={theme.colorScheme}>
+        {children}
+      </ColorSchemeProvider>
     </ThemeContext.Provider>
   );
 }
