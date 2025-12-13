@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   Typography,
   List,
@@ -7,6 +8,8 @@ import {
   ItemStart,
   ItemEnd,
   Badge,
+  Divider,
+  Sheet,
   type Marker,
 } from '@base-joy/ui-styled';
 import { ComponentHeader } from '../../components/ComponentHeader';
@@ -130,6 +133,95 @@ const listSubheaderProps: PropMeta[] = [
     required: false,
   },
 ];
+
+function SidebarExample() {
+  const [selected, setSelected] = React.useState(0);
+
+  return (
+    <div className="max-w-xs">
+      <Sheet variant="soft" color="neutral" className="p-2 rounded-md">
+        <List spacing="sm" variant="plain">
+          <ListItem
+            interactive
+            selected={selected === 0}
+            color={selected === 0 ? 'primary' : 'neutral'}
+            onClick={() => setSelected(0)}
+            className="rounded-md"
+          >
+            <ItemStart>📥</ItemStart>
+            <ItemContent>Inbox</ItemContent>
+            <ItemEnd>
+              <Badge variant="solid" color="primary" size="sm">
+                1,950
+              </Badge>
+            </ItemEnd>
+          </ListItem>
+          <ListItem
+            interactive
+            selected={selected === 1}
+            color={selected === 1 ? 'primary' : 'neutral'}
+            onClick={() => setSelected(1)}
+            className="rounded-md"
+          >
+            <ItemStart>⭐</ItemStart>
+            <ItemContent>Starred</ItemContent>
+          </ListItem>
+          <ListItem
+            interactive
+            selected={selected === 2}
+            color={selected === 2 ? 'primary' : 'neutral'}
+            onClick={() => setSelected(2)}
+            className="rounded-md"
+          >
+            <ItemStart>📤</ItemStart>
+            <ItemContent>Sent</ItemContent>
+          </ListItem>
+          <ListItem
+            interactive
+            selected={selected === 3}
+            color={selected === 3 ? 'primary' : 'neutral'}
+            onClick={() => setSelected(3)}
+            className="rounded-md"
+          >
+            <ItemStart>📝</ItemStart>
+            <ItemContent>Drafts</ItemContent>
+            <ItemEnd>
+              <Badge variant="soft" color="neutral" size="sm">
+                3
+              </Badge>
+            </ItemEnd>
+          </ListItem>
+          <Divider className="my-2" />
+          <ListItem
+            interactive
+            selected={selected === 4}
+            color={selected === 4 ? 'danger' : 'neutral'}
+            onClick={() => setSelected(4)}
+            className="rounded-md"
+          >
+            <ItemStart>🗑️</ItemStart>
+            <ItemContent>Trash</ItemContent>
+          </ListItem>
+          <ListItem
+            interactive
+            selected={selected === 5}
+            color={selected === 5 ? 'warning' : 'neutral'}
+            onClick={() => setSelected(5)}
+            className="rounded-md"
+          >
+            <ItemStart>⚠️</ItemStart>
+            <ItemContent>Spam</ItemContent>
+            <ItemEnd>
+              <Badge variant="soft" color="danger" size="sm">
+                99+
+              </Badge>
+            </ItemEnd>
+          </ListItem>
+        </List>
+      </Sheet>
+    </div>
+  );
+}
 
 export function ListPage() {
   return (
@@ -278,6 +370,223 @@ export function ListPage() {
             </div>
           </Section>
 
+          <Section
+            title="Nested List"
+            titleLevel="h3"
+            id="nested"
+            code={`<List variant="outlined" spacing="sm">
+  <li className="list-none">
+    <ListSubheader>Category 1</ListSubheader>
+    <List spacing="sm" className="pl-4">
+      <ListItem interactive>
+        <ItemContent>Subitem 1</ItemContent>
+      </ListItem>
+      <ListItem interactive>
+        <ItemContent>Subitem 2</ItemContent>
+      </ListItem>
+    </List>
+  </li>
+  <li className="list-none">
+    <ListSubheader>Category 2</ListSubheader>
+    <List spacing="sm" className="pl-4">
+      <ListItem interactive>
+        <ItemContent>Subitem 1</ItemContent>
+      </ListItem>
+    </List>
+  </li>
+</List>`}
+          >
+            <Typography level="body-sm" className="mb-4">
+              Nest lists by wrapping a subheader and child List in a{' '}
+              <code className="font-mono text-sm">&lt;li&gt;</code>. Add{' '}
+              <code className="font-mono text-sm">pl-4</code> for indentation.
+            </Typography>
+            <div className="max-w-md">
+              <Sheet variant="outlined" className="rounded-md">
+                <List spacing="sm">
+                  <li className="list-none">
+                    <ListSubheader>Category 1</ListSubheader>
+                    <List spacing="sm" className="pl-4">
+                      <ListItem interactive>
+                        <ItemContent>Subitem 1</ItemContent>
+                      </ListItem>
+                      <ListItem interactive>
+                        <ItemContent>Subitem 2</ItemContent>
+                      </ListItem>
+                    </List>
+                  </li>
+                  <li className="list-none">
+                    <ListSubheader>Category 2</ListSubheader>
+                    <List spacing="sm" className="pl-4">
+                      <ListItem interactive>
+                        <ItemContent>Subitem 1</ItemContent>
+                      </ListItem>
+                      <ListItem interactive>
+                        <ItemContent>Subitem 2</ItemContent>
+                      </ListItem>
+                    </List>
+                  </li>
+                </List>
+              </Sheet>
+            </div>
+          </Section>
+
+          <Section
+            title="With Dividers"
+            titleLevel="h3"
+            id="dividers"
+            code={`<List spacing="none">
+  <ListItem>
+    <ItemStart>👤</ItemStart>
+    <ItemContent>Mabel Boyle</ItemContent>
+  </ListItem>
+  <Divider />
+  <ListItem>
+    <ItemStart>👤</ItemStart>
+    <ItemContent>Boyd Burt</ItemContent>
+  </ListItem>
+  <Divider />
+  <ListItem>
+    <ItemStart>👤</ItemStart>
+    <ItemContent>Sara Chen</ItemContent>
+  </ListItem>
+</List>`}
+          >
+            <Typography level="body-sm" className="mb-4">
+              Use the <code className="font-mono text-sm">Divider</code>{' '}
+              component to separate list items. Use{' '}
+              <code className="font-mono text-sm">inset</code> for indented
+              dividers.
+            </Typography>
+            <div className="flex flex-wrap gap-8">
+              <div className="max-w-xs">
+                <Typography level="body-sm" weight="medium" className="mb-2">
+                  Default
+                </Typography>
+                <Sheet variant="outlined" className="rounded-md">
+                  <List spacing="none">
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Mabel Boyle</ItemContent>
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Boyd Burt</ItemContent>
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Sara Chen</ItemContent>
+                    </ListItem>
+                  </List>
+                </Sheet>
+              </div>
+              <div className="max-w-xs">
+                <Typography level="body-sm" weight="medium" className="mb-2">
+                  Inset
+                </Typography>
+                <Sheet variant="outlined" className="rounded-md">
+                  <List spacing="none">
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Mabel Boyle</ItemContent>
+                    </ListItem>
+                    <Divider inset />
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Boyd Burt</ItemContent>
+                    </ListItem>
+                    <Divider inset />
+                    <ListItem>
+                      <ItemStart>👤</ItemStart>
+                      <ItemContent>Sara Chen</ItemContent>
+                    </ListItem>
+                  </List>
+                </Sheet>
+              </div>
+            </div>
+          </Section>
+
+          <Section
+            title="Sticky Subheader"
+            titleLevel="h3"
+            id="sticky"
+            code={`<Sheet variant="outlined" className="max-h-64 overflow-auto rounded-md">
+  <List>
+    <li className="list-none">
+      <ListSubheader sticky>Category 1</ListSubheader>
+      <List spacing="sm">
+        {items.map((item, i) => (
+          <ListItem key={i} interactive>
+            <ItemContent>Item {i + 1}</ItemContent>
+          </ListItem>
+        ))}
+      </List>
+    </li>
+    {/* More categories... */}
+  </List>
+</Sheet>`}
+          >
+            <Typography level="body-sm" className="mb-4">
+              Use the <code className="font-mono text-sm">sticky</code> prop on
+              ListSubheader to keep headers visible while scrolling through long
+              lists.
+            </Typography>
+            <div className="max-w-md">
+              <Sheet
+                variant="outlined"
+                className="max-h-64 overflow-auto rounded-md"
+              >
+                <List>
+                  {[1, 2, 3, 4, 5].map((category) => (
+                    <li key={category} className="list-none">
+                      <ListSubheader sticky>Category {category}</ListSubheader>
+                      <List spacing="sm">
+                        {[1, 2, 3, 4, 5, 6].map((item) => (
+                          <ListItem key={item} interactive>
+                            <ItemContent>Subitem {item}</ItemContent>
+                          </ListItem>
+                        ))}
+                      </List>
+                    </li>
+                  ))}
+                </List>
+              </Sheet>
+            </div>
+          </Section>
+
+          <Section
+            title="Sidebar Navigation"
+            titleLevel="h3"
+            id="sidebar"
+            code={`const [selected, setSelected] = React.useState(0);
+
+<List spacing="sm" variant="plain">
+  <ListItem
+    interactive
+    selected={selected === 0}
+    color={selected === 0 ? 'primary' : 'neutral'}
+    onClick={() => setSelected(0)}
+  >
+    <ItemStart>📥</ItemStart>
+    <ItemContent>Inbox</ItemContent>
+    <ItemEnd>
+      <Badge variant="solid" color="primary" size="sm">1,950</Badge>
+    </ItemEnd>
+  </ListItem>
+  {/* More items... */}
+</List>`}
+          >
+            <Typography level="body-sm" className="mb-4">
+              Create Gmail-style navigation with selected states, icons, and
+              badges. Use the{' '}
+              <code className="font-mono text-sm">selected</code> prop for
+              active state styling.
+            </Typography>
+            <SidebarExample />
+          </Section>
+
           <Section title="Render as Link" titleLevel="h3" id="links">
             <Typography level="body-sm" className="mb-4">
               Use the <code className="font-mono text-sm">render</code> prop to
@@ -343,10 +652,17 @@ export function ListPage() {
   <ListItem>Second item</ListItem>
 </List>
 
-{/* Circle markers */}
-<List marker="circle" spacing="sm">
-  <ListItem>First item</ListItem>
-  <ListItem>Second item</ListItem>
+{/* Nested markers */}
+<List marker="disc" spacing="sm">
+  <ListItem>The Shawshank Redemption</ListItem>
+  <li className="list-none">
+    <Typography level="body-md" className="py-1 ml-5">Star Wars</Typography>
+    <List marker="circle" spacing="sm" className="ml-5">
+      <ListItem>Episode I – The Phantom Menace</ListItem>
+      <ListItem>Episode II – Attack of the Clones</ListItem>
+    </List>
+  </li>
+  <ListItem>The Lord of the Rings</ListItem>
 </List>
 
 {/* Numbered list (renders as <ol>) */}
@@ -360,10 +676,11 @@ export function ListPage() {
               display list markers. When set to{' '}
               <code className="font-mono text-sm">decimal</code>, the List
               renders as an ordered list (<code className="font-mono text-sm">&lt;ol&gt;</code>).
-              Marker lists render children directly (without Item wrapper) for proper alignment.
+              Supports any valid{' '}
+              <code className="font-mono text-sm">list-style-type</code> value.
             </Typography>
-            <div className="space-y-6">
-              <div className="max-w-md">
+            <div className="flex flex-wrap gap-8">
+              <div className="max-w-xs">
                 <Typography level="body-sm" weight="medium" className="mb-2">
                   Disc (bullet points)
                 </Typography>
@@ -373,16 +690,17 @@ export function ListPage() {
                   <ListItem>Switch themes at runtime</ListItem>
                 </List>
               </div>
-              <div className="max-w-md">
+              <div className="max-w-xs">
                 <Typography level="body-sm" weight="medium" className="mb-2">
                   Circle
                 </Typography>
                 <List marker="circle" spacing="sm">
                   <ListItem>First option</ListItem>
                   <ListItem>Second option</ListItem>
+                  <ListItem>Third option</ListItem>
                 </List>
               </div>
-              <div className="max-w-md">
+              <div className="max-w-xs">
                 <Typography level="body-sm" weight="medium" className="mb-2">
                   Decimal (ordered list)
                 </Typography>
@@ -392,6 +710,25 @@ export function ListPage() {
                   <ListItem>Apply the theme to your app</ListItem>
                 </List>
               </div>
+            </div>
+            <div className="mt-6 max-w-md">
+              <Typography level="body-sm" weight="medium" className="mb-2">
+                Nested markers
+              </Typography>
+              <List marker="disc" spacing="sm">
+                <ListItem>The Shawshank Redemption</ListItem>
+                <li className="list-none">
+                  <Typography level="body-md" className="py-1 ml-5">
+                    Star Wars
+                  </Typography>
+                  <List marker="circle" spacing="sm" className="ml-5">
+                    <ListItem>Episode I – The Phantom Menace</ListItem>
+                    <ListItem>Episode II – Attack of the Clones</ListItem>
+                    <ListItem>Episode III – Revenge of the Sith</ListItem>
+                  </List>
+                </li>
+                <ListItem>The Lord of the Rings: The Two Towers</ListItem>
+              </List>
             </div>
           </Section>
         </div>

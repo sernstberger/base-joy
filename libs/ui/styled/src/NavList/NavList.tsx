@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavLink, useMatch } from 'react-router';
 import { cva } from 'class-variance-authority';
 import { cn } from '@base-joy/utils';
-import type { Size, ColorScale } from '@base-joy/tokens';
+import type { Size } from '@base-joy/tokens';
 import { List, ListItem, type ListProps } from '../List';
 import { ItemStart, ItemContent, ItemEnd } from '../Item';
 import { Accordion } from '../Accordion';
@@ -50,8 +50,7 @@ export const NavList = React.forwardRef<HTMLUListElement, NavListProps>(
 NavList.displayName = 'NavList';
 
 // NavListItem - always renders as a link with active state detection
-export interface NavListItemProps
-  extends Omit<React.HTMLAttributes<HTMLLIElement>, 'children'> {
+export interface NavListItemProps {
   /**
    * The route path to navigate to.
    */
@@ -73,13 +72,16 @@ export interface NavListItemProps
    * The label text for the navigation item.
    */
   children: React.ReactNode;
+  /**
+   * Additional class names.
+   */
+  className?: string;
 }
 
 export const NavListItem = React.forwardRef<HTMLLIElement, NavListItemProps>(
-  ({ to, icon, badge, disabled = false, children, className, ...props }, ref) => {
+  ({ to, icon, badge, disabled = false, children, className }, ref) => {
     const { size } = useNavListContext();
     const isActive = !!useMatch(to);
-    const itemColor: ColorScale = isActive ? 'primary' : 'neutral';
 
     return (
       <ListItem
@@ -88,11 +90,10 @@ export const NavListItem = React.forwardRef<HTMLLIElement, NavListItemProps>(
         interactive={!disabled}
         selected={isActive}
         disabled={disabled}
-        color={itemColor}
+        color={isActive ? 'primary' : 'neutral'}
         variant="plain"
         size={size}
         className={className}
-        {...props}
       >
         {icon && <ItemStart>{icon}</ItemStart>}
         <ItemContent>{children}</ItemContent>
