@@ -119,20 +119,22 @@ describe('Sheet', () => {
   });
 
   describe('sizes', () => {
-    it.each([
-      ['sm', 'p-2'],
-      ['md', 'p-4'],
-      ['lg', 'p-6'],
-    ] as const)('renders %s size with %s padding class', (size, expectedClass) => {
-      const { container } = render(<Sheet size={size}>Content</Sheet>);
-      const sheet = container.firstChild as HTMLElement;
-      expect(sheet).toHaveClass(expectedClass);
-    });
+    it.each(['sm', 'md', 'lg'] as const)(
+      'accepts %s size for context propagation (no padding)',
+      (size) => {
+        const { container } = render(<Sheet size={size}>Content</Sheet>);
+        const sheet = container.firstChild as HTMLElement;
+        // Sheet no longer applies padding - matching Joy UI behavior
+        expect(sheet).not.toHaveClass('p-2');
+        expect(sheet).not.toHaveClass('p-4');
+        expect(sheet).not.toHaveClass('p-6');
+      }
+    );
 
-    it('applies default md size', () => {
+    it('has no default padding (matching Joy UI)', () => {
       const { container } = render(<Sheet>Content</Sheet>);
       const sheet = container.firstChild as HTMLElement;
-      expect(sheet).toHaveClass('p-4');
+      expect(sheet).not.toHaveClass('p-4');
     });
   });
 
@@ -187,12 +189,12 @@ describe('Sheet', () => {
       expect(sheet).toHaveClass('rounded-lg');
     });
 
-    it('allows className to override variant classes', () => {
+    it('allows padding to be added via className', () => {
       const { container } = render(
         <Sheet className="p-8">Content</Sheet>
       );
       const sheet = container.firstChild as HTMLElement;
-      // The custom p-8 should override the default p-4 via tailwind-merge
+      // Sheet has no default padding, users add it via className
       expect(sheet).toHaveClass('p-8');
     });
   });

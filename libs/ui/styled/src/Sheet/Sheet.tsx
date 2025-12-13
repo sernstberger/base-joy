@@ -31,9 +31,9 @@ const sheetVariants = cva(
         danger: '',
       },
       size: {
-        sm: 'p-2',
-        md: 'p-4',
-        lg: 'p-6',
+        sm: '',
+        md: '',
+        lg: '',
       },
       interactive: {
         true: '',
@@ -224,8 +224,7 @@ export interface SheetProps
   color?: ColorScale;
 
   /**
-   * The size (padding) of the sheet.
-   * @default 'md'
+   * The size of the sheet for context propagation to children.
    */
   size?: Size;
 

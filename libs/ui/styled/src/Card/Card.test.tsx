@@ -34,7 +34,6 @@ describe('Card', () => {
       );
       const card = container.firstChild as HTMLElement;
       expect(card).toHaveClass('rounded-lg');
-      expect(card).toHaveClass('p-0');
       expect(card).toHaveClass('overflow-hidden');
     });
   });

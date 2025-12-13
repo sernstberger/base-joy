@@ -264,8 +264,6 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>(
     const itemClassName = cn(
       'flex items-center gap-3 w-full rounded-lg',
       sheetVariants({ variant, color, interactive }),
-      // Override Sheet padding since we handle it with size
-      'p-0',
       sizeVariants({ size }),
       styledItemVariants({ interactive, selected, disabled, variant, color }),
       isInsideSolid && getSolidContainerStyles(variant, interactive),

@@ -115,8 +115,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
             ref={ref}
             variant={variant}
             color={color}
-            size="md"
-            className={cn('p-0 overflow-hidden', className)}
+            className={cn('overflow-hidden', className)}
             {...props}
           >
             {children}

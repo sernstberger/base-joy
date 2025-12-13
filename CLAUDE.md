@@ -120,7 +120,7 @@ Use the Sheet component directly when creating styled containers or form fields:
   variant={variant}
   color={color}
   interactive  // Adds focus ring for clickable/focusable elements
-  className={cn('p-0', customSizeVariants({ size }), className)}
+  className={cn(customSizeVariants({ size }), className)}
 >
   {children}
 </Sheet>
@@ -129,7 +129,6 @@ Use the Sheet component directly when creating styled containers or form fields:
 Examples: Card (when clickable), Badge, Input, Textarea
 
 Key points:
-- Always override Sheet's padding with `p-0` if using custom sizing
 - Use the `as` prop for polymorphism: `<Sheet as="span">` or `<Sheet as="textarea">`
 - Set `interactive={true}` for clickable/focusable elements to add focus rings
 - Sheet provides variant/color styling automatically
@@ -155,7 +154,6 @@ Key points:
 - Use when you need hover, pressed, selected, or other interactive states
 - Combine with Base UI components that manage their own rendering
 - Pass `interactive: true` to sheetVariants for automatic focus ring styling
-- Override padding with `p-0` in your custom variants if needed
 
 **Interactive Behavior (Focus, Hover, Active):**
 
@@ -419,35 +417,69 @@ All component documentation pages use this structure:
 2. **Playground Section** - Interactive component tester
 3. **Examples Section** - Visual demonstrations (multiple subsections)
 4. **API Reference Section** - PropsTable with component props
+5. **TableOfContents** - Right sidebar navigation (for pages with 5+ sections)
 
-Example structure:
+### Page Layout (Canonical Pattern)
+
+Use this layout for all component docs pages:
+
 ```tsx
+import { ComponentHeader } from '../../components/ComponentHeader';
+import { Playground, type PlaygroundControl } from '../../components/Playground';
+import { PropsTable } from '../../components/PropsTable';
+import { Section } from '../../components/Section';
+import { TableOfContents } from '../../components/TableOfContents';
+import { componentProps } from '../../props';
+
+// Define sections for TableOfContents navigation
+const sections = [
+  { id: 'playground', title: 'Playground' },
+  { id: 'examples', title: 'Examples' },
+  { id: 'variants', title: 'Variants', level: 3 },
+  { id: 'colors', title: 'Colors', level: 3 },
+  // ... more subsections with level: 3
+  { id: 'api', title: 'API Reference' },
+];
+
 export function ComponentPage() {
   return (
-    <div className="max-w-4xl">
+    <div>
       <ComponentHeader
         title="ComponentName"
         description="Brief description..."
         baseUiUrl="https://base-ui.com/react/components/..."
       />
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <Section title="Playground" id="playground">
+            <Playground controls={controls} codeTemplate={codeTemplate}>
+              {(props) => <Component {...props} />}
+            </Playground>
+          </Section>
 
-      <Section title="Playground" id="playground">
-        <Playground controls={controls} codeTemplate={codeTemplate}>
-          {(props) => <Component {...props} />}
-        </Playground>
-      </Section>
+          <Section title="Examples" id="examples">
+            {/* Example subsections with code props */}
+          </Section>
 
-      <Section title="Examples" id="examples">
-        {/* Example subsections */}
-      </Section>
-
-      <Section title="API Reference" id="api">
-        <PropsTable props={componentProps.ComponentName} />
-      </Section>
+          <Section title="API Reference" id="api">
+            <PropsTable props={componentProps.ComponentName} />
+          </Section>
+        </div>
+        <TableOfContents sections={sections} />
+      </div>
     </div>
   );
 }
 ```
+
+Key layout points:
+- `ComponentHeader` is outside the flex container (full width)
+- Content and `TableOfContents` are in a `flex gap-8` container
+- Content area uses `flex-1` to fill available space
+- `TableOfContents` is hidden on mobile/tablet (lg+ only)
+- All sections need matching `id` attributes for TOC navigation
+
+Reference: Sheet page (`/apps/docs/src/pages/styled/Sheet.tsx`)
 
 ### Using ComponentHeader
 
