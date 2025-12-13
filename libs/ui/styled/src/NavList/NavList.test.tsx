@@ -157,7 +157,9 @@ describe('NavListItem', () => {
           Disabled Item
         </NavListItem>
       );
-      const item = screen.getByText('Disabled Item');
+      const text = screen.getByText('Disabled Item');
+      // The opacity-50 class is on the Item wrapper, not the text
+      const item = text.closest('[aria-disabled]');
       expect(item).toHaveClass('opacity-50');
     });
   });
@@ -205,7 +207,8 @@ describe('NavListGroup', () => {
           </NavListGroup>
         </NavList>
       );
-      expect(screen.queryByText('Hidden Item')).not.toBeVisible();
+      // When collapsed, content is removed from the DOM
+      expect(screen.queryByText('Hidden Item')).not.toBeInTheDocument();
     });
 
     it('content is expanded when defaultOpen is true', () => {
@@ -237,8 +240,8 @@ describe('NavListGroup', () => {
         </NavList>
       );
 
-      // Initially collapsed
-      expect(screen.queryByText('Item')).not.toBeVisible();
+      // Initially collapsed - content not in DOM
+      expect(screen.queryByText('Item')).not.toBeInTheDocument();
 
       // Click to expand
       await user.click(screen.getByRole('button', { name: /section/i }));
@@ -268,9 +271,9 @@ describe('NavListGroup', () => {
       // Click to collapse
       await user.click(screen.getByRole('button', { name: /section/i }));
 
-      // Should be hidden
+      // Should be removed from DOM when collapsed
       await waitFor(() => {
-        expect(screen.queryByText('Item')).not.toBeVisible();
+        expect(screen.queryByText('Item')).not.toBeInTheDocument();
       });
     });
   });

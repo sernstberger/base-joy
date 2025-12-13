@@ -146,7 +146,6 @@ describe('ColorSchemeProvider', () => {
   });
 
   it('persists color scheme to localStorage', async () => {
-    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
     const user = userEvent.setup();
 
     render(
@@ -158,10 +157,12 @@ describe('ColorSchemeProvider', () => {
     await user.click(screen.getByText('Set Dark'));
 
     await waitFor(() => {
-      expect(setItemSpy).toHaveBeenCalledWith('base-joy-color-scheme', 'dark');
+      // Check the mock localStorage was called with correct args
+      expect(global.localStorage.setItem).toHaveBeenCalledWith(
+        'base-joy-color-scheme',
+        'dark'
+      );
     });
-
-    setItemSpy.mockRestore();
   });
 
   it('loads color scheme from localStorage on mount', () => {

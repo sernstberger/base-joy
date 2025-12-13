@@ -123,16 +123,17 @@ export interface NavListGroupProps {
   children: React.ReactNode;
 }
 
-export const NavListGroup = React.forwardRef<HTMLDivElement, NavListGroupProps>(
+export const NavListGroup = React.forwardRef<HTMLLIElement, NavListGroupProps>(
   ({ defaultOpen = false, value = 'group', children }, ref) => {
     return (
-      <Accordion.Root
-        ref={ref}
-        defaultValue={defaultOpen ? [value] : []}
-        className="w-full"
-      >
-        <Accordion.Item value={value}>{children}</Accordion.Item>
-      </Accordion.Root>
+      <li ref={ref} className="list-none">
+        <Accordion.Root
+          defaultValue={defaultOpen ? [value] : []}
+          className="w-full"
+        >
+          <Accordion.Item value={value}>{children}</Accordion.Item>
+        </Accordion.Root>
+      </li>
     );
   }
 );
