@@ -1,12 +1,20 @@
 // Theme system
-export { ThemeProvider, useTheme, useColorScheme, type ThemeProviderProps } from './ThemeProvider';
+export {
+  ThemeProvider,
+  useTheme,
+  useColorScheme,
+  type ThemeProviderProps,
+} from './ThemeProvider';
 export { type Theme, defaultTheme } from '@base-joy/tokens';
 export {
   ColorSchemeProvider,
   type ColorSchemeProviderProps,
   type ColorSchemeContextValue,
 } from './ColorSchemeProvider';
-export { ColorSchemeToggle, type ColorSchemeToggleProps } from './ColorSchemeToggle';
+export {
+  ColorSchemeToggle,
+  type ColorSchemeToggleProps,
+} from './ColorSchemeToggle';
 export { type ColorScheme, type ResolvedColorScheme } from '@base-joy/tokens';
 
 // Color context (automatic color adjustment)
@@ -60,7 +68,6 @@ export {
 } from './Table';
 export { Separator, separatorVariants, type SeparatorProps } from './Separator';
 export { Badge, badgeVariants, type BadgeProps } from './Badge';
-export { Chip, chipVariants, type ChipProps } from './Chip';
 export {
   Avatar,
   AvatarGroup,
@@ -108,10 +115,7 @@ export {
 } from './Card';
 
 // Form components
-export {
-  Form,
-  type FormProps,
-} from './Form';
+export { Form, type FormProps } from './Form';
 export {
   Field,
   fieldRootVariants,
